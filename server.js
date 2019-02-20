@@ -41,7 +41,7 @@ router.route('/onegrams')
     // create a bear (accessed at POST http://localhost:6060/api/bears)
     .post(function(req, res) {
 
-        var bear = new Onegram();      // create a new instance of the Onegram model
+        var bear = new onegram();      // create a new instance of the Onegram model
         onegram.name = req.body.name;  // set the onegram name (comes from the request)
 
         // save the onegram and check for errors
