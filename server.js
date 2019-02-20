@@ -11,14 +11,19 @@ var bodyParser = require('body-parser');
 require('dotenv').config();
 
 var username = process.env.USERNAME;
+
+console.log('Username is ${username}');
+
 var password = process.env.PASSWORD;
+
+console.log('Password is ${password}');
 
 const dbconn = "mongodb://${username}:${password}@127.0.0.1";
 
 var mongoose   = require('mongoose');
 
 
-mongoose.connect(dbconn, { useNewUrlParser: true });
+//mongoose.connect(dbconn, { useNewUrlParser: true });
 
 
 // configure app to use bodyParser()
