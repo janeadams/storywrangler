@@ -70,7 +70,7 @@ router.route('/onegrams')
             res.json({ message: 'Onegram created!' });
         });
 
-    });
+    })
 
     // get all the onegrams (accessed at GET http://localhost:6060/api/onegrams)
     .get(function(req, res) {
