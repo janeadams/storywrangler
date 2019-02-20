@@ -18,12 +18,12 @@ var password = process.env.PASSWORD;
 
 console.log(`Password is ${password}`);
 
-const dbconn = `mongodb://${username}:${password}@127.0.0.1`;
+const dbconn = `mongodb://${username}:${password}@127.0.0.1:1-gram_time`;
 
 var mongoose   = require('mongoose');
 
 
-mongoose.connect(dbconn, { useNewUrlParser: true });
+mongoose.connect(dbconn, { useMongoClient: true });
 
 
 // configure app to use bodyParser()
