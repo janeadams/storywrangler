@@ -82,6 +82,17 @@ router.route('/onegrams')
         });
     });
 
+router.route('/onegrams/:word')
+
+    // get the onegram for that word (accessed at GET http://localhost:6060/api/onegrams/:word)
+    .get(function(req, res) {
+        Onegram.findById(req.params.word, function(err, onegram) {
+            if (err)
+                res.send(err);
+            res.json(onegram);
+        });
+    });
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
