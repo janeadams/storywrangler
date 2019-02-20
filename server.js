@@ -12,13 +12,13 @@ require('dotenv').config();
 
 var username = process.env.USERNAME;
 
-console.log('Username is ${username}');
+console.log(`Username is ${username}`);
 
 var password = process.env.PASSWORD;
 
-console.log('Password is ${password}');
+console.log(`Password is ${password}`);
 
-const dbconn = "mongodb://${username}:${password}@127.0.0.1";
+const dbconn = `mongodb://${username}:${password}@127.0.0.1`;
 
 var mongoose   = require('mongoose');
 
