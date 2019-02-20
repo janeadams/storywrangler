@@ -1,0 +1,27 @@
+{
+  "name": "onegram",
+  "version": "1.0.0",
+  "description": "onegram twitter timeseries viewer",
+  "main": "index.js",
+  "scripts": {
+    "test": "testcmd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janeadams/onegram.git"
+  },
+  "keywords": [
+    "twitter"
+  ],
+  "author": "Jane Adams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janeadams/onegram/issues"
+  },
+  "homepage": "https://github.com/janeadams/onegram#readme",
+  "dependencies": {
+    "d3": "^5.9.1",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.13"
+  }
+}
