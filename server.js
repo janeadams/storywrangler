@@ -8,6 +8,16 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
+require('dotenv').config();
+
+const dbconn = "mongodb://"+USERNAME+":"+PASSWORD+"@127.0.0.1";
+
+var mongoose   = require('mongoose');
+
+
+mongoose.connect(dbconn);
+
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
