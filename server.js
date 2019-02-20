@@ -72,6 +72,16 @@ router.route('/onegrams')
 
     });
 
+    // get all the onegrams (accessed at GET http://localhost:6060/api/onegrams)
+    .get(function(req, res) {
+        Onegram.find(function(err, onegrams) {
+            if (err)
+                res.send(err);
+
+            res.json(onegrams);
+        });
+    });
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
