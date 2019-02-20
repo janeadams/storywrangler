@@ -23,7 +23,7 @@ const dbconn = `mongodb://${username}:${password}@127.0.0.1`;
 var mongoose   = require('mongoose');
 
 
-//mongoose.connect(dbconn, { useNewUrlParser: true });
+mongoose.connect(dbconn, { useNewUrlParser: true });
 
 
 // configure app to use bodyParser()
