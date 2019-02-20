@@ -15,16 +15,44 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 6060;        // set our port
 
+var Onegram = require('./app/models/onegram');
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+// middleware to use for all requests
+router.use(function(req, res, next) {
+    // do logging
+    console.log('Something is happening.');
+    next(); // make sure we go to the next routes and don't stop here
+});
+
+// test route to make sure everything is working (accessed at GET http://localhost:6060/api)
 router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+
 // more routes for our API will happen here
+
+router.route('/onegrams')
+
+    // create a bear (accessed at POST http://localhost:6060/api/bears)
+    .post(function(req, res) {
+
+        var bear = new Onegram();      // create a new instance of the Onegram model
+        onegram.name = req.body.name;  // set the onegram name (comes from the request)
+
+        // save the onegram and check for errors
+        onegram.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Onegram created!' });
+        });
+
+    });
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
