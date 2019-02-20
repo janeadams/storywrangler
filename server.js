@@ -18,7 +18,7 @@ var password = process.env.PASSWORD;
 
 console.log(`Password is ${password}`);
 
-const dbconn = `mongodb://${username}:${password}@127.0.0.1:1-gram_time`;
+var dbconn = `mongodb://${username}:${password}@127.0.0.1:1-gram_time`;
 
 var mongoose   = require('mongoose');
 
