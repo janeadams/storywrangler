@@ -10,7 +10,10 @@ var bodyParser = require('body-parser');
 
 require('dotenv').config();
 
-const dbconn = "mongodb://"+USERNAME+":"+PASSWORD+"@127.0.0.1";
+var username = process.env.USERNAME;
+var password = process.env.PASSWORD;
+
+const dbconn = "mongodb://${username}:${password}@127.0.0.1";
 
 var mongoose   = require('mongoose');
 
