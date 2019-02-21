@@ -14,6 +14,8 @@ var username = process.env.USERNAME;
 
 var password = process.env.PASSWORD;
 
+console.log('username = '+ username + ' password = ' + password)
+
 var dbconn = 'mongodb://' + username + ':' + password + '@127.0.0.1:27017/1-grams.tweets';
 
 var mongoose = require('mongoose');
