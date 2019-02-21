@@ -12,11 +12,11 @@ require('dotenv').config();
 
 var username = process.env.USERNAME;
 
-console.log(`Username is ${username}`);
+//console.log(`Username is ${username}`);
 
 var password = process.env.PASSWORD;
 
-console.log(`Password is ${password}`);
+//console.log(`Password is ${password}`);
 
 var dbconn = `mongodb://${username}:${password}@127.0.0.1:27017/1-grams.tweets`;
 
