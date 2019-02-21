@@ -4,23 +4,19 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
+var express = require('express');        // call express
+var app = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
 require('dotenv').config();
 
 var username = process.env.USERNAME;
 
-//console.log(`Username is ${username}`);
-
 var password = process.env.PASSWORD;
 
-//console.log(`Password is ${password}`);
+var dbconn = 'mongodb://' + username + ':' + password + '@127.0.0.1:27017/1-grams.tweets';
 
-var dbconn = `mongodb://${username}:${password}@127.0.0.1:27017/1-grams.tweets`;
-
-var mongoose   = require('mongoose');
+var mongoose = require('mongoose');
 
 
 mongoose.connect(dbconn, { useNewUrlParser: true });
