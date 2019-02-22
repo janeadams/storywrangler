@@ -54,22 +54,6 @@ router.get('/', function(req, res) {
 
 router.route('/onegrams')
 
-    // create a onegram (accessed at POST http://localhost:6060/api/onegrams)
-    .post(function(req, res) {
-
-        var onegram = new Onegram();      // create a new instance of the Onegram model
-        onegram.name = req.body.name;  // set the onegram name (comes from the request)
-
-        // save the onegram and check for errors
-        onegram.save(function(err) {
-            if (err)
-                res.send(err);
-
-            res.json({ message: 'Onegram created!' });
-        });
-
-    })
-
     // get all the onegrams (accessed at GET http://localhost:6060/api/onegrams)
     .get(function(req, res) {
         Onegram.find(function(err, onegrams) {
@@ -80,11 +64,11 @@ router.route('/onegrams')
         });
     });
 
-router.route('/onegrams/:word')
+router.route('/onegrams/:onegram_id')
 
-    // get the onegram for that word (accessed at GET http://localhost:6060/api/onegrams/:word)
+    // get the onegram for that word (accessed at GET http://localhost:6060/api/onegrams/onegram_id)
     .get(function(req, res) {
-        Onegram.findById(req.params.word, function(err, onegram) {
+        Onegram.findById(req.params.onegram_id, function(err, onegram) {
             if (err)
                 res.send(err);
             res.json(onegram);
