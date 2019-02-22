@@ -64,11 +64,11 @@ router.route('/onegrams')
         });
     });
 
-router.route('/onegrams/:onegram_id')
+router.route('/onegrams/:word')
 
     // get the onegram for that word (accessed at GET http://localhost:6060/api/onegrams/onegram_id)
     .get(function(req, res) {
-        Onegram.findById(req.params.onegram_id, function(err, onegram) {
+        Onegram.find({word: req.params.word}, function(err, onegram) {
             if (err)
                 res.send(err);
             res.json(onegram);
