@@ -17,8 +17,8 @@ class App extends Component {
     this.getDataFromDb();
     /*if (!this.state.intervalIsSet) {
       let interval = setInterval(this.getDataFromDb, 1000);
-      this.setState({ intervalIsSet: interval });*/
-    }
+      this.setState({ intervalIsSet: interval });
+    }*/
   }
 
   // never let a process live forever 
