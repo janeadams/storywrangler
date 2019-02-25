@@ -9,9 +9,8 @@ search(query) {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON);
-};
-    
-    console.log(search('christmas'))
+}
+    console.log(search('christmas'));
 };
 
 export default App;
