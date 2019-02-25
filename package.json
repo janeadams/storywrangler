@@ -4,7 +4,8 @@
   "description": "onegram twitter timeseries viewer",
   "main": "index.js",
   "scripts": {
-    "test": "testcmd"
+    "test": "testcmd",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,13 @@
   "homepage": "https://github.com/janeadams/onegram#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "d3": "^5.9.1",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.14",
     "setimmediate": "^1.0.5"
-  }
+  },
+  "devDependencies": {}
 }
