@@ -28,6 +28,7 @@ class App extends Component {
   // see them render into our screen
   render() {
     const { data } = this.state;
+    return
     <ul>
         // if data not loaded null will render nothing
         // if data is not null, we iterate data.results with map
