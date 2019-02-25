@@ -47,7 +47,7 @@ class App extends Component {
   getDataFromDb = () => {
     fetch("http://localhost:3001/api/onegrams/christmas")
       .then(data => data.json())
-      .then(console.log(this.data)
+      .then(console.log(this.data))
       //.then(data => data.json)
       //.then(function(res){console.log(res);})
   };
