@@ -42,9 +42,10 @@ class App extends Component {
   // fetch data from our data base
   getDataFromDb = () => {
     fetch("http://localhost:3001/api/onegrams/christmas")
-      .then(data => {console.log(data.body);
-                     return data.json();})
-      /*.then(data => data.json())*/
+      /*.then(data => {console.log(data.body);
+                     return data.json();})*/
+      .then(data => data.json())
+      .then(function(data){console.log(data);})
       .then(res => this.setState({ data: res.data }));
   };
 
