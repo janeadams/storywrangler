@@ -55,11 +55,11 @@ class App extends Component {
   // it is easy to understand their functions when you 
   // see them render into our screen
   render() {
-    const { data } = this.state;
+    const { data } = this.state.res;
     //console.log(this.state.data);
     return (
       <div>
-          {this.state.res}
+          {this.data}
     </div>
     );
   }
