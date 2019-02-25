@@ -8,9 +8,6 @@ class App extends Component {
     id: 0,
     message: null,
     intervalIsSet: false,
-    idToDelete: null,
-    idToUpdate: null,
-    objectToUpdate: null
   };
 
   // when component mounts, first thing it does is fetch all existing data in our db
@@ -18,9 +15,9 @@ class App extends Component {
   // changed and implement those changes into our UI
   componentDidMount() {
     this.getDataFromDb();
-    if (!this.state.intervalIsSet) {
+    /*if (!this.state.intervalIsSet) {
       let interval = setInterval(this.getDataFromDb, 1000);
-      this.setState({ intervalIsSet: interval });
+      this.setState({ intervalIsSet: interval });*/
     }
   }
 
