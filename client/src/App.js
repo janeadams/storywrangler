@@ -51,6 +51,7 @@ class App extends Component {
       .then(res => {
         const times = res.data.data.children.map(obj => obj.data);
         this.setState({ times });
+    });
       //.then(res => this.setState({ data: res.data }))
       //.then(function(res){console.log(res);})
   };
