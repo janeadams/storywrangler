@@ -59,7 +59,7 @@ class App extends Component {
     //console.log(this.state.data);
     return (
       <div>
-          {this.data}
+          {data}
     </div>
     );
   }
