@@ -6,6 +6,7 @@ class App extends Component {
   state = {
     data: [],
     time: [],
+    result: [],
     id: 0,
     message: null,
     intervalIsSet: false,
@@ -47,13 +48,10 @@ class App extends Component {
     fetch("http://localhost:3001/api/onegrams/christmas")
       /*.then(data => {console.log(data.body);
                      return data.json();})*/
-      .then(data => data.json())
+      //.then(data => data.json())
+      .setState({result:responseJson})
       .then(function(data){console.log("data = ", data);})
-      .then(function(res){console.log("res = ", res);})
-      .then(res => {
-        const time = res.time;
-        this.setState({ time });
-    });
+      .then(function(result){console.log("result = ", result);})
       //.then(res => this.setState({ data: res.data }))
       //.then(function(res){console.log(res);})
   };
@@ -62,11 +60,9 @@ class App extends Component {
   // it is easy to understand their functions when you 
   // see them render into our screen
   render() {
-    const { time } = this.state.time;
-    //console.log(this.state.data);
     return (
       <div>
-          {time}
+          {this.state.result.time ? this.state.result.time : 'not ready yet'}
     </div>
     );
   }
