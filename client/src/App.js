@@ -49,6 +49,7 @@ class App extends Component {
       /*.then(data => {console.log(data.body);
                      return data.json();})*/
       //.then(data => data.json())
+      .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
       .then(function(data){console.log("data = ", data.json());})
       .then(data => data.json)
       //.then(function(res){console.log(res);})
