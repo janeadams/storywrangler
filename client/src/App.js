@@ -4,7 +4,7 @@ import axios from "axios";
 class App extends Component {
 
 
-function search(query) {
+search(query) {
   return fetch(`/api/onegrams/=${query}`, {
     accept: 'application/json',
   }).then(checkStatus)
