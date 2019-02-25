@@ -54,7 +54,7 @@ class App extends Component {
     console.log(data);
     return (
       <div>
-          {this.state.data}
+          {this.state.data.time}
     </div>
     );
   }
