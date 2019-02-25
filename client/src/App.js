@@ -7,7 +7,10 @@ class App extends Component {
     data: [],
     id: 0,
     message: null,
-    intervalIsSet: false
+    intervalIsSet: false,
+    idToDelete: null,
+    idToUpdate: null,
+    objectToUpdate: null
   };
 
   // when component mounts, first thing it does is fetch all existing data in our db
@@ -15,10 +18,12 @@ class App extends Component {
   // changed and implement those changes into our UI
   componentDidMount() {
     this.getDataFromDb();
-    /*if (!this.state.intervalIsSet) {
+    /*
+    if (!this.state.intervalIsSet) {
       let interval = setInterval(this.getDataFromDb, 1000);
       this.setState({ intervalIsSet: interval });
-    }*/
+    }
+    */
   }
 
   // never let a process live forever 
@@ -41,7 +46,7 @@ class App extends Component {
     fetch("http://localhost:3001/api/onegrams/christmas")
       /*.then(data => {console.log(data.body);
                      return data.json();})*/
-      .then(data => data.json())
+      .then(data => data.json().body)
       .then(function(data){console.log(data);})
       .then(res => this.setState({ data: res.data }));
   };
