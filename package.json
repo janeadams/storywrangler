@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "testcmd",
-    "start": "node server.js"
+    "start": "concurrently \"node server.js\" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
