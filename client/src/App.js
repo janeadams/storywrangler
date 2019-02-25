@@ -47,15 +47,16 @@ class App extends Component {
       /*.then(data => {console.log(data.body);
                      return data.json();})*/
       .then(data => data.json())
-      .then(function(data){console.log(data);})
-      .then(res => this.setState({ data: res.data }));
+      //.then(function(data){console.log(data);})
+      .then(res => this.setState({ data: res.data }))
+      .then(function(res){console.log(res);});
   };
 
   // here is our UI
   // it is easy to understand their functions when you 
   // see them render into our screen
   render() {
-    const { data } = this.state.res;
+    const { data } = this.state;
     //console.log(this.state.data);
     return (
       <div>
