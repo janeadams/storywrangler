@@ -48,7 +48,10 @@ class App extends Component {
                      return data.json();})*/
       .then(data => data.json())
       .then(function(data){console.log(data);})
-      .then(res => this.setState({ data: res.data }))
+      .then(res => {
+        const posts = res.data.data.children.map(obj => obj.data);
+        this.setState({ data });
+      //.then(res => this.setState({ data: res.data }))
       //.then(function(res){console.log(res);})
   };
 
@@ -56,7 +59,7 @@ class App extends Component {
   // it is easy to understand their functions when you 
   // see them render into our screen
   render() {
-    const { data } = this.state;
+    const { data } = this.state.data;
     //console.log(this.state.data);
     return (
       <div>
