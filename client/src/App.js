@@ -2,64 +2,40 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class App extends Component {
-  // initialize our state 
-  state = {
-    data: [],
-    time: [],
-    result: [],
-    id: 0,
-    message: null,
-    intervalIsSet: false,
-    idToDelete: null,
-    idToUpdate: null,
-    objectToUpdate: null
-  }
 
-  // when component mounts, first thing it does is fetch all existing data in our db
-  // then we incorporate a polling logic so that we can easily see if our db has 
-  // changed and implement those changes into our UI
-  componentDidMount() {
-    this.getDataFromDb();
-    /*
-    if (!this.state.intervalIsSet) {
-      let interval = setInterval(this.getDataFromDb, 1000);
-      this.setState({ intervalIsSet: interval });
-    }
-    */
-  }
 
-  // never let a process live forever 
-  // always kill a process everytime we are done using it
-  componentWillUnmount() {
-    if (this.state.intervalIsSet) {
-      clearInterval(this.state.intervalIsSet);
-      this.setState({ intervalIsSet: null });
-    }
-  }
-
-  // just a note, here, in the front end, we use the id key of our data object 
-  // in order to identify which we want to Update or delete.
-  // for our back end, we use the object id assigned by MongoDB to modify 
-  // data base entries
-
-  // our first get method that uses our backend api to 
-  // fetch data from our data base
   getDataFromDb = () => {
     fetch("http://localhost:3001/api/onegrams/christmas")
-      .then(data => data.json())
-      .then(console.log(this.data))
-      //.then(data => data.json)
-      //.then(function(res){console.log(res);})
-  };
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ data: data });
+      })
+      .catch(err => console.error(this.props.url, err.toString()))
+  }
+  
+  constructor(props) {
+    super(props);
+    this.state = { data: null }; // initialize with null
+  }
+
+
+  componentDidMount() {
+    this.getDataFromDb();
+  }
 
   // here is our UI
   // it is easy to understand their functions when you 
   // see them render into our screen
   render() {
-    return (
-      <div>
-          {this.state.data.time}
-    </div>
+    const { data } = this.state;
+    <ul>
+        // if data not loaded null will render nothing
+        // if data is not null, we iterate data.results with map
+        {data && data.results.map(function (time, count) {
+          // film is an object, just one or more properties to render
+          return <li key={count}>{time.headline}</li>;
+        })}
+      </ul>
     );
   }
 }
