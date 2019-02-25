@@ -51,6 +51,7 @@ class App extends Component {
   // see them render into our screen
   render() {
     const { data } = this.state;
+    console.log(data);
     return (
       <div>
           {this.state.data}
