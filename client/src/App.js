@@ -49,8 +49,8 @@ class App extends Component {
       /*.then(data => {console.log(data.body);
                      return data.json();})*/
       //.then(data => data.json())
-      .then(function(data){console.log("data = ", data.json());})
-      .then(data => json[data].time)
+      .then(function(data){console.log("data.json() = ", data.json());})
+      //.then(data => data.json)
       //.then(function(res){console.log(res);})
   };
 
