@@ -7,7 +7,7 @@ class App extends Component {
     data: [],
     id: 0,
     message: null,
-    intervalIsSet: false,
+    intervalIsSet: false
   };
 
   // when component mounts, first thing it does is fetch all existing data in our db
