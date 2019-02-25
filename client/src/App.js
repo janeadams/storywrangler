@@ -50,7 +50,7 @@ class App extends Component {
   // it is easy to understand their functions when you 
   // see them render into our screen
   render() {
-    getDataFromDb();
+    this.getDataFromDb();
     const { data } = this.state;
     console.log(data);
     return (
