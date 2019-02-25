@@ -44,7 +44,7 @@ class App extends Component {
     fetch("http://localhost:3001/api/onegrams/christmas")
       /*.then(data => {console.log(data);
                      return data.json();})*/
-      .then(data => data.body.json())
+      .then(data => data.json())
       .then(res => this.setState({ data: res.data }));
   };
 
