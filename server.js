@@ -8,6 +8,8 @@ var express = require('express');        // call express
 var app = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
+var cors = require('cors');
+
 require('dotenv').config();
 
 var username = process.env.USERNAME;
@@ -28,6 +30,15 @@ mongoose.connect(dbconn, { useNewUrlParser: true });
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
+
+app.get('/onegrams/:word', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+});
+
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+});
 
 var port = process.env.PORT || 3001;        // set our port
 
