@@ -61,11 +61,11 @@ class App extends Component {
   // it is easy to understand their functions when you 
   // see them render into our screen
   render() {
-    const { data } = this.state.data;
+    const { time } = this.state.time;
     //console.log(this.state.data);
     return (
       <div>
-          {data}
+          {time}
     </div>
     );
   }
