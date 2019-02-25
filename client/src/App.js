@@ -46,10 +46,10 @@ class App extends Component {
     fetch("http://localhost:3001/api/onegrams/christmas")
       /*.then(data => {console.log(data.body);
                      return data.json();})*/
-      //.then(data => data.json())
-      //.then(function(data){console.log(data);})
+      .then(data => data.json())
+      .then(function(data){console.log(data);})
       .then(res => this.setState({ data: res.data }))
-      .then(function(res){console.log(res);})
+      //.then(function(res){console.log(res);})
   };
 
   // here is our UI
