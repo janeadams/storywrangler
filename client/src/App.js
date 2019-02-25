@@ -60,7 +60,7 @@ class App extends Component {
   render() {
     return (
       <div>
-          {this.state.result.data ? this.state.result.data : 'not ready yet'}
+          {this.state.data}
     </div>
     );
   }
