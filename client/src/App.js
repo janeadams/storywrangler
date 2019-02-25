@@ -11,7 +11,7 @@ class App extends Component {
     idToDelete: null,
     idToUpdate: null,
     objectToUpdate: null
-  }
+  };
 
   // when component mounts, first thing it does is fetch all existing data in our db
   // then we incorporate a polling logic so that we can easily see if our db has 
@@ -46,10 +46,10 @@ class App extends Component {
     fetch("http://localhost:3001/api/onegrams/christmas")
       /*.then(data => {console.log(data.body);
                      return data.json();})*/
-      .then(data => data.json().body)
+      .then(data => data.json())
       .then(function(data){console.log(data);})
       .then(res => this.setState({ data: res.data }));
-  }
+  };
 
   // here is our UI
   // it is easy to understand their functions when you 
@@ -59,7 +59,7 @@ class App extends Component {
     //console.log(this.state.data);
     return (
       <div>
-          {this.state.data}
+          {this.state.res}
     </div>
     );
   }
