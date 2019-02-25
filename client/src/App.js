@@ -53,7 +53,7 @@ class App extends Component {
     const { data } = this.state;
     return (
       <div>
-          {this.state}
+          {this.state.data}
     </div>
     );
   }
