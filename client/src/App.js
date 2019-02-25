@@ -50,7 +50,7 @@ class App extends Component {
                      return data.json();})*/
       //.then(data => data.json())
       .then(function(data){console.log("data = ", data.json());})
-      .setState({ data: data })
+      .then(data => data.json }))
       //.then(function(res){console.log(res);})
   };
 
@@ -60,7 +60,7 @@ class App extends Component {
   render() {
     return (
       <div>
-          {this.state.result.time ? this.state.result.time : 'not ready yet'}
+          {this.state.result.data ? this.state.result.data : 'not ready yet'}
     </div>
     );
   }
