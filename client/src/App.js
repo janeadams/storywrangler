@@ -36,7 +36,6 @@ class App extends Component {
           return <li key={count}>{time.headline}</li>;
         })}
       </ul>
-    );
   }
 }
 
