@@ -4,7 +4,7 @@ import axios from "axios";
 class App extends Component {
   // initialize our state 
   state = {
-    data: [],
+    times: [],
     id: 0,
     message: null,
     intervalIsSet: false,
@@ -49,8 +49,8 @@ class App extends Component {
       .then(data => data.json())
       .then(function(data){console.log(data);})
       .then(res => {
-        const posts = res.data.data.children.map(obj => obj.data);
-        this.setState({ data });
+        const times = res.data.data.children.map(obj => obj.data);
+        this.setState({ times });
       //.then(res => this.setState({ data: res.data }))
       //.then(function(res){console.log(res);})
   };
