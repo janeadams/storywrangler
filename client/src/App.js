@@ -50,7 +50,7 @@ class App extends Component {
                      return data.json();})*/
       //.then(data => data.json())
       .then(function(data){console.log("data = ", data.json());})
-      .then(data => data.json }))
+      .then(data => data.json)
       //.then(function(res){console.log(res);})
   };
 
