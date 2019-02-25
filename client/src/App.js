@@ -46,7 +46,7 @@ class App extends Component {
   // fetch data from our data base
   getDataFromDb = () => {
     fetch("http://localhost:3001/api/onegrams/christmas")
-      .then(data => {console.log(data.body);
+      .then(data => {console.log(data.json());
                      return data.json();})
       //.then(data => data.json())
       //.then(data => data.json)
@@ -59,7 +59,7 @@ class App extends Component {
   render() {
     return (
       <div>
-          {this.state.data}
+          {this.state.data.time}
     </div>
     );
   }
