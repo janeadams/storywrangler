@@ -49,7 +49,7 @@ class App extends Component {
       .then(data => data.json())
       //.then(function(data){console.log(data);})
       .then(res => this.setState({ data: res.data }))
-      .then(function(res){console.log(res);});
+      .then(function(res){console.log(res);})
   };
 
   // here is our UI
