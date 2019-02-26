@@ -1,22 +1,38 @@
+// Thanks https://www.robinwieruch.de/react-fetching-data/
+
 import React, { Component } from "react";
-import axios from "axios";
-const parseJSON = require('parse-json');
-const checkStatus = require('node-status-check');
+
+const API = 'http://localhost:3001/api/onegrams/';
+const DEFAULT_QUERY = 'christmas';
 
 class App extends Component {
+    
 
+constructor(props) {
+    super(props);
 
-function(search(query) {
-  return fetch(`/api/onegrams/=${query}`, {
-    accept: 'application/json',
-  }).then(checkStatus)
-    .then(parseJSON);
-});
+    this.state = {
+      count: [],
+    };
+  }
+    
+componentDidMount() {
+    fetch(API + DEFAULT_QUERY)
+      .then(response => response.json())
+      .then(data => this.setState({ count: data.count }));
+  }
+    
+  render() {
+    const { count } = this.state;
 
-render(){
-return console.log(search('christmas'))
+    return (
+      <ul>
+        {hits.map(hit =>
+          <li key={hit.objectID}>
+            <a href={hit.url}>{hit.title}</a>
+          </li>
+        )}
+      </ul>
+    )
+    }
 }
-
-};
-
-export default App;
