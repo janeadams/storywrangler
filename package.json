@@ -29,6 +29,7 @@
     "express": "^4.16.4",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.14",
+    "parse-json": "^4.0.0",
     "setimmediate": "^1.0.5"
   },
   "devDependencies": {}
