@@ -11,7 +11,7 @@ function(search(query) {
     accept: 'application/json',
   }).then(checkStatus)
     .then(parseJSON);
-})
+});
 
 render(){
 return console.log(search('christmas'))
