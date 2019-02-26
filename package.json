@@ -27,6 +27,7 @@
     "d3": "^5.9.1",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "fetch-helpers": "^9.0.0",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.14",
     "parse-json": "^4.0.0",
