@@ -8,7 +8,7 @@ search(query) {
   return fetch(`/api/onegrams/=${query}`, {
     accept: 'application/json',
   }).then(checkStatus)
-    .then(parseJSON)
+    .then(parseJSON);
 }
     console.log(search('christmas'))
 };
