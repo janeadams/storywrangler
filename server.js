@@ -30,6 +30,8 @@ mongoose.connect(dbconn, { useNewUrlParser: true });
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//Cross-origin request service
 app.use(cors());
 
 app.get('/onegrams/:word', function (req, res, next) {
@@ -65,7 +67,7 @@ router.get('/', function(req, res) {
 
 router.route('/onegrams')
 
-    // get all the onegrams (accessed at GET http://localhost:6060/api/onegrams)
+    // get all the onegrams (accessed at GET http://localhost:{PORT}/api/onegrams)
     .get(function(req, res) {
         Onegram.find(function(err, onegrams) {
             if (err)
@@ -77,7 +79,7 @@ router.route('/onegrams')
 
 router.route('/onegrams/:word')
 
-    // get the onegram for that word (accessed at GET http://localhost:6060/api/onegrams/onegram_id)
+    // get the onegram for that word (accessed at GET http://localhost:{PORT}/api/onegrams/onegram_id)
     .get(function(req, res) {
         Onegram.find({word: req.params.word}, function(err, onegram) {
             if (err)
