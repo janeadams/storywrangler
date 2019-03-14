@@ -37,7 +37,7 @@ To use the UI from a local machine:
 - `jupyter notebook --port=9994`
 - In another Terminal window, mirror the Jupyter notebook:
 - `ssh -N -L localhost:9994:localhost:9994 username@hydra.uvm.edu`
-- Open `hydra_dash_test.ipynb` and run
+- Open `hydra_dash_test.ipynb` and run using `test_env` as the kernel
 - In another Terminal window, mirror the Flask app running on Hydra:
 - `ssh -N -L localhost:8050:localhost:8050 username@hydra.uvm.edu`
 - Visit http://127.0.0.1:8050/
