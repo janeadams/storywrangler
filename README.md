@@ -25,15 +25,7 @@ The UI is currently generated from a Jupyter Notebook using Dash (a Flask-based 
 To use the UI from a local machine:
 - `ssh username@hydra.uvm.edu`
 - Clone this Github repository to your user folder on Hydra
-- Set up a testing environment called `test_env` using `source activate test_env` and install:
-    - pandas
-    - numpy
-    - flask
-    - dash
-    - dash_core_components
-    - dash_html_components
-    - pandas_datareader
-    - datetime
+- Set up a testing environment called `test_env` using `source activate test_env` and install the dependencies listed in `requirements.txt`
 - `jupyter notebook --port=9994`
 - In another Terminal window, mirror the Jupyter notebook:
 - `ssh -N -L localhost:9994:localhost:9994 username@hydra.uvm.edu`
