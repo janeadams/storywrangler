@@ -39,7 +39,10 @@ To forward the UI to the web:
 - Visit http://127.0.0.1:8050/ in Chrome
 - Use the `forwardhq` browser extension to forward to your chosen URL:
     - e.g. `http://localhost:8050/ >> onegram.fwd.wf`
+### Future Plans
+This is an approximate rendering of the final full stack of the data visualization process, generating both a UI and API via a MERN stack.
 
+<img src="notes/sys-arch.jpg">
 
 ```python
 
