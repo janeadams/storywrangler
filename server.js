@@ -42,7 +42,7 @@ app.get('/onegrams/:word', function (req, res, next) {
   console.log('CORS-enabled web server listening on port 80')
 });*/
 
-var port = process.env.PORT || 443;        // set our port
+var port = process.env.PORT || 3001;        // set our port
 
 var Onegram = require('./app/models/onegram');
 
