@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 
-const API = 'http://localhost:3001/api/onegrams/';
+const API = 'http://localhost:443/api/onegrams/';
 const DEFAULT_QUERY = 'christmas';
 
 class App extends Component {
