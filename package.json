@@ -31,6 +31,7 @@
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.14",
     "parse-json": "^4.0.0",
+    "semiotic": "1.19.1",
     "setimmediate": "^1.0.5"
   },
   "devDependencies": {}
