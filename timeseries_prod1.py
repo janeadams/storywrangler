@@ -26,6 +26,18 @@ def load(word):
         print(str("No timeseries found for "+word))
         df = pd.DataFrame()
         return df
+    
+import csv
+wordlist = []
+with open('wordlist_below5k.csv', 'rt') as f:
+    reader = csv.reader(f)
+    next(reader)
+    wordlist=list(reader)
+    
+options = []
+for word in wordlist:
+    options.append({'label': word[0],'value': word[0]})
+    
 external_stylesheets = ['styles.css']
 
 server = flask.Flask(__name__)
@@ -34,18 +46,21 @@ app = dash.Dash(__name__, server=server, external_stylesheets=external_styleshee
 
 app.layout = html.Div([
     html.H1('Twitter 1-grams'),
-    dcc.Input(id='my-id', value='@realdonaldtrump', type='text'),
-    dcc.Graph(id='my-graph'),
+    html.P('This shows any one-grams that cracked the top 5k rank at any time (47,844 onegrams)'),
+    html.Div([
+        dcc.Dropdown(id='my-dropdown', options=options, value=['@realdonaldtrump','@bts_twt'], multi=True)]),
+    dcc.Graph(id='my-graph',figure={'layout': {'yaxis': {'autorange': 'reversed', 'type':'log'}}})
 ])
-@app.callback(Output('my-graph', 'figure'), [Input('my-id', 'value')])
+
+@app.callback(Output('my-graph', 'figure'), [Input('my-dropdown', 'value')])
+
 def update_graph(input_value):
     data=[]
     layout={
         'yaxis': {'autorange': 'reversed', 'type':'log'},
     }
     figure = {'data':data, 'layout':layout}
-    values = input_value.split(',')
-    for item in values:
+    for item in input_value:
         df = load(item)
         data.append({'x':df['time'], 'y':df['rank'],'name':item})
     return figure
