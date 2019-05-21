@@ -1,4 +1,0 @@
-# https://help.github.com/articles/about-codeowners/
-# stuff lower in the file overrides stuff higher in the file
-
-*                                                    @chadly

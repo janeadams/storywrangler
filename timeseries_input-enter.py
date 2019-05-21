@@ -34,12 +34,16 @@ app = dash.Dash(__name__, server=server, external_stylesheets=external_styleshee
 
 data=[]
 
+layout = {'yaxis': {'type':'log','autorange':'reversed','fixedrange': 'true'}}
+
+config = {'scrollZoom': True}
+
 app.layout = html.Div([
     html.H1('Twitter 1-grams'),
     html.Div(dcc.Input(id='input-box', type='text')),
     html.Button('Submit', id='button'),
-    html.Div(id='output-container-button', children='Enter a value and press submit'),
-    dcc.Graph(id='my-graph',figure={'layout': {'yaxis': {'autorange': 'reversed', 'type':'log'}}}),
+    html.Div(id='output-container-button', children='Enter a query (or comma-separated queries) and press submit!'),
+    dcc.Graph(id='my-graph',config=config,figure={'data':data,'layout': layout}),
 ])
 
 @app.callback(
@@ -47,9 +51,7 @@ app.layout = html.Div([
     [dash.dependencies.Input('button', 'n_clicks')],
     [dash.dependencies.State('input-box', 'value')])
 def update_graph(n_clicks, value):
-    layout={
-        'yaxis': {'autorange': 'reversed', 'type':'log'},
-    }
+    data = []
     figure = {'data':data, 'layout':layout}
     try:
         values = value.split(',')
