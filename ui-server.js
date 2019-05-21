@@ -42,7 +42,7 @@ app.get('/onegrams/:word', function (req, res, next) {
   console.log('CORS-enabled web server listening on port 80')
 });*/
 
-var port = process.env.PORT || 3001;        // set our port
+var port = process.env.PORT || 3000;        // set our port
 
 var Onegram = require('./app/models/onegram');
 
@@ -59,7 +59,7 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:6060/api)
 router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
+    res.json({ message: 'hooray! welcome to our ui!' });   
 });
 
 router.route('/onegrams/:word')
@@ -75,7 +75,7 @@ router.route('/onegrams/:word')
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', router);
+app.use('/ui', router);
 
 // START THE SERVER
 // =============================================================================
