@@ -1,0 +1,69 @@
+# VACC:
+ssh jadams10@bluemoon-user2.uvm.edu
+# or
+ssh -L 9998:localhost:9998 jadams10@bluemoon-user2.uvm.edu ssh -L 
+
+# Hydra:
+ssh janeadams@hydra.uvm.edu
+# or
+9998:localhost:9998 -N janeadams@hydra.uvm.edu
+
+# Sublime Editor:
+ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
+rsub ui-server.js
+
+# Jupyter:
+source activate test_env
+jupyter notebook --port=8888
+ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
+
+# Dash:
+nohup python3 timeseries_prod1.py > output_prod1.txt &
+nohup python3 timeseries_no-dropdown.py > output_no-dropdown.txt &
+nohup python3 timeseries_input-enter.py > output_input-enter.txt &
+ssh -N -L localhost:8050:localhost:8050 janeadams@hydra.uvm.edu
+
+# REACT UI:
+nohup node ui-server.js > output-node_react_ui.txt & disown
+ssh -N -L localhost:3000:localhost:3000 janeadams@hydra.uvm.edu
+
+# API:
+nohup node server.js > output-node.txt & disown
+ssh -N -L localhost:3001:localhost:3001 janeadams@hydra.uvm.edu
+
+
+# HTTP:
+ssh -N -L localhost:80:localhost:80 janeadams@hydra.uvm.edu
+
+# HTTPS:
+ssh -N -L localhost:443:localhost:443 janeadams@hydra.uvm.edu
+
+sudo iptables -A INPUT -p tcp --dport 3001 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+
+sudo firewall-cmd --zone=public --add-port=3001/tcp --permanent
+sudo systemctl restart iptables
+sudo firewall-cmd --reload
+
+
+sudo iptables -A INPUT -p tcp --dport 3001 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -t nat -L -n -v
+
+netstat -lntu | grep 8050
+
+mongo -u admin -p StoryMonkey1 --authenticationDatabase admin
+use admin
+db.currentOp()
+
+db.currentOp(
+   {
+     "active" : true,
+     "numYields" : 0,
+     "waitingForLock" : false
+   }
+)
+
+
+
+# Generate wordlist(s):
+source activate test_env
+nohup python3 wordlist_generator.py > output-wordlist.txt & disown
