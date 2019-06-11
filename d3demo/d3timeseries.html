@@ -1,19 +1,27 @@
+
+<!DOCTYPE html>
 <html>
-<head>
-</head>
 <body>
-	<p id="demo"></p> 
-	<script type="text/javascript">
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				var myObj = JSON.parse(this.responseText);
-				document.getElementById("demo").innerHTML = myObj.name;
-			}
-		};
-		xmlhttp.open("GET", "http://hydra.uvm.edu:3001/api/onegrams/christmas", true);
-		xmlhttp.send();
-		document.getElementById("demo").innerHTML = myObj; 
-	</script>
+
+<h2>Use the XMLHttpRequest to get the content of a file.</h2>
+<p>The content is written in JSON format, and can easily be converted into a JavaScript object.</p>
+
+<p id="demo"></p>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var myObj = JSON.parse(this.responseText);
+    document.getElementById("demo").innerHTML = myObj[1].rank;
+    console.log(this.responseText);
+  }
+};
+xmlhttp.open("GET", "http://hydra.uvm.edu:3001/api/onegrams/christmas", true);
+xmlhttp.send();
+</script>
+
+<p>Take a look at <a href="http://hydra.uvm.edu:3001/api/onegrams/christmas" target="_blank">API search for onegrams: christmas</a></p>
+
 </body>
 </html>
