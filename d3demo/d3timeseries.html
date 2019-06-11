@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+<body>
+	<p id="demo"></p> 
+	<script type="text/javascript">
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var myObj = JSON.parse(this.responseText);
+				document.getElementById("demo").innerHTML = myObj.name;
+			}
+		};
+		xmlhttp.open("GET", "http://hydra.uvm.edu:3001/api/onegrams/christmas", true);
+		xmlhttp.send();
+		document.getElementById("demo").innerHTML = myObj; 
+	</script>
+</body>
+</html>
