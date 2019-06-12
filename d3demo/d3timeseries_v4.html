@@ -157,7 +157,7 @@
 #metric-modal .metric-chart .dot {
     fill: white;
     stroke: #00AA8D; /* default, changed in each theme */
-    stroke-width: 1.5px;
+    stroke-width: 1px;
     clip-path: url(#clip);
     cursor: default;
     transition: stroke-width 0.06s ease-in;
@@ -203,7 +203,7 @@ var datesMeasured=[];
 var ranksMeasured=[];
 
 // Get the data
-d3.json("http://hydra.uvm.edu:3001/api/onegrams/christmas", function(error, data) {
+d3.json("http://hydra.uvm.edu:3001/api/onegrams/easter", function(error, data) {
     data.forEach(function(d) {
         //var parseTime = d3.timeParse("%Y-%m-%d");
         //d.date = parseTime(d.time.substr(0,10));
@@ -283,7 +283,7 @@ var dataYrange = [0, d3.max(dataset, function(d) { return d.rank; })];
 var mindate = dataXrange[0],  // use the range of the data
 maxdate = dataXrange[1];
 
-var DateFormat    =  d3.time.format("%b %Y");
+var DateFormat    =  d3.time.format("%b %d %Y");
 
 var dynamicDateFormat = timeFormat([
     [d3.time.format("%Y"), function() { return true; }],// <-- how to display when Jan 1 YYYY
@@ -297,7 +297,7 @@ var x = d3.time.scale()
 .range([0, (width)])
 .domain(dataXrange);
 
-var y = d3.scale.linear()
+var y = d3.scale.log()
 .range([height, 0])
 .domain(dataYrange);
 
@@ -320,9 +320,9 @@ var x2 = d3.time.scale()
 .range([0, width])
 .domain([mindate, maxdate]);
 
-var y2 = d3.scale.linear()
+var y2 = d3.scale.log()
 .range([height_context, 0])
-.domain(y.domain());
+.domain([d3.max(ranksMeasured),1]);
 
 var xAxis_context = d3.svg.axis()
 .scale(x2)
@@ -347,7 +347,7 @@ var area = d3.svg.area()
 .defined(line.defined())
 .x(function(d) { return x(d.date); })
 // invert colors to top of chart instead of bottom with -1
-.y0(-(height))
+.y0(height)
 .y1(function(d) { return y(d.rank); });
 
 var line_missing = d3.svg.line()
@@ -357,7 +357,7 @@ var line_missing = d3.svg.line()
 var area_missing = d3.svg.area()
 .x(function(d) { return x(d.date); })
 // invert colors to top of chart instead of bottom with -1
-.y0(-(height))
+.y0(height)
 .y1(function(d) { return y(d.rank); });
 
 
@@ -457,7 +457,7 @@ display_range_group.append("text")
 var expl_text = display_range_group.append("text")
 .text("Zoom to: ")
 .style("text-anchor", "start")
-.attr("transform", "translate(" + 180 + ","+ 10 +")");
+.attr("transform", "translate(" + 210 + ","+ 10 +")");
 
 // === the zooming/scaling buttons === //
 
@@ -469,7 +469,7 @@ var dateRange  = dataXrange[1] - dataXrange[0],
 ms_in_year = 31540000000;
 
 if (dateRange < ms_in_year)   {
-    var button_data =["month","data"];
+    var button_data =["month","all"];
 } else {
     var button_data =["year","month","all"];
 };
@@ -478,7 +478,7 @@ var button = display_range_group.selectAll("g")
 .data(button_data)
 .enter().append("g")
 .attr("class", "scale_button")
-.attr("transform", function(d, i) { return "translate(" + (220 + i*button_width + i*10) + ",0)"; })
+.attr("transform", function(d, i) { return "translate(" + (280 + i*button_width + i*10) + ",0)"; })
 .on("click", scaleDate);
 
 button.append("rect")
@@ -539,7 +539,7 @@ focus.selectAll(".dot")
 .data(dataset_no_null)
 .enter().append("circle")
 .attr("class", "dot")
-.attr("r", 3)
+.attr("r", 2)
 .attr("cx", function(d) { return x(d.date); })
 .attr("cy", function(d) { return y(d.rank); })
 .on("mouseover", function(d) {show_tooltip(d)} )
@@ -818,13 +818,14 @@ function setYdomain(){
     rankSubset.push(yleft);
     rankSubset.push(yright);
     var ymax_new = d3.max(rankSubset);
+    var ymin_new = d3.min(rankSubset);
 
-    if(ymax_new == 0){
+    if(ymax_new == 1){
         ymax_new = dataYrange[1];
     }
 
     // reset and redraw the yaxis
-    y.domain([ymax_new*1.05,0]);
+    y.domain([ymax_new*1.05,1]);
     focus.select(".y.axis").call(yAxis);
 
 };
@@ -852,7 +853,7 @@ if ( d == "year" | d == "month" )  {
         brush_end_new = new Date(b[0].getTime() + interval_ms);
     };
 
-} else if ( d == "data")  {
+} else if ( d == "all")  {
     brush_start_new = dataXrange[0];
     brush_end_new = dataXrange[1]
 } else {
