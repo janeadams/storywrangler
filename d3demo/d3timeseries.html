@@ -27,6 +27,7 @@ path {
 <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
 
 <script>
+// Many thanks to Mike Bostock: http://bl.ocks.org/d3noob/b3ff6ae1c120eea654b5
 
 // Set the dimensions of the canvas / graph
 var margin = {top: 30, right: 20, bottom: 30, left: 50},
@@ -50,7 +51,7 @@ var yAxis = d3.svg.axis().scale(y)
 // Define the line
 var valueline = d3.svg.line()
     .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
+    .y(function(d) { return y(d.rank); });
     
 // Adds the svg canvas
 var svg = d3.select("body")
@@ -67,7 +68,7 @@ d3.json("http://hydra.uvm.edu:3001/api/onegrams/christmas", function(error, data
     data.forEach(function(d) {
 		var parseTime = d3.timeParse("%Y-%m-%d");
 		d.date = parseTime(d.time.substr(0,9));
-        d.close = +d.rank;
+        d.rank = +d.rank;
     });
 
     // Scale the range of the data
