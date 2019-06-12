@@ -195,9 +195,9 @@ div.tooltip {
     <script>
 
 // example data
-var metricName   = "ranks";
-var optwidth        = 600;
-var optheight       = 370;
+var metricName   = "rank";
+var optwidth = 0.8*(document.documentElement.clientWidth);
+var optheight = 0.6*(document.documentElement.clientHeight);
 
 var datesMeasured=[];
 var ranksMeasured=[];
@@ -217,20 +217,20 @@ d3.json("http://hydra.uvm.edu:3001/api/onegrams/christmas", function(error, data
       theArray[index] = d3.time.format("%Y-%m-%d").parse(part).getTime();
   });
 
-    console.log("datesMeasured = ",datesMeasured);
+    //console.log("datesMeasured = ",datesMeasured);
 
     var dateArray = d3.time.scale().domain(d3.extent(datesMeasured)).ticks(d3.time.days, 1);
 
-    console.log("ranksMeasured = ",ranksMeasured);
-    console.log('datesMeasured.length = ',datesMeasured.length);
-    console.log('dateArray.length = ',dateArray.length);
+    //console.log("ranksMeasured = ",ranksMeasured);
+    //console.log('datesMeasured.length = ',datesMeasured.length);
+    //console.log('dateArray.length = ',dateArray.length);
     console.log('There are ',dateArray.length-datesMeasured.length,' dates missing from the range');
 
     // check if there is data for each date in dateArray, if so append rank, otherwise append null
-    console.log('dateArray =',dateArray);
-    console.log('dateArray[4] =',dateArray[4]);
-    console.log('dateArray[4].getTime() =',dateArray[4].getTime());
-    console.log('datesMeasured.indexOf(dateArray[4].getTime()) =',datesMeasured.indexOf(dateArray[4].getTime()));
+    //console.log('dateArray =',dateArray);
+    //console.log('dateArray[4] =',dateArray[4]);
+    //console.log('dateArray[4].getTime() =',dateArray[4].getTime());
+    //console.log('datesMeasured.indexOf(dateArray[4].getTime()) =',datesMeasured.indexOf(dateArray[4].getTime()));
 
     var dataset = [];
     for(var i=0; i<dateArray.length; i++){
@@ -247,7 +247,7 @@ d3.json("http://hydra.uvm.edu:3001/api/onegrams/christmas", function(error, data
 // a dataset without the null values is also needed to draw the missing data lines/areas
 var dataset_no_null = dataset.filter(function(d) { return d.rank !== null; });
 
-console.log(dataset[2]);
+//console.log(dataset[2]);
 
 // a dataset without the null values is also needed to draw the missing data lines/areas
 var dataset_no_null = dataset.filter(function(d) { return d.rank !== null; });
@@ -260,13 +260,13 @@ var dataset_no_null = dataset.filter(function(d) { return d.rank !== null; });
 
 /* === Focus chart === */
 
-var margin  = {top: 20, right: 30, bottom: 100, left: 20},
+var margin  = {top: 0.1*(optheight), right: 0.1*(optwidth), bottom: 0.25*(optheight), left: 0.1*(optwidth)},
 width   = optwidth - margin.left - margin.right,
 height  = optheight - margin.top - margin.bottom;
 
 /* === Context chart === */
 
-var margin_context = {top: 320, right: 30, bottom: 20, left: 20},
+var margin_context = {top: 0.85*(optheight), right: 0.1*(optwidth), bottom: 0.1*(optheight), left: 0.1*(optwidth)},
 height_context = optheight - margin_context.top - margin_context.bottom;
 
 /*
@@ -276,7 +276,7 @@ height_context = optheight - margin_context.top - margin_context.bottom;
 */
 
 // the date range of available data:
-var dataXrange = d3.extent(dataset, function(d) { return d.month; });
+var dataXrange = d3.extent(dataset, function(d) { return d.date; });
 var dataYrange = [0, d3.max(dataset, function(d) { return d.rank; })];
 
 // maximum date range allowed to display
@@ -444,13 +444,13 @@ var expl_text = display_range_group.append("text")
 .style("text-anchor", "start")
 .attr("transform", "translate(" + 0 + ","+ 10 +")");
 
-/*
+
 display_range_group.append("text")
 .attr("id", "displayDates")
 .text(DateFormat(dataXrange[0]) + " - " + DateFormat(dataXrange[1]))
 .style("text-anchor", "start")
 .attr("transform", "translate(" + 82 + ","+ 10 +")");
-*/
+
 
 var expl_text = display_range_group.append("text")
 .text("Zoom to: ")
@@ -469,7 +469,7 @@ ms_in_year = 31540000000;
 if (dateRange < ms_in_year)   {
     var button_data =["month","data"];
 } else {
-    var button_data =["year","month","data"];
+    var button_data =["year","month","all"];
 };
 
 var button = display_range_group.selectAll("g")
@@ -608,9 +608,18 @@ brushg.selectAll(".extent")
 
     /* === y axis title === */
 
+    function toTitleCase(str) {
+        return str.replace(
+            /\w\S*/g,
+            function(txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        );
+    }
+
     vis.append("text")
     .attr("class", "y axis title")
-    .text("Monthly " + this.metricName)
+    .text(toTitleCase(this.metricName))
     .attr("x", (-(height/2)))
     .attr("y", 0)
     .attr("dy", "1em")
@@ -664,16 +673,11 @@ function customTickFunction(t0, t1, dt)  {
 // from: http://bl.ocks.org/d3noob/a22c42db65eb00d4e369
 function show_tooltip(d) {
 
-    if (d.rank == 1) {
-        var metricName_point = metricName.slice(0, -1);
-    } else {
-        var metricName_point = metricName;
-    }
 
     div.transition()
     .duration(60)
     .style("opacity", 0.98);
-    div.html("<b>" + DateFormat(d.date) + "</b><br/>"  + d.rank + " " + metricName_point)
+    div.html("<b>" + DateFormat(d.date) + "</b><br/>metricName: "  + d.rank)
         .style("left", (d3.event.pageX -30) + "px")//(d3.event.pageX) + "px"
         .style("top", (d3.event.pageY -40) + "px");//(d3.event.pageY - 28) + "px"
     };
@@ -714,7 +718,7 @@ function common_behaviour() {
     focus.select(".line_missing").attr("d", line_missing);
     focus.select(".x.axis").call(xAxis);
     focus.selectAll(".dot")
-    .attr("cx", function(d) { return x(d.month); })
+    .attr("cx", function(d) { return x(d.date); })
     .attr("cy", function(d) { return y(d.rank); });
 };
 
@@ -804,6 +808,7 @@ function setYdomain(){
 
     // get the y values of all the actual data points that are in view
     var dataSubset = dataset.filter(function(d){ return d.date >= xleft && d.date <= xright; });
+    //console.log(dataSubset);
     var rankSubset = [];
     dataSubset.map(function(d) {rankSubset.push(d.rank);});
 
