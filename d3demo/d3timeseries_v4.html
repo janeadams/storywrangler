@@ -346,7 +346,8 @@ var line = d3.svg.line()
 var area = d3.svg.area()
 .defined(line.defined())
 .x(function(d) { return x(d.date); })
-.y0((height))
+// invert colors to top of chart instead of bottom with -1
+.y0(-(height))
 .y1(function(d) { return y(d.rank); });
 
 var line_missing = d3.svg.line()
@@ -355,7 +356,8 @@ var line_missing = d3.svg.line()
 
 var area_missing = d3.svg.area()
 .x(function(d) { return x(d.date); })
-.y0((height))
+// invert colors to top of chart instead of bottom with -1
+.y0(-(height))
 .y1(function(d) { return y(d.rank); });
 
 
@@ -677,7 +679,7 @@ function show_tooltip(d) {
     div.transition()
     .duration(60)
     .style("opacity", 0.98);
-    div.html("<b>" + DateFormat(d.date) + "</b><br/>metricName: "  + d.rank)
+    div.html("<b>" + DateFormat(d.date) + "</b><br/>" +metricName+": "  + d.rank)
         .style("left", (d3.event.pageX -30) + "px")//(d3.event.pageX) + "px"
         .style("top", (d3.event.pageY -40) + "px");//(d3.event.pageY - 28) + "px"
     };
@@ -822,7 +824,7 @@ function setYdomain(){
     }
 
     // reset and redraw the yaxis
-    y.domain([0, ymax_new*1.05]);
+    y.domain([ymax_new*1.05,0]);
     focus.select(".y.axis").call(yAxis);
 
 };
