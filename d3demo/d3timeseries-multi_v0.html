@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.2/d3.js"></script>
+	<style>
+		html, body, p {
+			font-family: sans-serif;
+		}
+
+		#queryList li {
+			display: inline-block;
+			padding: 7px 10px;
+			margin: 3px;
+			background-color: #CCC;
+			border: 1px solid #999;
+			border-radius: 2px;
+		}
+
+		#queryList li:hover {
+			background-color: pink;
+			border: 2px dashed red;
+			text-decoration: line-through;
+			color: darkred;
+		}
+	</style>
+</head>
+<body>
+	<form name="queryForm" onSubmit="return inputClick()">
+        <input name="query" type="text" id="query" placeholder="Enter a single word, hashtag, or handle">
+        <input type="submit" value="Display">
+    </form>
+    <ul id ="queryList"></ul>
+    <script>
+ 
+            var queries = [];
+ 
+ 
+            function inputClick(event){
+                console.log(document.getElementById("query").value)
+                draw(document.getElementById("query").value)
+                return false;
+            }
+ 
+            function draw(val){
+                d3.select("body").select("ul").append("li");
+                queries.push(val);
+                var p = d3.select("body").selectAll("li")
+                .data(queries)
+                .text(function(d,i){return i + ": " + d;}).attr("id", function(d,i){return i;});
+                for(var i=0; i<queries.length; i++){
+            	document.getElementById(i).addEventListener("click",function(e) {this.remove(); console.log("queries = "+queries);}); // or tgt.remove();
+};};
+
+            
+
+ 
+    </script>
+</body>
+</html>
