@@ -32,13 +32,14 @@
     <ul id ="queryList"></ul>
     <script>
  
-            var queries = [];
+            var queries = []
  
  
             function inputClick(event){
                 console.log(document.getElementById("query").value)
                 draw(document.getElementById("query").value)
-                return false;
+                console.log("queries = "+queries)
+                return false
             }
  
             function draw(val){
@@ -46,10 +47,23 @@
                 queries.push(val);
                 var p = d3.select("body").selectAll("li")
                 .data(queries)
-                .text(function(d,i){return i + ": " + d;}).attr("id", function(d,i){return i;});
+                .text(function(d,i){return i + ": " + d;}).attr("id", function(d,i){return d;});
                 for(var i=0; i<queries.length; i++){
-            	document.getElementById(i).addEventListener("click",function(e) {this.remove(); console.log("queries = "+queries);}); // or tgt.remove();
-};};
+            	document.getElementById(queries[i]).addEventListener("click",function(e,i) {
+            		removeQuery(this.id)
+            		this.remove()
+            		console.log("queries = "+queries)
+            	})
+            }
+        }
+
+function removeQuery(value) {
+   queries = queries.filter(function(ele){
+       return ele != value
+   })
+   console.log(queries)
+
+}
 
             
 
