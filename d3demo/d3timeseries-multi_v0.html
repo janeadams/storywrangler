@@ -25,8 +25,8 @@
 	</style>
 </head>
 <body>
-	<form name="queryForm" onSubmit="return inputClick()">
-        <input name="query" type="text" id="query" placeholder="Enter a single word, hashtag, or handle">
+	<form name="queryForm" id="queryForm" onSubmit="return inputClick()">
+        <input name="query" type="text" id="queryInput" placeholder="Enter a single word, hashtag, or handle">
         <input type="submit" value="Display">
     </form>
     <ul id ="queryList"></ul>
@@ -36,15 +36,16 @@
  
  
             function inputClick(event){
-                console.log(document.getElementById("query").value)
-                draw(document.getElementById("query").value)
+                draw(document.getElementById("queryInput").value)
                 console.log("queries = "+queries)
+                document.getElementById('queryForm').reset()
                 return false
             }
  
             function draw(val){
                 d3.select("body").select("ul").append("li");
                 queries.push(val);
+                console.log("Added "+val+" to query list ["+queries+"]")
                 var p = d3.select("body").selectAll("li")
                 .data(queries)
                 .text(function(d,i){return i + ": " + d;}).attr("id", function(d,i){return d;});
@@ -52,7 +53,6 @@
             	document.getElementById(queries[i]).addEventListener("click",function(e,i) {
             		removeQuery(this.id)
             		this.remove()
-            		console.log("queries = "+queries)
             	})
             }
         }
@@ -61,7 +61,8 @@ function removeQuery(value) {
    queries = queries.filter(function(ele){
        return ele != value
    })
-   console.log(queries)
+   console.log("removed ",value," from query list")
+   console.log("queries = ["+queries+"]  |  query.length = "+queries.length)
 
 }
 
