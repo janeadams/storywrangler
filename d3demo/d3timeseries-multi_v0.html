@@ -25,9 +25,11 @@
 	</style>
 </head>
 <body>
-	<form name="queryForm" id="queryForm" onSubmit="return inputClick()">
+	<form autocomplete="off" name="queryForm" id="queryForm" onSubmit="return inputClick()">
+		<div class="autocomplete" style="width:300px;">
         <input name="query" type="text" id="queryInput" placeholder="Enter a single word, hashtag, or handle">
         <input type="submit" value="Display">
+    </div>
     </form>
     <ul id ="queryList"></ul>
     <script>
