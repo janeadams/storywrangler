@@ -61,6 +61,7 @@ def update_graph(input_value):
     }
     figure = {'data':data, 'layout':layout}
     for item in input_value:
+        item = lower(item)
         df = load(item)
         data.append({'x':df['time'], 'y':df['rank'],'name':item})
     return figure
