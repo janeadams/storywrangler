@@ -57,7 +57,7 @@ def update_graph(n_clicks, value):
     try:
         print("value = ",value)
         value = lower(value)
-        value = value.replace(" ":",")
+        value = value.replace(" ",",")
         values = value.split(',')
         print("values = ",values)
         for item in values:
