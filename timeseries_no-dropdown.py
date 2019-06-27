@@ -47,8 +47,14 @@ def update_graph(input_value):
         'yaxis': {'autorange': 'reversed', 'type':'log'},
     }
     figure = {'data':data, 'layout':layout}
+    print("value = ",value)
+        value = value.replace({"   ":",","  ":","," ":",",",,":",",",,,":","})
+        value = value.replace({"   ":",","  ":","," ":",",",,":",",",,,":","})
+        values = value.split(',')
+        print("values = ",values)
     values = input_value.split(',')
     for item in values:
+        item = lower(item)
         df = load(item)
         data.append({'x':df['time'], 'y':df['rank'],'name':item})
     return figure
