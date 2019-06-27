@@ -19,9 +19,9 @@ end = time.time()
 print("elapsed time: "+str((end - start)))
 wl = pd.DataFrame.from_dict(wordlist)
 print(wl.head(5))
-#wl=wl[wl['minRank']!='Rank']
-#wl['minRank']=wl['minRank'].astype('int')
+wl=wl[wl['minRank']!='Rank']
+wl['minRank']=wl['minRank'].astype('int')
 wl.to_csv(path_or_buf="wordlist.csv",index=False)
-#wl_filter = wl[wl['minRank']<5000]
-#wl_filter = wl_filter.sort_values(by="minRank")
-#wl_filter.to_csv(path_or_buf="wordlist_below5k.csv",index=False)
+wl_filter = wl[wl['minRank']<5000]
+wl_filter = wl_filter.sort_values(by="minRank")
+wl_filter.to_csv(path_or_buf="wordlist_below5k.csv",index=False)

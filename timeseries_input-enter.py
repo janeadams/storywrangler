@@ -56,11 +56,11 @@ def update_graph(n_clicks, value):
     figure = {'data':data, 'layout':layout}
     try:
         print("value = ",value)
-        value = value.replace({"   ":",","  ":","," ":",",",,":",",",,,":","})
+        value = lower(value)
+        value = value.replace(" ":",")
         values = value.split(',')
         print("values = ",values)
         for item in values:
-            item = lower(item)
             print("item = ",item)
             df = load(item)
             data.append({'x':df['time'], 'y':df['rank'],'name':item})
