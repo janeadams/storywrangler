@@ -66,6 +66,7 @@ def update_graph(n_clicks, value):
             data.append({'x':df['time'], 'y':df['rank'],'name':item})
         return figure
     except:
+        print("exception raised!")
         return figure
 
 if __name__ == '__main__':
