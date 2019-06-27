@@ -51,11 +51,17 @@ app.layout = html.Div([
     [dash.dependencies.Input('button', 'n_clicks')],
     [dash.dependencies.State('input-box', 'value')])
 def update_graph(n_clicks, value):
+    print("updating graph...")
     data = []
     figure = {'data':data, 'layout':layout}
     try:
+        print("value = ",value)
+        value = value.replace({"   ":",","  ":","," ":",",",,":",",",,,":","})
         values = value.split(',')
+        print("values = ",values)
         for item in values:
+            item = lower(item)
+            print("item = ",item)
             df = load(item)
             data.append({'x':df['time'], 'y':df['rank'],'name':item})
         return figure

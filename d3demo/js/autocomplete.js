@@ -1,4 +1,4 @@
-/* Many thanks to W3C for autocomplete functionality; demo here: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete
+// Many thanks to W3C for autocomplete functionality; demo here: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete
 
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
@@ -95,6 +95,7 @@ function autocomplete(inp, arr) {
   document.addEventListener("click", function (e) {
       closeAllLists(e.target);
   });
+
 }
 
 /*An array containing suggested onegrams:*/
