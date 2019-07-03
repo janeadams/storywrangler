@@ -46,6 +46,8 @@ var port = process.env.PORT || 3000;        // set our port
 
 var Onegram = require('./app/models/onegram');
 
+import XYFrame from "semiotic/lib/XYFrame"
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
@@ -67,12 +69,7 @@ router.route('/onegrams/:word')
     // get the onegram for that word (accessed at GET http://localhost:{PORT}/api/onegrams/onegram_id)
     .get(function(req, res) {
         lines = Onegram.find({word: req.params.word}, function(err, onegram) {
-            import XYFrame from "semiotic/lib/XYFrame"
-            if (err)
-                res.send(err);
-            worddata = res.json(onegram);
-
-        });
+            json(onegram);});
         const frameProps = {   lines: worddata,
   size: [700,400],
   margin: { left: 80, bottom: 90, right: 10, top: 40 },
@@ -88,7 +85,7 @@ router.route('/onegrams/:word')
     { orient: "bottom", label: { name: "Date", locationDistance: 55 } }]
 }
 
-return "<XYFrame {frameProps}/>"
+res.send(<XYFrame {frameProps}/>)
     });
 
 // REGISTER OUR ROUTES -------------------------------
