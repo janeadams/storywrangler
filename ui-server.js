@@ -57,7 +57,7 @@ router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:6060/api)
+// test route to make sure everything is working (accessed at GET http://localhost:3001/api)
 router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our ui!' });   
 });
@@ -67,14 +67,32 @@ router.route('/onegrams/:word')
     // get the onegram for that word (accessed at GET http://localhost:{PORT}/api/onegrams/onegram_id)
     .get(function(req, res) {
         Onegram.find({word: req.params.word}, function(err, onegram) {
+            import XYFrame from "semiotic/lib/XYFrame"
             if (err)
                 res.send(err);
-            res.json(onegram);
+            worddata = res.json(onegram);
+            const frameProps = {   lines: worddata,
+  size: [700,400],
+  margin: { left: 80, bottom: 90, right: 10, top: 40 },
+  xAccessor: "time",
+  yAccessor: "rank",
+  yExtent: [0],
+  lineStyle: (d, i) => ({
+    stroke: theme[i],
+    strokeWidth: 2,
+    fill: "none"
+  }),
+  axes: [{ orient: "left", label: "Rank", tickFormat: function(e){return e/1e3+"k"} },
+    { orient: "bottom", label: { name: "Date", locationDistance: 55 } }]
+}
+
+return "<XYFrame {frameProps}/>"
+
         });
     });
 
 // REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
+// all of our routes will be prefixed with /ui
 app.use('/ui', router);
 
 // START THE SERVER
