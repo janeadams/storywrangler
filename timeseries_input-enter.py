@@ -43,7 +43,7 @@ app.layout = html.Div([
     html.Div(dcc.Input(id='input-box', type='text')),
     html.Button('Submit', id='button'),
     html.Div(id='output-container-button', children='Enter a query (or comma-separated queries) and press submit!'),
-    dcc.Graph(id='my-graph',config=config,figure={'data':data,'layout': layout}),
+    dcc.Graph(id='my-graph',config=config,figure={'data':data,'layout': layout})
 ])
 
 @app.callback(
@@ -55,13 +55,13 @@ def update_graph(n_clicks, value):
     data = []
     figure = {'data':data, 'layout':layout}
     try:
-        print("value = ",value)
-        value = lower(value)
+        print(value)
+        value = value.lower()
         value = value.replace(" ",",")
         values = value.split(',')
-        print("values = ",values)
+        print(values)
         for item in values:
-            print("item = ",item)
+            print(item)
             df = load(item)
             data.append({'x':df['time'], 'y':df['rank'],'name':item})
         return figure
