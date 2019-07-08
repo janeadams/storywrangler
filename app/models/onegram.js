@@ -5,7 +5,7 @@ var OnegramSchema   = new Schema({
     name: String
 },
     {
-    collection: 'tweets'
+    collection: 'en'
     
 });
 
