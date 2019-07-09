@@ -9,15 +9,5 @@ var url = `http://hydra.uvm.edu:3001/api/onegrams/${val}`;
 console.log(url)
 var worddata = JSON.parse(url)
 
-render() {
-return (<div>
-<h1>Line Chart</h1>
-<XYFrame
-  size={[ 700,500 ]}
-  lines={worddata}
-  xAccessor={"time"}
-  yAccessor={"rank"}
-  margin={{ top: 30, bottom: 0, left: 80, right: 50 }}
-  />
-</div>)
-  }
+const element = <div><h1>Line Chart</h1><XYFrame size={[ 700,500 ]} lines={worddata} xAccessor={"time"} yAccessor={"rank"} margin={{ top: 30, bottom: 0, left: 80, right: 50 }}/></div>;
+ReactDOM.render(element, mountNode)
