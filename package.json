@@ -1,12 +1,16 @@
-{"dependencies": {
-        “cors": "^2.8.5",
-        "dotenv": "^8.0.0",
-        "express": "^4.17.1",
-        "mongoose": "^5.6.1",
-         "react": "^16.8.6",
-         "react-dom": "^16.8.6",
-         "semiotic": "1.19.11"},
-"devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-core": "^6.26.3"}
+{
+        "dependencies": {
+                "core-js": "^3",
+                "cors": "^2.8.5",
+                "dotenv": "^8.0.0",
+                "express": "^4.17.1",
+                "mongoose": "^5.6.1",
+                "react": "^16.8.6",
+                "react-dom": "^16.8.6",
+                "semiotic": "1.19.11"
+        },
+        "devDependencies": {
+                "babel-cli": "^6.26.0",
+                "babel-core": "^6.26.3"
+        }
 }
