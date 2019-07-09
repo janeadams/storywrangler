@@ -16,9 +16,12 @@ var username = process.env.USERNAME;
 
 var password = process.env.PASSWORD;
 
+var loc = process.env.LOCATION;
+
+
 console.log('username = '+ username + ' password = ' + password)
 
-var dbconn = 'mongodb://' + username + ':' + password + '@127.0.0.1:27017/1grams';
+var dbconn = 'mongodb://' + username + ':' + password + '@127.0.0.1:'+loc;
 
 var mongoose = require('mongoose');
 
