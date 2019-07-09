@@ -8,7 +8,11 @@ var express = require('express');        // call express
 var app = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
+// Enable cross-origin request service
+
 var cors = require('cors');
+
+// Import environment variables (obfuscated for security)
 
 require('dotenv').config();
 
@@ -18,16 +22,15 @@ var password = process.env.PASSWORD;
 
 var loc = process.env.LOCATION;
 
-
-console.log('username = '+ username + ' password = ' + password)
+console.log('Imported environment variables');
 
 var dbconn = 'mongodb://' + username + ':' + password + '@127.0.0.1:'+loc;
 
 var mongoose = require('mongoose');
 
-
 mongoose.connect(dbconn, { useNewUrlParser: true });
 
+console.log('Connected to database');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
