@@ -3,9 +3,9 @@ import reactDOM from "ReactDOM";
 const { XYFrame } = Semiotic;
 const theme = ["#ac58e5","#E0488B","#9fd0cb","#e0d33a","#7566ff","#533f82","#7a255d","#365350","#a19a11","#3f4482"]
 // Enable cross-origin request service
-var cors = require('cors');
+//var cors = require('cors');
 var val = "christmas";
-var url = `http://hydra.uvm.edu:3001/api/onegrams/${val}`;
+var url = `d3demo/json/${val}`;
 console.log(url)
 var worddata = JSON.parse(url)
 
