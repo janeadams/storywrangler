@@ -46,7 +46,11 @@ var port = process.env.PORT || 3000;        // set our port
 
 var Onegram = require('./app/models/onegram');
 
+<<<<<<< HEAD
 import "xyframe" from "semiotic/lib/xyframe.js"
+=======
+import xyframe from "semiotic/lib/xyframe"
+>>>>>>> 17120039272757012f0a03e2727dbc4bf77d5d2b
 
 // ROUTES FOR OUR API
 // =============================================================================
