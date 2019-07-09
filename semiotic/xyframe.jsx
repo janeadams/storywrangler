@@ -9,9 +9,6 @@ var url = `http://hydra.uvm.edu:3001/api/onegrams/${val}`;
 console.log(url)
 var worddata = JSON.parse(url)
 
-
-
-export default class DivergingStackedBar extends React.Component {
 render() {
 return (<div>
 <h1>Line Chart</h1>
@@ -24,4 +21,3 @@ return (<div>
   />
 </div>)
   }
-}
