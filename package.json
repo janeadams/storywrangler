@@ -1,5 +1,8 @@
 {
-        "dependencies": {
+	"scripts":{
+		"build": "babel src -d lib"
+	},
+	"dependencies": {
                 "core-js": "^3",
                 "cors": "^2.8.5",
                 "dotenv": "^8.0.0",
