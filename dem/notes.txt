@@ -1,0 +1,19 @@
+#DemDebate
+
+Night 1:
+
+@BilldeBlasio,@JulianCastro,@ewarren,@amyklobuchar,@JayInslee,@TulsiGabbard,@TimRyan,@CoryBooker,@BetoORourke,@JohnDelaney
+
+deblasio,castro,warren,klobuchar,inslee,gabbard,tulsi,ryan,booker,beto,delaney
+
+Night 2:
+
+@marwilliamson,@Hickenlooper,@AndrewYang,@JoeBiden,@SenSanders,@KamalaHarris,@PeteButtigieg,@SenGillibrand,@SenatorBennet,@ericswalwell,#DemDebate
+
+williamson,hickenlooper,yang,biden,bernie,sanders,kamala,harris,gillibrand,bennet,swalwell
+
+All:
+
+@BilldeBlasio,@JulianCastro,@ewarren,@amyklobuchar,@JayInslee,@TulsiGabbard,@TimRyan,@CoryBooker,@BetoORourke,@JohnDelaney,@marwilliamson,@Hickenlooper,@AndrewYang,@JoeBiden,@SenSanders,@KamalaHarris,@PeteButtigieg,@SenGillibrand,@SenatorBennet,@ericswalwell
+
+deblasio,castro,warren,klobuchar,inslee,gabbard,tulsi,ryan,booker,beto,delaney,williamson,hickenlooper,yang,biden,bernie,sanders,kamala,harris,gillibrand,bennet,swalwell
