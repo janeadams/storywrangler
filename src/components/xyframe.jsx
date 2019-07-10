@@ -12,7 +12,7 @@ d3.json(url, function(error, data) {
 		var parseTime = d3.timeParse("%Y-%m-%d");
 		d.date = parseTime(d.time.substr(0,9));
         d.rank = +d.rank;
-    });
+    })})
 
 export default class lineChart extends React.Component {
 render() {
