@@ -1,4 +1,4 @@
 {
-  "plugins": ["transform-react-jsx","react-require","@babel/plugin-proposal-class-properties"],
-"presets": ["@babel/preset-env","@babel/preset-react","@babel/react","@babel/env"]
+  "plugins": ["@babel/plugin-proposal-class-properties"],
+"presets": []
 }
