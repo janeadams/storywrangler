@@ -15,8 +15,8 @@ return (<div>
 <XYFrame
   size={[ 700,500 ]}
   lines={worddata}
-  xAccessor={"time"}
-  yAccessor={"rank"}
+  xAccessor={"worddata.time"}
+  yAccessor={"worddata.rank"}
   />
 </div>)
   } // End of the render function
