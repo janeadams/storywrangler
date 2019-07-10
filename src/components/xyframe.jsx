@@ -5,7 +5,7 @@ const theme = ["#ac58e5","#E0488B","#9fd0cb","#e0d33a","#7566ff","#533f82","#7a2
 // Enable cross-origin request service
 var cors = require('cors');
 var val = "christmas";
-var url = `d3demo/json/${val}`;
+var url = 'd3demo/json/${val}';
 console.log(url)
 var worddata = JSON.parse(url)
 
