@@ -14,11 +14,9 @@ return (<div>
 <h1>Line Chart</h1>
 <XYFrame
   size={[ 700,500 ]}
-  data={worddata}
-  xAccessor={"date"}
+  lines={worddata}
+  xAccessor={"time"}
   yAccessor={"rank"}
-  style={d => ({ fill: d.color })}
-  margin={{ top: 30, bottom: 0, left: 80, right: 50 }}
   />
 </div>)
   } // End of the render function
