@@ -7,12 +7,7 @@ var cors = require('cors');
 var val = "christmas";
 var url = `d3demo/json/${val}`;
 console.log(url)
-d3.json(url, function(error, data) {
-    data.forEach(function(d) {
-		var parseTime = d3.timeParse("%Y-%m-%d");
-		d.date = parseTime(d.time.substr(0,9));
-        d.rank = +d.rank;
-    })})
+var worddata = JSON.parse(url)
 
 export default class lineChart extends React.Component {
 render() {
@@ -20,9 +15,9 @@ return (<div>
 <h1>Line Chart</h1>
 <XYFrame
   size={[ 700,500 ]}
-  data={d}
-  xAccessor={d.date}
-  yAccessor={d.rank}
+  data={worddata}
+  xAccessor={"date"}
+  yAccessor={"rank"}
   style={d => ({ fill: d.color })}
   margin={{ top: 30, bottom: 0, left: 80, right: 50 }}
   />
