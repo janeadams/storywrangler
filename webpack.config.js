@@ -15,7 +15,7 @@ module.exports = {
              test: /\.jsx/,
              use: {
                 loader: 'babel-loader',
-                options: { presets: ['react', 'es2015'] }
+                options: { presets: ['@babel/preset-env', '@babel/plugin-transform-react-jsx','@babel/preset-react'] }
              }
          },
          {
