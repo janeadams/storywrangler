@@ -62,6 +62,8 @@ db.currentOp(
    }
 )
 
+node semiotic-test-server.js
+
 
 
 # Generate wordlist(s):
