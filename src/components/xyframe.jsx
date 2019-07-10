@@ -1,5 +1,5 @@
-import react from "React";
-import reactDOM from "ReactDOM";
+import React, {Component} from 'react';
+import reactDOM from 'react-dom';
 const { XYFrame } = Semiotic;
 const theme = ["#ac58e5","#E0488B","#9fd0cb","#e0d33a","#7566ff","#533f82","#7a255d","#365350","#a19a11","#3f4482"]
 // Enable cross-origin request service
