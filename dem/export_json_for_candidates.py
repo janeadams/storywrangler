@@ -18,6 +18,7 @@ words=[    ['deblasio','castro','warren','klobuchar','inslee','gabbard','tulsi',
 
 
 def save_json(q):
+    q=q.lower()
     url = 'http://hydra.uvm.edu:3001/api/onegrams/'+q
     r = requests.get(url, allow_redirects=True)
     filepath=str('json/'+q+'.json')
