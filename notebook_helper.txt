@@ -13,8 +13,7 @@ ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
 rsub ui-server.js
 
 # Jupyter:
-source activate test_env
-jupyter notebook --port=8888
+source activate test_env && jupyter notebook --port=8888
 ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
 
 # Dash:
@@ -28,7 +27,7 @@ nohup node ui-server.js > output-node_react_ui.txt & disown
 ssh -N -L localhost:3000:localhost:3000 janeadams@hydra.uvm.edu
 
 # API:
-nohup node server.js > output-node.txt & disown
+nohup node server.js > output-api.txt & disown
 ssh -N -L localhost:3001:localhost:3001 janeadams@hydra.uvm.edu
 
 
@@ -69,3 +68,10 @@ node semiotic-test-server.js
 # Generate wordlist(s):
 source activate test_env
 nohup python3 wordlist_generator.py > output-wordlist.txt & disown
+
+
+# Copy .env file securely to local machine:
+scp janeadams@hydra.uvm.edu:.env /Users/janeadmin/Documents/onegram
+
+# Run webpack to convert .jsx to js
+yarn run build
