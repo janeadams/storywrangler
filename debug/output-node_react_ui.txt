@@ -1,0 +1,15 @@
+/home/janeadams/ui-server.js:87
+res.send(<XYFrame {frameProps}/>)
+         ^
+
+SyntaxError: Unexpected token <
+    at new Script (vm.js:85:7)
+    at createScript (vm.js:266:10)
+    at Object.runInThisContext (vm.js:314:10)
+    at Module._compile (internal/modules/cjs/loader.js:698:28)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:749:10)
+    at Module.load (internal/modules/cjs/loader.js:630:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:570:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:562:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:801:12)
+    at internal/main/run_main_module.js:21:11
