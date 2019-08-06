@@ -5,6 +5,17 @@
                 "transform": "@babel/plugin-transform-react-jsx semiotic/xyframe.js"
         },
         "dependencies": {
+                "connect": "^3.7.0",
+                "cors": "^2.8.5",
+                "dotenv": "^8.0.0",
+                "express": "^4.17.1",
+                "mongoose": "^5.6.1",
+                "react": "^16.8.6",
+                "react-dom": "^16.8.6",
+                "serve-static": "^1.14.1"
+        },
+        "devDependencies": {
+                "babel-loader": "^8.0.6",
                 "@babel/cli": "^7.5.0",
                 "@babel/core": "^7.5.4",
                 "@babel/parser": "^7.5.0",
@@ -15,26 +26,12 @@
                 "@babel/preset-react": "^7.0.0",
                 "@babel/register": "^7.4.4",
                 "babel-plugin-react-require": "^3.1.1",
-                "commonjs": "^0.0.1",
-                "connect": "^3.7.0",
-                "core-js": "^3",
-                "cors": "^2.8.5",
-                "dotenv": "^8.0.0",
-                "express": "^4.17.1",
-                "mongoose": "^5.6.1",
-                "prop-types": "^15.7.2",
-                "react": "^16.8.6",
-                "react-dom": "^16.8.6",
-                "semiotic": "^1.19.11",
-                "serve-static": "^1.14.1",
-                "webpack": "^4.35.3"
-        },
-        "devDependencies": {
-                "babel-loader": "^8.0.6",
                 "css-loader": "^3.0.0",
                 "node-sass": "^4.12.0",
                 "sass-loader": "^7.1.0",
                 "style-loader": "^0.23.1",
-                "webpack-cli": "^3.3.5"
+                "webpack-cli": "^3.3.5",
+                "prop-types": "^15.7.2",
+                "webpack": "^4.35.3"
         }
 }
