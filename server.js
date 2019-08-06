@@ -50,7 +50,7 @@ app.get('/onegrams/:word', function (req, res, next) {
 
 var port = process.env.PORT || 3001;        // set our port
 
-var Onegram = require('./app/models/onegram');
+var Onegram = require('./api/models/onegram');
 
 // ROUTES FOR OUR API
 // =============================================================================

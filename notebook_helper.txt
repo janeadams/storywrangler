@@ -13,6 +13,7 @@ ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
 rsub ui-server.js
 rsub client/src/App.js
 rsub client/src/App.js
+rsub package.json
 
 # Jupyter:
 source activate test_env && jupyter notebook --port=8888
