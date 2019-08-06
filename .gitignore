@@ -2,3 +2,5 @@
 output/
 .passwords/
 node_modules/
+archive/
+.env
