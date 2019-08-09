@@ -1,0 +1,4 @@
+Imported environment variables
+Connected to database
+Magic happens on port 3001
+Something is happening.
