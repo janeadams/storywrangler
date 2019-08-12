@@ -1,0 +1,42 @@
+p.onclick = function() {this.remove();}
+
+
+
+            d3.select("body").select("ul").select("li").attr("onclick", function(){this.remove()})
+
+
+
+
+            document.getElementById("queryList").getElementsByTagName("li").onclick = function(){this.parentNode.removeChild(this);};
+
+
+
+
+            for(i=0; i<queries.length; i++){
+            	console.log(queries[i]);
+				document.getElementById(queries[i]);
+            }
+
+
+            function removeItself(elem){
+            	elem.parentNode.removeChild(elem);
+            }
+
+
+
+function arrayRemove(arr, value) {
+
+   return arr.filter(function(ele){
+       return ele != value;
+   });
+
+}
+queries=removeQuery(queries[i]);
+
+function removeQuery(value) {
+
+   return queries.filter(function(ele){
+       return ele != value;
+   });
+
+}

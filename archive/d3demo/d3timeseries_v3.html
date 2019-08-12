@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+body { font: 12px Arial;}
+
+path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+</style>
+<body>
+
+<!-- load the d3.js library -->    
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-time.v1.min.js"></script>
+<script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+
+<script>
+// Many thanks to Mike Bostock: http://bl.ocks.org/d3noob/b3ff6ae1c120eea654b5
+
+// Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    width = 600 - margin.left - margin.right,
+    height = 270 - margin.top - margin.bottom;
+
+// Parse the date / time
+var parseDate = d3.time.format("%d-%b-%y").parse;
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(5);
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(5);
+
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.rank); });
+    
+// Adds the svg canvas
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+var datesMeasured=[];
+var ranksMeasured=[];
+
+// Get the data
+d3.json("http://hydra.uvm.edu:3001/api/onegrams/christmas", function(error, data) {
+    data.forEach(function(d) {
+        //var parseTime = d3.timeParse("%Y-%m-%d");
+        //d.date = parseTime(d.time.substr(0,10));
+        d.date = d.time.substr(0,10);
+        datesMeasured.push(d.date);
+        ranksMeasured.push(d.rank);
+    });
+
+    // change dates to milliseconds
+datesMeasured.forEach(function(part, index, theArray) {
+  theArray[index] = d3.time.format("%Y-%m-%d").parse(part).getTime();
+});
+
+console.log("datesMeasured = ",datesMeasured);
+
+    var dateArray = d3.time.scale().domain(d3.extent(datesMeasured)).ticks(d3.time.days, 1);
+
+    console.log("ranksMeasured = ",ranksMeasured);
+    console.log('datesMeasured.length = ',datesMeasured.length);
+    console.log('dateArray.length = ',dateArray.length);
+    console.log('There are ',dateArray.length-datesMeasured.length,' dates missing from the range');
+
+    // check if there is data for each month in monthArray, if so append count, otherwise append null
+console.log('dateArray =',dateArray);
+console.log('dateArray[4] =',dateArray[4]);
+console.log('dateArray[4].getTime() =',dateArray[4].getTime());
+console.log('datesMeasured.indexOf(dateArray[4].getTime()) =',datesMeasured.indexOf(dateArray[4].getTime()));
+
+var dataset = [];
+for(var i=0; i<dateArray.length; i++){
+
+    var n = datesMeasured.indexOf(dateArray[i].getTime());
+    if (n>-1) {
+        var rank = ranksMeasured[n];
+    } else {
+        var rank = null;
+    }
+    dataset.push({rank: rank, date: dateArray[i]});
+}
+
+// a dataset without the null values is also needed to draw the missing data lines/areas
+var dataset_no_null = dataset.filter(function(d) { return d.count !== null; });
+
+console.log(dataset[2]);
+
+// a dataset without the null values is also needed to draw the missing data lines/areas
+var dataset_no_null = dataset.filter(function(d) { return d.count !== null; });
+
+    // Scale the range of the data
+    x.domain(d3.extent(dataset, function(d) { return d.date; }));
+    y.domain([0, d3.max(dataset, function(d) { return d.rank; })]);
+
+    // Add the valueline path.
+    svg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(dataset));
+
+    // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    // Add the Y Axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+});
+
+</script>
+</body>
