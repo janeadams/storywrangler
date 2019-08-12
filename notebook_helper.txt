@@ -11,8 +11,8 @@ ssh janeadams@hydra.uvm.edu
 # Sublime Editor:
 ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
 rsub ui-server.js
-rsub client/src/App.js
-rsub client/src/App.js
+rsub ui/App.js
+rsub ui/components/linechart.jsx
 rsub package.json
 
 # Jupyter:
