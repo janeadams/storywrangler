@@ -10,7 +10,7 @@
 
 <body>
     <h2 id="data title">Test</h2>
-    <form autocomplete="off" name="queryForm" id="queryForm" onSubmit="return inputClick()">
+    <form autocomplete="off" id="queryForm" onSubmit="return inputClick()">
         <div class="autocomplete" style="width:300px;">
             <input name="query" type="text" id="queryInput" placeholder="Enter a single word, hashtag, or handle">
             <input type="submit" value="Display">
@@ -18,16 +18,13 @@
     </form>
     <ul id="queryList"></ul>
     <div id="timeseries"></div>
-    <script type="text/javascript">
-    var queries = []
-    var datsets = []
-    </script>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script type='text/javascript' src='scripts/main.js'></script>
-    <script type='text/javascript' src="scripts/query.js"></script>
-    <script type='text/javascript' src="scripts/timeseries.js"></script>
     <script type='text/javascript' src="scripts/autocomplete.js"></script>
+    <script type='text/javascript' src="scripts/query.js"></script>
+    <script type='text/javascript' src="scripts/load-data.js"></script>
+    <!--<script type='text/javascript' src="scripts/timeseries.js"></script>-->
 </body>
 
 </html>
