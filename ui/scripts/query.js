@@ -1,5 +1,7 @@
 // A list of word strings
 var queries = []
+// Create an array of data objects
+var querydata = []
 
 // When the form is submitted...
 function inputClick(event) {
@@ -15,6 +17,9 @@ function inputClick(event) {
 // When a word is submitted via inputClick...
 function addQuery(val, err) {
     try {
+        // Add the word to the list of queries
+        queries.push(val);
+        console.log("Added " + val + " to query list [" + queries + "]; query list length = " + queries.length);
         // Add the word as a list item so the user knows it's been added and can delete later
         d3.select("body").select("ul").append("li");
         // Fill that list item with the text of the word
@@ -29,9 +34,6 @@ function addQuery(val, err) {
                 this.remove()
             })
         }
-        // Add the word to the list of queries
-        queries.push(val);
-        console.log("Added " + val + " to query list [" + queries + "]");
         // Add the data to the list of query data objects
         loadData(val);
 
@@ -49,5 +51,15 @@ function removeQuery(value) {
         return ele != value
     })
     console.log("removed ", value, " from query list")
-    console.log("queries = [" + queries + "]  |  query.length = " + queries.length)
+    console.log("queries.length = " + queries.length)
+    querydata = querydata.filter(function(ele) {
+        return ele.word != value
+    })
+    console.log("removed ", value, " from data array")
+    console.log("querydata.length = " + querydata.length)
+    for (var i = 0; i < querydata.length; i++) {
+        var currentquery = querydata[i]
+        console.log(currentquery)
+        console.log("i = " + i + " word = " + currentquery.word)
+    }
 }
