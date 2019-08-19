@@ -11,5 +11,6 @@ function loadData(word) {
     } catch (e) {
         // Error handling
         console.log(e);
+        alert("Couldn't find data for " + word + "!")
     }
 }

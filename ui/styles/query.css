@@ -14,6 +14,24 @@
     color: darkred;
 }
 
+#controls {
+    width: 80%;
+    margin: 20px 5%;
+}
+
+#controls ul {
+    display: block;
+    width: 100%;
+}
+
+#controls li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 5px;
+    float: left;
+    font-size: 0.8em;
+}
+
 
 .autocomplete {
     position: relative;
@@ -29,13 +47,24 @@ input {
 
 input[type=text] {
     background-color: #f1f1f1;
-    width: 100%;
+    width: 65%;
+    float: left;
 }
 
 input[type=submit] {
-    background-color: DodgerBlue;
+    background-color: #00B6CF;
+    /*border: 2px solid #0681A2;*/
     color: #fff;
     cursor: pointer;
+    width: 30%;
+    min-width: auto;
+    float: right;
+}
+
+@media screen and (max-width: 600px) {
+    input {
+        width: 100%;
+    }
 }
 
 .autocomplete-items {

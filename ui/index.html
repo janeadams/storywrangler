@@ -9,18 +9,76 @@
 </head>
 
 <body>
-    <h2 id="data title">Test</h2>
-    <form autocomplete="off" id="queryForm" onSubmit="return inputClick()">
-        <div class="autocomplete" style="width:300px;">
-            <input name="query" type="text" id="queryInput" placeholder="Enter a single word, hashtag, or handle">
-            <input type="submit" value="Display">
-        </div>
-    </form>
-    <ul id="queryList"></ul>
-    <div id="timeseries"></div>
+    <header>
+        <img id="logo" src="img/storywrangler_large.svg" alt="Story Wrangler: stories from the Twitterverse. From the University of Vermont Complex Systems Center"></img>
+    </header>
+    <main>
+        <!-- Search bar and filters -->
+        <section id="controls">
+            <!-- Search bar -->
+            <form autocomplete="off" id="queryForm" onSubmit="return inputClick()">
+                <div class="autocomplete">
+                    <input name="query" type="text" id="queryInput" placeholder="Enter a single word, hashtag, or handle">
+                    <input type="submit" value="What's the story?">
+                </div>
+            </form>
+            <ul id="queryList"></ul>
+            <!-- Filters -->
+            <form id="filterForm" onSubmit="return filterClick()">
+                <section>
+                    <h4>Time</h4>
+                    <ul>
+                        <li><input type="radio" name="range" value="All" checked="checked">All time</li>
+                        <li><input type="radio" name="range" value="Year">Past year</li>
+                        <li><input type="radio" name="range" value="Month">Past month</li>
+                        <li><input type="radio" name="range" value="Week">Past week</li>
+                    </ul>
+                </section>
+                <section>
+                    <h4>Metric</h4>
+                    <ul>
+                        <li><input type="radio" name="metric" value="Rank" checked="checked">Rank</li>
+                        <li><input type="radio" name="metric" value="Frequency">Frequency</li>
+                        <li><input type="radio" name="metric" value="Count">Raw Count</li>
+                    </ul>
+                </section>
+                <section>
+                    <h4>Options</h4>
+                    <ul>
+                        <li><input type="checkbox" name="options" value="CaseSensitive" checked="checked">Case sensitive</li>
+                        <li><input type="checkbox" name="options" value="Log" checked="checked">Logarithmic scale</li>
+                        <li><input type="checkbox" name="options" value="Details" checked="checked">Show details</li>
+                    </ul>
+                </section>
+                <input type="submit" value="Update">
+            </form>
+        </section>
+        <!-- Data visualization area -->
+        <section id="dataviz">
+            <div id="timeseries"></div>
+            <div id="brush"></div>
+        </section>
+    </main>
+    <footer>
+        <p>With help from:</p>
+        <img id="mm-coe" src="img/footer/mm-coe.svg" alt="Mass Mutual Center of Excellence in Complex Systems and Data Science">
+        <img id="uvm-cems" src="img/footer/uvm-cems.svg" alt="University of Vermont College of Engineering and Mathematical Sciences">
+        <img id="csc" src="img/footer/csc.svg" alt="The Vermont Complex Systems Center">
+        <img id="storylab" src="img/footer/storylab.svg" alt="Computational Story Lab">
+    </footer>
+    <script type='text/javascript'>
+    // A list of word strings
+    var queries = []
+    // An array of data objects
+    var querydata = []
+    // An array containing suggested searches:
+    var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
+    // A list of our color variables and hex values for (fill, stroke)
+    var colors = []
+    </script>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
-    <script type='text/javascript' src='scripts/main.js'></script>
+    <script type='text/javascript' src='scripts/color-scheme.js'></script>
     <script type='text/javascript' src="scripts/autocomplete.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>

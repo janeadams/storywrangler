@@ -1,5 +1,44 @@
 html,
 body,
-p {
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
     font-family: sans-serif;
+    color: #999;
+}
+
+footer {
+    border-top: 10px solid #0681A2;
+}
+
+footer img {
+    height: 100px;
+    width: auto;
+    max-width: 100%;
+    float: left;
+    position: inline-block;
+    padding: 2% 10%;
+}
+
+@media screen and (max-width: 600px) {
+    footer img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+}
+
+/* Filter style */
+#filterForm {
+    height: auto;
+    width: 100%;
+}
+
+#filterForm section {
+    height: 100%;
+    display: inline-block;
+    float: left;
 }
