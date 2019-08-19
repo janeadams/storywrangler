@@ -7,3 +7,134 @@ Debugger PIN: 917-544-035
  * Debug mode: on
 Running on http://0.0.0.0:8050/
 Debugger PIN: 079-117-511
+updating graph...
+None
+exception raised!
+updating graph...
+test
+['test']
+test
+updating graph...
+None
+exception raised!
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+"tired"
+['"tired"']
+"tired"
+No timeseries found for "tired"
+exception raised!
+updating graph...
+"tired"
+['"tired"']
+"tired"
+No timeseries found for "tired"
+exception raised!
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+None
+exception raised!
+updating graph...
+None
+exception raised!
+updating graph...
+python
+['python']
+python
+updating graph...
+javascript
+['javascript']
+javascript
+updating graph...
+None
+exception raised!
+updating graph...
+yeet
+['yeet']
+yeet
+updating graph...
+instagram
+['instagram']
+instagram
+updating graph...
+None
+exception raised!
+updating graph...
+@bts_twt
+['@bts_twt']
+@bts_twt
+updating graph...
+@bts_twt,god
+['@bts_twt', 'god']
+@bts_twt
+god
+updating graph...
+None
+exception raised!
+updating graph...
+None
+exception raised!
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+None
+exception raised!
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+None
+exception raised!
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+tired
+['tired']
+tired
+updating graph...
+None
+exception raised!
+updating graph...
+#trumpbodycount,#clintonbodycount
+['#trumpbodycount', '#clintonbodycount']
+#trumpbodycount
+#clintonbodycount

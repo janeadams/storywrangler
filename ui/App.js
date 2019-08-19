@@ -1,41 +1,62 @@
 import React, { Component } from "react";
-import * from d3;
-import LineChart from "components/linechart";
-import cors;
-
-const API = 'http://dev.universalities.com/onegrams/json_from_api/';
-const DEFAULT_QUERY = 'christmas';
+import "./App.css";
+import BarChart from "./visualizations/BarChart";
+import Chart from "./visualizations/Chart";
 
 class App extends Component {
+  state = {
+    ranks: {},
+    storyon: "halloween" // city whose temperatures to show
+  };
 
-// Enable cross-origin request service
-var cors = require('cors');
+  componentDidMount() {
+    Promise.all([
+      fetch(`http://dev.universalities.com/onegrams/json_from_api/halloween.json`),
+      fetch(`http://dev.universalities.com/onegrams/json_from_api/superbowl.json`)
+    ])
+      .then(responses => Promise.all(responses.map(resp => resp.json())))
+      .then(([halloween, superbowl]) => {
+        halloween.forEach(day => (day.date = new Date(day.date)));
+        superbowl.forEach(day => (day.date = new Date(day.date)));
 
-constructor(props) {
-    super(props);
-
-    this.state = {
-      count: [],
-    };
+        this.setState({ ranks: { halloween, superbowl } });
+      });
   }
-    
-componentDidMount() {
-    fetch(API + DEFAULT_QUERY + ".json")
-      .then(response => response.json())
-      .then(data => this.setState({ times: data.times }));
-  }
-    
+
+  updateStoryon = e => {
+    this.setState({ storyon: e.target.value });
+  };
+
   render() {
-    const { times } = this.state;
+    const data = this.state.ranks[this.state.storyon];
+    console.log(data);
 
     return (
-      <ul>
-        {times.map(time =>
-          <li>
-            <p>{time}</p>
-          </li>
-        )}
-      </ul>
-    )
-    }
+      <div className="App">
+        <h1>
+          Ranks for
+          <select name="storyon" onChange={this.updateStoryon}>
+            {[
+              { label: "Halloween", value: "halloween" },
+              { label: "Superbowl", value: "superbowl" },
+              { label: "Christmas", value: "christmas" },
+              { label: "Easter", value: "easter" }
+            ].map(option => {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              );
+            })}
+          </select>
+        </h1>
+        <p>
+        </p>
+        <BarChart data={data} />
+        <Chart data={data} />
+      </div>
+    );
+  }
 }
+
+export default App;
