@@ -24,30 +24,30 @@
             </form>
             <ul id="queryList"></ul>
             <!-- Filters -->
-            <form id="filterForm" onSubmit="return filterClick()">
+            <form id="filterForm">
                 <section>
                     <h4>Time</h4>
                     <ul>
-                        <li><input type="radio" name="range" value="all" checked="checked" onChange="this.form.submit()">All time</li>
-                        <li><input type="radio" name="range" value="year" onChange="this.form.submit()">Past year</li>
-                        <li><input type="radio" name="range" value="month" onChange="this.form.submit()">Past month</li>
-                        <li><input type="radio" name="range" value="week" onChange="this.form.submit()">Past week</li>
+                        <li><input type="radio" name="range" value="all">All time</li>
+                        <li><input type="radio" name="range" value="year">Past year</li>
+                        <li><input type="radio" name="range" value="month">Past month</li>
+                        <li><input type="radio" name="range" value="week">Past week</li>
                     </ul>
                 </section>
                 <section>
                     <h4>Metric</h4>
                     <ul>
-                        <li><input type="radio" name="metric" value="rank" checked="checked" onChange="this.form.submit()">Rank</li>
-                        <li><input type="radio" name="metric" value="frequency" onChange="this.form.submit()">Frequency</li>
-                        <li><input type="radio" name="metric" value="count" onChange="this.form.submit()">Raw Count</li>
+                        <li><input type="radio" name="metric" value="rank">Rank</li>
+                        <li><input type="radio" name="metric" value="frequency">Frequency</li>
+                        <li><input type="radio" name="metric" value="count">Raw Count</li>
                     </ul>
                 </section>
                 <section>
                     <h4>Options</h4>
                     <ul>
-                        <li><input type="checkbox" name="options" value="case-sensitive" checked="checked" onChange="this.form.submit()">Case sensitive</li>
-                        <li><input type="checkbox" name="options" value="log" checked="checked" onChange="this.form.submit()">Logarithmic scale</li>
-                        <li><input type="checkbox" name="options" value="details" checked="checked" onChange="this.form.submit()">Show details</li>
+                        <li><input type="checkbox" name="options" value="case-sensitive">Case sensitive</li>
+                        <li><input type="checkbox" name="options" value="log">Logarithmic scale</li>
+                        <li><input type="checkbox" name="options" value="details">Show details</li>
                     </ul>
                 </section>
             </form>
@@ -85,6 +85,43 @@
     // Simple function for finding the fill, stroke, or tint by the color group name
     function colorMe(name, type) { return colors[type][colors["names"].indexOf(name)] }
     //console.log(colorMe("sky", "fill"))
+    //
+    // Set default options
+    const defaultparams = { "range": "year", "metric": "rank", "options": ["case-sensitive", "log", "details"] }
+    var range = defaultparams["range"]
+    var metric = defaultparams["metric"]
+    var options = defaultparams["options"]
+    var params = [range, metric, options]
+
+    // Get the variables from the URL
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+            vars[key] = value;
+        });
+        console.log(vars)
+        return vars;
+    }
+    // Get the parameters from the URL
+    function getUrlParam(parameter, defaultvalue) {
+        // Set to the default values from the default object
+        var urlparameter = defaultvalue;
+        // If the parameter is in the URL
+        if (window.location.href.indexOf(parameter) > -1) {
+            // set the variable to the value in the url
+            urlparameter = getUrlVars()[parameter];
+        }
+        console.log("parameter = ", parameter, "urlparameter", urlparameter)
+        return urlparameter;
+    }
+
+    // For every key in the default parameter object, see if it's in the URL, and if not, fill with the default
+    for (var entry in Object.entries(defaultparams)) {
+        getUrlParam(entry[0], entry[1])
+        //console.log('getting url param for', entry[0], 'with defaultvalue', entry[1])
+    }
+
+    //console.log(Object.entries(defaultparams))
     </script>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
