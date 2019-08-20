@@ -15,13 +15,23 @@ body {
     margin: 0;
 }
 
+ul {
+    padding: 0;
+    padding-inline-start: 0 !important;
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+    margin-inline-start: 0 !important;
+    margin-inline-end: 0 !important;
+}
+
 header {
     width: 100%;
 }
 
 #logo {
-    width: 100%;
-    max-width: 600px;
+    width: 600px;
+    display: block;
+    transition: width 0.5s;
 }
 
 main {
@@ -30,59 +40,6 @@ main {
     height: auto;
     min-height: 100vh;
     margin: 0 auto;
-}
-
-#controls {
-    height: auto;
-    width: 100%;
-}
-
-#filterForm {
-    height: auto;
-    width: 100%;
-    display: inline-block;
-}
-
-#filterForm p,
-h4,
-ul,
-li {
-    color: #8BC862;
-}
-
-#filterForm h4 {
-    padding: 2px 0;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-}
-
-#filterForm section {
-    height: 100%;
-    display: inline-block;
-    float: left;
-    background-color: #EBF7D0;
-    border-radius: 10px;
-    margin: 5px;
-    padding: 10px;
-}
-
-#filterForm ul {
-    padding: 0;
-    padding-inline-start: 0;
-    margin-block-start: 0;
-    margin-block-end: 0;
-}
-
-#filterForm input[type=submit] {
-    height: 100%;
-    background-color: #8BC862;
-    color: #FFF;
-    font-size: 1.2em;
-    width: auto;
-    padding: 20px;
-    float: left;
 }
 
 footer {
@@ -108,9 +65,18 @@ footer img {
     float: left;
     display: inline-block;
     padding: 10px 20px;
+    transition: width 0.5s;
 }
 
 @media screen and (max-width: 600px) {
+    header img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        max-width: 400px;
+    }
+
+
     footer img {
         margin-left: auto;
         margin-right: auto;

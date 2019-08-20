@@ -1,5 +1,5 @@
 #queryList {
-    display: block;
+    display: inline-block;
     width: 100%;
     padding: 5px;
 }
@@ -25,7 +25,7 @@
 
 #controls {
     width: 80%;
-    margin: 20px 5%;
+    margin: 20px auto;
 }
 
 #controls ul {
@@ -52,6 +52,9 @@
     border: 1px solid transparent;
     padding: 10px;
     font-size: 16px;
+    display: inline-block;
+    transition: width 0.5s;
+    margin: 5px;
 }
 
 #queryForm input[type=text] {
@@ -67,12 +70,6 @@
     width: 30%;
     min-width: auto;
     float: right;
-}
-
-@media screen and (max-width: 600px) {
-    input {
-        width: 100%;
-    }
 }
 
 .autocomplete-items {
@@ -102,4 +99,63 @@
 .autocomplete-active {
     background-color: DodgerBlue !important;
     color: #ffffff;
+}
+
+
+
+#filterForm {
+    height: auto;
+    width: 100%;
+    display: inline-block;
+    padding: 10px 0;
+}
+
+#filterForm p,
+h4,
+ul,
+li {
+    color: #8BC862;
+}
+
+#filterForm h4 {
+    padding: 2px 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
+#filterForm section {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    background-color: #EBF7D0;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 10px;
+    transition: width 0.5s;
+}
+
+#filterForm input[type=submit] {
+    height: 100%;
+    background-color: #8BC862;
+    color: #FFF;
+    font-size: 1.2em;
+    width: auto;
+    padding: 20px;
+    float: left;
+}
+
+@media screen and (max-width: 1000px) {
+
+    #queryForm input[type=text],
+    #queryForm input[type=submit],
+    #filterForm section {
+        width: 90%;
+        margin: 10px auto;
+        float: none;
+        box-sizing: unset;
+    }
 }

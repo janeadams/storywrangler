@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf=8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
     <link rel="stylesheet" type="text/css" href="styles/query.css">
     <link rel="stylesheet" type="text/css" href="styles/chart.css">
@@ -15,6 +16,8 @@
     <main>
         <!-- Search bar and filters -->
         <section id="controls">
+            <!-- Queries inputted -->
+            <ul id="queryList"></ul>
             <!-- Search bar -->
             <form autocomplete="off" id="queryForm" onSubmit="return inputClick()">
                 <div class="autocomplete">
@@ -22,7 +25,6 @@
                     <input type="submit" value="What's the story?">
                 </div>
             </form>
-            <ul id="queryList"></ul>
             <!-- Filters -->
             <form id="filterForm">
                 <section>
