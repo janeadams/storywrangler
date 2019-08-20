@@ -17,14 +17,14 @@ function addQuery(val, err) {
             queries.push(val);
             console.log("Added " + val + " to query list [" + queries + "]; query list length = " + queries.length);
             // Add the word as a list item so the user knows it's been added and can delete later
-            d3.select("body").select("ul").append("li");
+            d3.select("#controls").select("#queryList").append("li");
             // Fill that list item with the text of the word
             var p = d3.select("body").selectAll("li")
                 .data(queries)
                 .text(function(d, i) { return d; }).attr("id", function(d, i) { return d; });
             // Add an event listener to that list item, so we can delete it later if we need
-            for (var i = 0; i < queries.length; i++) {
-                document.getElementById(queries[i]).addEventListener("click", function(e, i) {
+            for (var query in queries) {
+                document.getElementById(query).addEventListener("click", function(e, i) {
                     // When the list item is clicked, remove the word from the query list and delete the data
                     removeQuery(this.id)
                     // Delete the li for the deleted word

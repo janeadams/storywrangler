@@ -28,43 +28,45 @@
                 <section>
                     <h4>Time</h4>
                     <ul>
-                        <li><input type="radio" name="range" value="All" checked="checked">All time</li>
-                        <li><input type="radio" name="range" value="Year">Past year</li>
-                        <li><input type="radio" name="range" value="Month">Past month</li>
-                        <li><input type="radio" name="range" value="Week">Past week</li>
+                        <li><input type="radio" name="range" value="all" checked="checked" onChange="this.form.submit()">All time</li>
+                        <li><input type="radio" name="range" value="year" onChange="this.form.submit()">Past year</li>
+                        <li><input type="radio" name="range" value="month" onChange="this.form.submit()">Past month</li>
+                        <li><input type="radio" name="range" value="week" onChange="this.form.submit()">Past week</li>
                     </ul>
                 </section>
                 <section>
                     <h4>Metric</h4>
                     <ul>
-                        <li><input type="radio" name="metric" value="Rank" checked="checked">Rank</li>
-                        <li><input type="radio" name="metric" value="Frequency">Frequency</li>
-                        <li><input type="radio" name="metric" value="Count">Raw Count</li>
+                        <li><input type="radio" name="metric" value="rank" checked="checked" onChange="this.form.submit()">Rank</li>
+                        <li><input type="radio" name="metric" value="frequency" onChange="this.form.submit()">Frequency</li>
+                        <li><input type="radio" name="metric" value="count" onChange="this.form.submit()">Raw Count</li>
                     </ul>
                 </section>
                 <section>
                     <h4>Options</h4>
                     <ul>
-                        <li><input type="checkbox" name="options" value="CaseSensitive" checked="checked">Case sensitive</li>
-                        <li><input type="checkbox" name="options" value="Log" checked="checked">Logarithmic scale</li>
-                        <li><input type="checkbox" name="options" value="Details" checked="checked">Show details</li>
+                        <li><input type="checkbox" name="options" value="case-sensitive" checked="checked" onChange="this.form.submit()">Case sensitive</li>
+                        <li><input type="checkbox" name="options" value="log" checked="checked" onChange="this.form.submit()">Logarithmic scale</li>
+                        <li><input type="checkbox" name="options" value="details" checked="checked" onChange="this.form.submit()">Show details</li>
                     </ul>
                 </section>
-                <input type="submit" value="Update">
             </form>
         </section>
         <!-- Data visualization area -->
         <section id="dataviz">
-            <div id="timeseries"></div>
+            <div id="timeseries">
+            </div>
             <div id="brush"></div>
         </section>
     </main>
     <footer>
-        <p>With help from:</p>
-        <img id="mm-coe" src="img/footer/mm-coe.svg" alt="Mass Mutual Center of Excellence in Complex Systems and Data Science">
-        <img id="uvm-cems" src="img/footer/uvm-cems.svg" alt="University of Vermont College of Engineering and Mathematical Sciences">
-        <img id="csc" src="img/footer/csc.svg" alt="The Vermont Complex Systems Center">
-        <img id="storylab" src="img/footer/storylab.svg" alt="Computational Story Lab">
+        <section id="thanks">
+            <p>With help from:</p>
+            <a href="http://vermontcomplexsystems.org/partner/MMCOE/"><img id="mm-coe" src="img/footer/mm-coe.svg" alt="Mass Mutual Center of Excellence in Complex Systems and Data Science"></a>
+            <a href="https://www.uvm.edu/cems"><img id="uvm-cems" src="img/footer/uvm-cems.svg" alt="University of Vermont College of Engineering and Mathematical Sciences"></a>
+            <a href="http://vermontcomplexsystems.org/"><img id="csc" src="img/footer/csc.svg" alt="The Vermont Complex Systems Center"></a>
+            <a href="https://twitter.com/compstorylab"><img id="storylab" src="img/footer/storylab.svg" alt="Computational Story Lab"></a>
+        </section>
     </footer>
     <script type='text/javascript'>
     // A list of word strings
@@ -73,12 +75,20 @@
     var querydata = []
     // An array containing suggested searches:
     var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
-    // A list of our color variables and hex values for (fill, stroke)
-    var colors = []
+    // A list of our color names and hex values fortint, fill, & stroke
+    var colors = {
+        'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
+        'fill': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
+        'stroke': ["#0681A2", "#649946", "#F89921", "#8D51A0", "#A01D21", "#252E6C", "#197352", "#931E59", "#562F2C", "#8B8633", "#A23522"],
+        'tint': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
+    }
+    // Simple function for finding the fill, stroke, or tint by the color group name
+    function colorMe(name, type) { return colors[type][colors["names"].indexOf(name)] }
+    //console.log(colorMe("sky", "fill"))
     </script>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
-    <script type='text/javascript' src='scripts/color-scheme.js'></script>
+    <script type='text/javascript' src="scripts/urlparams.js"></script>
     <script type='text/javascript' src="scripts/autocomplete.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>

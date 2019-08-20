@@ -1,17 +1,26 @@
+#queryList {
+    display: block;
+    width: 100%;
+    padding: 5px;
+}
+
 #queryList li {
     display: inline-block;
     padding: 7px 10px;
     margin: 3px;
-    background-color: #CCC;
-    border: 1px solid #999;
+    color: #00B6CF;
+    background-color: #B5E2EA;
+    border: 1px solid #0681A2;
     border-radius: 2px;
+    font-size: 1.2em;
 }
 
 #queryList li:hover {
-    background-color: pink;
-    border: 2px dashed red;
+    background-color: #FAC1BE;
+    border: 2px dashed #EF3D25;
     text-decoration: line-through;
-    color: darkred;
+    color: #EF3D25;
+    cursor: pointer;
 }
 
 #controls {
@@ -36,23 +45,23 @@
 .autocomplete {
     position: relative;
     display: inline-block;
+    width: 100%;
 }
 
-input {
+#queryForm input {
     border: 1px solid transparent;
-    background-color: #f1f1f1;
     padding: 10px;
     font-size: 16px;
 }
 
-input[type=text] {
-    background-color: #f1f1f1;
+#queryForm input[type=text] {
+    background-color: lightgray;
     width: 65%;
     float: left;
 }
 
-input[type=submit] {
-    background-color: #00B6CF;
+#queryForm input[type=submit] {
+    background-color: #F89921;
     /*border: 2px solid #0681A2;*/
     color: #fff;
     cursor: pointer;

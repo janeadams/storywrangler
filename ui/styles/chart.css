@@ -1,0 +1,11 @@
+#dataviz {
+    width: 100%;
+    padding: 20px 40px;
+    background-color: lightgreen;
+    display: inline-block;
+}
+
+#timeseries {
+    width: 100%;
+    background-color: lightgray;
+}
