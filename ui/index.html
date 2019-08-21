@@ -89,11 +89,11 @@
     //console.log(colorMe("sky", "fill"))
     //
     // Set default options
-    const defaultparams = { "range": "year", "metric": "rank", "options": ["case-sensitive", "log", "details"] }
-    var range = defaultparams["range"]
-    var metric = defaultparams["metric"]
-    var options = defaultparams["options"]
-    var params = [range, metric, options]
+    // range: ["all","year","month","week"], default: "year"
+    // metric: ["ranks","counts","freq"], default: "ranks"
+    // options: ["case-sensitive","log","details"], default: all
+    const defaultparams = { "range": "year", "metric": "ranks", "options": ["case-sensitive", "log", "details"] }
+    var params = { "range": defaultparams["range"], "metric": defaultparams["metric"], "options": defaultparams["options"] }
 
     // Get the variables from the URL
     function getUrlVars() {
@@ -106,6 +106,7 @@
     }
     // Get the parameters from the URL
     function getUrlParam(parameter, defaultvalue) {
+        console.log("parameter = ", parameter, "defaultparameter", defaultparameter)
         // Set to the default values from the default object
         var urlparameter = defaultvalue;
         // If the parameter is in the URL
@@ -119,19 +120,20 @@
 
     // For every key in the default parameter object, see if it's in the URL, and if not, fill with the default
     for (var entry in Object.entries(defaultparams)) {
-        getUrlParam(entry[0], entry[1])
+        //getUrlParam(entry[0], entry[1])
         //console.log('getting url param for', entry[0], 'with defaultvalue', entry[1])
     }
 
     //console.log(Object.entries(defaultparams))
     </script>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3-time/1.0.8/d3-time.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script type='text/javascript' src="scripts/urlparams.js"></script>
     <script type='text/javascript' src="scripts/autocomplete.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>
-    <!--<script type='text/javascript' src="scripts/timeseries.js"></script>-->
+    <script type='text/javascript' src="scripts/timeseries.js"></script>
 </body>
 
 </html>

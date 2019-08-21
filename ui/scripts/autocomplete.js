@@ -1,5 +1,3 @@
-var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
-
 // Many thanks to W3C for autocomplete functionality; demo here: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete
 
 function autocomplete(inp, arr) {
