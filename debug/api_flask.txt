@@ -1,0 +1,123 @@
+ * Serving Flask app "api" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://127.0.0.1:3001/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 213-832-148
+127.0.0.1 - - [26/Aug/2019 16:30:03] "GET /api/christmas HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:30:20] "GET /api/jahahahhaa HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:30:30] "GET /api/jahahahhaa?metric=freq HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:30:45] "GET /api/jahahahhaa?metric=freq&metric=counts HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:31:01] "GET /api/jahahahhaa?metric=[freq,counts] HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:31:24] "GET /api/jahahahhaa?metric=[freq,counts]&lang=es HTTP/1.1" 200 -
+ * Detected change in '/home/janeadams/py/api.py', reloading
+query =  christmas  | language =  en  | metric =  ['rank', 'counts', 'freq']
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Found  rank  in list of requested metrics
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  jahahahhaa  | language =  en  | metric =  ['rank', 'counts', 'freq']
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Found  rank  in list of requested metrics
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  jahahahhaa  | language =  en  | metric =  freq
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Testing to see if  counts  is in the list of requested metrics...
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  jahahahhaa  | language =  en  | metric =  freq
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Testing to see if  counts  is in the list of requested metrics...
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  jahahahhaa  | language =  en  | metric =  [freq,counts]
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  jahahahhaa  | language =  en  | metric =  [freq,counts]
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 761-898-197
+127.0.0.1 - - [26/Aug/2019 16:33:17] "GET /api/jahahahhaa?metric=[freq,counts]&lang=es HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:50:16] "GET /api/christmas HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:52:45] "GET /api/christmas?metric=[freq,counts,rank]&lang=%27es%27 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:52:56] "GET /api/autumn?metric=[freq,counts,rank]&lang=%27en%27 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:53:16] "GET /api/autumn?metric=[freq,counts,rank]&lang=en HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:54:10] "GET /api/jhahahahaametric=[freq,counts,rank]&lang=en HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:54:20] "GET /api/jhahahahaa?metric=[freq,counts,rank]&lang=en HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:54:26] "GET /api/hahahahaa?metric=[freq,counts,rank]&lang=en HTTP/1.1" 200 -
+127.0.0.1 - - [26/Aug/2019 16:54:33] "GET /api/hahahahaja?metric=[freq,counts,rank]&lang=en HTTP/1.1" 200 -
+query =  jahahahhaa  | lang =  es  | metric =  [freq,counts]
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  christmas  | lang =  en  | metric =  ['rank', 'counts', 'freq']
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Found  rank  in list of requested metrics
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  christmas  | lang =  'es'  | metric =  [freq,counts,rank]
+connected to mongo client 1grams
+query =  autumn  | lang =  'en'  | metric =  [freq,counts,rank]
+connected to mongo client 1grams
+query =  autumn  | lang =  en  | metric =  [freq,counts,rank]
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Found  rank  in list of requested metrics
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  jhahahahaametric=[freq,counts,rank]&lang=en  | lang =  en  | metric =  ['rank', 'counts', 'freq']
+connected to mongo client 1grams
+query =  jhahahahaa  | lang =  en  | metric =  [freq,counts,rank]
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Found  rank  in list of requested metrics
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  hahahahaa  | lang =  en  | metric =  [freq,counts,rank]
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Found  rank  in list of requested metrics
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
+query =  hahahahaja  | lang =  en  | metric =  [freq,counts,rank]
+connected to mongo client 1grams
+Testing to see if  rank  is in the list of requested metrics...
+Found  rank  in list of requested metrics
+Testing to see if  counts  is in the list of requested metrics...
+Found  counts  in list of requested metrics
+Testing to see if  freq  is in the list of requested metrics...
+Found  freq  in list of requested metrics
