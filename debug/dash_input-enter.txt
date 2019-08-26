@@ -7,3 +7,29 @@ Debugger PIN: 566-756-626
  * Debug mode: on
 Running on http://0.0.0.0:8050/
 Debugger PIN: 817-484-025
+updating graph...
+None
+exception raised!
+updating graph...
+fractals
+['fractals']
+fractals
+updating graph...
+killary
+['killary']
+killary
+updating graph...
+None
+exception raised!
+Running on http://0.0.0.0:8050/
+Debugger PIN: 481-043-487
+updating graph...
+None
+exception raised!
+updating graph...
+one,two,three
+['one', 'two', 'three']
+one
+two
+three
+/home/janeadams/.conda/envs/test_env/bin/python3: can't open file 'py/timeseries_input-enter.py': [Errno 2] No such file or directory

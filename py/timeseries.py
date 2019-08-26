@@ -13,10 +13,10 @@ import os
 password = os.getenv("PASSWORD")
 username = os.getenv("USERNAME")
 client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
-db = client["1-grams"]
+db = client["1grams"]
 def load(word):
     try:
-        df = pd.DataFrame(list(db["tweets"].find({ "word": word})))
+        df = pd.DataFrame(list(db["en"].find({ "word": word})))
         df = df.sort_values(by=['time'])
         df['year'] = [date.year for date in df['time']]
         df['day'] = [date.timetuple().tm_yday for date in df['time']]
@@ -39,10 +39,10 @@ layout = {'yaxis': {'type':'log','autorange':'reversed','fixedrange': 'true'}}
 config = {'scrollZoom': True}
 
 app.layout = html.Div([
-    html.H1('Twitter 1-grams'),
+    html.H1('Twitter 1-grams - English'),
     html.Div(dcc.Input(id='input-box', type='text')),
     html.Button('Submit', id='button'),
-    html.Div(id='output-container-button', children='Enter a query (or comma-separated queries) and press submit!'),
+    html.Div(id='output-container-button', children='Enter a query (or comma-separated queries) and press submit! Note that loading may take a moment; queries are case-sensitive; n-grams above 1-grams will be separated into a list of onegrams separated by spaces'),
     dcc.Graph(id='my-graph',config=config,figure={'data':data,'layout': layout})
 ])
 

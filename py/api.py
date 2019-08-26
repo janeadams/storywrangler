@@ -1,10 +1,6 @@
 import pandas as pd
 import numpy as np
-import dash
 import flask
-from dash.dependencies import Input, Output
-import dash_core_components as dcc
-import dash_html_components as html
 from pandas_datareader import data as web
 import datetime as dt
 import pymongo
@@ -24,8 +20,9 @@ app.config['JSON_SORT_KEYS'] = False
 def get_data(query):
     if len(query) == 0:
         abort(404)
+    errs=[]
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
-    language = request.args.get('language')
+    language = request.args.get('lang')
     # For now, we're just using english
     if language is None:
         language = 'en'
@@ -33,7 +30,7 @@ def get_data(query):
     metric = request.args.get('metric')
     if metric is None:
         metric = ['rank','counts','freq']
-    print("query = ",query," | language = ",language," | metric = ",metric)
+    print("query = ",query," | lang = ",language," | metric = ",metric)
     try:
         # Connect to mongo using the credentials from .env file
         client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
@@ -45,55 +42,71 @@ def get_data(query):
         return str("Couldn't connect to the "+language+" "+ngram+" database")
     output=dict()
     output['word']=query
+    output['language']=language
+    def add_err(e,errors):
+        if len(errors) > 0:
+            errs = [x + e for x in errors]
+            print("adding ",x," to errs list")
+            print(errs)
+        else:
+            errs=[e]
     try:
         # Build df
         df = pd.DataFrame(list(db[language].find({"word": query})))
         df = df.dropna(how='all')
-        df = df.sort_values(by=['time'])
-        df['year'] = [date.year for date in df['time']]
-        df['day'] = [date.timetuple().tm_yday for date in df['time']]
-        # Pull out beginning part of date (YY-MM-DD)
-        df['time'] = [str(t)[:10] for t in df['time']]
-        # Convert date to date object
-        df['time'] = [dt.datetime.strptime(t, '%Y-%m-%d').date() for t in df['time']]
-        print(df.columns)
-        print('line 60')
-        print('Initial df.shape = ',df.shape)
-        # Remove dates before 2010
-        df=df[df['time']>=(dt.date(2009,8,1))]
-        print('line 64')
-        print('New df.shape = ',df.shape)
+        try:
+            df = df.sort_values(by=['time'])
+            df['year'] = [date.year for date in df['time']]
+            df['day'] = [date.timetuple().tm_yday for date in df['time']]
+            # Pull out beginning part of date (YY-MM-DD)
+            df['time'] = [str(t)[:10] for t in df['time']]
+            # Convert date to date object
+            df['time'] = [dt.datetime.strptime(t, '%Y-%m-%d').date() for t in df['time']]
+            # Remove dates before 2010
+            df=df[df['time']>=(dt.date(2009,8,1))]
+        except:
+            output['dates']=[]
+            add_err('error gathering dates',errs)
+            pass
         # Calculate min, max, and median rank
         try:
             output['maxrank']=int(min(df['rank'].values))
-            print("output['maxrank'] = ",output['maxrank'])
         except:
-            print('error computing maxrank')
+            output['maxrank']=int(0)
+            add_err('error computing maxrank',errs)
+            pass
         try:
             output['minrank']=int(max(df['rank'].values))
-            print("output['minrank']=",output['minrank'])
         except:
-            print('error computing minrank')
+            output['minrank']=int(0)
+            add_err('error computing minrank',errs)
+            pass
         try:
             output['medianrank']=int(np.round(np.median(df['rank'].values)))
-            print("output['medianrank'] = ",output['medianrank'])
         except:
-            print('error computing medianrank')
+            output['medianrank']=int(0)
+            add_err('error computing medianrank',errs)
+            pass
         # Index df by date
         df.set_index('time',inplace=True)
-        print('Indexed df by date')
+        #print('Indexed df by date')
         # Drop the id field (used for indexing in the database)
         df.drop(columns=["_id"]);
-        print('Dropped the id field (used for indexing in the database)')
+        #print('Dropped the id field (used for indexing in the database)')
         # Sort by date
         df.sort_values(by='time',ascending=True,inplace=True)
-        print('Sorted by date')
+        #print('Sorted by date')
         # Convert time back to a string
         df.index=[t.strftime("%Y-%m-%d") for t in df.index]
-        print('Converted time back to a string')
+        #print('Converted time back to a string')
         # Send dates and metrics as arrays to the output dict
-        output['dates']=df.index.values.tolist()
-        print('Sent dates and metrics as arrays to the output dict')
+        try:
+            output['dates']=df.index.values.tolist()
+        except:
+            output['dates']=[]
+            add_err('error formatting dates',errs)
+            pass
+        #print('Sent dates and metrics as arrays to the output dict')
         # Fill the requested metric values
         for item in ['rank','counts','freq']:
             print('Testing to see if ',item,' is in the list of requested metrics...')
@@ -101,23 +114,17 @@ def get_data(query):
                 print('Found ',item,' in list of requested metrics')
                 try:
                     output[item]=[int(r) for r in df[item].values] # Convert from int64 to Python integers
-                    print('output[',item,'] is an int')
-                    print('output[',item,'] =',output[item][0:5],'...')
                 except:
                     output[item]=[float(f) for f in df[item].values] # Convert from float64 Python float
-                    print('output[',item,'] is a float')
-                    print('output[',item,'] =',output[item][0:5],'...')
-        # Update the error message to 'None'
-        output['error']=None
+                    add_err(str('Warning - output['+item+'] is a float: '+output[item][0:5]+'...'),errs)
     except:
-        output['error']=str("Couldn't find data for "+query+" in the "+language+" "+ngram+" database")
-        output['maxrank']=int(0)
-        output['minrank']=int(0)
-        output['medianrank']=int(0)
-        output['dates']=[]
         for item in ['rank','counts','freq']:
             if item in metric:
                 output[item]=[]
+        add_err(str("Couldn't find data for "+query+" in the "+language+" "+ngram+" database"),errs)
+    if len(errs) > 0:
+        output['error_count']=len(errs)
+        output['errors']=errs
     return jsonify(output)
         
 
