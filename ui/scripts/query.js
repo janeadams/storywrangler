@@ -10,8 +10,6 @@ function inputClick(event) {
             if (queries.length > 10) {
                 dumpFirst()
             }
-            // Add the query to the queries list
-            addQuery(query)
             // Import the data and add to the list of query data objects
             loadData(query)
         }
@@ -23,7 +21,7 @@ function inputClick(event) {
     // Clear the search box
     document.getElementById('queryForm').reset()
     // Draw our timeseries!
-    drawTimeseries()
+    //drawTimeseries()
     // Don't reload the page on submit
     return false;
 }
@@ -56,20 +54,27 @@ function addQuery(val, err) {
 function loadData(word) {
     try {
         // Pull the JSON data
-        d3.json("hydra.uvm.edu:3001/api/" + word).then(function(data, error) {
-            console.log('read');
-            // Parse the dates into d3 date format
-            var parsedDates = data["dates"].map(function(date) { return d3.timeParse(date) })
-            // Set the querydata dates to the parsed dates
-            data["dates"] = parsedDates
-            // Add the JSON data object to the array of query data
-            querydata.push(data);
-            console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
+        var url = "http://hydra.uvm.edu:3001/api/" + word
+        d3.json(url).then(function(data, error) {
+            console.log('read url "' + url + '"')
+            if (data["api_error_count"] > 0) {
+                alert(data["errors"])
+            } else {
+                // Parse the dates into d3 date format
+                var parsedDates = data["dates"].map(function(date) { return d3.timeParse(date) })
+                // Set the querydata dates to the parsed dates
+                data["dates"] = parsedDates
+                // Add the JSON data object to the array of query data
+                querydata.push(data);
+                console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
+                console.log("querydata for " + word + " is: ")
+                console.log(data)
+                addQuery(word)
+            }
         });
     } catch (e) {
         // Error handling
         console.log(e);
-        alert("Couldn't find data for " + word + "!")
     }
 }
 

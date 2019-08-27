@@ -21,7 +21,7 @@
             <!-- Search bar -->
             <form autocomplete="off" id="queryForm" onSubmit="return inputClick()">
                 <div class="autocomplete">
-                    <input name="query" type="text" id="queryInput" placeholder="Enter a single word, hashtag, or handle">
+                    <input name="query" type="text" id="queryInput" placeholder="Enter 1-2 words, hashtags, or handles" data-emoji="true" class="form-control">
                     <input type="submit" value="What's the story?">
                 </div>
             </form>
@@ -71,6 +71,8 @@
         </section>
     </footer>
     <script type='text/javascript'>
+    // Initialize the emoji picker for the search bar
+    window.EmojiPicker.init()
     // A list of word strings
     var queries = []
     // An array of data objects
@@ -133,6 +135,7 @@
     <script type='text/javascript' src="scripts/query.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>
     <script type='text/javascript' src="scripts/timeseries.js"></script>
+    <script type='text/javascript' src="scripts/emojipicker.js"></script>
 </body>
 
 </html>

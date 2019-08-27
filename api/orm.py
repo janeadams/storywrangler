@@ -7,16 +7,31 @@ import datetime
 from dotenv import load_dotenv
 load_dotenv()
 import os
-password = os.getenv("PASSWORD")
-username = os.getenv("USERNAME")
+import time
 from flask import Flask, Response
 from flask import request, abort, jsonify
+
+password = os.getenv("PASSWORD")
+username = os.getenv("USERNAME")
+# Connect to mongo using the credentials from .env file
+client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
 
+def print_info(varlist):
+    l=[]
+    for k,v in varlist.items():
+        l.append(k+" = "+str(v))
+    return print(" | ".join(l))
+
+@app.route('/', methods=['GET'])
+def simple_response():
+    return "Enter a URL containing a 1- or 2-word query</br>in the format <b>/api/</b><em>&lt;query&gt;</em><b>?lang=</b><em>&lt;en,es,ru&gt;</em><b>&metric=[rank,counts,freq]</b></br>e.g. <a href='http://hydra.uvm.edu:3001/api/happy birthday?lang=en&metric=[counts]'>http://hydra.uvm.edu:3001/api/happy birthday?lang=en&metric=[counts]</a></br></br>Note: Emojis are supported! 🐙</br><a href='http://hydra.uvm.edu:3001/api/🐙?metric=[rank]'>http://hydra.uvm.edu:3001/api/🐙?metric=[rank]</a>"
+
 @app.route('/api/<query>', methods=['GET'])
 def get_data(query):
+    start = time.time()
     if len(query) == 0:
         abort(404)
     errs=[]
@@ -30,10 +45,8 @@ def get_data(query):
     if metric is None:
         metric = ['rank','counts','freq']
     ngram=int(query.count(' ')+1)
-    print("query = ",query," | wordcount = ",ngram," | lang = ",language," | metric = ",metric)
+    print_info({"query":query,"wordcount":ngram,"lang":language,"metric":metric})
     try:
-        # Connect to mongo using the credentials from .env file
-        client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
         # Select the location based on the wordcount (1grams, 2grams, 3grams, etc.), by counting spaces
         db = client[str(ngram)+'grams']
         print("Connected to mongo client "+str(ngram)+'grams')
@@ -104,9 +117,9 @@ def get_data(query):
             #print('Sent dates and metrics as arrays to the output dict')
             # Fill the requested metric values
             for item in ['rank','counts','freq']:
-                print('Testing to see if ',item,' is in the list of requested metrics...')
+                #print('Testing to see if ',item,' is in the list of requested metrics...')
                 if item in metric:
-                    print('Found ',item,' in list of requested metrics')
+                    #print('Found ',item,' in list of requested metrics')
                     if item =='counts':
                         output[item]=[int(r) for r in df[item].values] # Convert from int64 to Python integers
                     else:
@@ -118,12 +131,13 @@ def get_data(query):
             if item in metric:
                 output[item]=[]
                 errs.append(str("Couldn't find "+item+"data for '"+query+"' in the "+language+" "+str(ngram)+"grams database"))
+    output['api_error_count']=len(errs)
     if len(errs) > 0:
-        output['error_count']=len(errs)
         output['errors']=errs
+    end = time.time()
+    print("elapsed time: "+str((end - start)*60))
     return jsonify(output)
         
 
 if __name__ == '__main__':
     app.run(debug=True, port='3001')
-
