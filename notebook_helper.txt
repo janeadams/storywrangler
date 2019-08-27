@@ -5,10 +5,8 @@ ssh janeadams@hydra.uvm.edu
 
 # Sublime Editor:
 ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
-rsub ui/ui-server.js
-rsub ui/App.js
-rsub ui/components/linechart.jsx
-rsub package.json
+rsub ui-server.js
+rsub ui/scripts/query.js
 
 # Jupyter:
 source activate test_env && jupyter notebook --port=8888
@@ -27,11 +25,7 @@ http://localhost:3001/api/jaahhaha
 http://localhost:3001/api/autumn?metric=[freq,counts,rank]&lang=en
 
 # USWGI:
-uwsgi --http :3001 --wsgi-file py/api.py
-uwsgi --http :3001 --wsgi-file py/api.py -H ./home/janeadams/.conda/envs/test_env/bin/python3
-uwsgi --http :8050 --wsgi-file py/timeseries.py
-# ...debug:
-uwsgi --http :3001 --wsgi-file py/uwsgi.py
+uwsgi --http :3001 --wsgi-file api/uwsgi.py
 
 # nginx config:
 vim ../../etc/nginx/nginx.conf
