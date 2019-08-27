@@ -1,16 +1,11 @@
-# VACC:
-ssh jadams10@bluemoon-user2.uvm.edu
-# or
-ssh -L 9998:localhost:9998 jadams10@bluemoon-user2.uvm.edu ssh -L 
-
 # Hydra:
 ssh janeadams@hydra.uvm.edu
 # or
-9998:localhost:9998 -N janeadams@hydra.uvm.edu
+8888:localhost:8888 -N janeadams@hydra.uvm.edu
 
 # Sublime Editor:
 ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
-rsub ui-server.js
+rsub ui/ui-server.js
 rsub ui/App.js
 rsub ui/components/linechart.jsx
 rsub package.json
@@ -20,19 +15,36 @@ source activate test_env && jupyter notebook --port=8888
 ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
 
 # Dash:
-nohup python3 py/timeseries_prod1.py > debug/dash_prod1.txt &
-nohup python3 py/timeseries_no-dropdown.py > debug/dash_no-dropdown.txt &
-nohup python3 py/timeseries_input-enter.py > debug/dash_input-enter.txt &
+nohup python3 py/timeseries.py > debug/dash.txt &
 ssh -N -L localhost:8050:localhost:8050 janeadams@hydra.uvm.edu
 
-# REACT UI:
-nohup node ui-server.js > debug/node_ui-server.txt & disown
-ssh -N -L localhost:3000:localhost:3000 janeadams@hydra.uvm.edu
-
 # API:
-nohup node server.js > debug/node_api.txt & disown
+source activate test_env
+nohup python3 py/api.py > debug/api_flask.txt &
 ssh -N -L localhost:3001:localhost:3001 janeadams@hydra.uvm.edu
+# ...handy API debug links:
+http://localhost:3001/api/jaahhaha
+http://localhost:3001/api/autumn?metric=[freq,counts,rank]&lang=en
 
+# USWGI:
+uwsgi --http :3001 --wsgi-file py/api.py
+uwsgi --http :3001 --wsgi-file py/api.py -H ./home/janeadams/.conda/envs/test_env/bin/python3
+uwsgi --http :8050 --wsgi-file py/timeseries.py
+# ...debug:
+uwsgi --http :3001 --wsgi-file py/uwsgi.py
+
+# nginx config:
+vim ../../etc/nginx/nginx.conf
+
+# Generate wordlist(s):
+source activate test_env
+nohup python3 py/wordlist_generator.py > debug/python_wordlist-generator.txt & disown
+
+# Copy .env file securely to local machine:
+scp janeadams@hydra.uvm.edu:.env /Users/janeadmin/Documents/onegram
+
+# Run webpack to convert .jsx to js
+yarn run build
 
 # HTTP:
 ssh -N -L localhost:80:localhost:80 janeadams@hydra.uvm.edu
@@ -40,22 +52,15 @@ ssh -N -L localhost:80:localhost:80 janeadams@hydra.uvm.edu
 # HTTPS:
 ssh -N -L localhost:443:localhost:443 janeadams@hydra.uvm.edu
 
-sudo iptables -A INPUT -p tcp --dport 3001 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+# VACC:
+ssh jadams10@bluemoon-user2.uvm.edu
+# or
+ssh -L 9998:localhost:9998 jadams10@bluemoon-user2.uvm.edu ssh -L 
 
-sudo firewall-cmd --zone=public --add-port=3001/tcp --permanent
-sudo systemctl restart iptables
-sudo firewall-cmd --reload
-
-
-sudo iptables -A INPUT -p tcp --dport 3001 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
-iptables -t nat -L -n -v
-
-netstat -lntu | grep 8050
-
+# Mongo
 mongo -u admin -p StoryMonkey1 --authenticationDatabase admin
 use admin
 db.currentOp()
-
 db.currentOp(
    {
      "active" : true,
@@ -64,17 +69,33 @@ db.currentOp(
    }
 )
 
-node semiotic-test-server.js
+# iptables
+sudo iptables -A INPUT -p tcp --dport 3001 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo firewall-cmd --zone=public --add-port=3001/tcp --permanent
+sudo systemctl restart iptables
+sudo firewall-cmd --reload
+sudo iptables -A INPUT -p tcp --dport 3001 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -t nat -L -n -v
 
+# netstat (check ports)
+netstat -lntu | grep 8050
 
+# PATH Environment variables in .bashrc
+export PATH="/opt/anaconda/bin:$PATH"
+export PATH="$HOME/.conda/envs/test_env/bin:$PATH"
 
-# Generate wordlist(s):
-source activate test_env
-nohup python3 py/wordlist_generator.py > debug/python_wordlist-generator.txt & disown
+******* DEPRECATED *******
+# Dash:
+nohup python3 py/timeseries_prod1.py > debug/dash_prod1.txt &
+nohup python3 py/timeseries_no-dropdown.py > debug/dash_no-dropdown.txt &
+nohup python3 py/timeseries_input-enter.py > debug/dash_input-enter.txt &
 
+API (Node)
+nohup node server.js > debug/node_api.txt & disown
 
-# Copy .env file securely to local machine:
-scp janeadams@hydra.uvm.edu:.env /Users/janeadmin/Documents/onegram
+# UI (Node/React):
+nohup node ui-server.js > debug/node_ui-server.txt & disown
+ssh -N -L localhost:3000:localhost:3000 janeadams@hydra.uvm.edu
 
-# Run webpack to convert .jsx to js
-yarn run build
+# Semiotic UI (Node/React):
+nohup node semiotic-test-server.js > debug/node_semiotic-server.txt & disown
