@@ -56,7 +56,7 @@ function addQuery(val, err) {
 function loadData(word) {
     try {
         // Pull the JSON data
-        d3.json("data/" + word + ".json").then(function(data, error) {
+        d3.json("hydra.uvm.edu:3001/api/" + word).then(function(data, error) {
             console.log('read');
             // Parse the dates into d3 date format
             var parsedDates = data["dates"].map(function(date) { return d3.timeParse(date) })
