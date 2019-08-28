@@ -16,6 +16,15 @@
     <main>
         <!-- Search bar and filters -->
         <section id="controls">
+            <form id="debugForm">
+                <section>
+                    <h4>Debugging options:</h4>
+                    <ul>
+                        <li><input type="checkbox" name="debug" value="static">Use static data</li>
+                        <li><input type="checkbox" name="debug" value="console">Print messages to console</li>
+                    </ul>
+                </section>
+            </form>
             <!-- Queries inputted -->
             <ul id="queryList"></ul>
             <!-- Search bar -->
@@ -71,8 +80,6 @@
         </section>
     </footer>
     <script type='text/javascript'>
-    // Initialize the emoji picker for the search bar
-    window.EmojiPicker.init()
     // A list of word strings
     var queries = []
     // An array of data objects
@@ -125,7 +132,6 @@
         //getUrlParam(entry[0], entry[1])
         //console.log('getting url param for', entry[0], 'with defaultvalue', entry[1])
     }
-
     //console.log(Object.entries(defaultparams))
     </script>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
@@ -135,7 +141,6 @@
     <script type='text/javascript' src="scripts/query.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>
     <script type='text/javascript' src="scripts/timeseries.js"></script>
-    <script type='text/javascript' src="scripts/emojipicker.js"></script>
 </body>
 
 </html>
