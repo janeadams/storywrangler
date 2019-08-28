@@ -7,6 +7,7 @@ ssh janeadams@hydra.uvm.edu
 ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
 rsub ui-server.js
 rsub ui/scripts/query.js
+rsub ui/styles/query.css
 
 # Jupyter:
 source activate test_env && jupyter notebook --port=8888
@@ -25,7 +26,7 @@ http://localhost:3001/api/jaahhaha
 http://localhost:3001/api/autumn?metric=[freq,counts,rank]&lang=en
 
 # USWGI:
-uwsgi --http :3001 --wsgi-file api/uwsgi.py
+nohup uwsgi --http :3001 --wsgi-file api/uwsgi.py > debug/uwsgi.txt & disown
 
 # nginx config:
 vim ../../etc/nginx/nginx.conf
