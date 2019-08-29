@@ -10,6 +10,8 @@ import os
 import time
 from flask import Flask, Response
 from flask import request, abort, jsonify
+import csv
+import uuid
 
 password = os.getenv("PASSWORD")
 username = os.getenv("USERNAME")
@@ -31,7 +33,10 @@ def simple_response():
 
 @app.route('/api/<query>', methods=['GET'])
 def get_data(query):
+    pid = uuid.uuid4()
     start = time.time()
+    date = request.date
+    ip = request.remote_addr
     if len(query) == 0:
         abort(404)
     errs=[]
@@ -45,14 +50,19 @@ def get_data(query):
     if metric is None:
         metric = ['rank','counts','freq']
     ngram=int(query.count(' ')+1)
-    print_info({"query":query,"wordcount":ngram,"lang":language,"metric":metric})
+    #print_info({"query":query,"wordcount":ngram,"lang":language,"metric":metric})
+    # querylog columns = ['pid','query', 'wordcount','lang','metrics','ip','date']
+    with open('api/querylog.csv','a') as fd:
+        write_outfile = csv.writer(fd)
+        write_outfile.writerow([int(pid),str(query),int(ngram),str(language),str(metric),str(ip),str(start)])
+        fd.close()
     try:
         # Select the location based on the wordcount (1grams, 2grams, 3grams, etc.), by counting spaces
         db = client[str(ngram)+'grams']
-        print("Connected to mongo client "+str(ngram)+'grams')
+        #print("Connected to mongo client "+str(ngram)+'grams')
     except:
         errs.append(str("Couldn't connect to the "+language+" "+str(ngram)+"grams database"))
-        return print("Couldn't connect to the",language,ngram,"database")
+        return #print("Couldn't connect to the",language,ngram,"database")
     output=dict()
     output['word']=query
     output['wordcount']=int(ngram)
@@ -135,7 +145,12 @@ def get_data(query):
     if len(errs) > 0:
         output['errors']=errs
     end = time.time()
-    print("elapsed time: "+str((end - start)*60))
+    #print("elapsed time: "+str((end - start)*60))
+    # responselog columns - ['pid','time','errors']
+    with open('api/responselog.csv','a') as fd:
+        write_outfile = csv.writer(fd)
+        write_outfile.writerow([int(pid),float((end -start)*60),str(errs)])
+        fd.close()
     return jsonify(output)
         
 

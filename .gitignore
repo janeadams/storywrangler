@@ -4,3 +4,4 @@ output/
 node_modules/
 .env
 debug/console_*.txt
+api/*log.csv
