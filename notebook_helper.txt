@@ -6,15 +6,14 @@ ssh janeadams@hydra.uvm.edu
 # Sublime Editor:
 ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
 rsub ui-server.js
-rsub ui/scripts/query.js
-rsub ui/styles/query.css
+rsub ui/index.html && rsub ui/scripts/timeseries.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css
 
 # Jupyter:
 source activate test_env && jupyter notebook --port=8888
 ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
 
 # Dash:
-nohup python3 py/timeseries.py > debug/dash.txt &
+nohup python3 py/timeseries.py > debug/dash.txt & disown
 ssh -N -L localhost:8050:localhost:8050 janeadams@hydra.uvm.edu
 
 # API:
