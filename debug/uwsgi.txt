@@ -31,3 +31,120 @@ query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
 Connected to mongo client 1grams
 elapsed time: 145.30375957489014
 [pid: 62980|app: 0|req: 1/1] 10.245.201.161 () {40 vars in 941 bytes} [Wed Aug 28 10:50:37 2019] GET /api/test => generated 172340 bytes in 2436 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 38.545918464660645
+[pid: 62980|app: 0|req: 2/2] 10.245.201.161 () {40 vars in 629 bytes} [Wed Aug 28 13:50:28 2019] GET /api/test => generated 172340 bytes in 671 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = christmas | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 200.63738822937012
+[pid: 62980|app: 0|req: 3/3] 10.245.201.161 () {40 vars in 951 bytes} [Wed Aug 28 14:20:51 2019] GET /api/christmas => generated 171748 bytes in 3377 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 78.71093273162842
+[pid: 62980|app: 0|req: 4/4] 10.245.201.161 () {44 vars in 682 bytes} [Wed Aug 28 14:24:26 2019] GET /api/test => generated 172340 bytes in 1330 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 121.20981216430664
+[pid: 62980|app: 0|req: 5/5] 10.245.201.161 () {44 vars in 682 bytes} [Wed Aug 28 15:42:25 2019] GET /api/test => generated 172340 bytes in 2048 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 95.98651885986328
+[pid: 62980|app: 0|req: 6/6] 10.245.201.161 () {44 vars in 682 bytes} [Wed Aug 28 16:01:08 2019] GET /api/test => generated 172340 bytes in 1618 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 7/7] 10.245.192.234 () {38 vars in 1533 bytes} [Wed Aug 28 16:21:32 2019] GET /api => generated 232 bytes in 190 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 8/8] 10.245.192.234 () {38 vars in 1499 bytes} [Wed Aug 28 16:21:32 2019] GET /favicon.ico => generated 232 bytes in 2 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 9/9] 10.245.192.234 () {38 vars in 1533 bytes} [Wed Aug 28 16:21:44 2019] GET /api => generated 232 bytes in 2 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 10/10] 10.245.192.234 () {38 vars in 1527 bytes} [Wed Aug 28 16:21:44 2019] GET / => generated 486 bytes in 2 msecs (HTTP/1.1 200) 2 headers in 80 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 11/11] 10.245.192.234 () {38 vars in 1496 bytes} [Wed Aug 28 16:21:44 2019] GET /favicon.ico => generated 232 bytes in 1 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 102.7879285812378
+[pid: 62980|app: 0|req: 12/12] 10.245.201.161 () {44 vars in 681 bytes} [Wed Aug 28 16:38:43 2019] GET /api/test => generated 172340 bytes in 1741 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 74.9210786819458
+[pid: 62980|app: 0|req: 13/13] 10.245.201.161 () {44 vars in 681 bytes} [Wed Aug 28 16:39:44 2019] GET /api/test => generated 172340 bytes in 1279 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 88.8631010055542
+[pid: 62980|app: 0|req: 14/14] 10.245.201.161 () {44 vars in 682 bytes} [Wed Aug 28 16:45:24 2019] GET /api/test => generated 172340 bytes in 1506 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 60.89547157287598
+[pid: 62980|app: 0|req: 15/15] 10.245.201.161 () {44 vars in 682 bytes} [Wed Aug 28 16:45:54 2019] GET /api/test => generated 172340 bytes in 1039 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = two | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 154.19976711273193
+[pid: 62980|app: 0|req: 16/16] 10.245.201.161 () {44 vars in 680 bytes} [Wed Aug 28 16:46:00 2019] GET /api/two => generated 171909 bytes in 2589 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 17/17] 10.245.201.161 () {40 vars in 969 bytes} [Wed Aug 28 16:51:20 2019] GET /api/onegrams/christmas => generated 232 bytes in 7 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 18/18] 10.245.201.161 () {40 vars in 933 bytes} [Wed Aug 28 16:51:23 2019] GET /cmas => generated 232 bytes in 4 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 19/19] 10.245.201.161 () {40 vars in 933 bytes} [Wed Aug 28 16:51:26 2019] GET /xmas => generated 232 bytes in 2 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+query = xmas | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 149.832501411438
+[pid: 62980|app: 0|req: 20/20] 10.245.201.161 () {40 vars in 941 bytes} [Wed Aug 28 16:51:30 2019] GET /api/xmas => generated 170786 bytes in 2522 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 81.29548072814941
+[pid: 62980|app: 0|req: 21/21] 10.245.201.161 () {40 vars in 628 bytes} [Wed Aug 28 16:51:51 2019] GET /api/test => generated 172340 bytes in 1382 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = one | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 150.4900074005127
+[pid: 62980|app: 0|req: 22/22] 10.245.201.161 () {40 vars in 626 bytes} [Wed Aug 28 16:51:54 2019] GET /api/one => generated 169227 bytes in 2520 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = one | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 58.897433280944824
+[pid: 62980|app: 0|req: 23/23] 10.245.201.161 () {40 vars in 627 bytes} [Wed Aug 28 16:52:32 2019] GET /api/one => generated 169227 bytes in 1004 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = two | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 80.41518688201904
+[pid: 62980|app: 0|req: 24/24] 10.245.201.161 () {40 vars in 627 bytes} [Wed Aug 28 16:52:35 2019] GET /api/two => generated 171909 bytes in 1352 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 87.14322566986084
+[pid: 62980|app: 0|req: 25/25] 10.245.201.161 () {40 vars in 941 bytes} [Wed Aug 28 16:58:35 2019] GET /api/test => generated 172340 bytes in 1483 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+[pid: 62980|app: 0|req: 26/26] 10.245.201.161 () {40 vars in 923 bytes} [Wed Aug 28 16:59:07 2019] GET / => generated 486 bytes in 4 msecs (HTTP/1.1 200) 2 headers in 80 bytes (1 switches on core 0)
+query = 😍 😍 | wordcount = 2 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 2grams
+elapsed time: 116.46998405456543
+[pid: 62980|app: 0|req: 27/27] 10.245.201.161 () {40 vars in 969 bytes} [Wed Aug 28 16:59:55 2019] GET /api/%F0%9F%98%8D%20%F0%9F%98%8D => generated 133930 bytes in 1960 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = once upon a | wordcount = 3 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 3grams
+elapsed time: 1.1563682556152344
+[pid: 62980|app: 0|req: 28/28] 10.245.201.161 () {40 vars in 959 bytes} [Wed Aug 28 17:00:14 2019] GET /api/once%20upon%20a => generated 153 bytes in 24 msecs (HTTP/1.1 200) 2 headers in 72 bytes (1 switches on core 0)
+query = happy birthday | wordcount = 2 | lang = en | metric = [counts]
+Connected to mongo client 2grams
+elapsed time: 132.82994270324707
+[pid: 62980|app: 0|req: 29/29] 10.245.201.161 () {42 vars in 1052 bytes} [Wed Aug 28 17:00:30 2019] GET /api/happy%20birthday?lang=en&metric=[counts] => generated 67669 bytes in 2221 msecs (HTTP/1.1 200) 2 headers in 74 bytes (1 switches on core 0)
+query = happy birthday | wordcount = 2 | lang = es | metric = [freq]
+Connected to mongo client 2grams
+elapsed time: 250527.87697792053
+[pid: 62980|app: 0|req: 30/30] 10.245.201.161 () {40 vars in 1006 bytes} [Wed Aug 28 17:00:40 2019] GET /api/happy%20birthday?lang=es&metric=[freq] => generated 128904 bytes in 4175476 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = 😍 😍 | wordcount = 2 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 2grams
+elapsed time: 44.95831489562988
+[pid: 62980|app: 0|req: 31/31] 10.245.201.161 () {40 vars in 969 bytes} [Wed Aug 28 18:10:16 2019] GET /api/%F0%9F%98%8D%20%F0%9F%98%8D => generated 133930 bytes in 763 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = 😍 😍 | wordcount = 2 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 2grams
+elapsed time: 29.203147888183594
+[pid: 62980|app: 0|req: 32/32] 10.245.201.161 () {42 vars in 1000 bytes} [Wed Aug 28 18:10:16 2019] GET /api/%F0%9F%98%8D%20%F0%9F%98%8D => generated 133930 bytes in 509 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = 😍 😍 | wordcount = 2 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 2grams
+elapsed time: 27.98529624938965
+[pid: 62980|app: 0|req: 33/33] 10.245.201.161 () {42 vars in 1000 bytes} [Wed Aug 28 18:10:17 2019] GET /api/%F0%9F%98%8D%20%F0%9F%98%8D => generated 133930 bytes in 481 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = 😍 😍 | wordcount = 2 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 2grams
+elapsed time: 26.913628578186035
+[pid: 62980|app: 0|req: 34/34] 10.245.201.161 () {42 vars in 1000 bytes} [Wed Aug 28 18:10:17 2019] GET /api/%F0%9F%98%8D%20%F0%9F%98%8D => generated 133930 bytes in 461 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = 😍 😍 | wordcount = 2 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 2grams
+elapsed time: 26.842103004455566
+[pid: 62980|app: 0|req: 35/35] 10.245.201.161 () {42 vars in 1000 bytes} [Wed Aug 28 18:10:18 2019] GET /api/%F0%9F%98%8D%20%F0%9F%98%8D => generated 133930 bytes in 460 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = 😍 😍 | wordcount = 2 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 2grams
+elapsed time: 26.92668914794922
+[pid: 62980|app: 0|req: 36/36] 10.245.201.161 () {42 vars in 1000 bytes} [Wed Aug 28 18:10:18 2019] GET /api/%F0%9F%98%8D%20%F0%9F%98%8D => generated 133930 bytes in 462 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)
+query = test | wordcount = 1 | lang = en | metric = ['rank', 'counts', 'freq']
+Connected to mongo client 1grams
+elapsed time: 113.84603977203369
+[pid: 62980|app: 0|req: 37/37] 10.245.201.161 () {40 vars in 908 bytes} [Thu Aug 29 11:20:46 2019] GET /api/test => generated 172340 bytes in 1923 msecs (HTTP/1.1 200) 2 headers in 75 bytes (1 switches on core 0)

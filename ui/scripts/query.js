@@ -48,6 +48,7 @@ function addQuery(val, err) {
         this.remove()
     })
     // Draw the timeseries
+    drawAllTimeseries()
 }
 
 // When a new word is queried...
@@ -61,7 +62,7 @@ function loadData(word) {
                 alert(data["errors"])
             } else {
                 // Parse the dates into d3 date format
-                var parsedDates = data["dates"].map(function(date) { return d3.timeParse(date) })
+                var parsedDates = data["dates"].map(function(date) { return new Date(d3.timeParse(date)) })
                 // Set the querydata dates to the parsed dates
                 data["dates"] = parsedDates
                 // Add the JSON data object to the array of query data

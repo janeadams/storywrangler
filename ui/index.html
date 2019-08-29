@@ -49,8 +49,8 @@
                     <h4>Metric</h4>
                     <ul>
                         <li><input type="radio" name="metric" value="rank">Rank</li>
-                        <li><input type="radio" name="metric" value="frequency">Frequency</li>
-                        <li><input type="radio" name="metric" value="count">Raw Count</li>
+                        <li><input type="radio" name="metric" value="freq">Frequency</li>
+                        <li><input type="radio" name="metric" value="counts">Raw Count</li>
                     </ul>
                 </section>
                 <section>
@@ -99,9 +99,9 @@
     //
     // Set default options
     // range: ["all","year","month","week"], default: "year"
-    // metric: ["ranks","counts","freq"], default: "ranks"
+    // metric: ["rank","counts","freq"], default: "rank"
     // options: ["case-sensitive","log","details"], default: all
-    const defaultparams = { "range": "year", "metric": "ranks", "options": ["case-sensitive", "log", "details"] }
+    const defaultparams = { "range": "year", "metric": "rank", "options": ["case-sensitive", "log", "details"] }
     var params = { "range": defaultparams["range"], "metric": defaultparams["metric"], "options": defaultparams["options"] }
 
     // Get the variables from the URL
@@ -134,7 +134,7 @@
     }
     //console.log(Object.entries(defaultparams))
     </script>
-    <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script type='text/javascript' src="scripts/urlparams.js"></script>
     <script type='text/javascript' src="scripts/autocomplete.js"></script>
