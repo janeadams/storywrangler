@@ -37,12 +37,10 @@
             <!-- Filters -->
             <form id="filterForm">
                 <section>
-                    <h4>Range</h4>
+                    <h4>Lang</h4>
                     <ul>
-                        <li><input type="radio" name="range" value="all">All time</li>
-                        <li><input type="radio" name="range" value="year">Past year</li>
-                        <li><input type="radio" name="range" value="month">Past month</li>
-                        <li><input type="radio" name="range" value="week">Past week</li>
+                        <li><input type="radio" name="lang" value="en">English</li>
+                        <li><input type="radio" name="lang" value="es">Spanish</li>
                     </ul>
                 </section>
                 <section>
@@ -84,6 +82,10 @@
     var queries = []
     // An array of data objects
     var querydata = []
+    // Lists of all date and metric min/max:
+    var xmins = []
+    var xmaxes = []
+    var ymaxes = []
     // An array containing suggested searches:
     var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
     // A list of our color names and hex values fortint, fill, & stroke
@@ -96,13 +98,22 @@
     // Simple function for finding the fill, stroke, or tint by the color group name
     function colorMe(name, type) { return colors[type][colors["names"].indexOf(name)] }
     //console.log(colorMe("sky", "fill"))
-    //
+
     // Set default options
-    // range: ["all","year","month","week"], default: "year"
-    // metric: ["rank","counts","freq"], default: "rank"
-    // options: ["case-sensitive","log","details"], default: all
-    const defaultparams = { "range": "year", "metric": "rank", "options": ["case-sensitive", "log", "details"] }
-    var params = { "range": defaultparams["range"], "metric": defaultparams["metric"], "options": defaultparams["options"] }
+    const defaultparams = {
+        // lang: ["en","es","ru",..."_all"], default: "en"
+        "lang": "en",
+        // metric: ["rank","counts","freq"], default: "rank"
+        "metric": "rank",
+        // options: ["case-sensitive","log","details"], default: all
+        "options": ["case-sensitive", "log", "details"],
+        "multi": false,
+        "xrange": [new Date(1, 1, 2010), new Date()],
+        "yrange": [0, 100000]
+    }
+    var params = {}
+    // Set parameters to the default parameters
+    for (var [p, v] of Object.entries(defaultparams)) { params[p] = v }
 
     // Get the variables from the URL
     function getUrlVars() {
@@ -126,20 +137,12 @@
         console.log("parameter = ", parameter, "urlparameter", urlparameter)
         return urlparameter;
     }
-
-    // For every key in the default parameter object, see if it's in the URL, and if not, fill with the default
-    for (var entry in Object.entries(defaultparams)) {
-        //getUrlParam(entry[0], entry[1])
-        //console.log('getting url param for', entry[0], 'with defaultvalue', entry[1])
-    }
-    //console.log(Object.entries(defaultparams))
     </script>
     <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script type='text/javascript' src="scripts/urlparams.js"></script>
     <script type='text/javascript' src="scripts/autocomplete.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
-    <script type='text/javascript' src="scripts/load-data.js"></script>
     <script type='text/javascript' src="scripts/timeseries.js"></script>
 </body>
 
