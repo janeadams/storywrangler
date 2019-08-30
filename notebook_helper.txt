@@ -5,8 +5,7 @@ ssh janeadams@hydra.uvm.edu
 
 # Sublime Editor:
 ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
-rsub ui-server.js
-rsub ui/index.html && rsub ui/scripts/timeseries.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css
+rsub ui/index.html && rsub ui/scripts/timeseries.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css && rsub ui/styles/main.css 
 
 # Jupyter:
 source activate test_env && jupyter notebook --port=8888
@@ -16,16 +15,23 @@ ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
 nohup python3 py/timeseries.py > debug/dash.txt & disown
 ssh -N -L localhost:8050:localhost:8050 janeadams@hydra.uvm.edu
 
-# API:
-source activate test_env
-nohup python3 py/api.py > debug/api_flask.txt &
-ssh -N -L localhost:3001:localhost:3001 janeadams@hydra.uvm.edu
-# ...handy API debug links:
-http://localhost:3001/api/jaahhaha
-http://localhost:3001/api/autumn?metric=[freq,counts,rank]&lang=en
+--------------
 
-# USWGI:
+# API:
+
+source activate test_env
+
+# debugging:
+nohup python3 py/api.py > debug/api_flask.txt &
+
+# removing old logs and starting new ones:
+rm api/*log.csv
+python3 api/init_logs.py
+
+# running uwsgi:
 nohup uwsgi --http :3001 --wsgi-file api/uwsgi.py > debug/uwsgi.txt & disown
+
+--------------
 
 # nginx config:
 vim ../../etc/nginx/nginx.conf
