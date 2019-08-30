@@ -1,12 +1,12 @@
 #dataviz {
     width: 100%;
-    background-color: lightgreen;
+    background-color: lightgray;
     display: inline-block;
 }
 
 #timeseries {
     width: 80%;
-    background-color: lightgray;
+    background-color: white;
     margin: 40px auto;
     border: 1px solid red;
     min-height: 40px;

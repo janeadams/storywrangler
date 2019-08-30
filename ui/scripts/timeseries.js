@@ -3,7 +3,7 @@ console.log("loaded timeseries.js")
 function updateRanges() {
     console.log("Updating ranges...")
     params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    params.yrange = [0, d3.max(ymaxes)]
+    params.yrange = [d3.max(ymaxes), 1]
     console.log('params.xrange =', params.xrange, '  params.yrange =', params.yrange)
 }
 
@@ -23,84 +23,92 @@ function drawAllTimeseries() {
 
     console.log("22")
 
-    function drawEachTimeseries(data) {
+    d3.select("#dataviz").selectAll("svg").remove()
+
+    var xScale = d3.scaleLinear()
+        .domain(params.xrange) // input
+        .range([0, width]); // output
+    if (params.options.log) {
+        var yScale = d3.scaleLog()
+            .domain(params.yrange) // input 
+            .range([height, 1]) // output
+    } else {
+        var yScale = d3.scaleLinear()
+            .domain(params.yrange) // input 
+            .range([height, 1]) // output 
+    }
+
+
+
+    var line = d3.line()
+        .x(function(d) { return xScale(d.x); }) // set the x values for the line generator
+        .y(function(d) { return yScale(d.y); }) // set the y values for the line generator 
+        .curve(d3.curveMonotoneX) // apply smoothing to the line
+
+    var chart = d3.select("#timeseries").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+    chart.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
+
+    chart.append("g")
+        .attr("class", "y axis")
+        //.call(d3.axisLeft(yScale).tickFormat(d3.format("")))
+        .call(d3.axisLeft(yScale).ticks(10, ""))
+
+    function drawEachTimeseries(data, i) {
+        var id = data["word"] + "-timeseries"
+        console.log("data['word'] = ", data["word"])
+        console.log("id =", id)
         // Get a list of all dates for which we have data
         var dates = data["dates"]
         console.log('dates = ', dates)
         // Get a list of all the values for our chosen metric
         var values = data[params['metric']]
         console.log('values = ', values)
-        // Create a value/date pair list
-        var pairs = []
+
+        dataset = []
+
         dates.forEach(function(date, i) {
-            pairs[date] = values[i]
+            var pair = {}
+            pair.x = date
+            pair.y = values[i]
+            dataset.push(pair)
         })
+        console.log(dataset)
 
-        console.log('pairs = ', pairs)
+        // Draw the timeseries line
+        chart.append("path")
+            .datum(dataset)
+            .attr("class", "line")
+            .attr("d", line)
+            .attr("id", id)
+            .style("stroke", colors.hue[i])
 
-        console.log("54")
-
-        /// START HERE 
-
-
-        // 5. X scale will use the index of our data
-        var xScale = d3.scaleLinear()
-            .domain(data.xrange) // input
-            .range([0, width]); // output
-
-        // 6. Y scale will use the randomly generate number 
-        var yScale = d3.scaleLinear()
-            .domain(data.yrange) // input 
-            .range([height, 0]); // output 
-
-        // 7. d3's line generator
-        var line = d3.line()
-            .x(function(d, i) { return xScale(i); }) // set the x values for the line generator
-            .y(function(d) { return yScale(d.y); }) // set the y values for the line generator 
-            .curve(d3.curveMonotoneX) // apply smoothing to the line
-
-        // 8. An array of objects of length N. Each object has key -> value pair, the key being "y" and the value is a random number
-        var dataset = pairs
-
-        // 1. Add the SVG to the page and employ #2
-        var svg = d3.select("body").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        // 3. Call the x axis in a group tag
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
-
-        // 4. Call the y axis in a group tag
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(d3.axisLeft(yScale)); // Create an axis component with d3.axisLeft
-
-        // 9. Append the path, bind the data, and call the line generator 
-        svg.append("path")
-            .datum(dataset) // 10. Binds data to the line 
-            .attr("class", "line") // Assign a class for styling 
-            .attr("d", line); // 11. Calls the line generator 
-
-        // 12. Appends a circle for each datapoint 
-        svg.selectAll(".dot")
+        // Add a point to every date 
+        chart.selectAll(".dot")
             .data(dataset)
-            .enter().append("circle") // Uses the enter().append() method
-            .attr("class", "dot") // Assign a class for styling
-            .attr("cx", function(d, i) { return xScale(i) })
+            .enter().append("circle")
+            .attr("class", "dot")
+            .attr("cx", function(d, i) { return xScale(d.x) })
             .attr("cy", function(d) { return yScale(d.y) })
-            .attr("r", 5)
+            .attr("r", 2)
+            .style("fill", colors.light[i])
+            .style("stroke", colors.dark[i])
             .on("mouseover", function(a, b, c) {
                 console.log(a)
-                this.attr('class', 'focus')
+                d3.select(this).classed('dot', false).classed('focus', true)
             })
-            .on("mouseout", function() {})
+            .on("mouseout", function() {
+                d3.select(this).classed('focus', false).classed('dot', true)
+            })
     }
-    querydata.forEach(function(dataset) {
-        drawEachTimeseries(dataset)
+    querydata.forEach(function(dataset, i) {
+        drawEachTimeseries(dataset, i)
     })
 }
