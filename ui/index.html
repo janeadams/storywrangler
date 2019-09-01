@@ -77,30 +77,16 @@
             <a href="https://twitter.com/compstorylab"><img id="storylab" src="img/footer/storylab.svg" alt="Computational Story Lab"></a>
         </section>
     </footer>
+    <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <script type='text/javascript' src="scripts/urlparams.js"></script>
+    <script type='text/javascript' src="scripts/query.js"></script>
+    <script type='text/javascript' src="scripts/timeseries.js"></script>
     <script type='text/javascript'>
-    // A list of word strings
-    var queries = []
-    // An array of data objects
-    var querydata = []
-    // Lists of all date and metric min/max:
-    var xmins = []
-    var xmaxes = []
-    var ymaxes = []
-    // An array containing suggested searches:
-    var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
-    // A list of our color names and hex values fortint, fill, & stroke
-    var colors = {
-        'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
-        'hue': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
-        'dark': ["#0681A2", "#649946", "#F89921", "#8D51A0", "#A01D21", "#252E6C", "#197352", "#931E59", "#562F2C", "#8B8633", "#A23522"],
-        'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
-    }
-    // Simple function for finding the fill, stroke, or tint by the color group name
-    function colorMe(name, type) { return colors[type][colors["names"].indexOf(name)] }
-    //console.log(colorMe("sky", "fill"))
-
     // Set default options
     const defaultparams = {
+        // query : ["#MeToo","summer",emojis... etc], default: ["spring","summer","autumn","winter"]
+        "queries": ["spring", "summer", "autumn", "winter"],
         // lang: ["en","es","ru",..."_all"], default: "en"
         "lang": "en",
         // metric: ["rank","counts","freq"], default: "rank"
@@ -115,9 +101,43 @@
         "xrange": [new Date(1, 1, 2010), new Date()],
         "yrange": [1, 100000]
     }
+    // An object containing our parameters
     var params = {}
     // Set parameters to the default parameters
     for (var [p, v] of Object.entries(defaultparams)) { params[p] = v }
+    // An array containing suggested searches:
+    var querySuggestions = []
+    //var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
+    // An array of data objects
+    var querydata = []
+    // Lists of all date and metric min/max:
+    var xmins = []
+    var xmaxes = []
+    var ymaxes = []
+    // A list of our color names and hex values fortint, fill, & stroke
+    var colors = {
+        'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
+        'hue': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
+        'dark': ["#0681A2", "#649946", "#F89921", "#8D51A0", "#A01D21", "#252E6C", "#197352", "#931E59", "#562F2C", "#8B8633", "#A23522"],
+        'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
+    }
+    // Simple function for finding the fill, stroke, or tint by the color group name
+    function colorMe(name, type) { return colors[type][colors["names"].indexOf(name)] }
+    //console.log(colorMe("sky", "fill"))
+
+    function setFilters() {
+        // Check the boxes based on the parameters
+        for (var p of ['lang', 'metric']) {
+            // Clear all checked boxes
+            d3.selectAll("input[name = " + p + "]").property('checked', false)
+            // Check only the correct box
+            d3.selectAll("input[value = " + params[p] + "]").property('checked', true)
+            for (var [p, v] of Object.entries(params['options'])) {
+                // Set options 'checked' state based on boolean object in the parameters
+                d3.selectAll("input[value = " + p + "]").property('checked', v)
+            }
+        }
+    }
 
     // Get the variables from the URL
     function getUrlVars() {
@@ -130,7 +150,7 @@
     }
     // Get the parameters from the URL
     function getUrlParam(parameter, defaultvalue) {
-        console.log("parameter = ", parameter, "defaultparameter", defaultparameter)
+        console.log("parameter = ", parameter, "defaultvalue", defaultvalue)
         // Set to the default values from the default object
         var urlparameter = defaultvalue;
         // If the parameter is in the URL
@@ -141,13 +161,10 @@
         console.log("parameter = ", parameter, "urlparameter", urlparameter)
         return urlparameter;
     }
+    for (var [p, v] of Object.entries(params)) { getUrlParam(p, v) }
+    params['queries'].forEach(function(q) { loadData(q) })
     </script>
-    <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
-    <script type='text/javascript' src="scripts/urlparams.js"></script>
-    <script type='text/javascript' src="scripts/autocomplete.js"></script>
-    <script type='text/javascript' src="scripts/query.js"></script>
-    <script type='text/javascript' src="scripts/timeseries.js"></script>
+    <!--<script type='text/javascript' src="scripts/autocomplete.js"></script>-->
 </body>
 
 </html>

@@ -25,9 +25,10 @@ function drawAllTimeseries() {
 
     d3.select("#dataviz").selectAll("svg").remove()
 
-    var xScale = d3.scaleLinear()
+    var xScale = d3.scaleTime()
         .domain(params.xrange) // input
-        .range([0, width]); // output
+        .range([0, width]) // output
+
     if (params.options.log) {
         var yScale = d3.scaleLog()
             .domain(params.yrange) // input 
@@ -38,77 +39,73 @@ function drawAllTimeseries() {
             .range([height, 1]) // output 
     }
 
-
-
-    var line = d3.line()
-        .x(function(d) { return xScale(d.x); }) // set the x values for the line generator
-        .y(function(d) { return yScale(d.y); }) // set the y values for the line generator 
-        .curve(d3.curveMonotoneX) // apply smoothing to the line
-
     var chart = d3.select("#timeseries").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr('class', 'chart')
 
+    // Draw the xAxis
     chart.append("g")
-        .attr("class", "x axis")
+        .attr("class", "xaxis")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
+        .call(d3.axisBottom(xScale)) // Create an axis component with d3.axisBottom
 
+    // Draw the yAxis
     chart.append("g")
-        .attr("class", "y axis")
-        //.call(d3.axisLeft(yScale).tickFormat(d3.format("")))
+        .attr("class", "yaxis")
         .call(d3.axisLeft(yScale).ticks(10, ""))
 
-    function drawEachTimeseries(data, i) {
-        var id = data["word"] + "-timeseries"
-        console.log("data['word'] = ", data["word"])
-        console.log("id =", id)
-        // Get a list of all dates for which we have data
-        var dates = data["dates"]
-        console.log('dates = ', dates)
-        // Get a list of all the values for our chosen metric
-        var values = data[params['metric']]
-        console.log('values = ', values)
+    var line = d3.line()
+        .x(function(d) { return xScale(d.x) }) // set the x values for the line generator
+        .y(function(d) { return yScale(d.y) }) // set the y values for the line generator 
+        .curve(d3.curveMonotoneX) // apply smoothing to the line
 
-        dataset = []
+    var lines = chart.append('g').attr('class', 'lines')
 
-        dates.forEach(function(date, i) {
-            var pair = {}
-            pair.x = date
-            pair.y = values[i]
-            dataset.push(pair)
+    var lineOpacity = "0.6";
+    var lineOpacityHover = "0.8";
+    var otherLinesOpacityHover = "0.1";
+    var lineStroke = "1.5px";
+    var lineStrokeHover = "2.5px";
+
+    lines.selectAll('.line-group')
+        .data(querydata).enter()
+        .append('g')
+        .attr('class', 'line-group')
+        .on("mouseover", function(d, i) {
+            chart.append("text")
+                .attr("class", "title-text")
+                .style("fill", colors.dark[i])
+                .text(d.word)
+                .attr("text-anchor", "middle")
+                .attr("x", (width - margin) / 2)
+                .attr("y", 5)
+                .attr("id", d.word + "-line")
         })
-        console.log(dataset)
+        .on("mouseout", function(d) {
+            chart.select(".title-text").remove();
+        })
+        .append('path')
+        .attr('class', 'line')
+        .attr('d', function(d) { return line(d.pairs) })
+        .style('stroke', function(d, i) { return colors.hue[i] })
+        .style('opacity', lineOpacity)
+        .on("mouseover", function(d) {
+            d3.selectAll('.line')
+                .style('opacity', otherLinesOpacityHover)
+            d3.select(this)
+                .style('opacity', lineOpacityHover)
+                .style("stroke-width", lineStrokeHover)
+                .style("cursor", "pointer")
+        })
+        .on("mouseout", function(d) {
+            d3.selectAll(".line")
+                .style('opacity', lineOpacity)
+            d3.select(this)
+                .style("stroke-width", lineStroke)
+                .style("cursor", "none")
+        })
 
-        // Draw the timeseries line
-        chart.append("path")
-            .datum(dataset)
-            .attr("class", "line")
-            .attr("d", line)
-            .attr("id", id)
-            .style("stroke", colors.hue[i])
-
-        // Add a point to every date 
-        chart.selectAll(".dot")
-            .data(dataset)
-            .enter().append("circle")
-            .attr("class", "dot")
-            .attr("cx", function(d, i) { return xScale(d.x) })
-            .attr("cy", function(d) { return yScale(d.y) })
-            .attr("r", 2)
-            .style("fill", colors.light[i])
-            .style("stroke", colors.dark[i])
-            .on("mouseover", function(a, b, c) {
-                console.log(a)
-                d3.select(this).classed('dot', false).classed('focus', true)
-            })
-            .on("mouseout", function() {
-                d3.select(this).classed('focus', false).classed('dot', true)
-            })
-    }
-    querydata.forEach(function(dataset, i) {
-        drawEachTimeseries(dataset, i)
-    })
 }
