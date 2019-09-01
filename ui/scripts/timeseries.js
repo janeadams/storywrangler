@@ -1,13 +1,10 @@
 console.log("loaded timeseries.js")
 
-function updateRanges() {
+function drawAllTimeseries() {
     console.log("Updating ranges...")
     params.xrange = [d3.min(xmins), d3.max(xmaxes)]
     params.yrange = [d3.max(ymaxes), 1]
     console.log('params.xrange =', params.xrange, '  params.yrange =', params.yrange)
-}
-
-function drawAllTimeseries() {
     console.log("Drawing all timeseries...")
     var optwidth = 0.8 * (document.documentElement.clientWidth)
     var optheight = 0.6 * (document.documentElement.clientHeight)
@@ -20,8 +17,6 @@ function drawAllTimeseries() {
     /* === Context chart === */
     var margin_context = { top: 0.85 * (optheight), right: 0.1 * (optwidth), bottom: 0.1 * (optheight), left: 0.1 * (optwidth) }
     var height_context = optheight - margin_context.top - margin_context.bottom
-
-    console.log("22")
 
     d3.select("#dataviz").selectAll("svg").remove()
 
@@ -64,9 +59,9 @@ function drawAllTimeseries() {
 
     var lines = chart.append('g').attr('class', 'lines')
 
-    var lineOpacity = "0.6";
-    var lineOpacityHover = "0.8";
-    var otherLinesOpacityHover = "0.1";
+    var lineOpacity = "1.0";
+    var lineOpacityHover = "1.0";
+    var otherLinesOpacityHover = "0.3";
     var lineStroke = "1.5px";
     var lineStrokeHover = "2.5px";
 

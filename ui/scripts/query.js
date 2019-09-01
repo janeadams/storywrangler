@@ -1,5 +1,5 @@
 // When the form is submitted...
-function inputClick(event) {
+function querySubmission(event) {
     query = d3.select("#queryInput").property("value")
     if (query == '') {
         console.log("Nothing entered in the search box");
@@ -45,7 +45,7 @@ function addQuery(val, err) {
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#queryList").append("li").text(val).attr("class", val).on("click", function(d, i) {
         // When the list item is clicked, remove the word from the query list and delete the data
-        removeWord(this.id)
+        removeWord(this.className)
         // Delete the li for the deleted word
         this.remove()
     })
@@ -54,43 +54,47 @@ function addQuery(val, err) {
 
 // When a new word is queried...
 function loadData(word) {
+    var message = ""
     // Pull the JSON data
-    formatted_word = word.replace("#", "%23")
+    formatted_word = word.replace("#", "%23").replace("'", "")
     var url = encodeURI("http://hydra.uvm.edu:3001/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + params["metric"] + "]")
     d3.json(url).then(function(data, error) {
-        console.log('read url "' + url + '"')
-        if (data["api_error_count"] > 0) {
-            alert(data["errors"])
-        } else {
-            // Parse the dates into d3 date format
-            var parsedDates = data["dates"].map(function(date) { return new Date(d3.timeParse(date)) })
-            data["dates"] = parsedDates
-            // Find the x- and y-range of this data set
-            data['xrange'] = d3.extent(data["dates"])
-            data['yrange'] = d3.extent(data[params["metric"]])
-            data['pairs'] = []
-            parsedDates.forEach(function(date, i) {
-                var pair = {}
-                pair.x = date
-                pair.y = data[params["metric"]][i]
-                data['pairs'].push(pair)
-            })
-            // Add the JSON data object to the array of query data
-            querydata.push(data)
-            console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
-            xmins.push(data.xrange[0])
-            xmaxes.push(data.xrange[1])
-            ymaxes.push(data.yrange[1])
-            updateRanges()
-            addQuery(word)
-            drawAllTimeseries()
-        }
-    })
-    /*.catch(function(error) {
-               // Error handling
-               //console.log(e);
-               alert("Sorry! It looks like the database is down or overloaded -- please try again later")
-           })*/
+            console.log('read url "' + url + '"')
+            if (data["api_error_count"] > 0) {
+                alert(data["errors"])
+                message = data["errors"]
+            } else {
+                // Parse the dates into d3 date format
+                var parsedDates = data["dates"].map(function(date) { return new Date(d3.timeParse(date)) })
+                data["dates"] = parsedDates
+                // Find the x- and y-range of this data set
+                data['xrange'] = d3.extent(data["dates"])
+                data['yrange'] = d3.extent(data[params["metric"]])
+                data['pairs'] = []
+                parsedDates.forEach(function(date, i) {
+                    var pair = {}
+                    pair.x = date
+                    pair.y = data[params["metric"]][i]
+                    data['pairs'].push(pair)
+                })
+                // Add the JSON data object to the array of query data
+                querydata.push(data)
+                console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
+                xmins.push(data.xrange[0])
+                xmaxes.push(data.xrange[1])
+                ymaxes.push(data.yrange[1])
+                drawAllTimeseries()
+                addQuery(word)
+                message = "success"
+            }
+        })
+        .catch(function(error) {
+            // Error handling
+            //console.log(e);
+            alert("Sorry! It looks like the database is down or overloaded -- please try again later")
+            message = "catch"
+        })
+    return console.log("loadData: " + message)
 }
 
 // When the list item is clicked for a particular word...
@@ -107,6 +111,21 @@ function removeWord(value) {
         return ele['word'] != value
     })
     console.log("removed ", value, " from querydata; length = " + querydata.length + " and data is " + querydata)
+    // Clear the chart
+    d3.select("#timeseries").selectAll().remove()
     // Just in case, delete anything with the class of this query
     d3.selectAll("." + value).remove()
+    drawAllTimeseries()
+}
+
+function filterSubmission() {
+    // Check the boxes based on the parameters
+    for (var p of ['lang', 'metric']) {
+        // Get the selected language and metric, and update the parameters variable
+        params[p] = d3.select("input[name = " + p + "]:checked").property('value')
+    }
+    for (var k of Object.keys(params['options'])) {
+        // Set options 'checked' state based on boolean object in the parameters
+        params['options'][k] = d3.select("input[value = " + k + "]").property('checked')
+    }
 }

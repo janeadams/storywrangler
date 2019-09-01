@@ -16,6 +16,7 @@
     <main>
         <!-- Search bar and filters -->
         <section id="controls">
+            <!--
             <form id="debugForm">
                 <section>
                     <h4>Debugging options:</h4>
@@ -25,25 +26,26 @@
                     </ul>
                 </section>
             </form>
+        -->
             <!-- Queries inputted -->
             <ul id="queryList"></ul>
             <!-- Search bar -->
-            <form autocomplete="off" id="queryForm" onSubmit="return inputClick()">
+            <form autocomplete="off" id="queryForm" onSubmit="return querySubmission()">
                 <div class="autocomplete">
                     <input name="query" type="text" id="queryInput" placeholder="Enter 1-2 words, hashtags, or handles" data-emoji="true" class="form-control">
                     <input type="submit" value="What's the story?">
                 </div>
             </form>
             <!-- Filters -->
-            <form id="filterForm">
-                <section>
+            <form id="filterForm" onSubmit="return filterSubmission()">
+                <section id="langFilter">
                     <h4>Lang</h4>
                     <ul>
                         <li><input type="radio" name="lang" value="en">English</li>
                         <li><input type="radio" name="lang" value="es">Spanish</li>
                     </ul>
                 </section>
-                <section>
+                <section id="metricFilter">
                     <h4>Metric</h4>
                     <ul>
                         <li><input type="radio" name="metric" value="rank">Rank</li>
@@ -51,7 +53,7 @@
                         <li><input type="radio" name="metric" value="counts">Raw Count</li>
                     </ul>
                 </section>
-                <section>
+                <section id="optionFilter">
                     <h4>Options</h4>
                     <ul>
                         <li><input type="checkbox" name="options" value="case-sensitive">Case sensitive</li>
@@ -103,8 +105,6 @@
     }
     // An object containing our parameters
     var params = {}
-    // Set parameters to the default parameters
-    for (var [p, v] of Object.entries(defaultparams)) { params[p] = v }
     // An array containing suggested searches:
     var querySuggestions = []
     //var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
@@ -124,20 +124,6 @@
     // Simple function for finding the fill, stroke, or tint by the color group name
     function colorMe(name, type) { return colors[type][colors["names"].indexOf(name)] }
     //console.log(colorMe("sky", "fill"))
-
-    function setFilters() {
-        // Check the boxes based on the parameters
-        for (var p of ['lang', 'metric']) {
-            // Clear all checked boxes
-            d3.selectAll("input[name = " + p + "]").property('checked', false)
-            // Check only the correct box
-            d3.selectAll("input[value = " + params[p] + "]").property('checked', true)
-            for (var [p, v] of Object.entries(params['options'])) {
-                // Set options 'checked' state based on boolean object in the parameters
-                d3.selectAll("input[value = " + p + "]").property('checked', v)
-            }
-        }
-    }
 
     // Get the variables from the URL
     function getUrlVars() {
@@ -161,8 +147,33 @@
         console.log("parameter = ", parameter, "urlparameter", urlparameter)
         return urlparameter;
     }
-    for (var [p, v] of Object.entries(params)) { getUrlParam(p, v) }
-    params['queries'].forEach(function(q) { loadData(q) })
+
+    function setFilters() {
+        // Check the boxes based on the parameters
+        for (var p of ['lang', 'metric']) {
+            // Clear all checked boxes
+            d3.selectAll("input[name = " + p + "]").property('checked', false)
+            // Check only the correct box
+            d3.selectAll("input[value = " + params[p] + "]").property('checked', true)
+        }
+        for (var [p, v] of Object.entries(params['options'])) {
+            // Set options 'checked' state based on boolean object in the parameters
+            d3.selectAll("input[value = " + p + "]").property('checked', v)
+        }
+    }
+
+    function setupPage() {
+        // Set parameters to the default parameters
+        for (var [p, v] of Object.entries(defaultparams)) { params[p] = v }
+        // Get parameters from the URL and update current parameters accordingly
+        for (var [p, v] of Object.entries(params)) { getUrlParam(p, v) }
+        // Check the correct boxes in the filter form according to the parameters
+        setFilters()
+        // Load the data for any pre-set queries from parameters
+        params['queries'].forEach(function(q) { loadData(q) })
+    }
+
+    setupPage()
     </script>
     <!--<script type='text/javascript' src="scripts/autocomplete.js"></script>-->
 </body>

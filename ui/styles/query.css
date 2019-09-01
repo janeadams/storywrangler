@@ -171,3 +171,7 @@ li {
         box-sizing: unset;
     }
 }
+
+#langFilter {
+    display: none;
+}
