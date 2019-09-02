@@ -16,6 +16,15 @@
     <main>
         <!-- Search bar and filters -->
         <section id="controls">
+            <!-- Queries inputted -->
+            <ul id="queryList"></ul>
+            <!-- Search bar -->
+            <form autocomplete="off" id="queryForm" onSubmit="return querySubmission()">
+                <div class="autocomplete">
+                    <input name="query" type="text" id="queryInput" placeholder="Enter 1-2 words, hashtags, or handles" data-emoji="true" class="form-control">
+                    <input type="submit" value="What's the story?">
+                </div>
+            </form>
             <!--
             <form id="debugForm">
                 <section>
@@ -26,17 +35,6 @@
                     </ul>
                 </section>
             </form>
-        -->
-            <!-- Queries inputted -->
-            <ul id="queryList"></ul>
-            <!-- Search bar -->
-            <form autocomplete="off" id="queryForm" onSubmit="return querySubmission()">
-                <div class="autocomplete">
-                    <input name="query" type="text" id="queryInput" placeholder="Enter 1-2 words, hashtags, or handles" data-emoji="true" class="form-control">
-                    <input type="submit" value="What's the story?">
-                </div>
-            </form>
-            <!-- Filters -->
             <form id="filterForm" onSubmit="return filterSubmission()">
                 <section id="langFilter">
                     <h4>Lang</h4>
@@ -62,6 +60,7 @@
                     </ul>
                 </section>
             </form>
+            -->
         </section>
         <!-- Data visualization area -->
         <section id="dataviz">
@@ -101,7 +100,8 @@
         },
         "multi": false,
         "xrange": [new Date(1, 1, 2010), new Date()],
-        "yrange": [1, 100000]
+        "yrange": [1, 100000],
+        "sizing": [800, 600]
     }
     // An object containing our parameters
     var params = {}
@@ -169,6 +169,7 @@
         for (var [p, v] of Object.entries(params)) { getUrlParam(p, v) }
         // Check the correct boxes in the filter form according to the parameters
         setFilters()
+        setSizing()
         // Load the data for any pre-set queries from parameters
         params['queries'].forEach(function(q) { loadData(q) })
     }

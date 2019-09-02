@@ -59,41 +59,41 @@ function loadData(word) {
     formatted_word = word.replace("#", "%23").replace("'", "")
     var url = encodeURI("http://hydra.uvm.edu:3001/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + params["metric"] + "]")
     d3.json(url).then(function(data, error) {
-            console.log('read url "' + url + '"')
-            if (data["api_error_count"] > 0) {
-                alert(data["errors"])
-                message = data["errors"]
-            } else {
-                // Parse the dates into d3 date format
-                var parsedDates = data["dates"].map(function(date) { return new Date(d3.timeParse(date)) })
-                data["dates"] = parsedDates
-                // Find the x- and y-range of this data set
-                data['xrange'] = d3.extent(data["dates"])
-                data['yrange'] = d3.extent(data[params["metric"]])
-                data['pairs'] = []
-                parsedDates.forEach(function(date, i) {
-                    var pair = {}
-                    pair.x = date
-                    pair.y = data[params["metric"]][i]
-                    data['pairs'].push(pair)
-                })
-                // Add the JSON data object to the array of query data
-                querydata.push(data)
-                console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
-                xmins.push(data.xrange[0])
-                xmaxes.push(data.xrange[1])
-                ymaxes.push(data.yrange[1])
-                drawAllTimeseries()
-                addQuery(word)
-                message = "success"
-            }
-        })
-        .catch(function(error) {
-            // Error handling
-            //console.log(e);
-            alert("Sorry! It looks like the database is down or overloaded -- please try again later")
-            message = "catch"
-        })
+        console.log('read url "' + url + '"')
+        if (data["api_error_count"] > 0) {
+            alert(data["errors"])
+            message = data["errors"]
+        } else {
+            // Parse the dates into d3 date format
+            var parsedDates = data["dates"].map(function(date) { return new Date(d3.timeParse(date)) })
+            data["dates"] = parsedDates
+            // Find the x- and y-range of this data set
+            data['xrange'] = d3.extent(data["dates"])
+            data['yrange'] = d3.extent(data[params["metric"]])
+            data['pairs'] = []
+            parsedDates.forEach(function(date, i) {
+                var pair = {}
+                pair.x = date
+                pair.y = data[params["metric"]][i]
+                data['pairs'].push(pair)
+            })
+            // Add the JSON data object to the array of query data
+            querydata.push(data)
+            console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
+            xmins.push(data.xrange[0])
+            xmaxes.push(data.xrange[1])
+            ymaxes.push(data.yrange[1])
+            drawTimeseries()
+            addQuery(word)
+            message = "success"
+        }
+    })
+    /*.catch(function(error) {
+        // Error handling
+        //console.log(e);
+        alert("Sorry! It looks like the database is down or overloaded -- please try again later")
+        message = "catch"
+    })*/
     return console.log("loadData: " + message)
 }
 
@@ -115,7 +115,7 @@ function removeWord(value) {
     d3.select("#timeseries").selectAll().remove()
     // Just in case, delete anything with the class of this query
     d3.selectAll("." + value).remove()
-    drawAllTimeseries()
+    drawTimeseries()
 }
 
 function filterSubmission() {
