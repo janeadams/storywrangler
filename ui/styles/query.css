@@ -10,7 +10,8 @@
     margin: 3px;
     color: #00B6CF;
     background-color: #B5E2EA;
-    border: 1px solid #0681A2;
+    border: 1px solid;
+    border-color: #0681A2;
     border-radius: 2px;
     font-size: 1.2em;
 }
@@ -23,17 +24,17 @@
     cursor: pointer;
 }
 
-#controls {
+.controls {
     width: 80%;
     margin: 20px auto;
 }
 
-#controls ul {
+.controls ul {
     display: block;
     width: 100%;
 }
 
-#controls li {
+.controls li {
     list-style-type: none;
     display: inline-block;
     padding: 5px;

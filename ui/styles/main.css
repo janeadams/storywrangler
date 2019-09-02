@@ -45,8 +45,9 @@ main {
 }
 
 footer {
-    border-top: 10px solid #0681A2;
+    border-top: 2px solid lightgrey;
     width: 100%;
+    padding: 20px;
 }
 
 footer section {

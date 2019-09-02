@@ -15,7 +15,7 @@
     </header>
     <main>
         <!-- Search bar and filters -->
-        <section id="controls">
+        <section class="controls">
             <!-- Queries inputted -->
             <ul id="queryList"></ul>
             <!-- Search bar -->
@@ -36,6 +36,14 @@
                 </section>
             </form>
             -->
+        </section>
+        <!-- Data visualization area -->
+        <section id="dataviz">
+            <div id="timeseries">
+            </div>
+            <div id="brush"></div>
+        </section>
+        <section class="controls">
             <form id="filterForm" onChange="return filterSubmission()">
                 <!--
                 <section id="langFilter">
@@ -54,21 +62,16 @@
                         <li><input type="radio" name="metric" value="counts">Raw Count</li>
                     </ul>
                 </section>
-                <section id="optionFilter">
-                    <h4>Options</h4>
+                <section id="scaleFilter">
+                    <h4>Scale</h4>
                     <ul>
-                        <li><input type="checkbox" name="options" value="case-sensitive">Case sensitive</li>
-                        <li><input type="checkbox" name="options" value="log">Logarithmic scale</li>
-                        <li><input type="checkbox" name="options" value="details">Show details</li>
+                        <!--<li><input type="checkbox" name="options" value="case-sensitive">Case sensitive</li>-->
+                        <li><input type="radio" name="scale" value="log">Logarithmic scale</li>
+                        <li><input type="radio" name="scale" value="lin">Linear scale</li>
+                        <!--<li><input type="checkbox" name="options" value="details">Show details</li>-->
                     </ul>
                 </section>
             </form>
-        </section>
-        <!-- Data visualization area -->
-        <section id="dataviz">
-            <div id="timeseries">
-            </div>
-            <div id="brush"></div>
         </section>
     </main>
     <footer>
@@ -94,8 +97,8 @@
         "lang": "en",
         // metric: ["rank","counts","freq"], default: "rank"
         "metric": "rank",
-        // options: ["case-sensitive","log","details","multi"]
-        "options": ["case-sensitive", "log", "details"],
+        // scale: ["log","lin"], default: "log"
+        "scale": "log",
         "xrange": [new Date(1, 1, 2010), new Date()],
         "yrange": [1, 100000],
         "sizing": [800, 600]
@@ -104,7 +107,7 @@
     const paramoptions = {
         "lang": ["en"],
         "metric": ["rank", "counts", "freq"],
-        "options": ["case-sensitive", "log", "details", "multi"]
+        "scale": ["log", "lin"]
     }
     // An object containing our parameters
     var params = {
@@ -164,7 +167,6 @@
     }
     // Get the parameters from the URL
     function getUrlParam() {
-        console.log("url = ", unescape(encodeURIComponent(window.location.href)))
         for (var p in params) {
             // If the parameter is in the URL
             if (window.location.href.indexOf(p) > -1) {
@@ -179,23 +181,21 @@
 
     function setFilters() {
         // Check the boxes based on the parameters
-        for (var filter of ['metric', 'lang', 'options']) {
-            //console.log("Clearing all checkboxes for ", filter)
+        for (var filter of ['metric', 'lang', 'scale']) {
+            console.log("Clearing all checkboxes for ", filter)
             // Clear all checked boxes
             d3.selectAll("input[name = " + filter + "]").property('checked', false)
-            // If we're expecting more than one value
-            if (typeof(params[filter]) == "object") {
-                //console.log(filter + " is an object")
-                for (var value of params[filter]) {
-                    //console.log("Checking box for", value, "on filter", filter)
-                    // Check all boxes for this parameter's values
-                    d3.selectAll("input[value = " + value + "]").property('checked', true)
-                }
-            } else {
-                // Check only the correct box for this parameter value
-                //console.log("Checking box for", params[filter], "on filter", filter)
-                d3.selectAll("input[value = " + params[filter] + "]").property('checked', true)
-            }
+            // Check only the correct box for this parameter value
+            console.log("Checking box for", params[filter], "on filter", filter)
+            d3.selectAll("input[value = " + params[filter] + "]").property('checked', true)
+        }
+        if (params['metric'] == 'freq') {
+            // Remove the log toggle from the options list
+            d3.select("#scaleFilter").style("display", "none")
+            // If we're counting frequency, force scale to linear
+            params["scale"] = "lin"
+        } else {
+            d3.select("#scaleFilter").style("display", "inline-block")
         }
     }
 
@@ -206,13 +206,14 @@
         }
         // Get parameters from the URL and update current parameters accordingly
         getUrlParam()
+        // Decode the URL queries (e.g. emojis)
+        params['queries'] = params['queries'].map(function(q) {
+            return decodeURI(q)
+        })
         // Check the correct boxes in the filter form according to the parameters
         setFilters()
         setSizing()
         setRanges()
-        params['queries'] = params['queries'].map(function(q) {
-            return decodeURI(q)
-        })
         // Load the data queries from parameters
         for (var q of params['queries']) {
             loadData(q)

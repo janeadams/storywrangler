@@ -19,7 +19,12 @@ function setRanges() {
         ymaxes.push(data.yrange[1])
     })
     params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    params.yrange = [d3.max(ymaxes) * 1.2, 1]
+    params.yrange[0] = d3.max(ymaxes) * 1.2
+    if (params['metric'] == 'freq') {
+        params.yrange[1] = 0
+    } else {
+        params.yrange[1] = 1
+    }
 }
 
 function drawTimeseries() {
@@ -51,15 +56,30 @@ function drawTimeseries() {
         .range([0, width]) // output
 
     // Choose and set time scales (logarithmic or linear)
-    if (params["options"].includes("log")) {
+    if (params["scale"] == "log") {
         // If 'logarithmic' option is chosen (by default:)
-        var yScale = d3.scaleLog().domain(params.yrange).range([height, 1])
-        var yScale2 = d3.scaleLog().domain(params.yrange).range([height, 1])
+        var yScale = d3.scaleLog().domain(params.yrange)
+        var yScale2 = d3.scaleLog().domain(params.yrange)
     } else {
         // If 'logarithmic' option deselected, use linear time scale:
-        var yScale = d3.scaleLinear().domain(params.yrange).range([height, 1])
-        var yScale2 = d3.scaleLog().domain(params.yrange).range([height, 1])
+        var yScale = d3.scaleLinear().domain(params.yrange)
+        var yScale2 = d3.scaleLinear().domain(params.yrange)
     }
+
+    // When showing ranks...
+    if (params['metric'] == 'rank') {
+        // Put rank #1 at the top
+        yScale.range([height, 1])
+        yScale2.range([height, 1])
+    }
+    // When showing any other metric...
+    else {
+        // Put the highest number at the top
+        // and start at 0
+        yScale.range([0, height])
+        yScale2.range([0, height])
+    }
+
     // Create a chart area and set the size
     //console.log("Creating chart area...")
     var chart = d3.select("#timeseries").append("svg")
@@ -151,7 +171,7 @@ function drawTimeseries() {
             .on("mouseover", function(d, i) {
                 focus.append("text")
                     .attr("class", "title-text")
-                    .style("fill", colors.dark[i])
+                    .style("fill", colors.dark[d.colorid])
                     .text(d.word)
                     .attr("text-anchor", "middle")
                     .attr("x", width - margin)
@@ -164,7 +184,7 @@ function drawTimeseries() {
         var storyLine = storyGroup.append('path')
             .attr('class', 'line')
             .attr('d', function(d) { return line(d.pairs) })
-            .style('stroke', function(d, i) { return colors.hue[i] })
+            .style('stroke', function(d, i) { return colors.hue[d.colorid] })
             .style('opacity', lineOpacity)
             .on("mouseover", function(d) {
                 d3.selectAll('.line')

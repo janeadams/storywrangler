@@ -1,3 +1,5 @@
+var queryCounter = 0
+
 // When the form is submitted...
 function querySubmission(event) {
     query = d3.select("#queryInput").property("value")
@@ -41,9 +43,9 @@ function dumpFirst() {
 }
 
 // When a word is submitted via inputClick...
-function addQuery(val, err) {
+function addQuery(val, colorid, err) {
     // Add the word as a list item so the user knows it's been added and can delete later
-    d3.select("#queryList").append("li").text(val).attr("class", "li-" + val).on("click", function(d, i) {
+    d3.select("#queryList").append("li").text(val).attr("class", "li-" + val).style("color", colors.dark[colorid]).style("border-color", colors.hue[colorid]).style("background-color", colors.light[colorid]).on("click", function(d, i) {
         // When the list item is clicked, remove the word from the query list and delete the data
         q = this.className.replace("li-", "")
         removeWord(q)
@@ -68,6 +70,8 @@ function loadData(word) {
             alert(data["errors"])
             message = data["errors"]
         } else {
+            // Set a color for this timeseries
+            data['colorid'] = queryCounter
             // Parse the dates into d3 date format
             var parsedDates = data["dates"].map(function(date) { return new Date(d3.timeParse(date)) })
             data["dates"] = parsedDates
@@ -84,9 +88,13 @@ function loadData(word) {
             // Add the JSON data object to the array of query data
             querydata.push(data)
             console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
-            addQuery(word)
+            addQuery(word, data['colorid'])
             drawTimeseries()
             message = "success"
+            queryCounter += 1
+            if (queryCounter > 10) {
+                queryCounter = 0
+            }
         }
     })
     /*.catch(function(error) {
@@ -118,17 +126,14 @@ function removeWord(value) {
 }
 
 function filterSubmission() {
+    console.log("filter selected!")
     // Check the boxes based on the parameters
     //for (var p of ['lang', 'metric']) {
-    for (var p of ['metric']) {
+    for (var p of ['metric', 'scale']) {
         // Get the selected language and metric, and update the parameters variable
-        params[p] = d3.select("input[name = " + p + "]:checked").property('value')
+        params[p] = d3.select("input[name = '" + p + "']:checked").property('value')
     }
-    for (var opt of params['options']) {
-        // Set options 'checked' state based on boolean object in the parameters
-        params['options'] = []
-        params['options'].push(d3.select("input[value = " + opt + "]:checked").property('value'))
-    }
+    setFilters()
     updateURL()
 }
 
@@ -146,14 +151,13 @@ function updateURL() {
         }
     }
     */
-    for (var p of ['queries', 'metric', 'lang']) {
+    for (var p of ['queries', 'metric', 'lang', 'scale']) {
         console.log("var p = ", p)
         console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p])
         if (params[p] != defaultparams[p]) {
             customparams[p] = params[p]
         }
     }
-
     console.log("customparams = ", customparams)
     var paramlist = []
     for (var [p, v] of Object.entries(customparams)) {
@@ -162,4 +166,5 @@ function updateURL() {
     var newURL = String(splitURL[0]) + "?" + paramlist.join("&")
     console.log("newURL = ", newURL)
     window.location.href = newURL
+    drawTimeseries();
 }
