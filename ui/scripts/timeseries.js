@@ -7,10 +7,23 @@ function setSizing() {
     console.log("Updating height to...", params.sizing[1])
 }
 
-function drawTimeseries() {
-    console.log("Updating ranges...")
+function setRanges() {
+    console.log("Setting ranges...")
+    // Lists of all date and metric min/max:
+    var xmins = []
+    var xmaxes = []
+    var ymaxes = []
+    querydata.forEach(function(data) {
+        xmins.push(data.xrange[0])
+        xmaxes.push(data.xrange[1])
+        ymaxes.push(data.yrange[1])
+    })
     params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    params.yrange = [d3.max(ymaxes), 1]
+    params.yrange = [d3.max(ymaxes) * 1.1, 1]
+}
+
+function drawTimeseries() {
+    setRanges()
     console.log('params.xrange =', params.xrange, '  params.yrange =', params.yrange)
     console.log("Drawing all timeseries...")
     // Determine the chart area sizing based on the window size
@@ -82,13 +95,11 @@ function drawTimeseries() {
     // Create the main chart area
     var focus = chart.append("g")
         .attr("class", "focus")
-        .style("fill", "blue")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
     // Create a mini-chart for brushed navigation
     var context = chart.append("g")
         .attr("class", "context")
-        .style("fill", "red")
         .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")")
 
     // Draw the main chart's xAxis
@@ -109,12 +120,11 @@ function drawTimeseries() {
         .y(function(d) { return yScale(d.y) }) // set the y values for the line generator 
         .curve(d3.curveMonotoneX) // apply smoothing to the line
 
-    // Draw the timeseries lines on the main chart
-    var lines = focus.append('g').attr('class', 'lines')
+    focus.attr("class", "brush")
+        .call(brush)
 
-    // Clip the data in the main chart to the zoomed region
     console.log("Appending clipping path...")
-    lines.append("defs").append("clipPath")
+    focus.append("defs").append("clipPath")
         .attr("id", "clip")
         .append("rect")
         .attr("width", width)
@@ -122,7 +132,8 @@ function drawTimeseries() {
         .attr("x", 0)
         .attr("y", 0)
 
-    var masked = focus.append("g").attr("clip-path", "url(#clip")
+    // Clip the data in the main chart to the zoomed region
+    var masked = focus.append("g").attr("clip-path", "url(#clip)")
 
     var lineOpacity = "1.0";
     var lineOpacityHover = "1.0";
@@ -133,12 +144,10 @@ function drawTimeseries() {
     console.log("Adding timeseries lines...")
 
     function drawLines() {
-        var storyGroup = lines.selectAll('.story-group')
+        var storyGroup = masked.selectAll('.story-group')
             .data(querydata).enter()
             .append('g')
             .attr('class', 'story-group')
-            .attr("class", "brush")
-            .call(brush)
             .on("mouseover", function(d, i) {
                 focus.append("text")
                     .attr("class", "title-text")
@@ -152,7 +161,6 @@ function drawTimeseries() {
             .on("mouseout", function(d) {
                 focus.select(".title-text").remove();
             })
-
         var storyLine = storyGroup.append('path')
             .attr('class', 'line')
             .attr('d', function(d) { return line(d.pairs) })
@@ -194,13 +202,14 @@ function drawTimeseries() {
         // If no selection, back to initial coordinate. Otherwise, update X axis domain
         if (!ext) {
             if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+            setRanges()
             xScale.domain(params.xrange)
             console.log("params.xrange = ", params.xrange)
         } else {
             params.xrange = [xScale.invert(ext[0]), xScale.invert(ext[1])]
             console.log("params.xrange = ", params.xrange)
             xScale.domain(params.xrange)
-            lines.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+            masked.selectAll('.story-group').select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
         }
 
         // Update axis

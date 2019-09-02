@@ -43,9 +43,10 @@ function dumpFirst() {
 // When a word is submitted via inputClick...
 function addQuery(val, err) {
     // Add the word as a list item so the user knows it's been added and can delete later
-    d3.select("#queryList").append("li").text(val).attr("class", val).on("click", function(d, i) {
+    d3.select("#queryList").append("li").text(val).attr("class", "li-" + val).on("click", function(d, i) {
         // When the list item is clicked, remove the word from the query list and delete the data
-        removeWord(this.className)
+        q = this.className.replace("li-", "")
+        removeWord(q)
         // Delete the li for the deleted word
         this.remove()
     })
@@ -80,11 +81,8 @@ function loadData(word) {
             // Add the JSON data object to the array of query data
             querydata.push(data)
             console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
-            xmins.push(data.xrange[0])
-            xmaxes.push(data.xrange[1])
-            ymaxes.push(data.yrange[1])
-            drawTimeseries()
             addQuery(word)
+            drawTimeseries()
             message = "success"
         }
     })
@@ -113,8 +111,6 @@ function removeWord(value) {
     console.log("removed ", value, " from querydata; length = " + querydata.length + " and data is " + querydata)
     // Clear the chart
     d3.select("#timeseries").selectAll().remove()
-    // Just in case, delete anything with the class of this query
-    d3.selectAll("." + value).remove()
     drawTimeseries()
 }
 

@@ -87,7 +87,7 @@
     // Set default options
     const defaultparams = {
         // query : ["#MeToo","summer",emojis... etc], default: ["spring","summer","autumn","winter"]
-        "queries": ["spring", "summer", "autumn", "winter"],
+        "queries": ["😂", "#MeToo", "halloween", "2015"],
         // lang: ["en","es","ru",..."_all"], default: "en"
         "lang": "en",
         // metric: ["rank","counts","freq"], default: "rank"
@@ -110,10 +110,6 @@
     //var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
     // An array of data objects
     var querydata = []
-    // Lists of all date and metric min/max:
-    var xmins = []
-    var xmaxes = []
-    var ymaxes = []
     // A list of our color names and hex values fortint, fill, & stroke
     var colors = {
         'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
@@ -170,6 +166,7 @@
         // Check the correct boxes in the filter form according to the parameters
         setFilters()
         setSizing()
+        setRanges()
         // Load the data for any pre-set queries from parameters
         params['queries'].forEach(function(q) { loadData(q) })
     }
