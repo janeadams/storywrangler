@@ -113,7 +113,7 @@
 h4,
 ul,
 li {
-    color: #8BC862;
+    color: darkgrey;
 }
 
 #debugForm p,
@@ -139,7 +139,6 @@ li {
     height: 100%;
     display: inline-block;
     float: left;
-    background-color: #EBF7D0;
     border-radius: 10px;
     margin: 2px;
     padding: 10px;
@@ -152,7 +151,6 @@ li {
 
 #filterForm input[type=submit] {
     height: 100%;
-    background-color: #8BC862;
     color: #FFF;
     font-size: 1.2em;
     width: auto;

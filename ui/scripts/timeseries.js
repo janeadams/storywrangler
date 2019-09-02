@@ -2,13 +2,13 @@ console.log("loaded timeseries.js")
 
 function setSizing() {
     params.sizing[0] = 0.8 * (document.documentElement.clientWidth)
-    console.log("Updating width to...", params.sizing[0])
+    //console.log("Updating width to...", params.sizing[0])
     params.sizing[1] = 0.6 * (document.documentElement.clientHeight)
-    console.log("Updating height to...", params.sizing[1])
+    //console.log("Updating height to...", params.sizing[1])
 }
 
 function setRanges() {
-    console.log("Setting ranges...")
+    //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
     var xmins = []
     var xmaxes = []
@@ -24,10 +24,10 @@ function setRanges() {
 
 function drawTimeseries() {
     setRanges()
-    console.log('params.xrange =', params.xrange, '  params.yrange =', params.yrange)
-    console.log("Drawing all timeseries...")
+    //console.log('params.xrange =', params.xrange, '  params.yrange =', params.yrange)
+    //console.log("Drawing all timeseries...")
     // Determine the chart area sizing based on the window size
-    console.log("Setting margins...")
+    //console.log("Setting margins...")
     // Set the sizing and margins for the main chart
     var margin = { top: 0.1 * (params.sizing[1]), right: 0.1 * (params.sizing[0]), bottom: 0.25 * (params.sizing[1]), left: 0.1 * (params.sizing[0]) }
     var width = params.sizing[0] - margin.left - margin.right
@@ -39,7 +39,7 @@ function drawTimeseries() {
 
     // Clear any leftover charting stuff from before
     d3.select("#dataviz").selectAll("svg").remove()
-    console.log("Setting scales...")
+    //console.log("Setting scales...")
     // Set the time scale for the main chart
     var xScale = d3.scaleTime()
         .domain(params.xrange) // input
@@ -61,14 +61,14 @@ function drawTimeseries() {
         var yScale2 = d3.scaleLog().domain(params.yrange).range([height, 1])
     }
     // Create a chart area and set the size
-    console.log("Creating chart area...")
+    //console.log("Creating chart area...")
     var chart = d3.select("#timeseries").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr('class', 'chart')
 
     // Add brushing
-    console.log("Adding brushing...")
+    //console.log("Adding brushing...")
     var brush = d3.brushX() // Add the brush feature using the d3.brush function
         .extent([
             [0, 0],
@@ -103,14 +103,14 @@ function drawTimeseries() {
         .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")")
 
     // Draw the main chart's xAxis
-    console.log("Drawing focus area...")
+    //console.log("Drawing focus area...")
     focus.append("g")
         .attr("class", "xaxis")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(xScale)) // Create an axis component with d3.axisBottom
 
     // Draw the yAxis
-    console.log("Drawing yaxis...")
+    //console.log("Drawing yaxis...")
     focus.append("g")
         .attr("class", "yaxis")
         .call(d3.axisLeft(yScale).ticks(10, ""))
@@ -123,7 +123,7 @@ function drawTimeseries() {
     focus.attr("class", "brush")
         .call(brush)
 
-    console.log("Appending clipping path...")
+    //console.log("Appending clipping path...")
     focus.append("defs").append("clipPath")
         .attr("id", "clip")
         .append("rect")
@@ -141,7 +141,7 @@ function drawTimeseries() {
     var lineStroke = "1.5px";
     var lineStrokeHover = "2.5px";
 
-    console.log("Adding timeseries lines...")
+    //console.log("Adding timeseries lines...")
 
     function drawLines() {
         var storyGroup = masked.selectAll('.story-group')
@@ -195,19 +195,19 @@ function drawTimeseries() {
     // A function that update the chart for given boundaries
     function updateChart() {
 
-        console.log(d3.event)
+        //console.log(d3.event)
         ext = d3.event.selection
-        console.log("Updating axis to ext ", ext)
+        //console.log("Updating axis to ext ", ext)
 
         // If no selection, back to initial coordinate. Otherwise, update X axis domain
         if (!ext) {
             if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
             setRanges()
             xScale.domain(params.xrange)
-            console.log("params.xrange = ", params.xrange)
+            //console.log("params.xrange = ", params.xrange)
         } else {
             params.xrange = [xScale.invert(ext[0]), xScale.invert(ext[1])]
-            console.log("params.xrange = ", params.xrange)
+            //console.log("params.xrange = ", params.xrange)
             xScale.domain(params.xrange)
             //masked.selectAll('.story-group').select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
             chart.select(".brush").call(brush.move, null)

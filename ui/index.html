@@ -36,7 +36,8 @@
                 </section>
             </form>
             -->
-            <form id="filterForm" onSubmit="return filterSubmission()">
+            <form id="filterForm" onChange="return filterSubmission()">
+                <!--
                 <section id="langFilter">
                     <h4>Lang</h4>
                     <ul>
@@ -44,6 +45,7 @@
                         <li><input type="radio" name="lang" value="es">Spanish</li>
                     </ul>
                 </section>
+            -->
                 <section id="metricFilter">
                     <h4>Metric</h4>
                     <ul>
@@ -100,7 +102,7 @@
     }
     // Limit options for certain parameters
     const paramoptions = {
-        "lang": ["en", "es"],
+        "lang": ["en"],
         "metric": ["rank", "counts", "freq"],
         "options": ["case-sensitive", "log", "details", "multi"]
     }
@@ -130,30 +132,30 @@
         var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
             console.log("key = ", key, " value = ", value)
             // Parse arrays:
-            value = value.replace("[", "").replace("]", "").split(",")
+            value = value.replace("[", "").replace("/]", "").split(",")
             // If the parameter has a specified set of options:
             if (Object.keys(paramoptions).includes(key)) {
-                console.log("paramoptions includes ", key)
-                console.log("paramoptions[", key, "] = ", paramoptions[key])
+                //console.log("paramoptions includes ", key)
+                //console.log("paramoptions[", key, "] = ", paramoptions[key])
                 // And the value returned is incldued in those options:
                 if (paramoptions[key].includes(String(value))) {
                     // Accept the value from the url parameter
-                    console.log("paramoptions for", key, " includes ", value)
+                    //console.log("paramoptions for", key, " includes ", value)
                     vars[key] = value
                 } else {
                     // If the value isn't one of the allowed options, set to default
-                    console.log(value + " is an invalid option for the " + key + " parameter! Setting " + key + "to default:" + defaultparams[key])
+                    //console.log(value + " is an invalid option for the " + key + " parameter! Setting " + key + "to default:" + defaultparams[key])
                     value = defaultparams[key]
                 }
             }
             // Set the parameter to the value from the URL
-            console.log("Setting key:", key, " to value:", value)
+            //console.log("Setting key:", key, " to value:", value)
             // If the parameter should be formatted as an array:
             if (typeof(params[key]) == "object" && typeof(value) == "string") {
                 // Create an array
                 vars[key] = []
                 // Add the value to it
-                vars[key].push(value)
+                vars[key].push(values)
             } else {
                 vars[key] = value
             }
@@ -162,15 +164,15 @@
     }
     // Get the parameters from the URL
     function getUrlParam() {
-        console.log("url = ", window.location.href)
+        console.log("url = ", unescape(encodeURIComponent(window.location.href)))
         for (var p in params) {
             // If the parameter is in the URL
             if (window.location.href.indexOf(p) > -1) {
                 // set the variable to the value in the url
                 var urlvar = getUrlVars()[p]
-                console.log("Found ", p, " parameter in URL as ", urlvar)
+                //console.log("Found ", p, " parameter in URL as ", urlvar)
                 params[p] = urlvar
-                console.log("Changed params[", p, "] to ", params[p])
+                //console.log("Changed params[", p, "] to ", params[p])
             }
         }
     }
@@ -178,20 +180,20 @@
     function setFilters() {
         // Check the boxes based on the parameters
         for (var filter of ['metric', 'lang', 'options']) {
-            console.log("Clearing all checkboxes for ", filter)
+            //console.log("Clearing all checkboxes for ", filter)
             // Clear all checked boxes
             d3.selectAll("input[name = " + filter + "]").property('checked', false)
             // If we're expecting more than one value
             if (typeof(params[filter]) == "object") {
-                console.log(filter + " is an object")
+                //console.log(filter + " is an object")
                 for (var value of params[filter]) {
-                    console.log("Checking box for", value, "on filter", filter)
+                    //console.log("Checking box for", value, "on filter", filter)
                     // Check all boxes for this parameter's values
                     d3.selectAll("input[value = " + value + "]").property('checked', true)
                 }
             } else {
                 // Check only the correct box for this parameter value
-                console.log("Checking box for", params[filter], "on filter", filter)
+                //console.log("Checking box for", params[filter], "on filter", filter)
                 d3.selectAll("input[value = " + params[filter] + "]").property('checked', true)
             }
         }
@@ -199,19 +201,21 @@
 
     function setupPage() {
         // Set parameters to the default parameters
-        params = defaultparams
+        for (var [p, v] of Object.entries(defaultparams)) {
+            params[p] = v
+        }
         // Get parameters from the URL and update current parameters accordingly
         getUrlParam()
         // Check the correct boxes in the filter form according to the parameters
         setFilters()
         setSizing()
         setRanges()
-        i = 0
-        // Load the data for any pre-set queries from parameters
+        params['queries'] = params['queries'].map(function(q) {
+            return decodeURI(q)
+        })
+        // Load the data queries from parameters
         for (var q of params['queries']) {
             loadData(q)
-            console.log("q =", q, " i = ", i)
-            i += i
         }
     }
     setupPage()

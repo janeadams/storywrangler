@@ -59,7 +59,9 @@ function loadData(word) {
     var message = ""
     // Pull the JSON data
     formatted_word = word.replace("#", "%23").replace("'", "")
+    console.log("Formatted word = ", formatted_word)
     var url = encodeURI("http://hydra.uvm.edu:3001/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + params["metric"] + "]")
+    console.log("Querying URL = ", url)
     d3.json(url).then(function(data, error) {
         console.log('read url "' + url + '"')
         if (data["api_error_count"] > 0) {
@@ -117,12 +119,47 @@ function removeWord(value) {
 
 function filterSubmission() {
     // Check the boxes based on the parameters
-    for (var p of ['lang', 'metric']) {
+    //for (var p of ['lang', 'metric']) {
+    for (var p of ['metric']) {
         // Get the selected language and metric, and update the parameters variable
         params[p] = d3.select("input[name = " + p + "]:checked").property('value')
     }
-    for (var k of Object.keys(params['options'])) {
+    for (var opt of params['options']) {
         // Set options 'checked' state based on boolean object in the parameters
-        params['options'][k] = d3.select("input[value = " + k + "]").property('checked')
+        params['options'] = []
+        params['options'].push(d3.select("input[value = " + opt + "]:checked").property('value'))
     }
+    updateURL()
+}
+
+function updateURL() {
+    var currentURL = String(window.location.href)
+    console.log("currentURL = ", currentURL)
+    var splitURL = currentURL.split("?")
+    var customparams = {}
+    /*
+    for (var p of Object.keys(params)) {
+        console.log("var p = ", p)
+        console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p])
+        if (params[p] != defaultparams[p]) {
+            customparams[p] = params[p]
+        }
+    }
+    */
+    for (var p of ['queries', 'metric', 'lang']) {
+        console.log("var p = ", p)
+        console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p])
+        if (params[p] != defaultparams[p]) {
+            customparams[p] = params[p]
+        }
+    }
+
+    console.log("customparams = ", customparams)
+    var paramlist = []
+    for (var [p, v] of Object.entries(customparams)) {
+        paramlist.push(p + "=" + v)
+    }
+    var newURL = String(splitURL[0]) + "?" + paramlist.join("&")
+    console.log("newURL = ", newURL)
+    window.location.href = newURL
 }
