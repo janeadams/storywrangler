@@ -1,25 +1,24 @@
 # Hydra:
 ssh janeadams@hydra.uvm.edu
-# or
-8888:localhost:8888 -N janeadams@hydra.uvm.edu
+alias hydra="ssh janeadams@hydra.uvm.edu"
 
 # Sublime Editor:
-ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu
-rsub ui/index.html && rsub ui/scripts/timeseries.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css && rsub ui/styles/main.css 
+alias sublime="ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu 'rsub ui/index.html  && rsub ui/scripts/timeseries.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css && rsub ui/styles/main.css; bash -l'"
 
 # Jupyter:
-source activate test_env && jupyter notebook --port=8888
+. activate test_env && jupyter notebook --port=8888
 ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
 
-# Dash:
-nohup python3 py/timeseries.py > debug/dash.txt & disown
-ssh -N -L localhost:8050:localhost:8050 janeadams@hydra.uvm.edu
+# UI:
+node ui-server.js
+nohup node ui-server.js > debug/node_ui.txt &
+alias ui="node ui-server.js"
 
 --------------
 
 # API:
 
-source activate test_env
+. activate test_env
 
 # debugging:
 nohup python3 py/api.py > debug/api_flask.txt &
@@ -30,6 +29,8 @@ python3 api/init_logs.py
 
 # running uwsgi:
 nohup uwsgi --http :3001 --wsgi-file api/uwsgi.py > debug/uwsgi.txt & disown
+
+alias api="rm -f api/logs/*.csv && . activate test_env && touch api/logs/querylog.csv && touch api/logs/responselog.csv && python3 api/init_logs.py && nohup uwsgi --http :3001 --wsgi-file api/uwsgi.py > debug/uwsgi.txt & disown"
 
 --------------
 
@@ -85,10 +86,13 @@ export PATH="/opt/anaconda/bin:$PATH"
 export PATH="$HOME/.conda/envs/test_env/bin:$PATH"
 
 ******* DEPRECATED *******
+
 # Dash:
+nohup python3 py/timeseries.py > debug/dash.txt & disown
 nohup python3 py/timeseries_prod1.py > debug/dash_prod1.txt &
 nohup python3 py/timeseries_no-dropdown.py > debug/dash_no-dropdown.txt &
 nohup python3 py/timeseries_input-enter.py > debug/dash_input-enter.txt &
+ssh -N -L localhost:8050:localhost:8050 janeadams@hydra.uvm.edu
 
 API (Node)
 nohup node server.js > debug/node_api.txt & disown

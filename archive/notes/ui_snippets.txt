@@ -1,0 +1,60 @@
+    for (var [p, v] of Object.entries(params)) {
+        console.log(p, v)
+        // Clear all checks
+        d3.selectAll("input[name = " + p + "]").property('checked', false)
+        // Check only the box for a given parameter
+        d3.selectAll("input[value = " + v + "]").property('checked', true)
+    }
+
+
+
+
+
+
+function drawEachTimeseries(data, i) {
+        var id = data["word"] + "-timeseries"
+        console.log("data['word'] = ", data["word"])
+        console.log("id =", id)
+        // Get a list of all dates for which we have data
+        var dates = data["dates"]
+        //console.log('dates = ', dates)
+        // Get a list of all the values for our chosen metric
+        var values = data[params['metric']]
+        //console.log('values = ', values)
+
+        dataset = []
+
+        dates.forEach(function(date, i) {
+            var pair = {}
+            pair.x = date
+            pair.y = values[i]
+            dataset.push(pair)
+        })
+        console.log(dataset)
+
+        // Draw the timeseries line
+
+        var timeseries = chart.append("path")
+        timeseries.datum(dataset)
+            .attr("class", "line")
+            .attr("d", line)
+            .attr("id", id)
+            .style("stroke", colors.hue[i])
+
+        // Add a point to every date 
+        timeseries.selectAll(".dot")
+            .data(dataset)
+            .enter().append("circle")
+            .attr("class", "dot")
+            .attr("cx", function(d, i) { return xScale(d.x) })
+            .attr("cy", function(d) { return yScale(d.y) })
+            .attr("r", 2)
+            .style("fill", colors.light[i])
+            .style("stroke", colors.dark[i])
+            .on("mouseover", function(a, b, c) {
+                d3.select(this).classed('dot', false).classed('focus', true)
+            })
+            .on("mouseout", function() {
+                d3.select(this).classed('focus', false).classed('dot', true)
+            })
+    }
