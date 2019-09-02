@@ -19,7 +19,7 @@ function setRanges() {
         ymaxes.push(data.yrange[1])
     })
     params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    params.yrange = [d3.max(ymaxes) * 1.1, 1]
+    params.yrange = [d3.max(ymaxes) * 1.2, 1]
 }
 
 function drawTimeseries() {
@@ -51,7 +51,7 @@ function drawTimeseries() {
         .range([0, width]) // output
 
     // Choose and set time scales (logarithmic or linear)
-    if (params.options.log) {
+    if (params["options"].includes("log")) {
         // If 'logarithmic' option is chosen (by default:)
         var yScale = d3.scaleLog().domain(params.yrange).range([height, 1])
         var yScale2 = d3.scaleLog().domain(params.yrange).range([height, 1])
@@ -209,11 +209,11 @@ function drawTimeseries() {
             params.xrange = [xScale.invert(ext[0]), xScale.invert(ext[1])]
             console.log("params.xrange = ", params.xrange)
             xScale.domain(params.xrange)
-            masked.selectAll('.story-group').select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+            //masked.selectAll('.story-group').select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+            chart.select(".brush").call(brush.move, null)
         }
 
         // Update axis
-        console.log("Updating axis to ext ", ext)
         d3.select(".xaxis").transition().duration(1000).call(d3.axisBottom(xScale))
         focus
             .selectAll(".line")

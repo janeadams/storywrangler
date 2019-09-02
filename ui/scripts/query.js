@@ -55,6 +55,7 @@ function addQuery(val, err) {
 
 // When a new word is queried...
 function loadData(word) {
+    console.log("Loading data for ", word, "...")
     var message = ""
     // Pull the JSON data
     formatted_word = word.replace("#", "%23").replace("'", "")

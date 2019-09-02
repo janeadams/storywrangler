@@ -35,6 +35,7 @@
                     </ul>
                 </section>
             </form>
+            -->
             <form id="filterForm" onSubmit="return filterSubmission()">
                 <section id="langFilter">
                     <h4>Lang</h4>
@@ -60,7 +61,6 @@
                     </ul>
                 </section>
             </form>
-            -->
         </section>
         <!-- Data visualization area -->
         <section id="dataviz">
@@ -92,22 +92,25 @@
         "lang": "en",
         // metric: ["rank","counts","freq"], default: "rank"
         "metric": "rank",
-        // options: ["case-sensitive","log","details"], defaults: true
-        "options": {
-            "case-sensitive": true,
-            "log": true,
-            "details": true
-        },
-        "multi": false,
+        // options: ["case-sensitive","log","details","multi"]
+        "options": ["case-sensitive", "log", "details"],
         "xrange": [new Date(1, 1, 2010), new Date()],
         "yrange": [1, 100000],
         "sizing": [800, 600]
     }
+    // Limit options for certain parameters
+    const paramoptions = {
+        "lang": ["en", "es"],
+        "metric": ["rank", "counts", "freq"],
+        "options": ["case-sensitive", "log", "details", "multi"]
+    }
     // An object containing our parameters
-    var params = {}
+    var params = {
+        "queries": []
+    }
     // An array containing suggested searches:
-    var querySuggestions = []
-    //var querySuggestions = ["superbowl", "su", "super", "halloween", "christmas", "easter"]
+    //var querySuggestions = []
+    var querySuggestions = ["#DemDebate", "#HurricaneDorian", "#MeToo", "@realDonaldTrump"]
     // An array of data objects
     var querydata = []
     // A list of our color names and hex values fortint, fill, & stroke
@@ -125,52 +128,92 @@
     function getUrlVars() {
         var vars = {};
         var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
-            vars[key] = value;
-        });
-        console.log(vars)
+            console.log("key = ", key, " value = ", value)
+            // Parse arrays:
+            value = value.replace("[", "").replace("]", "").split(",")
+            // If the parameter has a specified set of options:
+            if (Object.keys(paramoptions).includes(key)) {
+                console.log("paramoptions includes ", key)
+                console.log("paramoptions[", key, "] = ", paramoptions[key])
+                // And the value returned is incldued in those options:
+                if (paramoptions[key].includes(String(value))) {
+                    // Accept the value from the url parameter
+                    console.log("paramoptions for", key, " includes ", value)
+                    vars[key] = value
+                } else {
+                    // If the value isn't one of the allowed options, set to default
+                    console.log(value + " is an invalid option for the " + key + " parameter! Setting " + key + "to default:" + defaultparams[key])
+                    value = defaultparams[key]
+                }
+            }
+            // Set the parameter to the value from the URL
+            console.log("Setting key:", key, " to value:", value)
+            // If the parameter should be formatted as an array:
+            if (typeof(params[key]) == "object" && typeof(value) == "string") {
+                // Create an array
+                vars[key] = []
+                // Add the value to it
+                vars[key].push(value)
+            } else {
+                vars[key] = value
+            }
+        })
         return vars;
     }
     // Get the parameters from the URL
-    function getUrlParam(parameter, defaultvalue) {
-        console.log("parameter = ", parameter, "defaultvalue", defaultvalue)
-        // Set to the default values from the default object
-        var urlparameter = defaultvalue;
-        // If the parameter is in the URL
-        if (window.location.href.indexOf(parameter) > -1) {
-            // set the variable to the value in the url
-            urlparameter = getUrlVars()[parameter];
+    function getUrlParam() {
+        console.log("url = ", window.location.href)
+        for (var p in params) {
+            // If the parameter is in the URL
+            if (window.location.href.indexOf(p) > -1) {
+                // set the variable to the value in the url
+                var urlvar = getUrlVars()[p]
+                console.log("Found ", p, " parameter in URL as ", urlvar)
+                params[p] = urlvar
+                console.log("Changed params[", p, "] to ", params[p])
+            }
         }
-        console.log("parameter = ", parameter, "urlparameter", urlparameter)
-        return urlparameter;
     }
 
     function setFilters() {
         // Check the boxes based on the parameters
-        for (var p of ['lang', 'metric']) {
+        for (var filter of ['metric', 'lang', 'options']) {
+            console.log("Clearing all checkboxes for ", filter)
             // Clear all checked boxes
-            d3.selectAll("input[name = " + p + "]").property('checked', false)
-            // Check only the correct box
-            d3.selectAll("input[value = " + params[p] + "]").property('checked', true)
-        }
-        for (var [p, v] of Object.entries(params['options'])) {
-            // Set options 'checked' state based on boolean object in the parameters
-            d3.selectAll("input[value = " + p + "]").property('checked', v)
+            d3.selectAll("input[name = " + filter + "]").property('checked', false)
+            // If we're expecting more than one value
+            if (typeof(params[filter]) == "object") {
+                console.log(filter + " is an object")
+                for (var value of params[filter]) {
+                    console.log("Checking box for", value, "on filter", filter)
+                    // Check all boxes for this parameter's values
+                    d3.selectAll("input[value = " + value + "]").property('checked', true)
+                }
+            } else {
+                // Check only the correct box for this parameter value
+                console.log("Checking box for", params[filter], "on filter", filter)
+                d3.selectAll("input[value = " + params[filter] + "]").property('checked', true)
+            }
         }
     }
 
     function setupPage() {
         // Set parameters to the default parameters
-        for (var [p, v] of Object.entries(defaultparams)) { params[p] = v }
+        params = defaultparams
         // Get parameters from the URL and update current parameters accordingly
-        for (var [p, v] of Object.entries(params)) { getUrlParam(p, v) }
+        getUrlParam()
         // Check the correct boxes in the filter form according to the parameters
         setFilters()
         setSizing()
         setRanges()
+        i = 0
         // Load the data for any pre-set queries from parameters
-        params['queries'].forEach(function(q) { loadData(q) })
+        for (var q of params['queries']) {
+            loadData(q)
+            console.log("q =", q, " i = ", i)
+            i += i
+        }
     }
-
     setupPage()
     </script>
     <!--<script type='text/javascript' src="scripts/autocomplete.js"></script>-->
