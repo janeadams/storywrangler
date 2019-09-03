@@ -9,10 +9,16 @@ alias sublime="ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu 'rsub ui/ind
 . activate test_env && jupyter notebook --port=8888
 ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
 
-# UI:
+# DEVELOPMENT UI:
 node ui-server.js
 nohup node ui-server.js > debug/node_ui.txt &
 alias ui="node ui-server.js"
+
+# PRODUCTION UI:
+node prod-ui-server.js
+nohup node prod-ui-server.js > ../debug/node_prod-ui.txt &
+alias prod-ui="node prod-ui-server.js"
+
 
 --------------
 
