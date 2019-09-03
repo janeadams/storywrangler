@@ -38,6 +38,10 @@ function drawTimeseries() {
     var width = params.sizing[0] - margin.left - margin.right
     var height = params.sizing[1] - margin.top - margin.bottom
 
+    // Set the sizing for the brushed navigation mini-chart
+    var margin2 = { top: height + 100, right: margin.right, bottom: margin.bottom, left: margin.left }
+    var height2 = params.sizing[1] - margin2.top - margin2.bottom
+
     // Clear any leftover charting stuff from before
     d3.select("#dataviz").selectAll("svg").remove()
     //console.log("Setting scales...")
@@ -46,25 +50,34 @@ function drawTimeseries() {
         .domain(params.xrange) // input
         .range([0, width]) // output
 
+    // Set the time scale for the navigation brush mini-chart
+    var xScale2 = d3.scaleTime()
+        .domain(params.xrange) // input
+        .range([0, width]) // output
+
     // Choose and set time scales (logarithmic or linear)
     if (params["scale"] == "log") {
         // If 'logarithmic' option is chosen (by default:)
         var yScale = d3.scaleLog().domain(params.yrange)
+        var yScale2 = d3.scaleLog().domain(params.yrange)
     } else {
         // If 'logarithmic' option deselected, use linear time scale:
         var yScale = d3.scaleLinear().domain(params.yrange)
+        var yScale2 = d3.scaleLinear().domain(params.yrange)
     }
 
     // When showing ranks...
     if (params['metric'] == 'rank') {
         // Put rank #1 at the top
         yScale.range([height, 1])
+        yScale2.range([height, 1])
     }
     // When showing any other metric...
     else {
         // Put the highest number at the top
         // and start at 0
         yScale.range([0, height])
+        yScale2.range([0, height])
     }
 
     // Create a chart area and set the size
@@ -84,18 +97,25 @@ function drawTimeseries() {
         .on("end", brushChart)
 
     // Create the main chart area
-    var main = chart.append("g").attr("class", "main").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    var focus = chart.append("g")
+        .attr("class", "focus")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+
+    // Create a mini-chart for brushed navigation
+    var context = chart.append("g")
+        .attr("class", "context")
+        .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")")
 
     // Draw the main chart's xAxis
-    //console.log("Drawing main area...")
-    main.append("g")
+    //console.log("Drawing focus area...")
+    focus.append("g")
         .attr("class", "xaxis")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(xScale)) // Create an axis component with d3.axisBottom
 
     // Draw the yAxis
     //console.log("Drawing yaxis...")
-    main.append("g")
+    focus.append("g")
         .attr("class", "yaxis")
         .call(d3.axisLeft(yScale).ticks(10, ""))
 
@@ -104,11 +124,11 @@ function drawTimeseries() {
         .y(function(d) { return yScale(d.y) }) // set the y values for the line generator 
         .curve(d3.curveMonotoneX) // apply smoothing to the line
 
-    main.attr("class", "brush")
+    focus.attr("class", "brush")
         .call(brush)
 
     //console.log("Appending clipping path...")
-    chart.append("defs").append("clipPath")
+    focus.append("defs").append("clipPath")
         .attr("id", "clip")
         .append("rect")
         .attr("width", width)
@@ -117,7 +137,7 @@ function drawTimeseries() {
         .attr("y", 0)
 
     // Clip the data in the main chart to the brushed region
-    var masked = main.append("g").attr("clip-path", "url(#clip)")
+    var masked = focus.append("g").attr("clip-path", "url(#clip)")
 
     var lineOpacity = "1.0";
     var lineOpacityHover = "1.0";
@@ -127,14 +147,13 @@ function drawTimeseries() {
 
     //console.log("Adding timeseries lines...")
 
-    function drawMain() {
-
-        var storyGroup = main.selectAll('.story-group')
+    function drawLines() {
+        var storyGroup = masked.selectAll('.story-group')
             .data(querydata).enter()
             .append('g')
             .attr('class', 'story-group')
             .on("mouseover", function(d, i) {
-                main.append("h1")
+                focus.append("h1")
                     .attr("class", "title-text")
                     .style("fill", colors.dark[d.colorid])
                     .text(d.word)
@@ -144,9 +163,8 @@ function drawTimeseries() {
                     .attr("id", d.word + "-group")
             })
             .on("mouseout", function(d) {
-                main.select(".title-text").remove();
+                focus.select(".title-text").remove();
             })
-
         var storyLine = storyGroup.append('path')
             .attr('class', 'line')
             .attr('d', function(d) { return line(d.pairs) })
@@ -256,7 +274,7 @@ function drawTimeseries() {
             */
     }
 
-    drawMain()
+    drawLines()
 
 
     // A function that set idleTimeOut to null
@@ -267,7 +285,7 @@ function drawTimeseries() {
     function updateAxis() {
         // Update axis
         d3.select(".xaxis").transition().duration(1000).call(d3.axisBottom(xScale))
-        main
+        focus
             .selectAll(".line")
             .transition().duration(1000)
             .attr('d', function(d) { return line(d.pairs) })
