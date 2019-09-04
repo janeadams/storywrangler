@@ -15,6 +15,12 @@ var cors = require('cors');
 //Cross-origin request service
 app.use(cors());
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "hydra.uvm.edu:8050"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+})
+
 app.get(':word', function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 });

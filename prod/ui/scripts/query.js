@@ -21,6 +21,7 @@ function querySubmission(event) {
             // Add the word to the list of queries
             params["queries"].push(query);
             console.log("Added " + query + " to query list [" + params["queries"] + "]; query list length = " + params["queries"].length);
+            updateURL()
             loadData(query)
         }
         // If the query was already in our list...
@@ -167,5 +168,7 @@ function updateURL() {
     var newURL = String(splitURL[0]) + "?" + paramlist.join("&")
     console.log("newURL = ", newURL)
     window.location.href = newURL
-    drawTimeseries();
+    setTimeout(function() {
+        drawTimeseries()
+    }, 2000);
 }

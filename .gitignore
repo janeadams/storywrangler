@@ -1,7 +1,6 @@
 # Don't track content of these folders
 output/
-.passwords/
 node_modules/
-.env
 debug/console_*.txt
-api/*log.csv
+api/logs/
+.*

@@ -12,6 +12,7 @@ from flask import Flask, Response
 from flask import request, abort, jsonify
 import csv
 import uuid
+from flask_cors import CORS
 
 password = os.getenv("PASSWORD")
 username = os.getenv("USERNAME")
@@ -19,7 +20,9 @@ username = os.getenv("USERNAME")
 client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.config['JSON_SORT_KEYS'] = False
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def print_info(varlist):
     l=[]
