@@ -8,16 +8,17 @@ alias sublime="ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu 'rsub ui/ind
 # Jupyter:
 . activate test_env && jupyter notebook --port=8888
 ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
+alias jlink="ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu"
 
 # DEVELOPMENT UI:
 node ui-server.js
 nohup node ui-server.js > debug/node_ui.txt &
-alias ui="node ui-server.js"
+alias ui="node ui-server.js > debug/node_ui.txt &"
 
 # PRODUCTION UI:
 node prod-ui-server.js
-nohup node prod-ui-server.js > ../debug/node_prod-ui.txt &
-alias prod-ui="node prod-ui-server.js"
+nohup node prod-ui-server.js > ~/debug/node_prod-ui.txt &
+alias prod-ui="nohup node prod-ui-server.js > ~/debug/node_prod-ui.txt & disown"
 
 
 --------------
@@ -38,10 +39,13 @@ nohup uwsgi --http :3001 --wsgi-file api/uwsgi.py > debug/uwsgi.txt & disown
 
 alias api="rm -f api/logs/*.csv && . activate test_env && touch api/logs/querylog.csv && touch api/logs/responselog.csv && python3 api/init_logs.py && nohup uwsgi --http :3001 --wsgi-file api/uwsgi.py > debug/uwsgi.txt & disown"
 
+alias update-dev="kill $(lsof -t -i:8051) && ui"
+alias update-prod="cp ui/ -r prod/ && kill $(lsof -t -i:8050) && prod-ui"
+
 --------------
 
 # nginx config:
-vim ../../etc/nginx/nginx.conf
+sudo vim ../../etc/nginx/nginx.conf
 
 # Generate wordlist(s):
 source activate test_env
