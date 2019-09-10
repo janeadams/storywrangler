@@ -56,57 +56,6 @@ function addQuery(val, colorid, err) {
     console.log("Added " + val + " to UI buttons");
 }
 
-// When a new word is queried...
-function loadData(word) {
-    console.log("Loading data for ", word, "...")
-    var message = ""
-    // Pull the JSON data
-    formatted_word = word.replace("#", "%23").replace("'", "")
-    console.log("Formatted word = ", formatted_word)
-    var url = encodeURI("http://hydra.uvm.edu:3001/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + params["metric"] + "]")
-    console.log("Querying URL = ", url)
-    d3.json(url).then(function(data, error) {
-        console.log('read url "' + url + '"')
-        if (data["api_error_count"] > 0) {
-            alert(data["errors"])
-            message = data["errors"]
-        } else {
-            // Set a color for this timeseries
-            data['colorid'] = queryCounter
-            // Parse the dates into d3 date format
-            var parsedDates = data["dates"].map(function(date) { return new Date(d3.timeParse(date)) })
-            data["dates"] = parsedDates
-            // Find the x- and y-range of this data set
-            data['xrange'] = d3.extent(data["dates"])
-            data['yrange'] = d3.extent(data[params["metric"]])
-            data['pairs'] = []
-            parsedDates.forEach(function(date, i) {
-                var pair = {}
-                pair.x = date
-                pair.y = data[params["metric"]][i]
-                data['pairs'].push(pair)
-            })
-            // Add the JSON data object to the array of query data
-            querydata.push(data)
-            console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
-            addQuery(word, data['colorid'])
-            drawTimeseries()
-            message = "success"
-            queryCounter += 1
-            if (queryCounter > 10) {
-                queryCounter = 0
-            }
-        }
-    })
-    /*.catch(function(error) {
-        // Error handling
-        //console.log(e);
-        alert("Sorry! It looks like the database is down or overloaded -- please try again later")
-        message = "catch"
-    })*/
-    return console.log("loadData: " + message)
-}
-
 // When the list item is clicked for a particular word...
 function removeWord(value) {
     // Delete the word from the list of queries
@@ -123,7 +72,7 @@ function removeWord(value) {
     console.log("removed ", value, " from querydata; length = " + querydata.length + " and data is " + querydata)
     // Clear the chart
     d3.select("#timeseries").selectAll().remove()
-    drawTimeseries()
+    drawCharts()
 }
 
 function filterSubmission() {
@@ -137,6 +86,9 @@ function filterSubmission() {
     setFilters()
     setRanges()
     updateURL()
+    setTimeout(function() {
+        drawCharts()
+    }, 2000);
 }
 
 function updateURL() {
@@ -168,7 +120,4 @@ function updateURL() {
     var newURL = String(splitURL[0]) + "?" + paramlist.join("&")
     console.log("newURL = ", newURL)
     window.location.href = newURL
-    setTimeout(function() {
-        drawTimeseries()
-    }, 2000);
 }

@@ -16,7 +16,7 @@
 /* Style the lines by removing the fill and applying a stroke */
 .line {
     fill: none;
-    stroke-width: 2;
+    stroke-width: 1px;
 }
 
 .overlay {

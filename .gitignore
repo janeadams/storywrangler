@@ -4,3 +4,4 @@ node_modules/
 debug/console_*.txt
 api/logs/
 .*
+api/*log.csv
