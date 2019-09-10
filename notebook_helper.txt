@@ -3,12 +3,13 @@ ssh janeadams@hydra.uvm.edu
 alias hydra="ssh janeadams@hydra.uvm.edu"
 
 # Sublime Editor:
-alias sublime="ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu 'rsub ui/index.html  && rsub ui/scripts/timeseries.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css && rsub ui/styles/main.css; bash -l'"
+alias sublime="ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu 'rsub ui/index.html  && rsub ui/scripts/setup.js && rsub ui/scripts/timeseries.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css && rsub ui/styles/main.css; bash -l'"
 
 # Jupyter:
-. activate test_env && jupyter notebook --port=8888
-ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu
+# for local:
 alias jlink="ssh -N -L localhost:8888:localhost:8888 janeadams@hydra.uvm.edu"
+# for hydra:
+alias jlink="jupyter notebook --port=8888"
 
 # DEVELOPMENT UI:
 node ui-server.js

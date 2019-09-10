@@ -5,3 +5,5 @@ debug/console_*.txt
 api/logs/
 .*
 api/*log.csv
+ai/
+onegram.sublime*
