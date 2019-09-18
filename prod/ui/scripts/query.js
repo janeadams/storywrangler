@@ -46,29 +46,35 @@ function dumpFirst() {
 // When a word is submitted via inputClick...
 function addQuery(val, colorid, err) {
     // Add the word as a list item so the user knows it's been added and can delete later
-    d3.select("#queryList").append("li").text(val).attr("class", "li-" + val).style("color", colors.dark[colorid]).style("border-color", colors.hue[colorid]).style("background-color", colors.light[colorid]).on("click", function(d, i) {
-        // When the list item is clicked, remove the word from the query list and delete the data
-        q = this.className.replace("li-", "")
-        removeWord(q)
-        // Delete the li for the deleted word
-        this.remove()
-    })
+    d3.select("#queryList").append("li")
+        .text(val)
+        .attr("class", "li-" + val)
+        .style("color", colors.dark[colorid])
+        .style("border-color", colors.hue[colorid])
+        .style("background-color", colors.light[colorid])
+        .on("click", function(d, i) {
+            // When the list item is clicked, remove the word from the query list and delete the data
+            q = this.className.replace("li-", "")
+            removeWord(q)
+            // Delete the li for the deleted word
+            this.remove()
+        })
     console.log("Added " + val + " to UI buttons");
 }
 
 // When the list item is clicked for a particular word...
 function removeWord(value) {
     // Delete the word from the list of queries
-    params["queries"] = params["queries"].filter(function(ele) {
+    params["queries"] = params["queries"].filter(ele =>
         // Filter the set to include every query except this one
-        return ele != value
-    })
+        ele != value
+    )
     console.log("removed ", value, " from params['queries']; length = " + params["queries"].length + " and data is " + params["queries"])
     // Delete the word from the list of querydata
-    querydata = querydata.filter(function(ele) {
+    querydata = querydata.filter(ele =>
         // Filter the set to include every query except this one
-        return ele['word'] != value
-    })
+        ele['word'] != value
+    )
     console.log("removed ", value, " from querydata; length = " + querydata.length + " and data is " + querydata)
     // Clear the chart
     d3.select("#timeseries").selectAll().remove()
@@ -86,9 +92,7 @@ function filterSubmission() {
     setFilters()
     setRanges()
     updateURL()
-    setTimeout(function() {
-        drawCharts()
-    }, 2000);
+    setTimeout(() => drawCharts(), 2000);
 }
 
 function updateURL() {

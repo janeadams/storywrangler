@@ -43,7 +43,7 @@ function colorMe(name, type) { return colors[type][colors["names"].indexOf(name)
 // Get the variables from the URL
 function getUrlVars() {
     var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
         console.log("key = ", key, " value = ", value)
         // Parse arrays:
         value = value.replace("[", "").replace("/]", "").split(",")
@@ -123,7 +123,7 @@ function setRanges() {
     var xmins = []
     var xmaxes = []
     var ymaxes = []
-    querydata.forEach(function(data) {
+    querydata.forEach(data => {
         xmins.push(data.xrange[0])
         xmaxes.push(data.xrange[1])
         ymaxes.push(data.yrange[1])
@@ -146,7 +146,7 @@ function loadData(word) {
     console.log("Formatted word = ", formatted_word)
     var url = encodeURI("http://hydra.uvm.edu:3001/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + params["metric"] + "]")
     console.log("Querying URL = ", url)
-    d3.json(url).then(function(data, error) {
+    d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
         if (data["api_error_count"] > 0) {
             alert(data["errors"])
@@ -155,13 +155,13 @@ function loadData(word) {
             // Set a color for this timeseries
             data['colorid'] = queryCounter
             // Parse the dates into d3 date format
-            var parsedDates = data["dates"].map(function(date) { return new Date(d3.timeParse(date)) })
+            var parsedDates = data["dates"].map(date => new Date(d3.timeParse(date)))
             data["dates"] = parsedDates
             // Find the x- and y-range of this data set
             data['xrange'] = d3.extent(data["dates"])
             data['yrange'] = d3.extent(data[params["metric"]])
             data['pairs'] = []
-            parsedDates.forEach(function(date, i) {
+            parsedDates.forEach((date, i) => {
                 var pair = {}
                 pair.x = date
                 pair.y = data[params["metric"]][i]
@@ -196,9 +196,7 @@ function setupPage() {
     // Get parameters from the URL and update current parameters accordingly
     getUrlParam()
     // Decode the URL queries (e.g. emojis)
-    params['queries'] = params['queries'].map(function(q) {
-        return decodeURI(q)
-    })
+    params['queries'] = params['queries'].map(q => decodeURI(q))
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
     setSizing()

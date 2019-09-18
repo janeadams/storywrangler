@@ -73,8 +73,8 @@ function drawCharts() {
 
 
     var line = d3.line()
-        .x(function(d) { return xScale(d.x) }) // set the x values for the line generator
-        .y(function(d) { return yScale(d.y) }) // set the y values for the line generator 
+        .x(d => xScale(d.x)) // set the x values for the line generator
+        .y(d => yScale(d.y)) // set the y values for the line generator 
         .curve(d3.curveMonotoneX) // apply smoothing to the line
 
     // Create a chart area and set the size
@@ -160,7 +160,7 @@ function drawCharts() {
         .data(querydata).enter()
         .append('g')
         .attr('class', 'story-group')
-        .on("mouseover", function(d, i) {
+        .on("mouseover", (d, i) => {
             focus.append("text")
                 .attr("class", "title-text")
                 .style("fill", colors.dark[d.colorid])
@@ -171,15 +171,15 @@ function drawCharts() {
                 .attr("id", d.word + "-group")
                 .style("font-weight", "bold")
         })
-        .on("mouseout", function(d) {
+        .on("mouseout", d => {
             focus.select(".title-text").remove();
         })
 
     console.log("Drawing storyLine...")
     var storyLine = storyGroup.append('path')
         .attr('class', 'line')
-        .attr('d', function(d) { return line(d.pairs) })
-        .style('stroke', function(d, i) { return colors.hue[d.colorid] })
+        .attr('d', d => line(d.pairs))
+        .style('stroke', (d, i) => colors.hue[d.colorid])
         .style('opacity', lineOpacity)
         .on("mouseover", function(d) {
             d3.selectAll('.line')
@@ -197,26 +197,26 @@ function drawCharts() {
                 .style("cursor", "none")
         })
 
-    /*
     console.log("Drawing dayDots...")
-    var dayDots = storyGroup.selectAll(".dot").data(querydata).enter().append("circle").attr("class", "dot")
-        .attr("cx", function(d, i) { return xScale(d.x) })
-        .attr("cy", function(d) { return yScale(d.y) })
+    var dayDots = storyGroup.selectAll(".dot")
+        .data(d.pairs).enter().append("circle").attr("class", "dot")
+        .attr("cx", (d, i) => xScale(d.x))
+        .attr("cy", d => yScale(d.y))
         .attr("r", 2)
-        .style("fill", function(d, i) { return colors.light[d.colorid] })
-        .style("stroke", function(d, i) { return colors.dark[d.colorid] })
+        .style("fill", (d, i) => colors.light[d.colorid])
+        .style("stroke", (d, i) => colors.dark[d.colorid])
         .on("mouseover", function(a, b, c) {
             d3.select(this).classed('dot', false).classed('focus', true)
         })
         .on("mouseout", function() {
             d3.select(this).classed('focus', false).classed('dot', true)
         })
-        */
+
     //focus.attr("class", "brush")
     //.call(brush)
 
-    chart.attr("class", "zoom")
-        .call(zoom)
+    //chart.attr("class", "zoom")
+    //.call(zoom)
 
     // A function that set idleTimeOut to null
     var idleTimeout
@@ -229,7 +229,7 @@ function drawCharts() {
         focus
             .selectAll(".line")
             .transition().duration(1000)
-            .attr('d', function(d) { return line(d.pairs) })
+            .attr('d', d => line(d.pairs))
     }
 
     function zoomed() {
