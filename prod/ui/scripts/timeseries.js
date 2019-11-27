@@ -199,8 +199,9 @@ function drawCharts() {
 
     /*
     console.log("Drawing dayDots...")
-    var dayDots = storyGroup.selectAll(".dot").data(querydata).enter().append("circle").attr("class", "dot")
-        .attr("cx", (d, i) => xScale(d.x) )
+    var dayDots = storyGroup.selectAll(".dot")
+        .data(d.pairs).enter().append("circle").attr("class", "dot")
+        .attr("cx", (d, i) => xScale(d.x))
         .attr("cy", d => yScale(d.y))
         .attr("r", 2)
         .style("fill", (d, i) => colors.light[d.colorid])
@@ -211,7 +212,8 @@ function drawCharts() {
         .on("mouseout", function() {
             d3.select(this).classed('focus', false).classed('dot', true)
         })
-        */
+    */
+
     //focus.attr("class", "brush")
     //.call(brush)
 

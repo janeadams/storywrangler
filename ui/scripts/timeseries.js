@@ -197,6 +197,7 @@ function drawCharts() {
                 .style("cursor", "none")
         })
 
+    /*
     console.log("Drawing dayDots...")
     var dayDots = storyGroup.selectAll(".dot")
         .data(d.pairs).enter().append("circle").attr("class", "dot")
@@ -211,6 +212,7 @@ function drawCharts() {
         .on("mouseout", function() {
             d3.select(this).classed('focus', false).classed('dot', true)
         })
+    */
 
     //focus.attr("class", "brush")
     //.call(brush)

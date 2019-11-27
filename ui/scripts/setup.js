@@ -2,8 +2,9 @@ console.log("Loaded setup.js")
 
 // Set default options
 const defaultparams = {
-    // query : ["#MeToo","summer",emojis... etc], default: ["spring","summer","autumn","winter"]
-    "queries": ["#MeToo", "😊", "God", "New Year's", "2013", "@ArianaGrande"],
+    // queries : ["#MeToo","summer",emojis... etc], default: ["spring","summer","autumn","winter"]
+    //"queries": ["#MeToo", "😊", "God", "New Year's", "2013", "@ArianaGrande"],
+    "queries": ["#MeToo", "😊", "God", "2013", "@ArianaGrande"],
     // lang: ["en","es","ru",..."_all"], default: "en"
     "lang": "en",
     // metric: ["rank","counts","freq"], default: "rank"
