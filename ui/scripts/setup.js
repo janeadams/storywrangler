@@ -1,5 +1,12 @@
 console.log("Loaded setup.js")
 
+// Today's date
+today = new Date()
+// Extract year from today's date
+thisyear = today.getFullYear()
+// January 1st, this year
+thisfirst = new Date(thisyear, 0, 1)
+
 // Set default options
 const defaultparams = {
     // queries : ["#MeToo","summer",emojis... etc], default: ["spring","summer","autumn","winter"]
@@ -11,7 +18,8 @@ const defaultparams = {
     "metric": "rank",
     // scale: ["log","lin"], default: "log"
     "scale": "log",
-    "xrange": [new Date(1, 1, 2010), new Date()],
+    "xrange": [new Date(1, 1, 2010), today],
+    "xviewrange": [thisfirst, today],
     "yrange": [1, 100000],
     "sizing": [800, 600]
 }
@@ -129,7 +137,11 @@ function setRanges() {
         xmaxes.push(data.xrange[1])
         ymaxes.push(data.yrange[1])
     })
-    params.xrange = [d3.min(xmins), d3.max(xmaxes)]
+    if (d3.min(xmins) < thisfirst) {
+        params.xrange = [d3.min(xmins), d3.max(xmaxes)]
+    } else {
+        params.xrange = [thisfirst, d3.max(xmaxes)]
+    }
     params.yrange[0] = d3.max(ymaxes) * 1.2
     if (params['metric'] == 'freq') {
         params.yrange[1] = 0

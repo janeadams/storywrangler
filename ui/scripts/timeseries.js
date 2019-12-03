@@ -25,11 +25,14 @@ function drawCharts() {
     var width = params.sizing[0] - margin.left - margin.right
     var height = params.sizing[1] - margin.top - margin.bottom
 
+    var margin2 = { top: height + (2 * margin.top), right: margin.right, bottom: margin.bottom, left: margin.left }
     var xScale = d3.scaleTime()
-        .domain(params.xrange).range([0, width])
+        .domain(params.xviewrange).range([0, width])
 
     var x2Scale = d3.scaleTime()
         .domain(params.xrange).range([0, width])
+
+    console.log('params.xrange = ', params.xrange)
 
     // Choose and set time scales (logarithmic or linear)
     if (params["scale"] == "log") {
@@ -56,7 +59,7 @@ function drawCharts() {
     //console.log("Adding brushing...")
     var brush = d3.brushX().extent([
         [0, 0],
-        [width, height]
+        [width, 60]
     ]).on("end", brushChart)
 
     var zoom = d3.zoom()
@@ -89,7 +92,9 @@ function drawCharts() {
         .attr("class", "focus")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-
+    var context = chart.append("g")
+        .attr("class", "context")
+        .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
     console.log("Appending clipping path...")
     chart.append("defs").append("clipPath")
@@ -100,13 +105,25 @@ function drawCharts() {
         .attr("x", 0)
         .attr("y", 0)
 
+
     // Draw the main chart's xAxis
-    console.log("Drawing xaxis...")
+    console.log("Drawing focus xaxis...")
     focus.append("g")
         .attr("class", "xaxis")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(xScale)) // Create an axis component with d3.axisBottom
+        .call(d3.axisBottom(xScale)).selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-45)") // Create an axis component with d3.axisBottom
 
+    console.log("Drawing context xaxis...")
+    context.append("g")
+        .attr("class", "xaxis2")
+        .attr("transform", "translate(0," + 20 + ")")
+        .call(d3.axisBottom(x2Scale))
+
+    /*
     chart.append("text")
         .attr("transform",
             "translate(" + ((width / 2) + margin.left) + " ," +
@@ -114,12 +131,14 @@ function drawCharts() {
         .style("text-anchor", "middle")
         .text("Date")
         .style('fill', "darkgrey")
+    */
 
     // Draw the yAxis
     console.log("Drawing yaxis...")
     focus.append("g")
         .attr("class", "yaxis")
         .call(d3.axisLeft(yScale).ticks(10, ""))
+
 
     // Label yAxis with Metric
     chart.append("text")
@@ -155,6 +174,8 @@ function drawCharts() {
     // Clip the data in the main chart to the brushed region
     var masked = focus.append("g").attr("clip-path", "url(#clip)")
 
+    context.append("g").attr("clip-path", "url(#clip)")
+
     console.log("Drawing storyGroup...")
     var storyGroup = masked.selectAll('.story-group')
         .data(querydata).enter()
@@ -181,13 +202,17 @@ function drawCharts() {
         .attr('d', d => line(d.pairs))
         .style('stroke', (d, i) => colors.hue[d.colorid])
         .style('opacity', lineOpacity)
-        .on("mouseover", function(d) {
+        .on("mouseover", function(d, i) {
+            var xDate = xScale.invert(d3.mouse(this)[0]),
+                bisect = d3.bisector(function(d) { return d.date; }).right;
+            console.log('storyline d = ', d)
             d3.selectAll('.line')
                 .style('opacity', otherLinesOpacityHover)
             d3.select(this)
                 .style('opacity', lineOpacityHover)
                 .style("stroke-width", lineStrokeHover)
                 .style("cursor", "pointer")
+                .append("g").text(bisect)
         })
         .on("mouseout", function(d) {
             d3.selectAll(".line")
@@ -214,7 +239,7 @@ function drawCharts() {
         })
     */
 
-    focus.attr("class", "brush").call(brush)
+    context.append("g").attr("class", "brush").call(brush)
 
     //chart.attr("class", "zoom")
     //.call(zoom)
@@ -226,9 +251,13 @@ function drawCharts() {
 
     function updateAxis() {
         // Update axis
-        d3.select(".xaxis").transition().duration(1000).call(d3.axisBottom(xScale))
-        focus
-            .selectAll(".line")
+        d3.select(".xaxis").transition().duration(1000).call(d3.axisBottom(xScale)).selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-45)")
+        console.log('xScale = ', +xScale)
+        focus.selectAll(".line")
             .transition().duration(1000)
             .attr('d', d => line(d.pairs))
     }
@@ -236,9 +265,9 @@ function drawCharts() {
     function zoomed() {
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
         var t = d3.event.transform;
-        params.xrange = t.rescaleX(xScale).domain()
-        xScale.domain(params.xrange)
-        chart.select(".brush").call(brush.move, xScale.range().map(t.invertX, t))
+        params.xviewrange = t.rescaleX(x2Scale).domain()
+        xScale.domain(params.xviewrange)
+        context.select(".brush").call(brush.move, xScale.range().map(t.invertX, t))
         updateAxis()
     }
 
@@ -253,20 +282,22 @@ function drawCharts() {
         if (!ext) {
             if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
             setRanges()
-            xScale.domain(params.xrange)
-            //console.log("params.xrange = ", params.xrange)
+            xScale.domain(params.xviewrange)
+            console.log("params.xrange = ", params.xrange)
         } else {
-            params.xrange = [xScale.invert(ext[0]), xScale.invert(ext[1])]
-            //console.log("params.xrange = ", params.xrange)
-            xScale.domain(params.xrange)
+            params.xviewrange = [x2Scale.invert(ext[0]), x2Scale.invert(ext[1])]
+            console.log("params.xviewrange = ", params.xviewrange)
+            xScale.domain(params.xviewrange)
             //masked.selectAll('.story-group').select(".brush").call(brush.move, null)
             // This remove the grey brush area as soon as the selection has been done
-            chart.select(".brush").call(brush.move, null)
+            //context.select(".brush").call(brush.move, null)
         }
 
         updateAxis()
 
     }
+
+    /*
 
     var mouseG = focus.append("g")
         .attr("class", "mouse-over-effects");
@@ -327,12 +358,12 @@ function drawCharts() {
 
             d3.selectAll(".mouse-per-line")
                 .attr("transform", function(d, i) {
-                    console.log("width / mouse[0] = ", width / mouse[0])
-                    console.log("xScale.invert(mouse[0]) = ", xScale.invert(mouse[0]))
+                    //console.log("width / mouse[0] = ", width / mouse[0])
+                    //console.log("xScale.invert(mouse[0]) = ", xScale.invert(mouse[0]))
                     var xDate = xScale.invert(mouse[0]),
                         bisect = d3.bisector(function(d) { return d.date; }).right;
-                    console.log("xDate = ", xDate)
-                    console.log("bisect = ", bisect)
+                    //console.log("xDate = ", xDate)
+                    //console.log("bisect = ", bisect)
                     idx = bisect(d.rank, xDate);
 
                     var beginning = 0,
@@ -355,9 +386,9 @@ function drawCharts() {
 
                     return "translate(" + mouse[0] + "," + pos.y + ")";
                 });
-        });
+        })
 
-    /*
+    
 
     function drawSubplot(data) {
 
@@ -366,7 +397,7 @@ function drawCharts() {
         var margin = { top: 10, right: 10, bottom: 10, left: 10 }
 
         var xScale = d3.scaleTime()
-            .domain(params.xrange).range([0, width])
+            .domain(params.xviewrange).range([0, width])
 
         xScale.range([0, width])
 
@@ -404,7 +435,11 @@ function drawCharts() {
 
         subFocus.append("g")
             .attr("class", "xaxis")
-            .call(d3.axisBottom(xScale)) // Create an axis component with d3.axisBottom
+            .call(d3.axisBottom(xScale)).selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-45)") // Create an axis component with d3.axisBottom
 
         subFocus.append("g")
             .attr("class", "yaxis")
