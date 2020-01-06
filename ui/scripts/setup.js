@@ -18,8 +18,8 @@ const defaultparams = {
     "metric": "rank",
     // scale: ["log","lin"], default: "log"
     "scale": "log",
-    "xrange": [new Date(1, 1, 2010), today],
-    "xviewrange": [thisfirst, today],
+    "xrange": [new Date(2009, 6, 31), today],
+    "xviewrange": [new Date(2009, 6, 31), today],
     "yrange": [1, 100000],
     "sizing": [800, 600]
 }
