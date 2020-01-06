@@ -31,7 +31,7 @@ def print_info(varlist):
     return print(" | ".join(l))
 
 def give_instructions():
-    return "Enter a URL containing a 1- or 2-word query</br>in the format <b>/api/</b><em>&lt;query&gt;</em><b>?lang=</b><em>&lt;en,es,ru&gt;</em><b>&metric=[rank,counts,freq]</b></br>e.g. <a href='http://hydra.uvm.edu:3001/api/happy birthday?lang=en&metric=[counts]'>http://hydra.uvm.edu:3001/api/happy birthday?lang=en&metric=[counts]</a></br></br>Note: Emojis are supported! 🐙</br><a href='http://hydra.uvm.edu:3001/api/🐙?metric=[rank]'>http://hydra.uvm.edu:3001/api/🐙?metric=[rank]</a>"
+    return "Enter a URL containing a 1, 2, or 3-word query</br>in the format <b>/api/</b><em>&lt;query&gt;</em><b>?lang=</b><em>&lt;en,es,ru&gt;</em><b>&metric=[rank,counts,freq]</b></br>e.g. <a href='http://hydra.uvm.edu:3001/api/happy birthday?lang=en&metric=[counts]'>http://hydra.uvm.edu:3001/api/happy birthday?lang=en&metric=[counts]</a></br></br>Note: Emojis are supported! 🐙</br><a href='http://hydra.uvm.edu:3001/api/🐙?metric=[rank]'>http://hydra.uvm.edu:3001/api/🐙?metric=[rank]</a>"
 
 @app.route('/', methods=['GET'])
 def simple_response():
@@ -92,7 +92,7 @@ def get_data(query):
     output['word']=query
     output['wordcount']=int(ngram)
     output['language']=language
-    if ngram < 3:
+    if ngram < 4:
         try:
             # Select the location based on the wordcount (1grams, 2grams, 3grams, etc.), by counting spaces
             db = client[str(ngram)+'grams']
