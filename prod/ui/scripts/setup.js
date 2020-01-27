@@ -11,7 +11,7 @@ thisfirst = new Date(thisyear, 0, 1)
 const defaultparams = {
     // queries : ["#MeToo","summer",emojis... etc], default: ["spring","summer","autumn","winter"]
     //"queries": ["#MeToo", "😊", "God", "New Year's", "2013", "@ArianaGrande"],
-    "queries": ["#MeToo", "😊", "God", "2013", "@ArianaGrande"],
+    "queries": ["#MeToo", "😊", "God", "2013", "@ArianaGrande", "New York City"],
     // lang: ["en","es","ru",..."_all"], default: "en"
     "lang": "en",
     // metric: ["rank","counts","freq"], default: "rank"

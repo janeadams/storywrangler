@@ -33,7 +33,7 @@ function drawCharts() {
         .domain(params.xrange).range([0, width])
 
     console.log('params.xrange = ', params.xrange)
-    console.log('params.xviewrange = ',params.xviewrange)
+    console.log('params.xviewrange = ', params.xviewrange)
 
     // Choose and set time scales (logarithmic or linear)
     if (params["scale"] == "log") {
