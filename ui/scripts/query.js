@@ -18,6 +18,10 @@ function querySubmission(event) {
             } else {
                 multi = false
             }
+            // Add the word to the list of queries
+            params["queries"].push(query);
+            console.log("Added " + query + " to query list [" + params["queries"] + "]; query list length = " + params["queries"].length);
+            updateURL()
             loadData(query)
         }
         // If the query was already in our list...

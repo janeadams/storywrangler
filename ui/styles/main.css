@@ -37,8 +37,8 @@ header {
 }
 
 main {
-    width: 100%;
-    max-width: 800px;
+    width: auto;
+    max-width: 100%;
     height: auto;
     min-height: 100vh;
     margin: 0 auto;
