@@ -101,7 +101,7 @@ def get_data(query):
             errs.append(str("Couldn't connect to the "+language+" "+str(ngram)+"grams database"))
         try:
             # Build df
-            df = pd.DataFrame(list(db[language].find({"word": query})))
+            df = pd.DataFrame(list(db[language].find({"word": query},max_time_ms=1)))
             df = df.dropna(how='all')
             if df.shape[0]>0:
                 try:

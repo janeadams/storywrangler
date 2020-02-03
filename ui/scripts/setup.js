@@ -180,11 +180,21 @@ function loadData(word) {
                 pair.y = data[params["metric"]][i]
                 data['pairs'].push(pair)
             })
+
+            // Add the word to the list of queries
+            if (params["queries"].includes(word)) {
+                console.log('params["queries"] includes' + word)
+            } else {
+                params["queries"].push(word);
+            }
+            console.log("Added " + word + " to query list [" + params["queries"] + "]; query list length = " + params["queries"].length);
+
             // Add the JSON data object to the array of query data
             querydata.push(data)
             console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
             addQuery(word, data['colorid'])
             drawCharts()
+            updateURL()
             message = "success"
             queryCounter += 1
             if (queryCounter > 10) {
