@@ -101,7 +101,7 @@ def get_data(query):
             errs.append(str("Couldn't connect to the "+language+" "+str(ngram)+"grams database"))
         try:
             # Build df
-            df = pd.DataFrame(list(db[language].find({"word": query},max_time_ms=1)))
+            df = pd.DataFrame(list(db[language].find({"word": query})))
             df = df.dropna(how='all')
             if df.shape[0]>0:
                 try:
@@ -163,7 +163,7 @@ def get_data(query):
                     if item in metric:
                         #print('Found ',item,' in list of requested metrics')
                         if item =='counts':
-                            output[item]=[int(r) for r in df[item].values] # Convert from int64 to Python integers
+                            output[item]=[int(r) for r in df[item].values] # Convert from int64 to Python integersintegers
                         else:
                             output[item]=[float(f) for f in df[item].values] # Convert from float64 Python float
             else:
