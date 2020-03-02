@@ -7,3 +7,5 @@ api/logs/
 api/*log.csv
 ai/
 onegram.sublime*
+notes/
+static/
