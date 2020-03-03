@@ -45,7 +45,7 @@ function drawCharts() {
     }
 
     // When showing ranks...
-    if (params['metric'] == 'rank') {
+    if (params['metric'].includes('rank')) {
         // Put rank #1 at the top
         yScale.range([height, 1])
     }

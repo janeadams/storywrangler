@@ -17,6 +17,7 @@ const defaultparams = {
     // metric: ["rank","counts","freq"], default: "rank"
     "metric": "rank",
     // scale: ["log","lin"], default: "log"
+    "noRT": false,
     "scale": "log",
     "xrange": [new Date(2009, 6, 31), today],
     "xviewrange": [new Date(2009, 6, 31), today],
@@ -26,8 +27,9 @@ const defaultparams = {
 // Limit options for certain parameters
 const paramoptions = {
     "lang": ["en"],
-    "metric": ["rank", "counts", "freq"],
-    "scale": ["log", "lin"]
+    "metric": ["rank", "counts", "freq", "rank_noRT", "count_noRT", "freq_noRT"],
+    "scale": ["log", "lin"],
+    "noRT": [true,false]
 }
 // An object containing our parameters
 var params = {
@@ -61,14 +63,21 @@ function getUrlVars() {
             //console.log("paramoptions includes ", key)
             //console.log("paramoptions[", key, "] = ", paramoptions[key])
             // And the value returned is incldued in those options:
-            if (paramoptions[key].includes(String(value))) {
-                // Accept the value from the url parameter
-                //console.log("paramoptions for", key, " includes ", value)
+            if (key = 'noRT'){
+                if (value === 'true'){value = true}
+                if (value === 'false'){value = false}
                 vars[key] = value
-            } else {
-                // If the value isn't one of the allowed options, set to default
-                //console.log(value + " is an invalid option for the " + key + " parameter! Setting " + key + "to default:" + defaultparams[key])
-                value = defaultparams[key]
+            }
+            else {
+                if (paramoptions[key].includes(value)) {
+                    // Accept the value from the url parameter
+                    console.log("paramoptions for", key, " includes ", value)
+                    vars[key] = value
+                } else {
+                    // If the value isn't one of the allowed options, set to default
+                    //console.log(value + " is an invalid option for the " + key + " parameter! Setting " + key + "to default:" + defaultparams[key])
+                    value = defaultparams[key]
+                }
             }
         }
         // Set the parameter to the value from the URL
@@ -94,14 +103,14 @@ function getUrlParam() {
             var urlvar = getUrlVars()[p]
             //console.log("Found ", p, " parameter in URL as ", urlvar)
             params[p] = urlvar
-            //console.log("Changed params[", p, "] to ", params[p])
+            console.log("Changed params[", p, "] to ", params[p])
         }
     }
 }
 
 function setFilters() {
     // Check the boxes based on the parameters
-    for (var filter of ['metric', 'lang', 'scale']) {
+    /*for (var filter of ['metric', 'lang', 'scale']) {
         console.log("Clearing all checkboxes for ", filter)
         // Clear all checked boxes
         d3.selectAll("input[name = " + filter + "]").property('checked', false)
@@ -109,6 +118,10 @@ function setFilters() {
         console.log("Checking box for", params[filter], "on filter", filter)
         d3.selectAll("input[value = " + params[filter] + "]").property('checked', true)
     }
+    */
+    d3.selectAll("input[value ='noRT']").property('checked', params['noRT'])
+
+    /*
     if (params['metric'] == 'freq') {
         // Remove the log toggle from the options list
         d3.select("#scaleFilter").style("display", "none")
@@ -117,6 +130,7 @@ function setFilters() {
     } else {
         d3.select("#scaleFilter").style("display", "inline-block")
     }
+    */
 }
 
 function setSizing() {
@@ -129,21 +143,21 @@ function setSizing() {
 function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
-    var xmins = []
-    var xmaxes = []
-    var ymaxes = []
+    let xmins = [];
+    let xmaxes = [];
+    let ymaxes = [];
     querydata.forEach(data => {
-        xmins.push(data.xrange[0])
-        xmaxes.push(data.xrange[1])
-        ymaxes.push(data.yrange[1])
-    })
+        xmins.push(data.xrange[0]);
+        xmaxes.push(data.xrange[1]);
+        ymaxes.push(data.yrange[1]);
+    });
     if (d3.min(xmins) < thisfirst) {
         params.xrange = [d3.min(xmins), d3.max(xmaxes)]
     } else {
         params.xrange = [thisfirst, d3.max(xmaxes)]
     }
-    params.yrange[0] = d3.max(ymaxes) * 1.2
-    if (params['metric'] == 'freq') {
+    params.yrange[0] = d3.max(ymaxes) * 1.2;
+    if (params['metric'] === 'freq') {
         params.yrange[1] = 0
     } else {
         params.yrange[1] = 1
@@ -152,12 +166,20 @@ function setRanges() {
 
 // When a new word is queried...
 function loadData(word) {
-    console.log("Loading data for ", word, "...")
+    console.log("Loading data for ", word, "...");
+    let searchMetric;
+    if (params['noRT']){
+        if (params['metric']==='counts'){
+            searchMetric = 'count_noRT'
+        }
+        else {searchMetric = params['metric'].concat('_noRT')}
+    }
+    else { searchMetric = params['metric']}
     var message = ""
     // Pull the JSON data
-    formatted_word = word.replace("#", "%23")
-    console.log("Formatted word = ", formatted_word)
-    var url = encodeURI("http://hydra.uvm.edu:3001/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + params["metric"] + "]")
+    formatted_word = word.replace("#", "%23");
+    console.log("Formatted word = ", formatted_word);
+    var url = encodeURI("http://hydra.uvm.edu:3001/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + searchMetric + "]")
     console.log("Querying URL = ", url)
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
@@ -177,7 +199,8 @@ function loadData(word) {
             parsedDates.forEach((date, i) => {
                 var pair = {}
                 pair.x = date
-                pair.y = data[params["metric"]][i]
+                if (params['noRT']){pair.y = data[params["metric"].concat('_noRT')][i]}
+                else {pair.y = data[params["metric"]][i]}
                 data['pairs'].push(pair)
             })
             // Add the JSON data object to the array of query data

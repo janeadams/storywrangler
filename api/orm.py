@@ -109,6 +109,7 @@ def get_data(query):
     metric = request.args.get('metric')
     if metric is None:
         metric = ['rank','rank_noRT','counts','count_noRT','freq','freq_noRT']
+        #metric = ['rank','counts','freq']
     else:
         sent.append('metric')
     ngram=int(query.count(' ')+1)
@@ -192,8 +193,8 @@ def get_data(query):
                     #print('Testing to see if ',item,' is in the list of requested metrics...')
                     if item in metric:
                         #print('Found ',item,' in list of requested metrics')
-                        if item in ['counts','count_noRT':
-                            output[item]=[int(r) for r in df[item].values] # Convert from int64 to Python integersintegers
+                        if item in ['counts','count_noRT']:
+                            output[item]=[int(r) for r in df[item].values] # Convert from int64 to Python integers
                         else:
                             output[item]=[float(f) for f in df[item].values] # Convert from float64 Python float
             else:
@@ -202,7 +203,7 @@ def get_data(query):
             for item in ['rank','rank_noRT','counts','count_noRT','freq','freq_noRT']:
                 if item in metric:
                     output[item]=[]
-                    errs.append(str("Couldn't find "+item+"data for '"+query+"' in the "+language+" "+str(ngram)+"grams database"))
+                    errs.append(str("Couldn't find "+item+" data for '"+query+"' in the "+language+" "+str(ngram)+"grams database"))
     else:
         errs.append(str("Sorry, we don't yet support "+str(ngram)+"grams!"))
     output['api_error_count']=len(errs)

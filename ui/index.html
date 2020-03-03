@@ -26,6 +26,35 @@
                     <input type="submit" value="What's the story?">
                 </div>
             </form>
+
+            <form id="filterForm" onChange="return filterSubmission()">
+                <!--
+            <section id="langFilter">
+                <h4>Lang</h4>
+                <ul>
+                    <li><input type="radio" name="lang" value="en">English</li>
+                    <li><input type="radio" name="lang" value="es">Spanish</li>
+                </ul>
+            </section>
+        -->
+                <section id="metricFilter">
+                    <h4>Options</h4>
+                    <ul>
+                        <!--<li><input type="radio" name="metric" value="rank">Rank</li>
+                        <li><input type="radio" name="metric" value="freq">Frequency</li>
+                        <li><input type="radio" name="metric" value="counts">Raw Count</li>-->
+                        <li><input type="checkbox" name="options" value="noRT">Exclude Retweets?</li>
+                        <!--
+                    </ul>
+                </section>
+                <section id="scaleFilter">
+                    <h4>Scale</h4>
+                    <ul>
+                        <li><input type="radio" name="scale" value="log">Logarithmic scale</li>
+                        <li><input type="radio" name="scale" value="lin">Linear scale</li>-->
+                    </ul>
+                </section>
+            </form>
             <!--
             <form id="debugForm">
                 <section>
@@ -42,36 +71,6 @@
         <section id="dataviz">
             <div id="timeseries">
             </div>
-            <section class="controls" style="display:none">
-                <form id="filterForm" onChange="return filterSubmission()">
-                    <!--
-                <section id="langFilter">
-                    <h4>Lang</h4>
-                    <ul>
-                        <li><input type="radio" name="lang" value="en">English</li>
-                        <li><input type="radio" name="lang" value="es">Spanish</li>
-                    </ul>
-                </section>
-            -->
-                    <section id="metricFilter">
-                        <h4>Metric</h4>
-                        <ul>
-                            <li><input type="radio" name="metric" value="rank">Rank</li>
-                            <li><input type="radio" name="metric" value="freq">Frequency</li>
-                            <li><input type="radio" name="metric" value="counts">Raw Count</li>
-                        </ul>
-                    </section>
-                    <section id="scaleFilter">
-                        <h4>Scale</h4>
-                        <ul>
-                            <!--<li><input type="checkbox" name="options" value="case-sensitive">Case sensitive</li>-->
-                            <li><input type="radio" name="scale" value="log">Logarithmic scale</li>
-                            <li><input type="radio" name="scale" value="lin">Linear scale</li>
-                            <!--<li><input type="checkbox" name="options" value="details">Show details</li>-->
-                        </ul>
-                    </section>
-                </form>
-            </section>
             <div id="subplots">
                 <ul id="subplot-list"></ul>
             </div>
