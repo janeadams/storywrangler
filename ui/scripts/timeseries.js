@@ -201,7 +201,7 @@ function drawCharts() {
     var storyLine = storyGroup.append('path')
         .attr('class', 'line')
         .attr('d', d => line(d.pairs))
-        .style('stroke', (d, i) => colors.hue[d.colorid])
+        .style('stroke', (d, i) => colors.main[d.colorid])
         .style('opacity', lineOpacity)
         .on("mouseover", function(d, i) {
             var xDate = xScale.invert(d3.mouse(this)[0]),
@@ -319,7 +319,7 @@ function drawCharts() {
 
     mousePerLine.append("circle")
         .attr("r", 7)
-        .style('stroke', (d, i) => colors.hue[d.colorid])
+        .style('stroke', (d, i) => colors.main[d.colorid])
         .style("fill", "none")
         .style("stroke-width", "1px")
         .style("opacity", "0");
