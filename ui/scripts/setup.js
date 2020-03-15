@@ -48,7 +48,7 @@ const colors = {
     'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
 }
 
-const regex = fetch('ngrams.txt')
+const regex = fetch('https://raw.githubusercontent.com/janeadams/onegram/master/regex_parser.txt')
     .then(
         function(response) {
             if (response.status !== 200) {
