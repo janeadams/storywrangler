@@ -22,7 +22,7 @@ const defaultparams = {
 // Limit options for certain parameters
 const paramoptions = {
     "lang": ["en"],
-    "metric": ["rank", "counts", "freq", "rank_noRT", "count_noRT", "freq_noRT"],
+    "metric": ["rank", "counts", "freq"],
     "scale": ["log", "lin"],
     "noRT": [true,false]
 }
