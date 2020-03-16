@@ -9,14 +9,9 @@ thisfirst = new Date(thisyear, 0, 1)
 
 // Set default options
 const defaultparams = {
-    // queries : ["#MeToo","summer",emojis... etc], default: ["spring","summer","autumn","winter"]
-    //"queries": ["#MeToo", "😊", "God", "New Year's", "2013", "@ArianaGrande"],
     "queries": ["#MeToo", "😊", "God", "2013", "@ArianaGrande", "New York City"],
-    // lang: ["en","es","ru",..."_all"], default: "en"
     "lang": "en",
-    // metric: ["rank","counts","freq"], default: "rank"
     "metric": "rank",
-    // scale: ["log","lin"], default: "log"
     "noRT": false,
     "scale": "log",
     "xrange": [new Date(2009, 6, 31), today],
@@ -32,24 +27,41 @@ const paramoptions = {
     "noRT": [true,false]
 }
 // An object containing our parameters
-var params = {
+let params = {
     "queries": []
 }
-// An array containing suggested searches:
-//var querySuggestions = []
-var querySuggestions = ["#DemDebate", "#HurricaneDorian", "#MeToo", "@realDonaldTrump"]
-// An array of data objects
-var querydata = []
-// A list of our color names and hex values fortint, fill, & stroke
-var colors = {
+
+let querydata = []
+
+const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
-    'hue': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
+    'main': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
     'dark': ["#0681A2", "#649946", "#F89921", "#8D51A0", "#A01D21", "#252E6C", "#197352", "#931E59", "#562F2C", "#8B8633", "#A23522"],
     'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
 }
+
+const regex = fetch('https://raw.githubusercontent.com/janeadams/onegram/master/regex_parser.txt')
+    .then(
+        function(response) {
+            if (response.status !== 200) {
+                console.log('Looks like there was a problem fetching regex. Status Code: ' +
+                    response.status);
+                return;
+            }
+
+            // Examine the text in the response
+            response.text().then(function(data) {
+                console.log('Regex = ',data);
+            });
+        }
+    )
+    .catch(function(err) {
+        console.log('Fetch Error:', err);
+    });
+
 // Simple function for finding the fill, stroke, or tint by the color group name
-function colorMe(name, type) { return colors[type][colors["names"].indexOf(name)] }
-//console.log(colorMe("sky", "fill"))
+function colorMe(name, type='main') { return colors[type][colors["names"].indexOf(name)] }
+//console.log(colorMe("sky"))
 
 // Get the variables from the URL
 function getUrlVars() {
@@ -179,7 +191,7 @@ function loadData(word) {
     // Pull the JSON data
     formatted_word = word.replace("#", "%23");
     console.log("Formatted word = ", formatted_word);
-    var url = encodeURI("http://hydra.uvm.edu:3001/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + searchMetric + "]")
+    var url = encodeURI("https://storywrangling.org/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + searchMetric + "]")
     console.log("Querying URL = ", url)
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')

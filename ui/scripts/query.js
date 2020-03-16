@@ -45,7 +45,7 @@ function addQuery(val, colorid, err) {
         .text(val)
         .attr("class", "li-" + val)
         .style("color", colors.dark[colorid])
-        .style("border-color", colors.hue[colorid])
+        .style("border-color", colors.main[colorid])
         .style("background-color", colors.light[colorid])
         .on("click", function(d, i) {
             // When the list item is clicked, remove the word from the query list and delete the data

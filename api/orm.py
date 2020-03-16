@@ -59,7 +59,7 @@ def give_instructions():
 # In[6]:
 
 
-@app.route('/', methods=['GET'])
+@app.route('/api/', methods=['GET'])
 def simple_response():
     start = time.time()
     pid = uuid.uuid4()
