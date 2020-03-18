@@ -1,2 +1,0 @@
-Application root =  /home/janeadams/ui
-Magic happens on port 8051

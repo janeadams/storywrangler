@@ -1,0 +1,36 @@
+#dataviz {
+    width: 100%;
+    display: inline-block;
+}
+
+#timeseries,
+#subplots {
+    width: 90%;
+    background-color: white;
+    margin: 20px auto;
+    min-height: 40px;
+}
+
+#subplots {}
+
+/* Style the lines by removing the fill and applying a stroke */
+.line {
+    fill: none;
+    stroke-width: 1px;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+/* Style the dots by assigning a fill and stroke */
+.dot {
+    fill: #ffab00;
+    stroke: #fff;
+}
+
+.main circle {
+    fill: none;
+    stroke: steelblue;
+}

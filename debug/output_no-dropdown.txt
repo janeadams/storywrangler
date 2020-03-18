@@ -1,6 +1,0 @@
- * Serving Flask app "timeseries_no-dropdown" (lazy loading)
- * Environment: production
-   WARNING: Do not use the development server in a production environment.
-   Use a production WSGI server instead.
- * Debug mode: off
- * Running on http://0.0.0.0:8051/ (Press CTRL+C to quit)

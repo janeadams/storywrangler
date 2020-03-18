@@ -1,2 +1,0 @@
-import dash
-print('success!')
