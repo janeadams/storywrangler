@@ -6,7 +6,7 @@ today = new Date()
 thisyear = today.getFullYear()
 // Get one year ago
 lastyeardate = new Date()
-lastyeardate = lastyear.setFullYear( lastyear.getFullYear() - 1 );
+lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 thisfirst = new Date(thisyear, 0, 1)
 
