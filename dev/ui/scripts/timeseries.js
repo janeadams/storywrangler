@@ -78,8 +78,9 @@ function drawCharts() {
 
     var line = d3.line()
         .x(d => xScale(d.x)) // set the x values for the line generator
-        .y(d => yScale(d.y)) // set the y values for the line generator 
-        .curve(d3.curveMonotoneX) // apply smoothing to the line
+        .y(d => yScale(d.y)) // set the y values for the line generator
+        .defined(function (d) { return d[1] !== null; })
+        //.curve(d3.curveMonotoneX) // apply smoothing to the line
 
     // Create a chart area and set the size
     console.log("Creating chart area...")

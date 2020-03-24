@@ -4,18 +4,21 @@ console.log("Loaded setup.js")
 today = new Date()
 // Extract year from today's date
 thisyear = today.getFullYear()
+// Get one year ago
+lastyeardate = new Date()
+lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 thisfirst = new Date(thisyear, 0, 1)
 
 // Set default options
 const defaultparams = {
-    "queries": ["#MeToo", "😊", "God", "2013", "@ArianaGrande", "New York City"],
+    "queries": ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"],
     "lang": "en",
     "metric": "rank",
     "noRT": false,
     "scale": "log",
     "xrange": [new Date(2009, 6, 31), today],
-    "xviewrange": [new Date(2009, 6, 31), today],
+    "xviewrange": [lastyeardate, today],
     "yrange": [1, 100000],
     "sizing": [800, 600]
 }

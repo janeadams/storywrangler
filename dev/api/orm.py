@@ -109,11 +109,11 @@ def get_data(query):
     # Pull the metric from the URL params, e.g. 'rank','counts','freq'
     metric = request.args.get('metric')
     if metric is None:
-        metric = ['freq']
+        metric = 'rank'
         
     ngrams, n = get_ngrams(query)
     noRT = False
-    output = {'ngrams':ngrams, 'database':n,'data':[],'errors':[]}
+    output = {'ngrams':ngrams, 'database':n, 'metric':metric, 'language':language, 'ngramdata':[],'errors':[]}
     
     with open('dev/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
@@ -141,29 +141,28 @@ def get_data(query):
                 df['time']=[t.strftime("%Y-%m-%d") for t in df['time']]
 
                 dictout = {}
-                dictout.update({'ngram':ngram})
+                dictout.update({'ngram':ngram, 'data':[]})
 
-                dictout.update({'dates':list(df['time'])})
-
-                if 'counts' in metric:
+                if metric =='counts':
                     if noRT:
-                        c = list(df['count_noRT'])
+                        values = list(df['count_noRT'])
                     else:
-                        c = list(df['counts'])
-                    dictout.update({'counts':c})
-                if 'freq' in metric:
+                        values = list(df['counts'])
+                if metric=='freq':
                     if noRT:
-                        f = list(df['freq_noRT'])
+                        values = list(df['freq_noRT'])
                     else:
-                        f = list(df['freq'])
-                    dictout.update({'freq':f})
-                if 'rank' in metric:
+                        values = list(df['freq'])
+                if metric=='rank':
                     if noRT:
-                        r = list(df['rank_noRT'])
+                        values = list(df['rank_noRT'])
                     else:
-                        r = list(df['rank'])
-                    dictout.update({'rank':r})
-                output['data'].append(dictout)
+                        values = list(df['rank'])
+                    
+                for item in dict(zip(list(df['time']),values)).items():
+                    dictout['data'].append(list(item))
+                
+                output['ngramdata'].append(dictout)
         except: output['errors'].append("Couldn't find data for",ngram)
             
     return jsonify(output)
