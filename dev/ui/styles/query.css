@@ -1,0 +1,162 @@
+#queryList {
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+}
+
+#queryList li {
+    display: inline-block;
+    padding: 7px 10px;
+    margin: 3px;
+    color: #00B6CF;
+    background-color: #B5E2EA;
+    border: 1px solid;
+    border-color: #0681A2;
+    border-radius: 2px;
+    font-size: 1.2em;
+}
+
+#queryList li:hover {
+    background-color: #FAC1BE;
+    border: 2px dashed #EF3D25;
+    text-decoration: line-through;
+    color: #EF3D25;
+    cursor: pointer;
+}
+
+.controls {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.controls ul {
+    display: block;
+    width: 100%;
+}
+
+.controls li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 5px;
+    float: left;
+    font-size: 0.8em;
+}
+
+
+.autocomplete {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+#queryForm input {
+    border: 1px solid transparent;
+    padding: 10px;
+    font-size: 16px;
+    display: inline-block;
+    transition: width 0.5s;
+    margin: 5px;
+}
+
+#queryForm input[type=text] {
+    background-color: lightgray;
+    width: 65%;
+    float: left;
+}
+
+#queryForm input[type=submit] {
+    background-color: #F3B544;
+    color: #fff;
+    cursor: pointer;
+    width: 25%;
+    min-width: auto;
+    float: right;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+#filterForm {
+    height: auto;
+    width: 100%;
+    display: inline-block;
+    padding: 10px 0;
+}
+
+#filterForm p,
+h4,
+ul,
+li {
+    color: darkgrey;
+}
+
+#filterForm h4 {
+    padding: 2px 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
+#filterForm section {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 10px;
+    transition: width 0.5s;
+}
+
+#filterForm input[type=submit] {
+    height: 100%;
+    color: #FFF;
+    font-size: 1.2em;
+    width: auto;
+    padding: 20px;
+    float: left;
+}
+
+@media screen and (max-width: 1000px) {
+
+    #queryForm input[type=text],
+    #queryForm input[type=submit],
+    #filterForm section {
+        width: 90%;
+        margin: 10px auto;
+        float: none;
+        box-sizing: unset;
+    }
+}
+
+#langFilter {
+    display: none;
+}
