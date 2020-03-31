@@ -13,9 +13,9 @@ thisfirst = new Date(thisyear, 0, 1)
 // Set default options
 const defaultparams = {
     "queries": ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"],
-    "lang": "en",
+    "language": "en",
     "metric": "rank",
-    "noRT": false,
+    "RT": false,
     "scale": "log",
     "xrange": [new Date(2009, 6, 31), today],
     "xviewrange": [lastyeardate, today],
@@ -24,10 +24,10 @@ const defaultparams = {
 }
 // Limit options for certain parameters
 const paramoptions = {
-    "lang": ["en"],
+    "language": ["en"],
     "metric": ["rank", "counts", "freq"],
     "scale": ["log", "lin"],
-    "noRT": [true,false]
+    "RT": [true,false]
 }
 // An object containing our parameters
 let params = {
@@ -43,110 +43,9 @@ const colors = {
     'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
 }
 
-const regex = fetch('https://raw.githubusercontent.com/janeadams/onegram/master/regex_parser.txt')
-    .then(
-        function(response) {
-            if (response.status !== 200) {
-                console.log('Looks like there was a problem fetching regex. Status Code: ' +
-                    response.status);
-                return;
-            }
-
-            // Examine the text in the response
-            response.text().then(function(data) {
-                console.log('Regex = ',data);
-            });
-        }
-    )
-    .catch(function(err) {
-        console.log('Fetch Error:', err);
-    });
-
 // Simple function for finding the fill, stroke, or tint by the color group name
 function colorMe(name, type='main') { return colors[type][colors["names"].indexOf(name)] }
 //console.log(colorMe("sky"))
-
-// Get the variables from the URL
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-        console.log("key = ", key, " value = ", value)
-        // Parse arrays:
-        value = value.replace("[", "").replace("/]", "").split(",")
-        // If the parameter has a specified set of options:
-        if (Object.keys(paramoptions).includes(key)) {
-            //console.log("paramoptions includes ", key)
-            //console.log("paramoptions[", key, "] = ", paramoptions[key])
-            // And the value returned is incldued in those options:
-            if (key = 'noRT'){
-                if (value === 'true'){value = true}
-                if (value === 'false'){value = false}
-                vars[key] = value
-            }
-            else {
-                if (paramoptions[key].includes(value)) {
-                    // Accept the value from the url parameter
-                    console.log("paramoptions for", key, " includes ", value)
-                    vars[key] = value
-                } else {
-                    // If the value isn't one of the allowed options, set to default
-                    //console.log(value + " is an invalid option for the " + key + " parameter! Setting " + key + "to default:" + defaultparams[key])
-                    value = defaultparams[key]
-                }
-            }
-        }
-        // Set the parameter to the value from the URL
-        //console.log("Setting key:", key, " to value:", value)
-        // If the parameter should be formatted as an array:
-        if (typeof(params[key]) == "object" && typeof(value) == "string") {
-            // Create an array
-            vars[key] = []
-            // Add the value to it
-            vars[key].push(values)
-        } else {
-            vars[key] = value
-        }
-    })
-    return vars;
-}
-// Get the parameters from the URL
-function getUrlParam() {
-    for (var p in params) {
-        // If the parameter is in the URL
-        if (window.location.href.indexOf(p) > -1) {
-            // set the variable to the value in the url
-            var urlvar = getUrlVars()[p]
-            //console.log("Found ", p, " parameter in URL as ", urlvar)
-            params[p] = urlvar
-            console.log("Changed params[", p, "] to ", params[p])
-        }
-    }
-}
-
-function setFilters() {
-    // Check the boxes based on the parameters
-    /*for (var filter of ['metric', 'lang', 'scale']) {
-        console.log("Clearing all checkboxes for ", filter)
-        // Clear all checked boxes
-        d3.selectAll("input[name = " + filter + "]").property('checked', false)
-        // Check only the correct box for this parameter value
-        console.log("Checking box for", params[filter], "on filter", filter)
-        d3.selectAll("input[value = " + params[filter] + "]").property('checked', true)
-    }
-    */
-    d3.selectAll("input[value ='noRT']").property('checked', params['noRT'])
-
-    /*
-    if (params['metric'] == 'freq') {
-        // Remove the log toggle from the options list
-        d3.select("#scaleFilter").style("display", "none")
-        // If we're counting frequency, force scale to linear
-        params["scale"] = "lin"
-    } else {
-        d3.select("#scaleFilter").style("display", "inline-block")
-    }
-    */
-}
 
 function setSizing() {
     params.sizing[0] = 0.8 * (document.documentElement.clientWidth)
@@ -179,66 +78,6 @@ function setRanges() {
     }
 }
 
-// When a new word is queried...
-function loadData(word) {
-    console.log("Loading data for ", word, "...");
-    let searchMetric;
-    if (params['noRT']){
-        if (params['metric']==='counts'){
-            searchMetric = 'count_noRT'
-        }
-        else {searchMetric = params['metric'].concat('_noRT')}
-    }
-    else { searchMetric = params['metric']}
-    var message = ""
-    // Pull the JSON data
-    formatted_word = word.replace("#", "%23");
-    console.log("Formatted word = ", formatted_word);
-    var url = encodeURI("https://hydra.uvm.edu:3000/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + searchMetric + "]")
-    console.log("Querying URL = ", url)
-    d3.json(url).then((data, error) => {
-        console.log('read url "' + url + '"')
-        if (data["api_error_count"] > 0) {
-            alert(data["errors"])
-            message = data["errors"]
-        } else {
-            // Set a color for this timeseries
-            data['colorid'] = queryCounter
-            // Parse the dates into d3 date format
-            var parsedDates = data["dates"].map(date => new Date(d3.timeParse(date)))
-            data["dates"] = parsedDates
-            // Find the x- and y-range of this data set
-            data['xrange'] = d3.extent(data["dates"])
-            data['yrange'] = d3.extent(data[params["metric"]])
-            data['pairs'] = []
-            parsedDates.forEach((date, i) => {
-                var pair = {}
-                pair.x = date
-                if (params['noRT']){pair.y = data[params["metric"].concat('_noRT')][i]}
-                else {pair.y = data[params["metric"]][i]}
-                data['pairs'].push(pair)
-            })
-            // Add the JSON data object to the array of query data
-            querydata.push(data)
-            console.log("Added data for " + word + " to data list; querydata list length = " + querydata.length)
-            addQuery(word, data['colorid'])
-            drawCharts()
-            message = "success"
-            queryCounter += 1
-            if (queryCounter > 10) {
-                queryCounter = 0
-            }
-        }
-    })
-    /*.catch(function(error) {
-        // Error handling
-        //console.log(e);
-        alert("Sorry! It looks like the database is down or overloaded -- please try again later")
-        message = "catch"
-    })*/
-    return console.log("loadData: " + message)
-}
-
 function setupPage() {
     // Set parameters to the default parameters
     for (var [p, v] of Object.entries(defaultparams)) {
@@ -252,9 +91,4 @@ function setupPage() {
     setFilters()
     setSizing()
     setRanges()
-    // Load the data queries from parameters
-    for (var q of params['queries']) {
-        loadData(q)
-    }
 }
-setupPage()
