@@ -98,7 +98,6 @@ def get_data(query):
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
     # For now, we're just using english
     language = str(request.args.get('language'))
-    print("language: ",language)
     if language in ['es', 'ru', 'fr']:
         language = language
     else:
@@ -112,6 +111,8 @@ def get_data(query):
     ngrams, n = get_ngrams(query)
     output = {'ngrams':ngrams, 'database':n, 'metric':metric, 'rt':rt, 'language':language, 'ngramdata':[],'errors':[]}
     
+    print(f'ngrams :{ngrams}, n:{n}, metric:{metric}, rt:{rt}, language:{language}')
+    
     with open('dev/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),str(query),str(src),int(n),str(language),metric,str(ip),'',str(start)])
@@ -122,8 +123,9 @@ def get_data(query):
         #print("Connected to mongo client "+str(ngram)+'grams')
     except:
         errs.append(str("Couldn't connect to the "+language+" "+str(n)+"-grams database"))
-
-    print('ngrams: ',ngrams)
+        
+    ndict = {}
+    
     for ngram in ngrams:
         try:
             df = pd.DataFrame(list(db[language].find({"word": ngram})))
@@ -136,9 +138,6 @@ def get_data(query):
                 df=df[df['time']>=(dt.date(2009,8,1))]
                 df.sort_values(by='time',ascending=True,inplace=True)
                 df['time']=[t.strftime("%Y-%m-%d") for t in df['time']]
-
-                dictout = {}
-                dictout.update({'ngram':ngram, 'data':[]})
 
                 if metric =='counts':
                     if rt:
@@ -156,11 +155,16 @@ def get_data(query):
                     else:
                         values = list(df['rank_noRT'])
                     
-                for item in dict(zip(list(df['time']),values)).items():
-                    dictout['data'].append(list(item))
+                datalist=[]
                 
-                output['ngramdata'].append(dictout)
-        except: output['errors'].append("Couldn't find data for",ngram)
+                for item in dict(zip(list(df['time']),values)).items():
+                    datalist.append(item)
+                    
+                ndict[ngram]={'min_date':df['time'].min(), 'max_date':df['time'].max(), 'data':datalist}
+                
+        except: output['errors'].append(f"Couldn't find data for {ngram}")
+            
+    output['ngramdata']=ndict
             
     return jsonify(output)
 

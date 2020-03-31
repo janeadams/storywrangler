@@ -10,19 +10,20 @@ function loadData(query) {
         console.log('read url "' + url + '"')
         errors = data['errors']
         data['ngramdata'].forEach((n) => {
-            params['ngrams'].push(n['ngram'])
-            ndata = n
+            params['ngrams'].push(n)
+            ndata = n['data']
             // Set a color for this timeseries
-            ndata['tempid']=params['ngrams'].length
+            ndata['ID']=params['ngrams'].length
             // Find the x- and y-range of this data set
             //ndata['xrange'] = d3.extent(data['dates'])
             //ndata['yrange'] = d3.extent(data[params['metric']])
             // Add the JSON data object to the array of ngram data
             ngramdata.push(ndata)
-            console.log("Added data for " + n['ngram'] + " to data list; ngram data list length = " + params['ngrams'].length())
-            addNgram(n['ngram'], ndata['tempid'])
+            console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
+            addNgram(n, ndata['ID'])
             drawCharts()
             })
+        updateURL()
         })
 
 }
