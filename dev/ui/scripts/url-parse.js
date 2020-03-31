@@ -1,4 +1,4 @@
-function getUrlVars() {
+function readUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
         console.log("key = ", key, " value = ", value)
@@ -41,15 +41,19 @@ function getUrlVars() {
     return vars;
 }
 // Get the parameters from the URL
-function getUrlParam() {
+function getUrlParams() {
     for (var p in params) {
         // If the parameter is in the URL
         if (window.location.href.indexOf(p) > -1) {
             // set the variable to the value in the url
-            var urlvar = getUrlVars()[p]
+            var urlvar = readUrlVars()[p]
             //console.log("Found ", p, " parameter in URL as ", urlvar)
             params[p] = urlvar
             console.log("Changed params[", p, "] to ", params[p])
+        }
+        else {
+            // If not specified, set to default values
+            params[p] = defaultparams[p]
         }
     }
 }

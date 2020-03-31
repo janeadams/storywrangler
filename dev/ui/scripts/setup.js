@@ -79,16 +79,16 @@ function setRanges() {
 }
 
 function setupPage() {
-    // Set parameters to the default parameters
-    for (var [p, v] of Object.entries(defaultparams)) {
-        params[p] = v
-    }
     // Get parameters from the URL and update current parameters accordingly
-    getUrlParam()
-    // Decode the URL queries (e.g. emojis)
-    params['queries'] = params['queries'].map(q => decodeURI(q))
+    getUrlParams()
+    // Decode the URL ngrams (e.g. emojis)
+    params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
+    // Load the ngram data from parameters
+    for (var n of params['ngrams']) {
+        loadData(n)
+    }
     setSizing()
     setRanges()
 }
