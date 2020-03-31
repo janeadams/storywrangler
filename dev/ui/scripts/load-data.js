@@ -9,9 +9,9 @@ function loadData(query) {
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
         errors = data['errors']
-        data['ngramdata'].forEach((n) => {
+        data['ngrams'].forEach((n) => {
             params['ngrams'].push(n)
-            ndata = n['data']
+            ndata = data['ngramdata'][n]['data']
             // Set a color for this timeseries
             ndata['ID']=params['ngrams'].length
             // Find the x- and y-range of this data set
