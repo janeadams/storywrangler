@@ -57,7 +57,7 @@ def get_ngrams(q):
 
 
 def give_instructions():
-    return "Enter a URL containing a 1, 2, or 3-word query</br>in the format <b>/api/</b><em>&lt;query&gt;</em><b>?lang=</b><em>&lt;en,es,ru&gt;</em><b>&metric=[rank,counts,freq]&noRT=</b>&lt;true/false&gt;</br>e.g. <a href='https://storywrangling.org/api/happy birthday?lang=en&metric=[counts]&noRT=true'>https://storywrangling.org/api/happy birthday?lang=en&metric=[counts]&noRT=true</a></br></br>Notes: Emojis are supported! 🐙</br><a href='https://storywrangling.org/api/🐙?metric=[rank]'>https://storywrangling.org/api/🐙?metric=[rank]</a></br></br>If more than 3 words are entered, they will be parsed as 1-grams. Commas and other delimeters are parsed as words too. </br>For a full explanation of the regex used, consult our documentation,</br>which will be added <a href='https://gitlab.com/compstorylab/storywrangler'>here</a> pending paper publication on the ArXiv."
+    return "Enter a URL containing a 1, 2, or 3-word query</br>in the format <b>/api/</b><em>&lt;query&gt;</em><b>?lang=</b><em>&lt;en,es,ru&gt;</em><b>&metric=[rank,counts,freq]&rt=</b>&lt;true/false&gt;</br>e.g. <a href='https://storywrangling.org/api/happy birthday?lang=en&metric=[counts]&rt=true'>https://storywrangling.org/api/happy birthday?lang=en&metric=[counts]&noRT=true</a></br></br>Notes: Emojis are supported! 🐙</br><a href='https://storywrangling.org/api/🐙?metric=[rank]'>https://storywrangling.org/api/🐙?metric=[rank]</a></br></br>If more than 3 words are entered, they will be parsed as 1-grams. Commas and other delimeters are parsed as words too. </br>For a full explanation of the regex used, consult our documentation,</br>which will be added <a href='https://gitlab.com/compstorylab/storywrangler'>here</a> pending paper publication on the ArXiv."
 
 
 
@@ -97,23 +97,20 @@ def get_data(query):
         src = str(request.args.get('src'))
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
     # For now, we're just using english
-    if request.args.get('lang') is None:
+    language = str(request.args.get('language'))
+    print("language: ",language)
+    if language in ['es', 'ru', 'fr']:
+        language = language
+    else:
         language = 'en'
-    else:
-        language = str(request.args.get('lang'))
-    # For now, we're just using english
-    if request.args.get('noRT') is 'true':
-        noRT = True
-    else:
-        noRT = False
+    rt = request.args.get('rt') == 'true'
     # Pull the metric from the URL params, e.g. 'rank','counts','freq'
     metric = request.args.get('metric')
     if metric is None:
         metric = 'rank'
         
     ngrams, n = get_ngrams(query)
-    noRT = False
-    output = {'ngrams':ngrams, 'database':n, 'metric':metric, 'language':language, 'ngramdata':[],'errors':[]}
+    output = {'ngrams':ngrams, 'database':n, 'metric':metric, 'rt':rt, 'language':language, 'ngramdata':[],'errors':[]}
     
     with open('dev/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
@@ -129,7 +126,7 @@ def get_data(query):
     print('ngrams: ',ngrams)
     for ngram in ngrams:
         try:
-            df = pd.DataFrame(list(db['en'].find({"word": ngram})))
+            df = pd.DataFrame(list(db[language].find({"word": ngram})))
             if df.shape[0]==0:
                 output['errors'].append(f"Couldn't find data for {ngram}")
             else:
@@ -144,20 +141,20 @@ def get_data(query):
                 dictout.update({'ngram':ngram, 'data':[]})
 
                 if metric =='counts':
-                    if noRT:
-                        values = list(df['count_noRT'])
-                    else:
+                    if rt:
                         values = list(df['counts'])
+                    else:
+                        values = list(df['count_noRT'])
                 if metric=='freq':
-                    if noRT:
-                        values = list(df['freq_noRT'])
-                    else:
+                    if rt:
                         values = list(df['freq'])
-                if metric=='rank':
-                    if noRT:
-                        values = list(df['rank_noRT'])
                     else:
+                        values = list(df['freq_noRT'])
+                if metric=='rank':
+                    if rt:
                         values = list(df['rank'])
+                    else:
+                        values = list(df['rank_noRT'])
                     
                 for item in dict(zip(list(df['time']),values)).items():
                     dictout['data'].append(list(item))

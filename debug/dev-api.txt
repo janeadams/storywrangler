@@ -1,0 +1,63 @@
+*** Starting uWSGI 2.0.18 (64bit) on [Tue Mar 24 17:35:22 2020] ***
+compiled with version: 7.3.0 on 22 July 2019 16:51:41
+os: Linux-3.10.0-1062.1.2.el7.x86_64 #1 SMP Mon Sep 16 14:19:51 EDT 2019
+nodename: hydra.uvm.edu
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 48
+current working directory: /home/janeadams
+detected binary path: /home/janeadams/.conda/envs/test_env/bin/uwsgi
+*** WARNING: you are running uWSGI without its master process manager ***
+your processes number limit is 4096
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uWSGI http bound on :3000 fd 4
+spawned uWSGI http 1 (pid: 43979)
+uwsgi socket 0 bound to TCP address 127.0.0.1:36050 (port auto-assigned) fd 3
+Python version: 3.7.3 | packaged by conda-forge | (default, Jul  1 2019, 21:52:21)  [GCC 7.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x5613269f5b90
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 72920 bytes (71 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 2 seconds on interpreter 0x5613269f5b90 pid: 43978 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI worker 1 (and the only) (pid: 43978, cores: 1)
+language:  None
+ngrams:  ['test']
+[pid: 43978|app: 0|req: 1/1] 10.241.1.102 () {42 vars in 1170 bytes} [Tue Mar 24 17:35:25 2020] GET /api/test?rt=false,language=es => generated 84508 bytes in 605 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  es
+ngrams:  ['test']
+[pid: 43978|app: 0|req: 2/2] 10.241.1.102 () {40 vars in 1139 bytes} [Tue Mar 24 17:36:17 2020] GET /api/test?rt=false&language=es => generated 86354 bytes in 3437 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  es
+ngrams:  ['hacienda']
+[pid: 43978|app: 0|req: 3/3] 10.241.1.102 () {40 vars in 1147 bytes} [Tue Mar 24 17:36:29 2020] GET /api/hacienda?rt=false&language=es => generated 89139 bytes in 3119 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  ru
+ngrams:  ['hacienda']
+[pid: 43978|app: 0|req: 4/4] 10.241.1.102 () {40 vars in 1147 bytes} [Tue Mar 24 17:36:39 2020] GET /api/hacienda?rt=false&language=ru => generated 640 bytes in 36 msecs (HTTP/1.1 200) 3 headers in 104 bytes (1 switches on core 0)
+language:  en
+ngrams:  ['hacienda']
+[pid: 43978|app: 0|req: 5/5] 10.241.1.102 () {40 vars in 1147 bytes} [Tue Mar 24 17:36:46 2020] GET /api/hacienda?rt=false&language=en => generated 79114 bytes in 255 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  es
+ngrams:  ['hacienda']
+[pid: 43978|app: 0|req: 6/6] 10.241.1.102 () {40 vars in 1146 bytes} [Tue Mar 24 17:36:53 2020] GET /api/hacienda?rt=false&language=es => generated 89139 bytes in 272 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  None
+ngrams:  ['test']
+[pid: 43978|app: 0|req: 7/7] 10.241.1.102 () {40 vars in 1098 bytes} [Tue Mar 24 17:39:25 2020] GET /api/test => generated 84508 bytes in 302 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  None
+ngrams:  ['one', 'two', 'three', 'four', 'five']
+[pid: 43978|app: 0|req: 8/8] 10.241.1.102 () {40 vars in 1144 bytes} [Tue Mar 24 17:39:31 2020] GET /api/one%20two%20three%20four%20five => generated 414023 bytes in 3916 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+language:  None
+ngrams:  ['one two three']
+[pid: 43978|app: 0|req: 9/9] 10.241.1.102 () {40 vars in 1120 bytes} [Tue Mar 24 17:40:15 2020] GET /api/one%20two%20three => generated 74035 bytes in 3584 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  None
+ngrams:  ['test']
+[pid: 43978|app: 0|req: 10/10] 10.241.2.40 () {40 vars in 1097 bytes} [Wed Mar 25 21:09:07 2020] GET /api/test => generated 84529 bytes in 892 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  None
+ngrams:  ['test']
+[pid: 43978|app: 0|req: 11/11] 10.241.0.25 () {40 vars in 1097 bytes} [Fri Mar 27 11:10:47 2020] GET /api/test => generated 84571 bytes in 1002 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+[pid: 43978|app: 0|req: 12/12] 10.241.0.25 () {40 vars in 1033 bytes} [Fri Mar 27 11:10:49 2020] GET /favicon.ico => generated 232 bytes in 14 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)

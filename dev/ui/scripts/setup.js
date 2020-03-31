@@ -194,7 +194,7 @@ function loadData(word) {
     // Pull the JSON data
     formatted_word = word.replace("#", "%23");
     console.log("Formatted word = ", formatted_word);
-    var url = encodeURI("https://storywrangling.org/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + searchMetric + "]")
+    var url = encodeURI("https://hydra.uvm.edu:3000/api/" + formatted_word + "?src=ui&lang=" + params["lang"] + "&metric=[" + searchMetric + "]")
     console.log("Querying URL = ", url)
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
