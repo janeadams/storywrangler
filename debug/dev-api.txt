@@ -47,3 +47,21 @@ ngrams :['😷'], n:1, metric:rank, rt:False, language:en
 [pid: 10410|app: 0|req: 9/9] 10.241.2.16 () {44 vars in 748 bytes} [Tue Mar 31 17:40:33 2020] GET /api/%F0%9F%98%B7?src=ui&language=en&metric=rank => generated 68093 bytes in 404 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
 ngrams :['toilet paper'], n:2, metric:rank, rt:False, language:en
 [pid: 10410|app: 0|req: 10/10] 10.241.2.16 () {44 vars in 758 bytes} [Tue Mar 31 17:40:33 2020] GET /api/toilet%20paper?src=ui&language=en&metric=rank => generated 89289 bytes in 537 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#COVID19'], n:1, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 11/11] 10.241.2.16 () {44 vars in 754 bytes} [Tue Mar 31 17:43:39 2020] GET /api/%2523COVID19?src=ui&language=en&metric=rank => generated 1212 bytes in 46 msecs (HTTP/1.1 200) 4 headers in 143 bytes (1 switches on core 0)
+ngrams :['#coronavirus'], n:1, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 12/12] 10.241.2.16 () {44 vars in 762 bytes} [Tue Mar 31 17:43:39 2020] GET /api/%2523coronavirus?src=ui&language=en&metric=rank => generated 15002 bytes in 102 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['pandemic'], n:1, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 13/13] 10.241.2.16 () {44 vars in 748 bytes} [Tue Mar 31 17:43:39 2020] GET /api/pandemic?src=ui&language=en&metric=rank => generated 92119 bytes in 542 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['have symptoms'], n:2, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 14/14] 10.241.2.16 () {44 vars in 760 bytes} [Tue Mar 31 17:43:40 2020] GET /api/have%20symptoms?src=ui&language=en&metric=rank => generated 7050 bytes in 61 msecs (HTTP/1.1 200) 4 headers in 143 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 15/15] 10.241.2.16 () {44 vars in 748 bytes} [Tue Mar 31 17:43:40 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 14811 bytes in 101 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :["can't get tested"], n:3, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 16/16] 10.241.2.16 () {44 vars in 768 bytes} [Tue Mar 31 17:43:40 2020] GET /api/can't%20get%20tested?src=ui&language=en&metric=rank => generated 546 bytes in 23 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['tested positive'], n:2, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 17/17] 10.241.2.16 () {44 vars in 764 bytes} [Tue Mar 31 17:43:40 2020] GET /api/tested%20positive?src=ui&language=en&metric=rank => generated 76290 bytes in 429 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['😷'], n:1, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 18/18] 10.241.2.16 () {44 vars in 748 bytes} [Tue Mar 31 17:43:40 2020] GET /api/%F0%9F%98%B7?src=ui&language=en&metric=rank => generated 68093 bytes in 481 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['toilet paper'], n:2, metric:rank, rt:False, language:en
+[pid: 10410|app: 0|req: 19/19] 10.241.2.16 () {44 vars in 756 bytes} [Tue Mar 31 17:43:41 2020] GET /api/toilet%20paper?src=ui&language=en&metric=rank => generated 89289 bytes in 538 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)

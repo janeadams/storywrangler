@@ -28,4 +28,28 @@ function loadData(query) {
 
 }
 
+function dumpFirst() {
+    console.log("Maximum of 10 searches allowed!")
+    removeNgram(params['ngrams'][0])
+}
+
+// When a word is submitted via inputClick...
+function addNgram(value, identifier, err) {
+    // Add the word as a list item so the user knows it's been added and can delete later
+    d3.select("#ngramList").append("li")
+        .text(value)
+        .attr("class", "li-" + identifier)
+        .style("color", colors.dark[identifier])
+        .style("border-color", colors.main[identifier])
+        .style("background-color", colors.light[identifier])
+        .on("click", function(d, i) {
+            // When the list item is clicked, remove the word from the ngram list and delete the data
+            n = this.text
+            ID = this.className.replace("li-", "")
+            removeNgram(n, ID)
+            // Delete the li for the deleted word
+            this.remove()
+        });
+    console.log("Added " + value + " to UI buttons");
+}
 
