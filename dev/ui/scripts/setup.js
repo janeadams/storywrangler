@@ -12,7 +12,7 @@ thisfirst = new Date(thisyear, 0, 1)
 
 // Set default options
 const defaultparams = {
-    "queries": ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"],
+    "ngrams": ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"],
     "language": "en",
     "metric": "rank",
     "RT": false,
@@ -31,10 +31,10 @@ const paramoptions = {
 }
 // An object containing our parameters
 let params = {
-    "queries": []
+    "ngrams": []
 }
 
-let querydata = []
+let ngramdata = []
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
@@ -60,7 +60,7 @@ function setRanges() {
     let xmins = [];
     let xmaxes = [];
     let ymaxes = [];
-    querydata.forEach(data => {
+    ngramdata.forEach(data => {
         xmins.push(data.xrange[0]);
         xmaxes.push(data.xrange[1]);
         ymaxes.push(data.yrange[1]);
@@ -90,5 +90,5 @@ function setupPage() {
         loadData(n)
     }
     setSizing()
-    setRanges()
+    //setRanges()
 }
