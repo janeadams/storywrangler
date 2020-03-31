@@ -1,6 +1,7 @@
 
-# Twitter Onegram Viewer
-All ngram timeseries are stored and served on Hydra, a server at the University of Vermont Complex Systems Center.
+# StoryWrangler
+## Twitter nGram Viewer
+All ngram timeseries are stored and served on Hydra, a server at the University of Vermont Complex Systems Center. This is a public resource for non-commercial use.
 
 There are two methods for accessing onegrams:
 
