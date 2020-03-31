@@ -1,6 +1,6 @@
 function loadData(query) {
     console.log("Loading data for ", query, "...");
-    var message = ""
+    let errors = ""
     // Pull the JSON data
     formatted_word = query.replace("#", "%23");
     console.log("Formatted query = ", formatted_query);
@@ -8,39 +8,22 @@ function loadData(query) {
     console.log("Querying URL = ", url)
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
-        if (data["api_error_count"] > 0) {
-            alert(data["errors"])
-            message = data["errors"]
-        } else {
+        errors = data['errors']
+        data['ngramdata'].forEach((n) => {
+            params['ngrams'].push(n['ngram'])
+            ndata = n
             // Set a color for this timeseries
-            data['colorid'] = params["ngrams"].length
-            // Parse the dates into d3 date format
-            var parsedDates = data["dates"].map(date => new Date(d3.timeParse(date)))
-            data["dates"] = parsedDates
+            ndata['tempid']=params['ngrams'].length
             // Find the x- and y-range of this data set
-            data['xrange'] = d3.extent(data["dates"])
-            data['yrange'] = d3.extent(data[params["metric"]])
-            data['pairs'] = []
-            parsedDates.forEach((date, i) => {
-                var pair = {}
-                pair.x = date
-                pair.y = data[params["metric"]][i]
-                data['pairs'].push(pair)
-            })
+            //ndata['xrange'] = d3.extent(data['dates'])
+            //ndata['yrange'] = d3.extent(data[params['metric']])
             // Add the JSON data object to the array of ngram data
-            ngramdata.push(data)
-            console.log("Added data for " + ngram + " to data list; ngram data list length = " + ngramdata.length)
-            addQuery(query, data['colorid'])
+            ngramdata.push(ndata)
+            message.push("Added data for " + n['ngram'] + " to data list; ngram data list length = " + params['ngrams'].length())
+            addNgram(n['ngram'], ndata['tempid'])
             drawCharts()
-            message = "success"
-        }
-    })
-    /*.catch(function(error) {
-        // Error handling
-        //console.log(e);
-        alert("Sorry! It looks like the database is down or overloaded -- please try again later")
-        message = "catch"
-    })*/
+            })
+        })
     return console.log("loadData: " + message)
 }
 
