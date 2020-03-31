@@ -51,3 +51,6 @@ ngrams:  ['toilet paper']
 language:  en
 ngrams:  ['toilet paper']
 [pid: 6494|app: 0|req: 8/8] 10.241.2.16 () {40 vars in 1176 bytes} [Tue Mar 31 16:40:58 2020] GET /api/toilet%20paper?language=en&metric=rank&src=ui => generated 89249 bytes in 508 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+language:  en
+ngrams:  ['#COVID19']
+[pid: 6494|app: 0|req: 9/9] 10.241.2.16 () {40 vars in 1172 bytes} [Tue Mar 31 16:45:00 2020] GET /api/%2523COVID19?src=ui&language=en&metric=rank => generated 1172 bytes in 48 msecs (HTTP/1.1 200) 3 headers in 105 bytes (1 switches on core 0)

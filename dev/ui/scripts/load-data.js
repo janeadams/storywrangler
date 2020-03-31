@@ -4,7 +4,7 @@ function loadData(query) {
     // Pull the JSON data
     formatted_query = query.replace("#", "%23");
     console.log("Formatted query = ", formatted_query);
-    var url = encodeURI("hydra.uvm.edu:3000/api/" + formatted_query + "?src=ui&language=" + params["language"] + "&metric=" + params['metric'])
+    var url = encodeURI("http://hydra.uvm.edu:3000/api/" + formatted_query + "?src=ui&language=" + params["language"] + "&metric=" + params['metric'])
     console.log("Querying URL = ", url)
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
