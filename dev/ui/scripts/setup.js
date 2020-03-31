@@ -30,9 +30,7 @@ const paramoptions = {
     "RT": [true,false]
 }
 // An object containing our parameters
-let params = {
-    "ngrams": []
-}
+let params = defaultparams
 
 let ngramdata = []
 
@@ -81,6 +79,7 @@ function setRanges() {
 function setupPage() {
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
+    setSizing()
     // Decode the URL ngrams (e.g. emojis)
     params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     // Check the correct boxes in the filter form according to the parameters
@@ -89,6 +88,5 @@ function setupPage() {
     for (let n of params['ngrams']) {
         loadData(n)
     }
-    setSizing()
     //setRanges()
 }
