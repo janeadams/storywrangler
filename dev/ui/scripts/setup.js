@@ -86,7 +86,7 @@ function setupPage() {
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
     // Load the ngram data from parameters
-    for (var n of params['ngrams']) {
+    for (let n of params['ngrams']) {
         loadData(n)
     }
     setSizing()

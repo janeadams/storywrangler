@@ -19,12 +19,12 @@ function loadData(query) {
             //ndata['yrange'] = d3.extent(data[params['metric']])
             // Add the JSON data object to the array of ngram data
             ngramdata.push(ndata)
-            message.push("Added data for " + n['ngram'] + " to data list; ngram data list length = " + params['ngrams'].length())
+            console.log("Added data for " + n['ngram'] + " to data list; ngram data list length = " + params['ngrams'].length())
             addNgram(n['ngram'], ndata['tempid'])
             drawCharts()
             })
         })
-    return console.log("loadData: " + message)
+
 }
 
 
