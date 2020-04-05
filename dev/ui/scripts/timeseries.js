@@ -5,8 +5,8 @@ function drawCharts() {
     var lineOpacity = "1.0";
     var lineOpacityHover = "1.0";
     var otherLinesOpacityHover = "0.3";
-    var lineStroke = "1px";
-    var lineStrokeHover = "2.5px";
+    var lineStroke = "2px";
+    var lineStrokeHover = "3px";
 
     //console.log('params.xrange =', params.xrange, '  params.yrange =', params.yrange)
     //console.log("Drawing all timeseries...")
