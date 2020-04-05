@@ -31,7 +31,7 @@ header {
 #logo {
     width: 600px;
     display: block;
-    transition: width 0.5s;
+    transition: width 0.4s;
     margin-left: auto;
     margin-right: auto;
 }
