@@ -31,14 +31,14 @@ header {
 #logo {
     width: 600px;
     display: block;
-    transition: width 0.5s;
+    transition: width 0.4s;
     margin-left: auto;
     margin-right: auto;
 }
 
 main {
     width: 100%;
-    max-width: 800px;
+    /* max-width: 800px; */
     height: auto;
     min-height: 100vh;
     margin: 0 auto;

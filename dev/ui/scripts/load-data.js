@@ -9,7 +9,8 @@ function loadData(query) {
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
         errors = data['errors']
-        data['ngrams'].forEach((n) => {
+        newNgrams = data['ngrams']
+        newNgrams.forEach(n => {
             params['ngrams'].push(n)
             ndata = data['ngramdata'][n]['data']
             // Set a color for this timeseries
