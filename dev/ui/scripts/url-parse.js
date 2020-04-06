@@ -72,7 +72,7 @@ function updateURL() {
         }
     }
     */
-    for (var p of ['queries', 'metric', 'language', 'scale','RT']) {
+    for (var p of ['ngrams', 'metric', 'language', 'scale','RT']) {
         console.log("var p = ", p);
         console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);
         if (params[p] !== defaultparams[p]) {
