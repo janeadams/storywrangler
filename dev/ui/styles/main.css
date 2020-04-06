@@ -30,6 +30,7 @@ header {
 
 #logo {
     width: 600px;
+    max-width:100%;
     display: block;
     transition: width 0.5s;
     margin-left: auto;
@@ -75,7 +76,7 @@ footer img {
         margin-left: auto;
         margin-right: auto;
         width: 90%;
-        max-width: 400px;
+        /*max-width: 400px;*/
     }
 
 
