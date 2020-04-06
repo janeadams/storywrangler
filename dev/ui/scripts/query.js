@@ -5,7 +5,7 @@ function querySubmission(event) {
         console.log("Nothing entered in the search box");
     } else {
         if (params['ngrams'].length > 9) { dumpFirst() }
-        loadData(query)
+        loadData(query)}
     // Clear the search box
     document.getElementById('queryForm').reset();
     // Don't reload the page on submit
@@ -41,35 +41,4 @@ function filterSubmission() {
     params['RT']=d3.select("input[value ='RT']").property('checked');
     console.log("params['RT'] = ",params['RT']);
     updateURL();
-}
-
-function updateURL() {
-    var currentURL = String(window.location.href);
-    console.log("currentURL = ", currentURL);
-    var splitURL = currentURL.split("?");
-    var customparams = {};
-    /*
-    for (var p of Object.keys(params)) {
-        console.log("var p = ", p)
-        console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p])
-        if (params[p] != defaultparams[p]) {
-            customparams[p] = params[p]
-        }
-    }
-    */
-    for (var p of ['queries', 'metric', 'language', 'scale','RT']) {
-        console.log("var p = ", p);
-        console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);
-        if (params[p] !== defaultparams[p]) {
-            customparams[p] = params[p]
-        }
-    }
-    console.log("customparams = ", customparams);
-    var paramlist = [];
-    for (var [p, v] of Object.entries(customparams)) {
-        paramlist.push(p + "=" + v)
-    }
-    var newURL = String(splitURL[0]) + "?" + paramlist.join("&");
-    console.log("newURL = ", newURL);
-    window.location.href = newURL;
 }
