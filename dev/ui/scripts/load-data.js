@@ -24,7 +24,7 @@ function loadData(query) {
             addNgram(n, ndata['ID'])
             //drawCharts()
             })
-        updateURL()
+        //updateURL()
         })
 
 }
