@@ -35,7 +35,6 @@ let params = {
 }
 
 let ngramdata = []
-let ngramIDs = {}
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
