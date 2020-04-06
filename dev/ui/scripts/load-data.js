@@ -22,7 +22,7 @@ function loadData(query) {
             ngramdata.push(ndata)
             console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
             addNgram(n, ndata['ID'])
-            drawCharts()
+            //drawCharts()
             })
         updateURL()
         })
