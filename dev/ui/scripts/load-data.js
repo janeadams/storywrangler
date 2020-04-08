@@ -61,7 +61,7 @@ function addNgram(value, err) {
         .on("click", function(d) {
             // When the list item is clicked, remove the word from the ngram list and delete the data
             n = this.text
-            removeNgram(n)
+            console.log('n: '+n)
             // Delete the li for the deleted word
             this.remove()
         });
