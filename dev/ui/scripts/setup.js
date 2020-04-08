@@ -10,9 +10,10 @@ lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 thisfirst = new Date(thisyear, 0, 1)
 
+const defaultNgrams = ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"]
+
 // Set default options
 const defaultparams = {
-    "ngrams": ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"],
     "language": "en",
     "metric": "rank",
     "RT": false,
@@ -77,6 +78,14 @@ function setRanges() {
     }
 }
 
+function addDefaultNgrams(){
+    if (params['ngrams'].length < 1) {
+        for (let n of defaultNgrams){
+            loadData(n)
+        }
+    }
+}
+
 function setupPage() {
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
@@ -85,6 +94,7 @@ function setupPage() {
     params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
+    addDefaultNgrams()
     // Load the ngram data from parameters
     for (let n of params['ngrams']) {
         loadData(n)
