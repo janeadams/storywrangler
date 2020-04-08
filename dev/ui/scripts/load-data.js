@@ -21,7 +21,7 @@ function loadData(query) {
             // Add the JSON data object to the array of ngram data
             ngramdata.push(ndata)
             console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
-            addNgram(n, ndata['ID'])
+            addNgram(n, ngramIDs[n])
             //drawCharts()
             })
         //updateURL()
