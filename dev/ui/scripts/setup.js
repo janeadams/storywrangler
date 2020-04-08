@@ -14,6 +14,7 @@ const defaultNgrams = ["#COVID19","#coronavirus","pandemic","🦠","have symptom
 
 // Set default options
 const defaultparams = {
+    "ngrams": [],
     "language": "en",
     "metric": "rank",
     "RT": false,
