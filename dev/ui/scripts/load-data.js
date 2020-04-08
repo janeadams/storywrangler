@@ -30,8 +30,8 @@ function loadData(query) {
 }
 
 // When the list item is clicked for a particular word...
-function removeNgram(value, identifier) {
-    d3.select(".li-" + identifier).remove()
+function removeNgram(value) {
+    d3.select(".li-" + ngramIDs[value]).remove()
     // Delete the word from the list of queries
     params["ngrams"] = params["ngrams"].filter(ele =>
         // Filter the set to include every ngram except this one
