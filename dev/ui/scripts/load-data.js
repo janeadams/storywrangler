@@ -12,9 +12,9 @@ function loadData(query) {
         newNgrams = data['ngrams']
         newNgrams.forEach(n => {
             params['ngrams'].push(n)
+            // Set an ID for this ngram
+            ngramIDs[n]=params['ngrams'].length
             ndata = data['ngramdata'][n]['data']
-            // Set a color for this timeseries
-            ndata['ID']=params['ngrams'].length
             // Find the x- and y-range of this data set
             //ndata['xrange'] = d3.extent(data['dates'])
             //ndata['yrange'] = d3.extent(data[params['metric']])
@@ -22,9 +22,9 @@ function loadData(query) {
             ngramdata.push(ndata)
             console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
             addNgram(n, ndata['ID'])
-            drawCharts()
+            //drawCharts()
             })
-        updateURL()
+        //updateURL()
         })
 
 }
