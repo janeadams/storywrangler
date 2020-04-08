@@ -29,25 +29,44 @@ function loadData(query) {
 
 }
 
+// When the list item is clicked for a particular word...
+function removeNgram(value, identifier) {
+    d3.select(".li-" + identifier).remove()
+    // Delete the word from the list of queries
+    params["ngrams"] = params["ngrams"].filter(ele =>
+        // Filter the set to include every ngram except this one
+        ele !== value
+    )
+    delete ngramIDs[value]
+    console.log("removed ", value, " from params['ngrams']; length = " + params["ngrams"].length + " and data is " + params["ngrams"])
+    // Delete the word from the list of ngram data
+    ngramdata = ngramdata.filter(ele =>
+        // Filter the set to include every ngram except this one
+        ele['ngram'] !== value
+    )
+    console.log("removed ", value, " from ngramdata; length = " + ngramdata.length + " and data is " + ngramdata)
+}
+
 function dumpFirst() {
     console.log("Maximum of 10 searches allowed!")
-    removeNgram(params['ngrams'][0])
+    first = params['ngrams'][0]
+    removeNgram(first)
 }
 
 // When a word is submitted via inputClick...
-function addNgram(value, identifier, err) {
+function addNgram(value, err) {
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
         .text(value)
-        .attr("class", "li-" + identifier)
-        .style("color", colors.dark[identifier])
-        .style("border-color", colors.main[identifier])
-        .style("background-color", colors.light[identifier])
+        .attr("class", "li-" + ngramIDs[value])
+        .style("color", colors.dark[ngramIDs[value]])
+        .style("border-color", colors.main[ngramIDs[value]])
+        .style("background-color", colors.light[ngramIDs[value]])
         .on("click", function(d, i) {
             // When the list item is clicked, remove the word from the ngram list and delete the data
             n = this.text
             ID = this.className.replace("li-", "")
-            removeNgram(n, ID)
+            removeNgram(n)
             // Delete the li for the deleted word
             this.remove()
         });
