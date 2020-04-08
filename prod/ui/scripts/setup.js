@@ -34,7 +34,7 @@ let params = {
     "queries": []
 }
 
-let ngramdata = []
+let querydata = []
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
