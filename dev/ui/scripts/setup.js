@@ -34,7 +34,7 @@ const paramoptions = {
 // An object containing our parameters
 let params = defaultparams
 
-let ngramdata = []
+let ngramData = {}
 let ngramIDs = {}
 
 const colors = {
@@ -61,7 +61,7 @@ function setRanges() {
     let xmins = [];
     let xmaxes = [];
     let ymaxes = [];
-    ngramdata.forEach(data => {
+    ngramData.forEach(data => {
         xmins.push(data.xrange[0]);
         xmaxes.push(data.xrange[1]);
         ymaxes.push(data.yrange[1]);

@@ -14,12 +14,11 @@ function loadData(query) {
             params['ngrams'].push(n)
             // Set an ID for this ngram
             ngramIDs[n]=params['ngrams'].length
-            ndata = data['ngramdata'][n]['data']
+            ngramData[n]=data['ngramdata'][n]
             // Find the x- and y-range of this data set
             //ndata['xrange'] = d3.extent(data['dates'])
             //ndata['yrange'] = d3.extent(data[params['metric']])
             // Add the JSON data object to the array of ngram data
-            ngramdata.push(ndata)
             console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
             addNgram(n, ngramIDs[n])
             //drawCharts()
@@ -40,11 +39,8 @@ function removeNgram(value) {
     delete ngramIDs[value]
     console.log("removed ", value, " from params['ngrams']; length = " + params["ngrams"].length + " and data is " + params["ngrams"])
     // Delete the word from the list of ngram data
-    ngramdata = ngramdata.filter(ele =>
-        // Filter the set to include every ngram except this one
-        ele['ngram'] !== value
-    )
-    console.log("removed ", value, " from ngramdata; length = " + ngramdata.length + " and data is " + ngramdata)
+    delete ngramData[value]
+    console.log("removed ", value, " from ngramData; length = " + ngramData.length + " and data is " + ngramData)
 }
 
 function dumpFirst() {
@@ -62,10 +58,9 @@ function addNgram(value, err) {
         .style("color", colors.dark[ngramIDs[value]])
         .style("border-color", colors.main[ngramIDs[value]])
         .style("background-color", colors.light[ngramIDs[value]])
-        .on("click", function(d, i) {
+        .on("click", function(d) {
             // When the list item is clicked, remove the word from the ngram list and delete the data
             n = this.text
-            ID = this.className.replace("li-", "")
             removeNgram(n)
             // Delete the li for the deleted word
             this.remove()
