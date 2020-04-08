@@ -16,7 +16,7 @@ function querySubmission(event) {
 
 // When the list item is clicked for a particular word...
 function removeNgram(value, identifier) {
-    d3.select("#" + identifier).remove()
+    d3.select(".li-" + identifier).remove()
     // Delete the word from the list of queries
     params["ngrams"] = params["ngrams"].filter(ele =>
         // Filter the set to include every ngram except this one
