@@ -14,11 +14,7 @@ const defaultNgrams = ["#COVID19","#coronavirus","pandemic","🦠","have symptom
 
 // Set default options
 const defaultparams = {
-<<<<<<< HEAD
     "ngrams": [],
-=======
-    "ngrams": ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"],
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
     "language": "en",
     "metric": "rank",
     "RT": false,
@@ -38,11 +34,7 @@ const paramoptions = {
 // An object containing our parameters
 let params = defaultparams
 
-<<<<<<< HEAD
 let ngramData = {}
-=======
-let ngramdata = []
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
 let ngramIDs = {}
 
 const colors = {
@@ -69,15 +61,11 @@ function setRanges() {
     let xmins = [];
     let xmaxes = [];
     let ymaxes = [];
-<<<<<<< HEAD
     ngramData.forEach(data => {
-=======
-    ngramdata.forEach(data => {
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
         xmins.push(data.xrange[0]);
         xmaxes.push(data.xrange[1]);
         ymaxes.push(data.yrange[1]);
-    });
+    })
     if (d3.min(xmins) < thisfirst) {
         params.xrange = [d3.min(xmins), d3.max(xmaxes)]
     } else {
@@ -91,32 +79,11 @@ function setRanges() {
     }
 }
 
-<<<<<<< HEAD
-function addDefaultNgrams(){
-    if (params['ngrams'].length < 1) {
-        for (let n of defaultNgrams){
-            loadData(n)
-        }
-    }
-}
-
-=======
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
 function setupPage() {
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
     setSizing()
-    // Decode the URL ngrams (e.g. emojis)
-    params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
-<<<<<<< HEAD
-    addDefaultNgrams()
-=======
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
-    // Load the ngram data from parameters
-    for (let n of params['ngrams']) {
-        loadData(n)
-    }
     //setRanges()
 }

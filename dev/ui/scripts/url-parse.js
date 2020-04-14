@@ -54,14 +54,15 @@ function getUrlParams() {
         else {
             // If not specified, set to default values
             params[p] = defaultparams[p]
-<<<<<<< HEAD
             if (params['ngrams'].length < 1) {
-
+                params['ngrams']=defaultNgrams
             }
-=======
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
         }
+        // Decode the URL ngrams (e.g. emojis)
+        params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     }
+    console.log("params['ngrams']" + params['ngrams'])
+    params['ngrams'].forEach(n => loadData(n))
 }
 
 function updateURL() {
@@ -69,15 +70,6 @@ function updateURL() {
     console.log("currentURL = ", currentURL);
     var splitURL = currentURL.split("?");
     var customparams = {};
-    /*
-    for (var p of Object.keys(params)) {
-        console.log("var p = ", p)
-        console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p])
-        if (params[p] != defaultparams[p]) {
-            customparams[p] = params[p]
-        }
-    }
-    */
     for (var p of ['ngrams', 'metric', 'language', 'scale','RT']) {
         console.log("var p = ", p);
         console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);
