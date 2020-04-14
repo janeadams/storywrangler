@@ -54,12 +54,9 @@ function getUrlParams() {
         else {
             // If not specified, set to default values
             params[p] = defaultparams[p]
-<<<<<<< HEAD
             if (params['ngrams'].length < 1) {
-
+                params['ngrams']=defaultNgrams
             }
-=======
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
         }
     }
 }
