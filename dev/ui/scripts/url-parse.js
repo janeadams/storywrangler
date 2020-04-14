@@ -55,10 +55,14 @@ function getUrlParams() {
             // If not specified, set to default values
             params[p] = defaultparams[p]
             if (params['ngrams'].length < 1) {
-                defaultNgrams.forEach(n => loadData(n))
+                params['ngrams']=defaultNgrams
             }
         }
+        // Decode the URL ngrams (e.g. emojis)
+        params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     }
+    console.log("params['ngrams']" + params['ngrams'])
+    params['ngrams'].forEach(n => loadData())
 }
 
 function updateURL() {
