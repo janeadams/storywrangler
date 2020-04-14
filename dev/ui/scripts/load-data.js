@@ -14,18 +14,29 @@ function loadData(query) {
             params['ngrams'].push(n)
             // Set an ID for this ngram
             ngramIDs[n]=params['ngrams'].length
+<<<<<<< HEAD
             ngramData[n]=data['ngramdata'][n]
+=======
+            ndata = data['ngramdata'][n]['data']
+>>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
             // Find the x- and y-range of this data set
             //ndata['xrange'] = d3.extent(data['dates'])
             //ndata['yrange'] = d3.extent(data[params['metric']])
             // Add the JSON data object to the array of ngram data
+<<<<<<< HEAD
             console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
             addNgram(n, ngramIDs[n])
+=======
+            ngramdata.push(ndata)
+            console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
+            addNgram(n, ndata['ID'])
+>>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
             //drawCharts()
             })
         //updateURL()
         })
 
+<<<<<<< HEAD
 }
 
 // When the list item is clicked for a particular word...
@@ -62,6 +73,29 @@ function addNgram(value, err) {
             // When the list item is clicked, remove the word from the ngram list and delete the data
             n = this.text
             console.log('n: '+n)
+=======
+}
+
+function dumpFirst() {
+    console.log("Maximum of 10 searches allowed!")
+    removeNgram(params['ngrams'][0])
+}
+
+// When a word is submitted via inputClick...
+function addNgram(value, identifier, err) {
+    // Add the word as a list item so the user knows it's been added and can delete later
+    d3.select("#ngramList").append("li")
+        .text(value)
+        .attr("class", "li-" + identifier)
+        .style("color", colors.dark[identifier])
+        .style("border-color", colors.main[identifier])
+        .style("background-color", colors.light[identifier])
+        .on("click", function(d, i) {
+            // When the list item is clicked, remove the word from the ngram list and delete the data
+            n = this.text
+            ID = this.className.replace("li-", "")
+            removeNgram(n, ID)
+>>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
             // Delete the li for the deleted word
             this.remove()
         });
