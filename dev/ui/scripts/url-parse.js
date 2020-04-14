@@ -62,9 +62,7 @@ function getUrlParams() {
         params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     }
 
-    for (let n in params['ngrams']){
-        loadData(n)
-    }
+    params['ngrams'].forEach(loadData(n))
 }
 
 function updateURL() {
