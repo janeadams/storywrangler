@@ -59,8 +59,8 @@ function addNgram(value) {
         .style("background-color", colors.light[ngramIDs[value]])
         .on("click", function(d, i) {
             // When the list item is clicked, remove the word from the ngram list and delete the data
-            let n = this.text
-            console.log('n: ' + n)
-            removeNgram(n)
+            //let n = this.text
+            console.log(this.text)
+            //removeNgram(n)
         })
 }
