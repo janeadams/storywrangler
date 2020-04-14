@@ -10,8 +10,6 @@ function querySubmission(event) {
     document.getElementById('queryForm').reset()
     // Don't reload the page on submit
     return false
-<<<<<<< HEAD
-=======
 }
 
 
@@ -31,7 +29,6 @@ function removeNgram(value, identifier) {
         ele['ngram'] !== value
     );
     console.log("removed ", value, " from ngramdata; length = " + ngramdata.length + " and data is " + ngramdata);
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
 }
 
 function filterSubmission() {
@@ -42,11 +39,6 @@ function filterSubmission() {
         params[p] = d3.select("input[name = '" + p + "']").property('value')
     }*/
     params['RT']=d3.select("input[value ='RT']").property('checked');
-<<<<<<< HEAD
     console.log("params['RT'] = ",params['RT'])
     updateURL()
-=======
-    console.log("params['RT'] = ",params['RT']);
-    updateURL();
->>>>>>> db4994208d505fb5c47d686b9bf226926050a6c9
 }
