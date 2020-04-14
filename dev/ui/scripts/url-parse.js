@@ -61,7 +61,7 @@ function getUrlParams() {
         // Decode the URL ngrams (e.g. emojis)
         params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     }
-
+    console.log("params['ngrams']" + params['ngrams'])
     params['ngrams'].forEach(loadData())
 }
 
