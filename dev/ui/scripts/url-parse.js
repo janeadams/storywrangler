@@ -58,6 +58,12 @@ function getUrlParams() {
                 params['ngrams']=defaultNgrams
             }
         }
+        // Decode the URL ngrams (e.g. emojis)
+        params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
+    }
+
+    for (let n in params['ngrams']){
+        loadData(n)
     }
 }
 
@@ -66,15 +72,6 @@ function updateURL() {
     console.log("currentURL = ", currentURL);
     var splitURL = currentURL.split("?");
     var customparams = {};
-    /*
-    for (var p of Object.keys(params)) {
-        console.log("var p = ", p)
-        console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p])
-        if (params[p] != defaultparams[p]) {
-            customparams[p] = params[p]
-        }
-    }
-    */
     for (var p of ['ngrams', 'metric', 'language', 'scale','RT']) {
         console.log("var p = ", p);
         console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);

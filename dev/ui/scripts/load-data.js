@@ -20,7 +20,7 @@ function loadData(query) {
             //ndata['yrange'] = d3.extent(data[params['metric']])
             // Add the JSON data object to the array of ngram data
             console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
-            addNgram(n, ngramIDs[n])
+            addNgram(n)
         })
         //updateURL()
     })
@@ -44,8 +44,7 @@ function removeNgram(value) {
 
 function dumpFirst() {
     console.log("Maximum of 10 searches allowed!")
-    first = params['ngrams'][0]
-    removeNgram(first)
+    removeNgram(params['ngrams'][0])
 }
 
 // When a word is submitted via inputClick...

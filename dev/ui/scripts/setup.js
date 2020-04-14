@@ -83,13 +83,7 @@ function setupPage() {
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
     setSizing()
-    // Decode the URL ngrams (e.g. emojis)
-    params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
-    // Load the ngram data from parameters
-    for (let n of params['ngrams']) {
-        loadData(n)
-    }
     //setRanges()
 }
