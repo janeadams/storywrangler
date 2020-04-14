@@ -13,7 +13,7 @@ function loadData(query) {
         newNgrams.forEach(n => {
             params['ngrams'].push(n)
             // Set an ID for this ngram
-            ngramIDs[n] = params['ngrams'].length
+            ngramIDs[n] = Object.keys(ngramData).length
             ngramData[n] = data['ngramdata'][n]
             // Find the x- and y-range of this data set
             //ndata['xrange'] = d3.extent(data['dates'])
