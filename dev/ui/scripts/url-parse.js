@@ -37,6 +37,9 @@ function readUrlVars() {
         } else {
             vars[key] = value
         }
+        if (params['ngrams'].length < 1) {
+            params['ngrams'] = defaultNgrams
+        }
     })
     return vars;
 }

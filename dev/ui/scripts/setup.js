@@ -79,14 +79,6 @@ function setRanges() {
     }
 }
 
-function addDefaultNgrams(){
-    if (params['ngrams'].length < 1) {
-        for (let n of defaultNgrams){
-            loadData(n)
-        }
-    }
-}
-
 function setupPage() {
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
@@ -95,7 +87,6 @@ function setupPage() {
     params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
-    addDefaultNgrams()
     // Load the ngram data from parameters
     for (let n of params['ngrams']) {
         loadData(n)
