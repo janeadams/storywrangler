@@ -39,7 +39,7 @@ function removeNgram(value) {
     console.log("removed ", value, " from params['ngrams']; length = " + params["ngrams"].length + " and data is " + params["ngrams"])
     // Delete the word from the list of ngram data
     delete ngramData[value]
-    console.log("removed ", value, " from ngramData; length = " + ngramData.length + " and data is " + ngramData)
+    console.log("removed ", value, " from ngramData; length = " + Object.keys(ngramData).length + " and remaining ngrams are " + Object.keys(ngramData))
 }
 
 function dumpFirst() {
