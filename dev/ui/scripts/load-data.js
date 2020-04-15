@@ -13,11 +13,12 @@ function loadData(query) {
         newNgrams.forEach(n => {
             params['ngrams'].push(n)
             // Find the x- and y-range of this data set
-            ngramData[n] = data['ngramdata'][n]
+            let thisdata = data['ngramdata'][n]
+            ngramData[n] = thisdata
             // Store the uuid for this ngram
-            ngramIDs[n] = ngramData[n]['uuid']
-            ngramData[n]['xrange'] = d3.extent([data['ngramdata'][n]['min_date'], data['ngramdata'][n]['max_date']])
-            ngramData[n]['yrange'] = d3.extent([data['ngramdata'][n]['min_%{params.metric}'],data['ngramdata'][n]['max_%{params.metric}']])
+            ngramIDs[n] = thisdata['uuid']
+            ngramData[n]['xrange'] = d3.extent([thisdata['min_date'], thisdata['max_date']])
+            ngramData[n]['yrange'] = d3.extent([thisdata['min_%{params.metric}'],thisdata['max_%{params.metric}']])
             // Add the JSON data object to the array of ngram data
             console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
             addNgram(n)
