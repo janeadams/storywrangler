@@ -24,7 +24,7 @@ function loadData(query) {
             addNgram(n)
         })
         //setRanges()
-        updateURL()
+        //updateURL()
     })
 }
 
