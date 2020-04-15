@@ -77,8 +77,8 @@ function drawMain() {
     var x2Scale = d3.scaleTime()
         .domain(params.xrange).range([0, width])
 
-    console.log('params.xrange = ', params.xrange)
-    console.log('params.xviewrange = ', params.xviewrange)
+    console.log('params.xrange = ${params.xrange}')
+    console.log('params.xviewrange = ${params.xviewrange}')
 
     // Create a chart area and set the size
     console.log("Creating chart area...")
@@ -182,7 +182,8 @@ function updateAxis() {
 }
 
 function addLine(ngram){
-    updateAxis()
+    console.log('adding line for ${ngram}')
+    //updateAxis()
 }
 
 function addSubplot(ngram){
