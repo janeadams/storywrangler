@@ -1,5 +1,4 @@
-console.log("Loaded setup.js")
-
+console.log("Loading setup.js")
 // Today's date
 today = new Date()
 // Extract year from today's date
@@ -17,7 +16,7 @@ const defaultparams = {
     "ngrams": [],
     "language": "en",
     "metric": "rank",
-    "RT": false,
+    "rt": false,
     "scale": "log",
     "xrange": [new Date(2009, 6, 31), today],
     "xviewrange": [lastyeardate, today],

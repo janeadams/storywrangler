@@ -1,40 +1,12 @@
 console.log("loaded timeseries.js")
 
-function drawCharts() {
+function setupCharts(){
     setRanges()
     var lineOpacity = "1.0";
     var lineOpacityHover = "1.0";
     var otherLinesOpacityHover = "0.3";
     var lineStroke = "2px";
     var lineStrokeHover = "3px";
-
-    //console.log('params.xrange =', params.xrange, '  params.yrange =', params.yrange)
-    //console.log("Drawing all timeseries...")
-    // Determine the chart area sizing based on the window size
-    //console.log("Setting margins...")
-    // Set the sizing and margins for the main chart
-
-    // Clear any leftover charting stuff from before
-    d3.select("#dataviz").selectAll("svg").remove()
-    //console.log("Setting scales...")
-    // Set the time scale for the main chart
-
-    console.log("Adding timeseries lines...")
-
-    var margin = { top: 0.1 * (params.sizing[1]), right: 0.15 * (params.sizing[0]), bottom: 0.25 * (params.sizing[1]), left: 0.2 * (params.sizing[0]) }
-    var width = params.sizing[0] - margin.left - margin.right
-    var height = params.sizing[1] - margin.top - margin.bottom
-
-    var margin2 = { top: height + (2 * margin.top), right: margin.right, bottom: margin.bottom, left: margin.left }
-    var xScale = d3.scaleTime()
-        .domain(params.xviewrange).range([0, width])
-
-    var x2Scale = d3.scaleTime()
-        .domain(params.xrange).range([0, width])
-
-    console.log('params.xrange = ', params.xrange)
-    console.log('params.xviewrange = ', params.xviewrange)
-
     // Choose and set time scales (logarithmic or linear)
     if (params["scale"] == "log") {
         // If 'logarithmic' option is chosen (by default:)
@@ -80,7 +52,33 @@ function drawCharts() {
         .x(d => xScale(d.x)) // set the x values for the line generator
         .y(d => yScale(d.y)) // set the y values for the line generator
         .defined(function (d) { return d[1] !== null; })
-        //.curve(d3.curveMonotoneX) // apply smoothing to the line
+    //.curve(d3.curveMonotoneX) // apply smoothing to the line
+}
+
+function clearCharts(){
+    // Clear any leftover charting stuff from before
+    d3.select("#dataviz").selectAll("svg").remove()
+}
+
+
+function drawMain() {
+    //console.log("Setting scales...")
+    // Set the time scale for the main chart
+    console.log("Adding timeseries lines...")
+
+    var margin = { top: 0.1 * (params.sizing[1]), right: 0.15 * (params.sizing[0]), bottom: 0.25 * (params.sizing[1]), left: 0.2 * (params.sizing[0]) }
+    var width = params.sizing[0] - margin.left - margin.right
+    var height = params.sizing[1] - margin.top - margin.bottom
+
+    var margin2 = { top: height + (2 * margin.top), right: margin.right, bottom: margin.bottom, left: margin.left }
+    var xScale = d3.scaleTime()
+        .domain(params.xviewrange).range([0, width])
+
+    var x2Scale = d3.scaleTime()
+        .domain(params.xrange).range([0, width])
+
+    console.log('params.xrange = ', params.xrange)
+    console.log('params.xviewrange = ', params.xviewrange)
 
     // Create a chart area and set the size
     console.log("Creating chart area...")
@@ -125,15 +123,6 @@ function drawCharts() {
         .attr("transform", "translate(0," + 20 + ")")
         .call(d3.axisBottom(x2Scale))
 
-    /*
-    chart.append("text")
-        .attr("transform",
-            "translate(" + ((width / 2) + margin.left) + " ," +
-            (height + margin.bottom) + ")")
-        .style("text-anchor", "middle")
-        .text("Date")
-        .style('fill', "darkgrey")
-    */
 
     // Draw the yAxis
     console.log("Drawing yaxis...")
@@ -177,10 +166,36 @@ function drawCharts() {
     var masked = focus.append("g").attr("clip-path", "url(#clip)")
 
     context.append("g").attr("clip-path", "url(#clip)")
+}
+
+function updateAxis() {
+    // Update axis
+    d3.select(".xaxis").transition().duration(1000).call(d3.axisBottom(xScale)).selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-45)")
+    console.log('xScale = ', +xScale)
+    focus.selectAll(".line")
+        .transition().duration(1000)
+        .attr('d', d => line(d.pairs))
+}
+
+function addLine(ngram){
+    updateAxis()
+}
+
+function addSubplot(ngram){
+
+}
+
+function drawCharts() {
+
+
 
     console.log("Drawing storyGroup...")
     var storyGroup = masked.selectAll('.story-group')
-        .data(querydata).enter()
+        .data(ngramData).enter()
         .append('g')
         .attr('class', 'story-group')
         .on("mouseover", (d, i) => {
@@ -224,45 +239,14 @@ function drawCharts() {
                 .style("cursor", "none")
         })
 
-    /*
-    console.log("Drawing dayDots...")
-    var dayDots = storyGroup.selectAll(".dot")
-        .data(d.pairs).enter().append("circle").attr("class", "dot")
-        .attr("cx", (d, i) => xScale(d.x))
-        .attr("cy", d => yScale(d.y))
-        .attr("r", 2)
-        .style("fill", (d, i) => colors.light[d.colorid])
-        .style("stroke", (d, i) => colors.dark[d.colorid])
-        .on("mouseover", function(a, b, c) {
-            d3.select(this).classed('dot', false).classed('focus', true)
-        })
-        .on("mouseout", function() {
-            d3.select(this).classed('focus', false).classed('dot', true)
-        })
-    */
-
     context.append("g").attr("class", "brush").call(brush)
-
-    //chart.attr("class", "zoom")
-    //.call(zoom)
 
     // A function that set idleTimeOut to null
     var idleTimeout
 
     function idled() { idleTimeout = null; }
 
-    function updateAxis() {
-        // Update axis
-        d3.select(".xaxis").transition().duration(1000).call(d3.axisBottom(xScale)).selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-45)")
-        console.log('xScale = ', +xScale)
-        focus.selectAll(".line")
-            .transition().duration(1000)
-            .attr('d', d => line(d.pairs))
-    }
+
 
     function zoomed() {
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
@@ -295,175 +279,7 @@ function drawCharts() {
             //context.select(".brush").call(brush.move, null)
         }
 
-        updateAxis()
+
 
     }
-
-    /*
-
-    var mouseG = focus.append("g")
-        .attr("class", "mouse-over-effects");
-
-    mouseG.append("path") // this is the black vertical line to follow mouse
-        .attr("class", "mouse-line")
-        .style("stroke", "black")
-        .style("stroke-width", "1px")
-        .style("opacity", "0");
-
-    var lines = document.getElementsByClassName('line');
-
-    var mousePerLine = mouseG.selectAll('.mouse-per-line')
-        .data(querydata)
-        .enter()
-        .append("g")
-        .attr("class", "mouse-per-line");
-
-    mousePerLine.append("circle")
-        .attr("r", 7)
-        .style('stroke', (d, i) => colors.main[d.colorid])
-        .style("fill", "none")
-        .style("stroke-width", "1px")
-        .style("opacity", "0");
-
-    mousePerLine.append("text")
-        .attr("transform", "translate(10,3)");
-
-    mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-        .attr('width', width) // can't catch mouse events on a g element
-        .attr('height', height)
-        .attr('fill', 'none')
-        .attr('pointer-events', 'all')
-        .on('mouseout', function() { // on mouse out hide line, circles and text
-            d3.select(".mouse-line")
-                .style("opacity", "0");
-            d3.selectAll(".mouse-per-line circle")
-                .style("opacity", "0");
-            d3.selectAll(".mouse-per-line text")
-                .style("opacity", "0");
-        })
-        .on('mouseover', function() { // on mouse in show line, circles and text
-            d3.select(".mouse-line")
-                .style("opacity", "1");
-            d3.selectAll(".mouse-per-line circle")
-                .style("opacity", "1");
-            d3.selectAll(".mouse-per-line text")
-                .style("opacity", "1");
-        })
-        .on('mousemove', function() { // mouse moving over canvas
-            var mouse = d3.mouse(this);
-            d3.select(".mouse-line")
-                .attr("d", function() {
-                    var d = "M" + mouse[0] + "," + height;
-                    d += " " + mouse[0] + "," + 0;
-                    return d;
-                });
-
-            d3.selectAll(".mouse-per-line")
-                .attr("transform", function(d, i) {
-                    //console.log("width / mouse[0] = ", width / mouse[0])
-                    //console.log("xScale.invert(mouse[0]) = ", xScale.invert(mouse[0]))
-                    var xDate = xScale.invert(mouse[0]),
-                        bisect = d3.bisector(function(d) { return d.date; }).right;
-                    //console.log("xDate = ", xDate)
-                    //console.log("bisect = ", bisect)
-                    idx = bisect(d.rank, xDate);
-
-                    var beginning = 0,
-                        end = lines[i].getTotalLength(),
-                        target = null;
-
-                    while (true) {
-                        target = Math.floor((beginning + end) / 2);
-                        pos = lines[i].getPointAtLength(target);
-                        if ((target === end || target === beginning) && pos.x !== mouse[0]) {
-                            break;
-                        }
-                        if (pos.x > mouse[0]) end = target;
-                        else if (pos.x < mouse[0]) beginning = target;
-                        else break; //position found
-                    }
-
-                    d3.select(this).select('text')
-                        .text(yScale.invert(pos.y).toFixed(2));
-
-                    return "translate(" + mouse[0] + "," + pos.y + ")";
-                });
-        })
-
-    
-
-    function drawSubplot(data) {
-
-        var width = 300;
-        var height = 100;
-        var margin = { top: 10, right: 10, bottom: 10, left: 10 }
-
-        var xScale = d3.scaleTime()
-            .domain(params.xviewrange).range([0, width])
-
-        xScale.range([0, width])
-
-        // Choose and set time scales (logarithmic or linear)
-        if (params["scale"] == "log") {
-            // If 'logarithmic' option is chosen (by default:)
-            var yScale = d3.scaleLog().domain(params.yrange)
-        } else {
-            // If 'logarithmic' option deselected, use linear time scale:
-            var yScale = d3.scaleLinear().domain(params.yrange)
-        }
-
-        // When showing ranks...
-        if (params['metric'] == 'rank') {
-            // Put rank #1 at the top
-            yScale.range([height, 1])
-        }
-        // When showing any other metric...
-        else {
-            // Put the highest number at the top
-            // and start at 0
-            yScale.range([0, height])
-        }
-
-        // Create a chart area and set the size
-        console.log("Creating subplot chart svg...")
-        var subPlot = d3.select("#subplot-list").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .attr('class', 'sub-plot')
-            .style('float', 'left')
-            .style('display', 'inline-block')
-
-        var subFocus = subPlot.append("g").attr("class", "sub-focus")
-
-        subFocus.append("g")
-            .attr("class", "xaxis")
-            .call(d3.axisBottom(xScale)).selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-45)") // Create an axis component with d3.axisBottom
-
-        subFocus.append("g")
-            .attr("class", "yaxis")
-            .call(d3.axisLeft(yScale)) // Create an axis component with d3.axisBottom
-
-        console.log("Drawing subGroups...")
-        var subGroup = subFocus.selectAll('.sub-group')
-            .datum(data).enter()
-            .append('g')
-            .attr('class', 'sub-group')
-            .attr('class', String(data))
-
-        console.log("Drawing subLines...")
-        var subLine = subGroup.append('path')
-            .attr('class', 'line')
-            .attr('d', function(d) { return line(d.pairs) })
-    }
-
-    params['queries'].forEach(function(d) {
-        drawSubplot(d)
-    })
-
-    */
-
 }
