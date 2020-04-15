@@ -55,7 +55,7 @@ function getUrlParams() {
             // If not specified, set to default values
             params[p] = defaultparams[p]
             if (params['ngrams'].length < 1) {
-                params['ngrams']=defaultNgrams
+                defaultNgrams.forEach(n => loadData(n))
             }
         }
         // Decode the URL ngrams (e.g. emojis)
