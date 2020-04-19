@@ -1,3 +1,4 @@
+console.log("load data script loaded")
 function loadData(query) {
     console.log("Loading data for ", query, "...");
     let errors = ""
