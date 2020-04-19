@@ -46,103 +46,66 @@ function setupCharts(){
     drawMain()
 }
 
-function zoomAndBrush(){
+function zoomed() {
+    if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+    var t = d3.event.transform;
+    params.xviewrange = t.rescaleX(x2Scale).domain()
+    xScale.domain(params.xviewrange)
+    context.select(".brush").call(brush.move, xScale.range().map(t.invertX, t))
+    updateAxis()
+}
 
-    function zoomed() {
-        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
-        var t = d3.event.transform;
-        params.xviewrange = t.rescaleX(x2Scale).domain()
-        xScale.domain(params.xviewrange)
-        context.select(".brush").call(brush.move, xScale.range().map(t.invertX, t))
-        updateAxis()
-    }
-
-    const zoom = d3.zoom()
-        .scaleExtent([1, 5])
-        .translateExtent([
-            [0, 0],
-            [width, height]
-        ])
-        .extent([
-            [0, 0],
-            [width, height]
-        ])
-        .on("zoom", zoomed);
-
-    // A function that update the chart for given boundaries
-    function brushChart() {
-
-        //console.log(d3.event)
-        var ext = d3.event.selection
-        //console.log("Updating axis to ext ", ext)
-
-        // If no selection, back to initial coordinate. Otherwise, update X axis domain
-        if (!ext) {
-            //if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-            setRanges()
-            xScale.domain(params.xviewrange)
-            console.log("params.xrange = ", params.xrange)
-        } else {
-            params.xviewrange = [x2Scale.invert(ext[0]), x2Scale.invert(ext[1])]
-            console.log("params.xviewrange = ", params.xviewrange)
-            xScale.domain(params.xviewrange)
-            //masked.selectAll('.story-group').select(".brush").call(brush.move, null)
-            // This remove the grey brush area as soon as the selection has been done
-            //context.select(".brush").call(brush.move, null)
-        }
-
-    }
-
-    //console.log("Adding brushing...")
-    const brush = d3.brushX().extent([
+const zoom = d3.zoom()
+    .scaleExtent([1, 5])
+    .translateExtent([
         [0, 0],
-        [width, 60]
-    ]).on("end", brushChart)
+        [width, height]
+    ])
+    .extent([
+        [0, 0],
+        [width, height]
+    ])
+    .on("zoom", zoomed)
+
+// A function that update the chart for given boundaries
+function brushChart() {
+
+    //console.log(d3.event)
+    var ext = d3.event.selection
+    //console.log("Updating axis to ext ", ext)
+
+    // If no selection, back to initial coordinate. Otherwise, update X axis domain
+    if (!ext) {
+        //if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+        setRanges()
+        xScale.domain(params.xviewrange)
+        console.log("params.xrange = ", params.xrange)
+    } else {
+        params.xviewrange = [x2Scale.invert(ext[0]), x2Scale.invert(ext[1])]
+        console.log("params.xviewrange = ", params.xviewrange)
+        xScale.domain(params.xviewrange)
+        //masked.selectAll('.story-group').select(".brush").call(brush.move, null)
+        // This remove the grey brush area as soon as the selection has been done
+        //context.select(".brush").call(brush.move, null)
+    }
 
 }
+
+//console.log("Adding brushing...")
+const brush = d3.brushX().extent([
+    [0, 0],
+    [width, 60]
+]).on("end", brushChart)
 
 function clearCharts(){
     // Clear any leftover charting stuff from before
     d3.select("#dataviz").selectAll("svg").remove()
 }
 
-function drawMain() {
-    //console.log("Setting scales...")
-    // Set the time scale for the main chart
-    console.log("Adding timeseries lines...")
-
-    const margin = { top: 0.1 * (params.sizing[1]), right: 0.15 * (params.sizing[0]), bottom: 0.25 * (params.sizing[1]), left: 0.2 * (params.sizing[0]) }
-    const width = params.sizing[0] - margin.left - margin.right
-    const height = params.sizing[1] - margin.top - margin.bottom
-
-    console.log('params.xrange = ${params.xrange}')
-    console.log('params.xviewrange = ${params.xviewrange}')
-
-    // Create a chart area and set the size
-    console.log("Creating chart area...")
-    let chart = d3.select("#timeseries").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .attr('class', 'chart')
-
-    // Create the main chart area
-    let focus = chart.append("g")
-        .attr("class", "focus")
-        .attr("transform", "translate(${margin.left}, ${margin.top})")
-
-    console.log("Appending clipping path...")
-    chart.append("defs").append("clipPath")
-        .attr("id", "clip")
-        .append("rect")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("x", 0)
-        .attr("y", 0)
-
-
+function drawAxes(group){
     // Draw the main chart's xAxis
-    console.log("Drawing focus xaxis...")
-    focus.append("g")
+    console.log("Drawing ${group} xaxis...")
+    group.append("g")
         .attr("class", "xaxis")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(xScale)).selectAll("text")
@@ -151,15 +114,15 @@ function drawMain() {
         .attr("dy", ".15em")
         .attr("transform", "rotate(-45)") // Create an axis component with d3.axisBottom
 
-
     // Draw the yAxis
-    console.log("Drawing yaxis...")
-    focus.append("g")
+    console.log("Drawing ${group} yaxis...")
+    group.append("g")
         .attr("class", "yaxis")
         .call(d3.axisLeft(yScale).ticks(10, ""))
+}
 
-
-    // Label yAxis with Metric
+function labelChart(chart){
+    // Label xAxis with Metric
     chart.append("text")
         .attr("y", height / 2 + margin.top / 2)
         .attr("x", margin.left / 2)
@@ -168,6 +131,7 @@ function drawMain() {
         .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
         .style('fill', "darkgrey")
 
+    // Labeling y-axis
 
     const topY = "Lexical Fame"
     const bottomY = "Lexical Abyss"
@@ -189,14 +153,56 @@ function drawMain() {
         .text(bottomY)
         .style('font-size', '10px')
         .style('fill', "darkgrey")
+}
 
-    zoomAndBrush()
+function clipChart(chart){
 
-    // Clip the data in the main chart to the brushed region
-    let masked = focus.append("g").attr("clip-path", "url(#clip)")
+    console.log("Appending clipping path...")
+    chart.append("defs").append("clipPath")
+        .attr("class", "clipped")
+        .append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("x", 0)
+        .attr("y", 0)
 
-    drawContext(chart)
-    drawLineGroup(focus)
+}
+
+function maskGroup(group){
+    group.append("g").attr("clip-path", "url(#clip)").attr('class','masked')
+}
+
+function drawMain() {
+    //console.log("Setting scales...")
+    // Set the time scale for the main chart
+    console.log("Adding timeseries lines...")
+
+    const margin = { top: 0.1 * (params.sizing[1]), right: 0.15 * (params.sizing[0]), bottom: 0.25 * (params.sizing[1]), left: 0.2 * (params.sizing[0]) }
+    const width = params.sizing[0] - margin.left - margin.right
+    const height = params.sizing[1] - margin.top - margin.bottom
+
+    console.log('params.xrange = ${params.xrange}')
+    console.log('params.xviewrange = ${params.xviewrange}')
+
+    // Create a chart area and set the size
+    console.log("Creating chart area...")
+    let mainWrapper = d3.select("#timeseries").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr('class', 'chart')
+
+    clipChart(mainWrapper)
+    labelChart(mainWrapper)
+
+    // Create the main chart area
+    let mainBounds = chart.append("g")
+        .attr("class", "focus")
+        .attr("transform", "translate(${margin.left}, ${margin.top})")
+
+    drawLineGroup(mainBounds)
+    maskGroup(mainBounds)
+    drawAxes(mainBounds)
+    //drawContext(chart)
 }
 
 function drawContext(chart){
@@ -292,10 +298,6 @@ function addSubplot(ngram){
 }
 
 function drawCharts() {
-
-    drawLines()
-
-
-
-
+    drawMain()
+    //drawSubplots()
 }
