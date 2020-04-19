@@ -60,10 +60,11 @@ function setRanges() {
     let xmins = [];
     let xmaxes = [];
     let ymaxes = [];
-    ngramData.forEach(data => {
-        xmins.push(data.xrange[0]);
-        xmaxes.push(data.xrange[1]);
-        ymaxes.push(data.yrange[1]);
+    Object.keys(ngramData).forEach(ngram => {
+        data = ngramData.ngram.data
+        xmins.push(data.xrange[0])
+        xmaxes.push(data.xrange[1])
+        ymaxes.push(data.yrange[1])
     })
     if (d3.min(xmins) < thisfirst) {
         params.xrange = [d3.min(xmins), d3.max(xmaxes)]

@@ -17,6 +17,10 @@ function loadData(query) {
             ngramData[n] = thisdata
             // Store the uuid for this ngram
             ngramIDs[n] = thisdata['uuid']
+            xmins.push(thisdata['min_date'])
+            xmaxes.push(thisdata['max_date'])
+            ymins.push(thisdata['min_%{params.metric}')
+            ymaxes.push(thisdata['min_%{params.metric}')
             ngramData[n]['xrange'] = d3.extent([thisdata['min_date'], thisdata['max_date']])
             ngramData[n]['yrange'] = d3.extent([thisdata['min_%{params.metric}'],thisdata['max_%{params.metric}']])
             // Add the JSON data object to the array of ngram data
