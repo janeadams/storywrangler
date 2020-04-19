@@ -1,20 +1,23 @@
 console.log("loaded timeseries.js")
 
+let xScale = []
+let yScale = []
+margin = { top: 0.1 * window.innerHeight, right: 0.15 * window.innerWidth, bottom: 0.25 * window.innerHeight, left: 0.2 * window.innerWidth) }
+let width = window.innerWidth
+let height = window.innerHeight
+
 function setupCharts(){
-    var margin = { top: 0.1 * window.innerHeight, right: 0.15 * window.innerWidth, bottom: 0.25 * window.innerHeight, left: 0.2 * window.innerWidth) }
-    var width = window.innerWidth - margin.left - margin.right
-    var height = window.innerHeight - margin.top - margin.bottom
 
     // Choose and set time scales (logarithmic or linear)
     if (params["scale"] == "log") {
         // If 'logarithmic' option is chosen (by default:)
-        var yScale = d3.scaleLog().domain(params.yrange)
+        yScale = d3.scaleLog().domain(params.yrange)
     } else {
         // If 'logarithmic' option deselected, use linear time scale:
-        var yScale = d3.scaleLinear().domain(params.yrange)
+        yScale = d3.scaleLinear().domain(params.yrange)
     }
 
-    var xScale = d3.scaleTime()
+    xScale = d3.scaleTime()
         .domain(params.xviewrange).range([0, width])
 
     // When showing ranks...
@@ -60,22 +63,22 @@ function drawMain() {
     // Set the time scale for the main chart
     console.log("Adding timeseries lines...")
 
-    var margin = { top: 0.1 * (params.sizing[1]), right: 0.15 * (params.sizing[0]), bottom: 0.25 * (params.sizing[1]), left: 0.2 * (params.sizing[0]) }
-    var width = params.sizing[0] - margin.left - margin.right
-    var height = params.sizing[1] - margin.top - margin.bottom
+    const margin = { top: 0.1 * (params.sizing[1]), right: 0.15 * (params.sizing[0]), bottom: 0.25 * (params.sizing[1]), left: 0.2 * (params.sizing[0]) }
+    const width = params.sizing[0] - margin.left - margin.right
+    const height = params.sizing[1] - margin.top - margin.bottom
 
     console.log('params.xrange = ${params.xrange}')
     console.log('params.xviewrange = ${params.xviewrange}')
 
     // Create a chart area and set the size
     console.log("Creating chart area...")
-    var chart = d3.select("#timeseries").append("svg")
+    let chart = d3.select("#timeseries").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr('class', 'chart')
 
     // Create the main chart area
-    var focus = chart.append("g")
+    let focus = chart.append("g")
         .attr("class", "focus")
         .attr("transform", "translate(${margin.left}, ${margin.top})")
 
@@ -118,8 +121,8 @@ function drawMain() {
         .style('fill', "darkgrey")
 
 
-    var topY = "Lexical Fame"
-    var bottomY = "Lexical Abyss"
+    const topY = "Lexical Fame"
+    const bottomY = "Lexical Abyss"
 
     chart.append("text")
         .attr("y", 0 + margin.top + 10)
@@ -140,7 +143,7 @@ function drawMain() {
         .style('fill', "darkgrey")
 
     // Clip the data in the main chart to the brushed region
-    var masked = focus.append("g").attr("clip-path", "url(#clip)")
+    let masked = focus.append("g").attr("clip-path", "url(#clip)")
 
     context.append("g").attr("clip-path", "url(#clip)")
 }
@@ -186,7 +189,7 @@ function updateAxis() {
 function addLine(ngram){
     console.log('adding line for ${ngram}')
     console.log("Drawing storyLine...")
-    var storyLine = storyGroup.append('path')
+    let storyLine = storyGroup.append('path')
         .attr('class', 'line')
         .attr('d', d => line(d.pairs))
         .style('stroke', (d, i) => colors.main[d.colorid])
@@ -260,7 +263,7 @@ function drawCharts() {
 
         // If no selection, back to initial coordinate. Otherwise, update X axis domain
         if (!ext) {
-            if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+            //if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
             setRanges()
             xScale.domain(params.xviewrange)
             console.log("params.xrange = ", params.xrange)
