@@ -2,14 +2,19 @@ console.log("loaded timeseries.js")
 
 let xScale = []
 let yScale = []
-margin = { top: 0.1 * window.innerHeight, right: 0.15 * window.innerWidth, bottom: 0.25 * window.innerHeight, left: 0.2 * window.innerWidth }
+let xViewScale = []
 let width = window.innerWidth
 let height = window.innerHeight
+const margin = { top: 0.1 * window.innerHeight, right: 0.15 * window.innerWidth, bottom: 0.25 * window.innerHeight, left: 0.2 * window.innerWidth }
+
 
 const xAccessor = d => d.data
 const yAccessor = d => d.data
 
 function setupCharts(){
+
+    xScale = d3.scaleTime().domain(params.xrange).range([0, width])
+    xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, width])
 
     // Choose and set time scales (logarithmic or linear)
     if (params["scale"] == "log") {
@@ -19,9 +24,6 @@ function setupCharts(){
         // If 'logarithmic' option deselected, use linear time scale:
         yScale = d3.scaleLinear().domain(params.yrange)
     }
-
-    xScale = d3.scaleTime()
-        .domain(params.xviewrange).range([0, width])
 
     // When showing ranks...
     if (params.metric.includes('rank')) {
@@ -199,12 +201,12 @@ function drawMain() {
 
 function drawContext(chart){
 
-    var margin2 = { top: height + (2 * margin.top), right: margin.right, bottom: margin.bottom, left: margin.left }
+    let margin2 = { top: height + (2 * margin.top), right: margin.right, bottom: margin.bottom, left: margin.left }
 
-    var x2Scale = d3.scaleTime()
+    let x2Scale = d3.scaleTime()
         .domain(params.xrange).range([0, width])
 
-    var context = chart.append("g")
+    let context = chart.append("g")
         .attr("class", "context")
         .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
@@ -214,7 +216,7 @@ function drawContext(chart){
         .attr("transform", "translate(0," + 20 + ")")
         .call(d3.axisBottom(x2Scale))
 
-    context.append("g").attr("class", "brush").call(brush)
+    //context.append("g").attr("class", "brush").call(brush)
     context.append("g").attr("clip-path", "url(#clip)")
 
 }
