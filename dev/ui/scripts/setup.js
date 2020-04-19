@@ -32,7 +32,7 @@ const paramoptions = {
 }
 // An object containing our parameters
 let params = defaultparams
-
+let i = 0
 let ngramData = {}
 let ngramIDs = {}
 let xmins = [];

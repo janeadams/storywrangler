@@ -16,8 +16,8 @@ function loadData(query) {
             // Find the x- and y-range of this data set
             let thisdata = data['ngramdata'][n]
             ngramData[n] = thisdata
-            // Store the uuid for this ngram
-            ngramIDs[n] = thisdata['uuid']
+            ngramData[n]['colorid']=i
+            i+=1
             xmins.push(thisdata['min_date'])
             xmaxes.push(thisdata['max_date'])
             ymaxes.push(thisdata['min_%{params.metric}'])

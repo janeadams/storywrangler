@@ -195,7 +195,7 @@ function drawMain() {
     labelChart(mainWrapper)
 
     // Create the main chart area
-    let mainBounds = chart.append("g")
+    let mainBounds = mainWrapper.append("g")
         .attr("class", "focus")
         .attr("transform", "translate(${margin.left}, ${margin.top})")
 
