@@ -1,6 +1,10 @@
 console.log("loaded timeseries.js")
 
 function setupCharts(){
+    var margin = { top: 0.1 * window.innerHeight, right: 0.15 * window.innerWidth, bottom: 0.25 * window.innerHeight, left: 0.2 * window.innerWidth) }
+    var width = window.innerWidth - margin.left - margin.right
+    var height = window.innerHeight - margin.top - margin.bottom
+
     // Choose and set time scales (logarithmic or linear)
     if (params["scale"] == "log") {
         // If 'logarithmic' option is chosen (by default:)
