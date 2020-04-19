@@ -35,6 +35,9 @@ let params = defaultparams
 
 let ngramData = {}
 let ngramIDs = {}
+let xmins = [];
+let xmaxes = [];
+let ymaxes = [];
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
@@ -57,9 +60,6 @@ function setSizing() {
 function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
-    let xmins = [];
-    let xmaxes = [];
-    let ymaxes = [];
     Object.keys(ngramData).forEach(ngram => {
         data = ngramData.ngram.data
         xmins.push(data.xrange[0])
