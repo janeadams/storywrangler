@@ -42,7 +42,6 @@ function setupCharts(){
     //.curve(d3.curveMonotoneX) // apply smoothing to the line
 
     drawMain()
-    drawContext()
 }
 
 function zoomAndBrush(){
@@ -193,6 +192,8 @@ function drawMain() {
 
     // Clip the data in the main chart to the brushed region
     let masked = focus.append("g").attr("clip-path", "url(#clip)")
+
+    drawContext()
 }
 
 function drawContext(){
