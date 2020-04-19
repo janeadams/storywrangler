@@ -65,7 +65,6 @@ function addNgram(value) {
         .on("click", function (d, i) {
             removeNgram(value)
         })
-    let linegroups = selectAll('.linegroup')
-    linegroups.forEach(group => addLine(value, group))
+    d3.selectAll('.linegroup').forEach(group => addLine(value, group))
     //addSubplot(value)
 }
