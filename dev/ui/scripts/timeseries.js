@@ -104,7 +104,7 @@ function clearCharts(){
 
 function drawAxes(group){
     // Draw the main chart's xAxis
-    console.log("Drawing ${group} xaxis...")
+    console.log(`Drawing ${group} xaxis...`)
     group.append("g")
         .attr("class", "xaxis")
         .attr("transform", "translate(0," + height + ")")
@@ -115,7 +115,7 @@ function drawAxes(group){
         .attr("transform", "rotate(-45)") // Create an axis component with d3.axisBottom
 
     // Draw the yAxis
-    console.log("Drawing ${group} yaxis...")
+    console.log(`Drawing ${group} yaxis...`)
     group.append("g")
         .attr("class", "yaxis")
         .call(d3.axisLeft(yScale).ticks(10, ""))
@@ -181,8 +181,8 @@ function drawMain() {
     const width = params.sizing[0] - margin.left - margin.right
     const height = params.sizing[1] - margin.top - margin.bottom
 
-    console.log('params.xrange = ${params.xrange}')
-    console.log('params.xviewrange = ${params.xviewrange}')
+    console.log(`params.xrange = ${params.xrange}`)
+    console.log(`params.xviewrange = ${params.xviewrange}`)
 
     // Create a chart area and set the size
     console.log("Creating chart area...")
@@ -197,7 +197,7 @@ function drawMain() {
     // Create the main chart area
     let mainBounds = mainWrapper.append("g")
         .attr("class", "focus")
-        .attr("transform", "translate(${margin.left}, ${margin.top})")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
     drawLineGroup(mainBounds)
     maskGroup(mainBounds)
@@ -267,9 +267,9 @@ function updateAxis() {
 }
 
 function addLine(ngram, group){
-    console.log('adding line for ${ngram}')
+    console.log(`adding line for ${ngram}`)
     console.log("Drawing storyLine...")
-    let storyLine = group.append('path')
+    group.append('path')
         .attr('class', 'line')
         .attr('d', d => line(d.pairs))
         .style('stroke', (d, i) => colors.main[d.colorid])
@@ -295,7 +295,7 @@ function addLine(ngram, group){
 }
 
 function addSubplot(ngram){
-    console.log('adding subplot for ${ngram}')
+    console.log(`adding subplot for ${ngram}`)
 }
 
 function drawCharts() {
