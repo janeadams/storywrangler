@@ -193,8 +193,6 @@ function drawMain() {
 
     // Clip the data in the main chart to the brushed region
     let masked = focus.append("g").attr("clip-path", "url(#clip)")
-
-    context.append("g").attr("clip-path", "url(#clip)")
 }
 
 function drawContext(){
@@ -213,6 +211,8 @@ function drawContext(){
         .attr("class", "xaxis2")
         .attr("transform", "translate(0," + 20 + ")")
         .call(d3.axisBottom(x2Scale))
+
+    context.append("g").attr("clip-path", "url(#clip)")
 
 }
 
