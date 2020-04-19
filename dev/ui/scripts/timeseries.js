@@ -6,6 +6,9 @@ margin = { top: 0.1 * window.innerHeight, right: 0.15 * window.innerWidth, botto
 let width = window.innerWidth
 let height = window.innerHeight
 
+const xAccessor = d => d.data
+const yAccessor = d => d.data
+
 function setupCharts(){
 
     // Choose and set time scales (logarithmic or linear)
@@ -32,8 +35,25 @@ function setupCharts(){
         yScale.range([0, height])
     }
 
+    var line = d3.line()
+        .x(d => xScale(d.x)) // set the x values for the line generator
+        .y(d => yScale(d.y)) // set the y values for the line generator
+        .defined(function (d) { return d[1] !== null; })
+    //.curve(d3.curveMonotoneX) // apply smoothing to the line
+}
 
-    var zoom = d3.zoom()
+function zoomAndBrush(){
+
+    function zoomed() {
+        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+        var t = d3.event.transform;
+        params.xviewrange = t.rescaleX(x2Scale).domain()
+        xScale.domain(params.xviewrange)
+        context.select(".brush").call(brush.move, xScale.range().map(t.invertX, t))
+        updateAxis()
+    }
+
+    const zoom = d3.zoom()
         .scaleExtent([1, 5])
         .translateExtent([
             [0, 0],
@@ -45,12 +65,36 @@ function setupCharts(){
         ])
         .on("zoom", zoomed);
 
+    // A function that update the chart for given boundaries
+    function brushChart() {
 
-    var line = d3.line()
-        .x(d => xScale(d.x)) // set the x values for the line generator
-        .y(d => yScale(d.y)) // set the y values for the line generator
-        .defined(function (d) { return d[1] !== null; })
-    //.curve(d3.curveMonotoneX) // apply smoothing to the line
+        //console.log(d3.event)
+        var ext = d3.event.selection
+        //console.log("Updating axis to ext ", ext)
+
+        // If no selection, back to initial coordinate. Otherwise, update X axis domain
+        if (!ext) {
+            //if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+            setRanges()
+            xScale.domain(params.xviewrange)
+            console.log("params.xrange = ", params.xrange)
+        } else {
+            params.xviewrange = [x2Scale.invert(ext[0]), x2Scale.invert(ext[1])]
+            console.log("params.xviewrange = ", params.xviewrange)
+            xScale.domain(params.xviewrange)
+            //masked.selectAll('.story-group').select(".brush").call(brush.move, null)
+            // This remove the grey brush area as soon as the selection has been done
+            //context.select(".brush").call(brush.move, null)
+        }
+
+    }
+
+    //console.log("Adding brushing...")
+    const brush = d3.brushX().extent([
+        [0, 0],
+        [width, 60]
+    ]).on("end", brushChart)
+
 }
 
 function clearCharts(){
@@ -142,6 +186,8 @@ function drawMain() {
         .style('font-size', '10px')
         .style('fill', "darkgrey")
 
+    zoomAndBrush()
+
     // Clip the data in the main chart to the brushed region
     let masked = focus.append("g").attr("clip-path", "url(#clip)")
 
@@ -154,12 +200,6 @@ function drawContext(){
 
     var x2Scale = d3.scaleTime()
         .domain(params.xrange).range([0, width])
-
-    //console.log("Adding brushing...")
-    var brush = d3.brushX().extent([
-        [0, 0],
-        [width, 60]
-    ]).on("end", brushChart)
 
     var context = chart.append("g")
         .attr("class", "context")
@@ -244,39 +284,4 @@ function drawCharts() {
     context.append("g").attr("class", "brush").call(brush)
 
 
-
-    function zoomed() {
-        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
-        var t = d3.event.transform;
-        params.xviewrange = t.rescaleX(x2Scale).domain()
-        xScale.domain(params.xviewrange)
-        context.select(".brush").call(brush.move, xScale.range().map(t.invertX, t))
-        updateAxis()
-    }
-
-    // A function that update the chart for given boundaries
-    function brushChart() {
-
-        //console.log(d3.event)
-        var ext = d3.event.selection
-        //console.log("Updating axis to ext ", ext)
-
-        // If no selection, back to initial coordinate. Otherwise, update X axis domain
-        if (!ext) {
-            //if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-            setRanges()
-            xScale.domain(params.xviewrange)
-            console.log("params.xrange = ", params.xrange)
-        } else {
-            params.xviewrange = [x2Scale.invert(ext[0]), x2Scale.invert(ext[1])]
-            console.log("params.xviewrange = ", params.xviewrange)
-            xScale.domain(params.xviewrange)
-            //masked.selectAll('.story-group').select(".brush").call(brush.move, null)
-            // This remove the grey brush area as soon as the selection has been done
-            //context.select(".brush").call(brush.move, null)
-        }
-
-
-
-    }
 }
