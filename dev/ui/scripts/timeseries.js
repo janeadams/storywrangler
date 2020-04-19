@@ -248,7 +248,7 @@ function drawLineGroup(focus) {
         .on("mouseout", d => {
             focus.select(".title-text").remove();
         })
-    for (ngram in ngramData.keys()){
+    for (ngram in ngramData.keys){
         addLine(ngram)
     }
 }
