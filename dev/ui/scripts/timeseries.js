@@ -194,6 +194,7 @@ function drawMain() {
     let masked = focus.append("g").attr("clip-path", "url(#clip)")
 
     drawContext(chart)
+    drawLineGroup(focus)
 }
 
 function drawContext(chart){
@@ -213,8 +214,34 @@ function drawContext(chart){
         .attr("transform", "translate(0," + 20 + ")")
         .call(d3.axisBottom(x2Scale))
 
+    context.append("g").attr("class", "brush").call(brush)
     context.append("g").attr("clip-path", "url(#clip)")
 
+}
+
+function drawLineGroup(focus) {
+    console.log("Drawing lineGroup...")
+    var lineGroup = masked.selectAll('.story-group')
+        .data(ngramData).enter()
+        .append('g')
+        .attr('class', 'story-group')
+        .on("mouseover", (d, i) => {
+            focus.append("text")
+                .attr("class", "title-text")
+                .style("fill", colors.dark[d.colorid])
+                .text(d.word)
+                .attr("text-anchor", "right")
+                .attr("x", 30)
+                .attr("y", 10)
+                .attr("id", d.word + "-group")
+                .style("font-weight", "bold")
+        })
+        .on("mouseout", d => {
+            focus.select(".title-text").remove();
+        })
+    for (ngram in ngramData.keys()){
+        addLine(ngram)
+    }
 }
 
 function updateAxis() {
@@ -230,10 +257,10 @@ function updateAxis() {
         .attr('d', d => line(d.pairs))
 }
 
-function addLine(ngram){
+function addLine(ngram, lineGroup){
     console.log('adding line for ${ngram}')
     console.log("Drawing storyLine...")
-    let storyLine = storyGroup.append('path')
+    let storyLine = lineGroup.append('path')
         .attr('class', 'line')
         .attr('d', d => line(d.pairs))
         .style('stroke', (d, i) => colors.main[d.colorid])
@@ -264,28 +291,9 @@ function addSubplot(ngram){
 
 function drawCharts() {
 
-    console.log("Drawing storyGroup...")
-    var storyGroup = masked.selectAll('.story-group')
-        .data(ngramData).enter()
-        .append('g')
-        .attr('class', 'story-group')
-        .on("mouseover", (d, i) => {
-            focus.append("text")
-                .attr("class", "title-text")
-                .style("fill", colors.dark[d.colorid])
-                .text(d.word)
-                .attr("text-anchor", "right")
-                .attr("x", 30)
-                .attr("y", 10)
-                .attr("id", d.word + "-group")
-                .style("font-weight", "bold")
-        })
-        .on("mouseout", d => {
-            focus.select(".title-text").remove();
-        })
+    drawLines()
 
 
-    context.append("g").attr("class", "brush").call(brush)
 
 
 }
