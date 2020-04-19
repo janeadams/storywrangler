@@ -238,11 +238,11 @@ function drawLineGroup(focus) {
             focus.append("text")
                 .attr("class", "title-text")
                 .style("fill", colors.dark[d.colorid])
-                .text(d.word)
+                .text(d)
                 .attr("text-anchor", "right")
                 .attr("x", 30)
                 .attr("y", 10)
-                .attr("id", d.word + "-group")
+                .attr("id", d.uuid + "-group")
                 .style("font-weight", "bold")
         })
         .on("mouseout", d => {
@@ -271,13 +271,13 @@ function addLine(ngram, group){
     console.log("Drawing storyLine...")
     group.append('path')
         .attr('class', 'line')
-        .attr('d', d => line(d.pairs))
+        .attr('d', d => line(d['data']))
         .style('stroke', (d, i) => colors.main[d.colorid])
-        .style('opacity', lineOpacity)
+        .style('opacity', 1)
         .on("mouseover", function(d, i) {
             let xDate = xScale.invert(d3.mouse(this)[0]),
-                bisect = d3.bisector(function(d) { return d.date; }).right;
-            console.log('storyline d = ', d)
+                bisect = d3.bisector(function(d) { return d['data'][0]; }).right;
+            console.log(`line d = ${d}`)
             d3.selectAll('.line')
                 .attr('class', 'unfocus')
             d3.select(this)
@@ -286,9 +286,9 @@ function addLine(ngram, group){
         })
         .on("mouseout", function(d) {
             d3.selectAll(".line")
-                .style('opacity', lineOpacity)
+                .style('opacity', 1)
             d3.select(this)
-                .style("stroke-width", lineStroke)
+                .style("stroke-width", '2px')
                 .style("cursor", "none")
         })
     //updateAxis()
