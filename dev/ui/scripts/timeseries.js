@@ -229,7 +229,8 @@ function drawContext(chart){
 
 function drawLineGroup(focus) {
     console.log("Drawing lineGroup...")
-    var lineGroup = masked.selectAll('.story-group')
+    masked = focus.select('.masked')
+    let lineGroup = masked.selectAll('.story-group')
         .data(ngramData).enter()
         .append('g')
         .attr('class', 'story-group')
