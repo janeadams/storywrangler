@@ -193,10 +193,10 @@ function drawMain() {
     // Clip the data in the main chart to the brushed region
     let masked = focus.append("g").attr("clip-path", "url(#clip)")
 
-    drawContext()
+    drawContext(chart)
 }
 
-function drawContext(){
+function drawContext(chart){
 
     var margin2 = { top: height + (2 * margin.top), right: margin.right, bottom: margin.bottom, left: margin.left }
 
