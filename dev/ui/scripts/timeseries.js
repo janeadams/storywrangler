@@ -2,7 +2,7 @@ console.log("loaded timeseries.js")
 
 let xScale = []
 let yScale = []
-margin = { top: 0.1 * window.innerHeight, right: 0.15 * window.innerWidth, bottom: 0.25 * window.innerHeight, left: 0.2 * window.innerWidth) }
+margin = { top: 0.1 * window.innerHeight, right: 0.15 * window.innerWidth, bottom: 0.25 * window.innerHeight, left: 0.2 * window.innerWidth }
 let width = window.innerWidth
 let height = window.innerHeight
 
