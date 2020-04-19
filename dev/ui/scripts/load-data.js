@@ -23,8 +23,8 @@ function loadData(query) {
             console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
             addNgram(n)
         })
-        //setRanges()
-        //updateURL()
+        setRanges()
+        updateURL()
     })
 }
 

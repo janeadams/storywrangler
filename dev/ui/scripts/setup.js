@@ -9,7 +9,7 @@ lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 thisfirst = new Date(thisyear, 0, 1)
 
-const defaultNgrams = ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"]
+const defaultNgrams = ["hahaha","one two three","🦠","#friday"]
 
 // Set default options
 const defaultparams = {
@@ -84,5 +84,8 @@ function setupPage() {
     setSizing()
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
-    //setRanges()
+    setRanges()
+    setupCharts()
+    drawMain()
+    drawContext()
 }

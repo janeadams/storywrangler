@@ -1,12 +1,6 @@
 console.log("loaded timeseries.js")
 
 function setupCharts(){
-    setRanges()
-    var lineOpacity = "1.0";
-    var lineOpacityHover = "1.0";
-    var otherLinesOpacityHover = "0.3";
-    var lineStroke = "2px";
-    var lineStrokeHover = "3px";
     // Choose and set time scales (logarithmic or linear)
     if (params["scale"] == "log") {
         // If 'logarithmic' option is chosen (by default:)
@@ -16,8 +10,11 @@ function setupCharts(){
         var yScale = d3.scaleLinear().domain(params.yrange)
     }
 
+    var xScale = d3.scaleTime()
+        .domain(params.xviewrange).range([0, width])
+
     // When showing ranks...
-    if (params['metric'].includes('rank')) {
+    if (params.metric.includes('rank')) {
         // Put rank #1 at the top
         yScale.range([height, 1])
     }
@@ -28,12 +25,6 @@ function setupCharts(){
         yScale.range([0, height])
     }
 
-    // Add brushing
-    //console.log("Adding brushing...")
-    var brush = d3.brushX().extent([
-        [0, 0],
-        [width, 60]
-    ]).on("end", brushChart)
 
     var zoom = d3.zoom()
         .scaleExtent([1, 5])
@@ -60,7 +51,6 @@ function clearCharts(){
     d3.select("#dataviz").selectAll("svg").remove()
 }
 
-
 function drawMain() {
     //console.log("Setting scales...")
     // Set the time scale for the main chart
@@ -69,13 +59,6 @@ function drawMain() {
     var margin = { top: 0.1 * (params.sizing[1]), right: 0.15 * (params.sizing[0]), bottom: 0.25 * (params.sizing[1]), left: 0.2 * (params.sizing[0]) }
     var width = params.sizing[0] - margin.left - margin.right
     var height = params.sizing[1] - margin.top - margin.bottom
-
-    var margin2 = { top: height + (2 * margin.top), right: margin.right, bottom: margin.bottom, left: margin.left }
-    var xScale = d3.scaleTime()
-        .domain(params.xviewrange).range([0, width])
-
-    var x2Scale = d3.scaleTime()
-        .domain(params.xrange).range([0, width])
 
     console.log('params.xrange = ${params.xrange}')
     console.log('params.xviewrange = ${params.xviewrange}')
@@ -90,11 +73,7 @@ function drawMain() {
     // Create the main chart area
     var focus = chart.append("g")
         .attr("class", "focus")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-
-    var context = chart.append("g")
-        .attr("class", "context")
-        .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+        .attr("transform", "translate(${margin.left}, ${margin.top})")
 
     console.log("Appending clipping path...")
     chart.append("defs").append("clipPath")
@@ -116,12 +95,6 @@ function drawMain() {
         .attr("dx", "-.8em")
         .attr("dy", ".15em")
         .attr("transform", "rotate(-45)") // Create an axis component with d3.axisBottom
-
-    console.log("Drawing context xaxis...")
-    context.append("g")
-        .attr("class", "xaxis2")
-        .attr("transform", "translate(0," + 20 + ")")
-        .call(d3.axisBottom(x2Scale))
 
 
     // Draw the yAxis
@@ -168,6 +141,31 @@ function drawMain() {
     context.append("g").attr("clip-path", "url(#clip)")
 }
 
+function drawContext(){
+
+    var margin2 = { top: height + (2 * margin.top), right: margin.right, bottom: margin.bottom, left: margin.left }
+
+    var x2Scale = d3.scaleTime()
+        .domain(params.xrange).range([0, width])
+
+    //console.log("Adding brushing...")
+    var brush = d3.brushX().extent([
+        [0, 0],
+        [width, 60]
+    ]).on("end", brushChart)
+
+    var context = chart.append("g")
+        .attr("class", "context")
+        .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+    console.log("Drawing context xaxis...")
+    context.append("g")
+        .attr("class", "xaxis2")
+        .attr("transform", "translate(0," + 20 + ")")
+        .call(d3.axisBottom(x2Scale))
+
+}
+
 function updateAxis() {
     // Update axis
     d3.select(".xaxis").transition().duration(1000).call(d3.axisBottom(xScale)).selectAll("text")
@@ -183,16 +181,37 @@ function updateAxis() {
 
 function addLine(ngram){
     console.log('adding line for ${ngram}')
+    console.log("Drawing storyLine...")
+    var storyLine = storyGroup.append('path')
+        .attr('class', 'line')
+        .attr('d', d => line(d.pairs))
+        .style('stroke', (d, i) => colors.main[d.colorid])
+        .style('opacity', lineOpacity)
+        .on("mouseover", function(d, i) {
+            var xDate = xScale.invert(d3.mouse(this)[0]),
+                bisect = d3.bisector(function(d) { return d.date; }).right;
+            console.log('storyline d = ', d)
+            d3.selectAll('.line')
+                .attr('class', 'unfocus')
+            d3.select(this)
+                .attr('class', 'hoverline')
+                .append("g").text(bisect)
+        })
+        .on("mouseout", function(d) {
+            d3.selectAll(".line")
+                .style('opacity', lineOpacity)
+            d3.select(this)
+                .style("stroke-width", lineStroke)
+                .style("cursor", "none")
+        })
     //updateAxis()
 }
 
 function addSubplot(ngram){
-
+    console.log('adding subplot for ${ngram}')
 }
 
 function drawCharts() {
-
-
 
     console.log("Drawing storyGroup...")
     var storyGroup = masked.selectAll('.story-group')
@@ -214,38 +233,8 @@ function drawCharts() {
             focus.select(".title-text").remove();
         })
 
-    console.log("Drawing storyLine...")
-    var storyLine = storyGroup.append('path')
-        .attr('class', 'line')
-        .attr('d', d => line(d.pairs))
-        .style('stroke', (d, i) => colors.main[d.colorid])
-        .style('opacity', lineOpacity)
-        .on("mouseover", function(d, i) {
-            var xDate = xScale.invert(d3.mouse(this)[0]),
-                bisect = d3.bisector(function(d) { return d.date; }).right;
-            console.log('storyline d = ', d)
-            d3.selectAll('.line')
-                .style('opacity', otherLinesOpacityHover)
-            d3.select(this)
-                .style('opacity', lineOpacityHover)
-                .style("stroke-width", lineStrokeHover)
-                .style("cursor", "pointer")
-                .append("g").text(bisect)
-        })
-        .on("mouseout", function(d) {
-            d3.selectAll(".line")
-                .style('opacity', lineOpacity)
-            d3.select(this)
-                .style("stroke-width", lineStroke)
-                .style("cursor", "none")
-        })
 
     context.append("g").attr("class", "brush").call(brush)
-
-    // A function that set idleTimeOut to null
-    var idleTimeout
-
-    function idled() { idleTimeout = null; }
 
 
 
