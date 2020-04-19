@@ -229,12 +229,12 @@ function drawContext(chart){
 
 function drawLineGroup(focus) {
     console.log("Drawing lineGroup...")
-    masked = focus.select('.masked')
-    let lineGroup = masked.selectAll('.story-group')
+    let masked = focus.select('.masked')
+    let lineGroup = masked.selectAll('.linegroup')
         .data(ngramData).enter()
         .append('g')
-        .attr('class', 'story-group')
-        .on("mouseover", (d, i) => {
+        .attr('class', 'linegroup')
+        .on("mouseover", (d) => {
             focus.append("text")
                 .attr("class", "title-text")
                 .style("fill", colors.dark[d.colorid])
@@ -242,7 +242,6 @@ function drawLineGroup(focus) {
                 .attr("text-anchor", "right")
                 .attr("x", 30)
                 .attr("y", 10)
-                .attr("id", d.uuid + "-group")
                 .style("font-weight", "bold")
         })
         .on("mouseout", d => {
