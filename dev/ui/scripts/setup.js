@@ -87,6 +87,4 @@ function setupPage() {
     setFilters()
     setRanges()
     setupCharts()
-    drawMain()
-    drawContext()
 }

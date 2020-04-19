@@ -40,6 +40,9 @@ function setupCharts(){
         .y(d => yScale(d.y)) // set the y values for the line generator
         .defined(function (d) { return d[1] !== null; })
     //.curve(d3.curveMonotoneX) // apply smoothing to the line
+
+    drawMain()
+    drawContext()
 }
 
 function zoomAndBrush(){
