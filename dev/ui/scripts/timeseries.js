@@ -249,7 +249,7 @@ function drawLineGroup(focus) {
             focus.select(".title-text").remove();
         })
     for (ngram in ngramData.keys){
-        addLine(ngram)
+        addLine(ngram, lineGroup)
     }
 }
 
@@ -266,16 +266,16 @@ function updateAxis() {
         .attr('d', d => line(d.pairs))
 }
 
-function addLine(ngram, lineGroup){
+function addLine(ngram, group){
     console.log('adding line for ${ngram}')
     console.log("Drawing storyLine...")
-    let storyLine = lineGroup.append('path')
+    let storyLine = group.append('path')
         .attr('class', 'line')
         .attr('d', d => line(d.pairs))
         .style('stroke', (d, i) => colors.main[d.colorid])
         .style('opacity', lineOpacity)
         .on("mouseover", function(d, i) {
-            var xDate = xScale.invert(d3.mouse(this)[0]),
+            let xDate = xScale.invert(d3.mouse(this)[0]),
                 bisect = d3.bisector(function(d) { return d.date; }).right;
             console.log('storyline d = ', d)
             d3.selectAll('.line')
