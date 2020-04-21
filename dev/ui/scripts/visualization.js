@@ -94,6 +94,11 @@ class Chart {
             .attr('d',line)
     }
 
+    removeLine(n) {
+        console.log(`Removing line for ${ngram} from ${this.element.attr('id')}`)
+        d3.selectAll('path.uuid-'+ngramData[n]['uuid']).remove()
+    }
+
     draw() {
         this.width = this.element.offsetWidth
         this.height = this.width/2
