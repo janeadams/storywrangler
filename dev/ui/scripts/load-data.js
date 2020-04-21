@@ -22,7 +22,6 @@ function loadData(query) {
             ymins.push(thisdata[`min_${params.metric}`])
             ymaxes.push(thisdata[`max_${params.metric}`])
             setRanges()
-            mainChart.draw()
             addNgram(n)
         })
     })
