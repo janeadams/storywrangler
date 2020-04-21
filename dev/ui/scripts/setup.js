@@ -6,7 +6,7 @@ let today = new Date()
 let thisyear = today.getFullYear()
 // Get one year ago
 let lastyeardate = new Date()
-lastyeardate = lastyeardate.setFullYear( thisyear - 1 );
+lastyeardate.setFullYear(lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 let thisfirst = new Date(thisyear, 0, 1)
 
