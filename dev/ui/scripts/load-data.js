@@ -28,18 +28,14 @@ function loadData(query) {
 
 
 // When the list item is clicked for a particular word...
-function removeNgram(value) {
-    d3.select(".li-" + ngramIDs[value]).remove()
-    // Delete the word from the list of queries
-    params["ngrams"] = params["ngrams"].filter(ele =>
-        // Filter the set to include every ngram except this one
-        ele !== value
-    )
-    delete ngramIDs[value]
-    console.log("removed ", value, " from params['ngrams']; length = " + params["ngrams"].length + " and data is " + params["ngrams"])
+function removeNgram(n) {
+    d3.select(".li-" + ngramData[n]["uuid"]).remove()
+    mainChart.removeLine(n)
+    // Filter the ngram list to include every ngram except this one
+    params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
     // Delete the word from the list of ngram data
-    delete ngramData[value]
-    console.log("removed ", value, " from ngramData; length = " + Object.keys(ngramData).length + " and remaining ngrams are " + Object.keys(ngramData))
+    delete ngramData[n]
+    console.log("removed ", n, " from ngramData; length = " + Object.keys(ngramData).length + " and remaining ngrams are " + Object.keys(ngramData))
 }
 
 function dumpFirst() {
@@ -61,7 +57,6 @@ function addNgram(n) {
         .style("background-color", colors.light[ndata['colorid']])
         .on("click", function (d, i) {
             removeNgram(n)
-            this.remove()
         })
     mainChart.addLine(n)
 }

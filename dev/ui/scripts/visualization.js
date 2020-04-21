@@ -79,6 +79,7 @@ class Chart {
 
         const ndata = ngramData[ngram]['data']
         const colorid = ngramData[ngram]['colorid']
+        const uuid = ngramData[ngram]['uuid']
 
         const line = d3.line()
             .x(d => this.xScale(dateParser(d[0])))
@@ -88,9 +89,14 @@ class Chart {
             // use data stored in `this`
             .datum(ndata)
             .classed('line',true)
+            .attr('class',`line-${uuid}`)
             .attr('d',line)
             // set stroke to specified color, or default to red
             .style('stroke', colors.main[colorid] || 'red');
+    }
+
+    removeLine(ngram) {
+        this.plot.select(`.line-${ngramData[ngram]['uuid']}`).remove()
     }
 
     draw() {
