@@ -109,9 +109,7 @@ class Chart {
         this.createScales()
         this.addAxes()
         this.addLabels()
-        Object.keys(ngramData).forEach(n){
-            this.addLine(n)
-        }
+        Object.keys(ngramData).forEach(n => this.addLine(n))
     }
 }
 
