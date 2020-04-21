@@ -16,6 +16,7 @@ function loadData(query) {
             if (!(Object.keys(ngramData).includes(n))){
                 newNgrams.push(n)
             }
+            else {console.log(`${n} was already added to the ngram data`)}
         })
         newNgrams.forEach(n => {
             // Find the x- and y-range of this data set
