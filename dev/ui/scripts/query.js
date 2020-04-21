@@ -4,7 +4,6 @@ function querySubmission(event) {
     if (query === '') {
         console.log("Nothing entered in the search box")
     } else {
-        if (params['ngrams'].length > 9) { dumpFirst() }
         loadData(query)}
     // Clear the search box
     document.getElementById('queryForm').reset()
