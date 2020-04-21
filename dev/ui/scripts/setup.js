@@ -37,6 +37,7 @@ let ngramData = {}
 let ngramIDs = {}
 let xmins = []
 let xmaxes = []
+let ymins = []
 let ymaxes = []
 let mainChart
 
@@ -55,10 +56,11 @@ function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
     Object.keys(ngramData).forEach(ngram => {
-        let ndata = ngramData[ngram]["data"]
-        xmins.push(ndata.xrange[0])
-        xmaxes.push(ndata.xrange[1])
-        ymaxes.push(ndata.yrange[1])
+        let ndata = ngramData[ngram]
+        xmins.push(ndata["min_date"])
+        xmaxes.push(ndata["max_date"])
+        ymins.push(ndata["min_rank"])
+        ymaxes.push(ndata["max_rank"])
     })
     if (d3.min(xmins) < thisfirst) {
         params.xrange = [d3.min(xmins), d3.max(xmaxes)]
