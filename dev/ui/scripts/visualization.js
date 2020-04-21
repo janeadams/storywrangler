@@ -114,6 +114,6 @@ class Chart {
 }
 
 function makeCharts(){
-    let mainchart = new Chart({element: d3.select('#mainplot')})
+    let mainchart = new Chart({element: document.querySelector('#mainplot')})
     d3.select(window).on('resize', () => mainchart.draw())
 }
