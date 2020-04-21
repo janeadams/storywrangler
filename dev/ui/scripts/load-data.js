@@ -35,12 +35,12 @@ function removeNgram(n) {
     console.log(`removing all elements with uuid ${uuid}`)
     d3.selectAll('.uuid-'+uuid).remove()
     mainChart.removeLine(n)
-    setRanges()
     // Filter the ngram list to include every ngram except this one
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
     // Delete the word from the list of ngram data
     delete ngramData[n]
     console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
+    setRanges()
 }
 
 function dumpFirst() {
