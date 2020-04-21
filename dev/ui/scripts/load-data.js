@@ -10,9 +10,9 @@ function loadData(query) {
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
         errors = data['errors']
-        let allnewNgrams = data['ngrams']
         let newNgrams = []
-        allnewNgrams.forEach(n => {
+        data['ngrams'].forEach(n => {
+            // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
             if (!(Object.keys(ngramData).includes(n))){
                 newNgrams.push(n)
             }
