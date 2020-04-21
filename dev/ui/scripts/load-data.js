@@ -46,7 +46,7 @@ function removeNgram(n) {
 
 function dumpFirst() {
     console.log("Maximum of 10 searches allowed!")
-    removeNgram(params['ngrams'][0])
+    removeNgram(Object.keys(ngramData)[0])
 }
 
 // When a word is submitted via inputClick...
