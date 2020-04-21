@@ -66,8 +66,8 @@ class Chart {
             .attr("text-anchor", "middle")
 
         this.plot.append("text")
-            .attr("y", height + margin.top)
-            .attr("x", margin.left / 2)
+            .attr("y", height + this.margin.top)
+            .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
             .text("Lexical Abyss")
             .attr("class","axislabel")
