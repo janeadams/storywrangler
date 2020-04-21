@@ -26,6 +26,7 @@ function loadData(query) {
         newNgrams.forEach(n => {
             addNgram(n)
         })
+        setRanges()
     })
 }
 
@@ -60,5 +61,4 @@ function addNgram(n) {
             console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
-    setRanges()
 }
