@@ -77,6 +77,7 @@ class Chart {
     addLine(ngram) {
 
         const ndata = ngramData[ngram]['data']
+        const colorid = ngramData[ngram]['colorid']
 
         const line = d3.line()
             .x(d => this.xScale(d[0]))
@@ -88,7 +89,7 @@ class Chart {
             .classed('line',true)
             .attr('d',line)
             // set stroke to specified color, or default to red
-            .style('stroke', 'red');
+            .style('stroke', colors.main[colorid] || 'red');
     }
 
     draw() {
