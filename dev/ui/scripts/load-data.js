@@ -42,8 +42,7 @@ function dumpFirst() {
 // When a word is submitted via inputClick...
 function addNgram(n) {
     // Find the x- and y-range of this data set
-    let ndata = data['ngramdata'][n]
-    ngramData[n] = thisdata
+    let ndata = ngramData[n]
     ngramData[n]['colorid']=i
     i+=1
     xmins.push(ndata['min_date'])
