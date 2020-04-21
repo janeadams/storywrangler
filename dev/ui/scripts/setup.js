@@ -35,9 +35,10 @@ let params = defaultparams
 let i = 0
 let ngramData = {}
 let ngramIDs = {}
-let xmins = [];
-let xmaxes = [];
-let ymaxes = [];
+let xmins = []
+let xmaxes = []
+let ymaxes = []
+let mainchart
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
