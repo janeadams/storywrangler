@@ -11,8 +11,8 @@ class Chart {
 
     createScales() {
         const m = this.margin
-        this.xScale = d3.scaleTime().domain(params.xrange).range([0, this.width-(m.left+(m.right/2))])
-        this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width-(m.left+(m.right/2))])
+        this.xScale = d3.scaleTime().domain(params.xrange).range([0, this.width-m.left])
+        this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width-m.left])
         // Choose and set time scales (logarithmic or linear)
         if (params["scale"] === "log") {this.yScale = d3.scaleLog().domain(params["yrange"])}
         else {this.yScale = d3.scaleLinear().domain(params["yrange"])}
