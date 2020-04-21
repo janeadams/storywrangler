@@ -34,7 +34,7 @@ function loadData(query) {
 function removeNgram(n) {
     let uuid = ngramData[n]['uuid']
     console.log(`removing all elements with uuid ${uuid}`)
-    d3.selectAll('path.uuid-'+uuid).remove()
+    d3.selectAll('.uuid-'+uuid).remove()
     setRanges()
     // Filter the ngram list to include every ngram except this one
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
