@@ -62,7 +62,7 @@ function addNgram(n) {
     ndata = ngramData[n]
     console.log(`Added data for ${n} to data list; ngram data list length = ${params['ngrams'].length}`)
     // Add the word as a list item so the user knows it's been added and can delete later
-    d3.select("#ngramList").append("button")
+    d3.select("#ngramList").append("li")
         .text(n)
         .attr("class", `uuid-${ndata['uuid']}`)
         .style("color", colors.dark[ndata['colorid']])
