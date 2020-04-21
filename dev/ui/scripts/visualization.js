@@ -95,7 +95,7 @@ class Chart {
     }
 
     removeLine(ngram) {
-        console.log(`Removing line for ${ngram} from ${this.element.attr('id')}`)
+        console.log(`Removing line for ${ngram} from ${this.element}`)
         d3.selectAll('path.uuid-'+ngramData[ngram]['uuid']).remove()
     }
 
