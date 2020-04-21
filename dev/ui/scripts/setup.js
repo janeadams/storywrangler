@@ -38,7 +38,6 @@ let ngramIDs = {}
 let xmins = []
 let xmaxes = []
 let ymaxes = []
-let mainchart
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
@@ -77,8 +76,7 @@ function setupPage() {
     // Check the correct boxes in the filter form according to the parameters
     //setFilters()
     //setRanges()
-    mainchart = new Chart({element: d3.select('#mainplot')})
-    d3.select(window).on('resize', () => mainchart.draw())
+    makeCharts()
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
 }
