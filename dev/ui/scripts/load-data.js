@@ -29,7 +29,7 @@ function loadData(query) {
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
-    d3.selectAll(`.${ngramData[n]['uuid']}`).remove()
+    d3.selectAll(`.uuid-${ngramData[n]['uuid']}`).remove()
     // Filter the ngram list to include every ngram except this one
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
     // Delete the word from the list of ngram data
@@ -50,7 +50,7 @@ function addNgram(n) {
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
         .text(n)
-        .attr("class", `${ndata['uuid']}`)
+        .attr("class", `uuid-${ndata['uuid']}`)
         .style("color", colors.dark[ndata['colorid']])
         .style("border-color", colors.main[ndata['colorid']])
         .style("background-color", colors.light[ndata['colorid']])
