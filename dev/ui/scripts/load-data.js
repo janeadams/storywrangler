@@ -33,7 +33,7 @@ function loadData(query) {
         newNgrams.forEach(n => {
             addNgram(n)
         })
-        setRanges()
+        if (newNgrams.length() > 0) {setRanges()}
     })
 }
 
