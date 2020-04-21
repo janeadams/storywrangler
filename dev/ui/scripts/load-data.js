@@ -10,7 +10,13 @@ function loadData(query) {
     d3.json(url).then((data, error) => {
         console.log('read url "' + url + '"')
         errors = data['errors']
-        newNgrams = data['ngrams']
+        let allnewNgrams = data['ngrams']
+        let newNgrams = []
+        allnewNgrams.forEach(n => {
+            if (!(Object.keys(ngramData).includes(n))){
+                newNgrams.push(n)
+            }
+        })
         newNgrams.forEach(n => {
             // Find the x- and y-range of this data set
             let thisdata = data['ngramdata'][n]
