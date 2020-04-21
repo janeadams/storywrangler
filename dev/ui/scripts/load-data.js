@@ -10,7 +10,7 @@ function loadData(query) {
     d3.json(url).then((data, error) => {
         errors = data['errors']
         console.log(`Received API response:`)
-        let debug
+        let debug = {}
         (['ngrams','database','metric','rt','language']).forEach(v => (debug[v]=data[v]))
         console.table(debug)
         let newNgrams = []
