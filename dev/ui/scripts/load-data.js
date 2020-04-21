@@ -32,7 +32,9 @@ function loadData(query) {
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
-    mainChart.removeLine(n)
+    let uuid = ngramData[n]['uuid']
+    console.log(`removing all elements with uuid ${uuid}`)
+    d3.selectAll('path.uuid-'+uuid).remove()
     setRanges()
     // Filter the ngram list to include every ngram except this one
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
