@@ -22,7 +22,6 @@ function loadData(query) {
             ymins.push(thisdata[`min_${params.metric}`])
             ymaxes.push(thisdata[`max_${params.metric}`])
         })
-        setRanges()
         newNgrams.forEach(n => {
             addNgram(n)
         })
@@ -35,7 +34,6 @@ function removeNgram(n) {
     let uuid = ngramData[n]['uuid']
     console.log(`removing all elements with uuid ${uuid}`)
     d3.selectAll('.uuid-'+uuid).remove()
-    mainChart.removeLine(n)
     setRanges()
     // Filter the ngram list to include every ngram except this one
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
@@ -65,5 +63,5 @@ function addNgram(n) {
             console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
-    mainChart.addLine(n)
+    setRanges()
 }
