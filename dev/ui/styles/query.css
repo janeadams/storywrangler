@@ -1,10 +1,10 @@
-#queryList {
+#ngramList {
     display: inline-block;
     width: 100%;
     padding: 5px;
 }
 
-#queryList li {
+#ngramList li {
     display: inline-block;
     padding: 7px 10px;
     margin: 3px;
@@ -16,7 +16,7 @@
     font-size: 1.2em;
 }
 
-#queryList li:hover {
+#ngramList li:hover {
     background-color: #FAC1BE;
     border: 2px dashed #EF3D25;
     text-decoration: line-through;

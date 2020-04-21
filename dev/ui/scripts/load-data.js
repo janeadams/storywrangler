@@ -1,3 +1,4 @@
+console.log("load data script loaded")
 function loadData(query) {
     console.log("Loading data for ", query, "...");
     let errors = ""
@@ -7,56 +8,68 @@ function loadData(query) {
     var url = encodeURI("http://hydra.uvm.edu:3000/api/" + formatted_query + "?src=ui&language=" + params["language"] + "&metric=" + params['metric'])
     console.log("Querying URL = ", url)
     d3.json(url).then((data, error) => {
-        console.log('read url "' + url + '"')
         errors = data['errors']
-        newNgrams = data['ngrams']
+        console.log(`Received API response:`)
+        let debug = {}
+        let debugvals = ['ngrams','database','metric','rt','language','errors']
+        debugvals.forEach(v => (debug[v]=[data[v]]))
+        console.table(debug)
+        let newNgrams = []
+        data['ngrams'].forEach(n => {
+            // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
+            if (!(Object.keys(ngramData).includes(n))){
+                newNgrams.push(n)
+            }
+            else {console.log(`${n} was already added to the ngram data`)}
+        })
         newNgrams.forEach(n => {
-            params['ngrams'].push(n)
-            // Set an ID for this ngram
-            ngramIDs[n] = Object.keys(ngramData).length
-            ngramData[n] = data['ngramdata'][n]
             // Find the x- and y-range of this data set
-            //ndata['xrange'] = d3.extent(data['dates'])
-            //ndata['yrange'] = d3.extent(data[params['metric']])
-            // Add the JSON data object to the array of ngram data
-            console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
+            let thisdata = data['ngramdata'][n]
+            ngramData[n] = thisdata
+            ngramData[n]['colorid']=i
+            i+=1
+            if (i > 10){i=1}
+            xmins.push(dateParser(thisdata['min_date']))
+            xmaxes.push(dateParser(thisdata['max_date']))
+            ymins.push(thisdata[`min_${params.metric}`])
+            ymaxes.push(thisdata[`max_${params.metric}`])
+        })
+        newNgrams.forEach(n => {
             addNgram(n)
         })
-        //updateURL()
+        if (newNgrams.length > 0) {setRanges()}
     })
 }
 
 
 // When the list item is clicked for a particular word...
-function removeNgram(value) {
-    d3.select(".li-" + ngramIDs[value]).remove()
-    // Delete the word from the list of queries
-    params["ngrams"] = params["ngrams"].filter(ele =>
-        // Filter the set to include every ngram except this one
-        ele !== value
-    )
-    delete ngramIDs[value]
-    console.log("removed ", value, " from params['ngrams']; length = " + params["ngrams"].length + " and data is " + params["ngrams"])
+function removeNgram(n) {
+    let uuid = ngramData[n]['uuid']
+    console.log(`removing all elements with uuid ${uuid}`)
+    d3.selectAll('.uuid-'+uuid).remove()
+    mainChart.removeLine(n)
+    // Filter the ngram list to include every ngram except this one
+    params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
     // Delete the word from the list of ngram data
-    delete ngramData[value]
-    console.log("removed ", value, " from ngramData; length = " + Object.keys(ngramData).length + " and remaining ngrams are " + Object.keys(ngramData))
-}
-
-function dumpFirst() {
-    console.log("Maximum of 10 searches allowed!")
-    removeNgram(params['ngrams'][0])
+    delete ngramData[n]
+    console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
+    setRanges()
 }
 
 // When a word is submitted via inputClick...
-function addNgram(value) {
+function addNgram(n) {
+    params['ngrams'].push(n)
+    ndata = ngramData[n]
+    console.log(`Added data for ${n} to data list; ngram data list length = ${params['ngrams'].length}`)
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
-        .text(value)
-        .attr("class", "li-" + ngramIDs[value])
-        .style("color", colors.dark[ngramIDs[value]])
-        .style("border-color", colors.main[ngramIDs[value]])
-        .style("background-color", colors.light[ngramIDs[value]])
+        .text(n)
+        .attr("class", `uuid-${ndata['uuid']}`)
+        .style("color", colors.dark[ndata['colorid']])
+        .style("border-color", colors.main[ndata['colorid']])
+        .style("background-color", colors.light[ndata['colorid']])
         .on("click", function (d, i) {
-            removeNgram(value)
+            console.log(`Clicked list item ${n}`)
+            removeNgram(n)
         })
 }

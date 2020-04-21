@@ -1,27 +1,27 @@
-console.log("Loaded setup.js")
-
+console.log("Loading setup.js")
+const dateParser = date => new Date(d3.timeParse(date))
 // Today's date
-today = new Date()
+let today = new Date()
 // Extract year from today's date
-thisyear = today.getFullYear()
+let thisyear = today.getFullYear()
 // Get one year ago
-lastyeardate = new Date()
+let lastyeardate = new Date()
 lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
 // January 1st, this year
-thisfirst = new Date(thisyear, 0, 1)
+let thisfirst = new Date(thisyear, 0, 1)
 
-const defaultNgrams = ["#COVID19","#coronavirus","pandemic","🦠","have symptoms","can't get tested","tested positive","😷","toilet paper"]
+const defaultNgrams = ["hahaha","one two three","#friday","🦠"]
 
 // Set default options
 const defaultparams = {
     "ngrams": [],
     "language": "en",
     "metric": "rank",
-    "RT": false,
+    "rt": false,
     "scale": "log",
-    "xrange": [new Date(2009, 6, 31), today],
     "xviewrange": [lastyeardate, today],
-    "yrange": [1, 100000],
+    "xrange": [lastyeardate, today],
+    "yrange": [10000, 1],
     "sizing": [800, 600]
 }
 // Limit options for certain parameters
@@ -33,9 +33,13 @@ const paramoptions = {
 }
 // An object containing our parameters
 let params = defaultparams
-
+let i = 0
 let ngramData = {}
-let ngramIDs = {}
+let xmins = []
+let xmaxes = []
+let ymins = []
+let ymaxes = []
+let mainChart
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
@@ -48,42 +52,22 @@ const colors = {
 function colorMe(name, type='main') { return colors[type][colors["names"].indexOf(name)] }
 //console.log(colorMe("sky"))
 
-function setSizing() {
-    params.sizing[0] = 0.8 * (document.documentElement.clientWidth)
-    //console.log("Updating width to...", params.sizing[0])
-    params.sizing[1] = 0.6 * (document.documentElement.clientHeight)
-    //console.log("Updating height to...", params.sizing[1])
-}
-
 function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
-    let xmins = [];
-    let xmaxes = [];
-    let ymaxes = [];
-    ngramData.forEach(data => {
-        xmins.push(data.xrange[0]);
-        xmaxes.push(data.xrange[1]);
-        ymaxes.push(data.yrange[1]);
-    })
-    if (d3.min(xmins) < thisfirst) {
-        params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    } else {
-        params.xrange = [thisfirst, d3.max(xmaxes)]
-    }
-    params.yrange[0] = d3.max(ymaxes) * 1.2;
-    if (params['metric'] === 'freq') {
-        params.yrange[1] = 0
-    } else {
-        params.yrange[1] = 1
-    }
+    params.xrange = [d3.min(xmins), d3.max(xmaxes)]
+    if (params['metric'] === 'rank') {params.yrange = [d3.max(ymaxes) * 1.2, 1]}
+    else {params.yrange = [0, d3.max(ymaxes) * 1.2]}
+    mainChart.draw()
 }
 
 function setupPage() {
+    // Check the correct boxes in the filter form according to the parameters
+    //setFilters()
+    //setRanges()
+    makeCharts()
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
-    setSizing()
-    // Check the correct boxes in the filter form according to the parameters
-    setFilters()
-    //setRanges()
+    if (params['ngrams'].length < 1) {defaultNgrams.forEach(n => loadData(n))}
+    else {params['ngrams'].forEach(n => loadData(n))}
 }

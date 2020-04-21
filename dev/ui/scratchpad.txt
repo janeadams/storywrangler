@@ -1,4 +1,4 @@
-console.log("loaded timeseries.js")
+console.log("loaded visualization.js")
 
 function setSizing() {
     params.sizing[0] = 0.8 * (document.documentElement.clientWidth)

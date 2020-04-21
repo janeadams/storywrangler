@@ -16,6 +16,7 @@ from flask_cors import CORS
 import dev.api.regexr as r
 import urllib
 import pickle
+import uuid
 
 
 password = os.getenv("PASSWORD")
@@ -119,14 +120,15 @@ def get_data(query):
         fd.close()
     try:
         # Select the location based on the wordcount (1grams, 2grams, 3grams, etc.), by counting spaces
-        db = client[str(n)+'grams']
+        db = client[f'{n}grams']
         #print("Connected to mongo client "+str(ngram)+'grams')
     except:
-        errs.append(str("Couldn't connect to the "+language+" "+str(n)+"-grams database"))
+        errs.append(f"Couldn't connect to the {language} {n}grams database")
         
     ndict = {}
     
     for ngram in ngrams:
+        print(f'searching the {n}grams db for {ngram}')
         try:
             df = pd.DataFrame(list(db[language].find({"word": ngram})))
             if df.shape[0]==0:
@@ -138,6 +140,8 @@ def get_data(query):
                 df=df[df['time']>=(dt.date(2009,8,1))]
                 df.sort_values(by='time',ascending=True,inplace=True)
                 df['time']=[t.strftime("%Y-%m-%d") for t in df['time']]
+                
+                values = []
 
                 if metric =='counts':
                     if rt:
@@ -160,7 +164,7 @@ def get_data(query):
                 for item in dict(zip(list(df['time']),values)).items():
                     datalist.append(item)
                     
-                ndict[ngram]={'min_date':df['time'].min(), 'max_date':df['time'].max(), 'data':datalist}
+                ndict[ngram]={'uuid':uuid.uuid4(), 'min_date':df['time'].min(), 'max_date':df['time'].max(), (f'min_{metric}'): min(values), (f'max_{metric}'):max(values), 'data':datalist}
                 
         except: output['errors'].append(f"Couldn't find data for {ngram}")
             

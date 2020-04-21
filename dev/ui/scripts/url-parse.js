@@ -1,6 +1,6 @@
 function readUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+    let vars = {};
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
         console.log("key = ", key, " value = ", value)
         // Parse arrays:
         value = value.replace("[", "").replace("/]", "").split(",")
@@ -42,35 +42,27 @@ function readUrlVars() {
 }
 // Get the parameters from the URL
 function getUrlParams() {
-    for (var p in params) {
+    for (let p in params) {
         // If the parameter is in the URL
         if (window.location.href.indexOf(p) > -1) {
             // set the variable to the value in the url
-            var urlvar = readUrlVars()[p]
             //console.log("Found ", p, " parameter in URL as ", urlvar)
-            params[p] = urlvar
+            params[p] = readUrlVars()[p]
             console.log("Changed params[", p, "] to ", params[p])
         }
         else {
             // If not specified, set to default values
             params[p] = defaultparams[p]
-            if (params['ngrams'].length < 1) {
-                params['ngrams']=defaultNgrams
-            }
         }
-        // Decode the URL ngrams (e.g. emojis)
-        params['ngrams'] = params['ngrams'].map(n => decodeURI(n))
     }
-    console.log("params['ngrams']" + params['ngrams'])
-    params['ngrams'].forEach(n => loadData(n))
 }
 
 function updateURL() {
-    var currentURL = String(window.location.href);
+    let currentURL = String(window.location.href);
     console.log("currentURL = ", currentURL);
-    var splitURL = currentURL.split("?");
-    var customparams = {};
-    for (var p of ['ngrams', 'metric', 'language', 'scale','RT']) {
+    let splitURL = currentURL.split("?");
+    let customparams = {};
+    for (let p of ['ngrams', 'metric', 'language', 'scale','RT']) {
         console.log("var p = ", p);
         console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);
         if (params[p] !== defaultparams[p]) {
@@ -78,11 +70,11 @@ function updateURL() {
         }
     }
     console.log("customparams = ", customparams);
-    var paramlist = [];
-    for (var [p, v] of Object.entries(customparams)) {
+    let paramlist = [];
+    for (let [p, v] of Object.entries(customparams)) {
         paramlist.push(p + "=" + v)
     }
-    var newURL = String(splitURL[0]) + "?" + paramlist.join("&");
+    let newURL = String(splitURL[0]) + "?" + paramlist.join("&");
     console.log("newURL = ", newURL);
     window.location.href = newURL;
 }

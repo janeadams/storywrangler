@@ -22,7 +22,7 @@
             <!-- Search bar -->
             <form autocomplete="off" id="queryForm" onSubmit="return querySubmission()">
                 <div class="autocomplete">
-                    <input name="query" type="text" id="queryInput" placeholder="Enter 1, 2, or 3 words, hashtags, or handles" data-emoji="true" class="form-control">
+                    <input name="query" type="text" id="queryInput" placeholder='Enter a query, like "haha", "happy new year", "#throwbackthursday", or "😊"' data-emoji="true" class="form-control">
                     <input type="submit" value="What's the story?">
                 </div>
             </form>
@@ -60,7 +60,7 @@
         </section>
         <!-- Data visualization area -->
         <section id="dataviz">
-            <div id="timeseries">
+            <div id="mainplot">
             </div>
             <div id="subplots">
                 <ul id="subplot-list"></ul>
@@ -79,12 +79,12 @@
     <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.independent.js"></script>
-    <script type='text/javascript' src="scripts/setup.js"></script>
+    <script type='text/javascript' src="scripts/load-data.js"></script>
     <script type='text/javascript' src="scripts/url-parse.js"></script>
     <script type='text/javascript' src="scripts/filter.js"></script>
-    <script type='text/javascript' src="scripts/load-data.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
-    <script type='text/javascript' src="scripts/timeseries.js"></script>
+    <script type='text/javascript' src="scripts/visualization.js"></script>
+    <script type='text/javascript' src="scripts/setup.js"></script>
     <script type='text/javascript'>window.onload = setupPage</script>
     <!--<script type='text/javascript' src="scripts/autocomplete.js"></script>-->
 </body>
