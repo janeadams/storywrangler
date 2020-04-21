@@ -33,6 +33,7 @@ function loadData(query) {
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
     d3.selectAll(`.uuid-${ngramData[n]['uuid']}`).remove()
+    setRanges()
     // Filter the ngram list to include every ngram except this one
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
     // Delete the word from the list of ngram data
