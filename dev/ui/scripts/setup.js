@@ -19,7 +19,7 @@ const defaultparams = {
     "metric": "rank",
     "rt": false,
     "scale": "log",
-    "xviewrange": [lastyeardate, today],
+    "xviewrange": [dateParser(lastyeardate), dateParser(today)],
     "xrange": [lastyeardate, today],
     "yrange": [10000, 1],
     "sizing": [800, 600]
