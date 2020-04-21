@@ -17,8 +17,8 @@ function loadData(query) {
             ngramData[n] = thisdata
             ngramData[n]['colorid']=i
             i+=1
-            xmins.push(thisdata['min_date'])
-            xmaxes.push(thisdata['max_date'])
+            xmins.push(dateParser(thisdata['min_date']))
+            xmaxes.push(dateParser(thisdata['max_date']))
             ymins.push(thisdata[`min_${params.metric}`])
             ymaxes.push(thisdata[`max_${params.metric}`])
             setRanges()

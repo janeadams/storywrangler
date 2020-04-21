@@ -2,7 +2,6 @@ console.log("loaded visualization.js")
 
 let width = window.innerWidth
 let height = window.innerHeight
-const dateParser = date => new Date(d3.timeParse(date))
 
 class Chart {
     constructor(opts){
