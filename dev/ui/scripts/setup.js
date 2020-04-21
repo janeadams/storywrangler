@@ -55,10 +55,10 @@ function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
     Object.keys(ngramData).forEach(ngram => {
-        data = ngramData.ngram.data
-        xmins.push(data.xrange[0])
-        xmaxes.push(data.xrange[1])
-        ymaxes.push(data.yrange[1])
+        ndata = ngramData.ngram.data
+        xmins.push(ndata.xrange[0])
+        xmaxes.push(ndata.xrange[1])
+        ymaxes.push(ndata.yrange[1])
     })
     if (d3.min(xmins) < thisfirst) {
         params.xrange = [d3.min(xmins), d3.max(xmaxes)]
