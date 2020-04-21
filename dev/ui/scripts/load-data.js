@@ -12,12 +12,12 @@ function loadData(query) {
         errors = data['errors']
         newNgrams = data['ngrams']
         newNgrams.forEach(n => {
-            if (Object.keys(ngramData).length > 10){dumpFirst()}
             // Find the x- and y-range of this data set
             let thisdata = data['ngramdata'][n]
             ngramData[n] = thisdata
             ngramData[n]['colorid']=i
             i+=1
+            if (i > 10){i=1}
             xmins.push(dateParser(thisdata['min_date']))
             xmaxes.push(dateParser(thisdata['max_date']))
             ymins.push(thisdata[`min_${params.metric}`])
@@ -42,11 +42,6 @@ function removeNgram(n) {
     delete ngramData[n]
     console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     setRanges()
-}
-
-function dumpFirst() {
-    console.log("Maximum of 10 searches allowed!")
-    removeNgram(Object.keys(ngramData)[0])
 }
 
 // When a word is submitted via inputClick...
