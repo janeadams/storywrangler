@@ -76,7 +76,7 @@ function setupPage() {
     // Check the correct boxes in the filter form according to the parameters
     //setFilters()
     //setRanges()
-    const mainchart = new Chart({element: d3.select('#mainplot')})
+    mainchart = new Chart({element: d3.select('#mainplot')})
     d3.select(window).on('resize', () => mainchart.draw())
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
