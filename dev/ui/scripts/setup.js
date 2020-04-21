@@ -55,7 +55,7 @@ function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
     Object.keys(ngramData).forEach(ngram => {
-        ndata = ngramData.ngram.data
+        let ndata = ngramData[ngram]["data"]
         xmins.push(ndata.xrange[0])
         xmaxes.push(ndata.xrange[1])
         ymaxes.push(ndata.yrange[1])
