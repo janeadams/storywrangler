@@ -10,8 +10,8 @@ class Chart {
     }
 
     createScales() {
-        this.xScale = d3.scaleTime().domain(params.xrange).range([0, this.width])
-        this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width])
+        this.xScale = d3.scaleTime().domain(params.xrange).range([0, this.width-(this.margin.left+this.margin.right)])
+        this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width-(this.margin.left+this.margin.right)])
         // Choose and set time scales (logarithmic or linear)
         if (params["scale"] === "log") {this.yScale = d3.scaleLog().domain(params["yrange"])}
         else {this.yScale = d3.scaleLinear().domain(params["yrange"])}
@@ -101,7 +101,7 @@ class Chart {
     draw() {
         this.width = this.element.offsetWidth
         this.height = this.width/2
-        this.margin = { top: 0.1 * this.height, right: 0.15 * this.width, bottom: 0.25 * this.height, left: 0.2 * this.width }
+        this.margin = { top: 0.1 * this.height, right: 0.15 * this.width, bottom: 0.25 * this.height, left: 0.1 * this.width }
         // set up parent element and SVG
         this.element.innerHTML = '';
         const svg = d3.select(this.element).append('svg')
