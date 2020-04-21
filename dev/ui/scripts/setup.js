@@ -10,7 +10,7 @@ lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 let thisfirst = new Date(thisyear, 0, 1)
 
-const defaultNgrams = ["hahaha","one two three","🦠","#friday"]
+const defaultNgrams = ["hahaha","one two three","#friday","🦠"]
 
 // Set default options
 const defaultparams = {
