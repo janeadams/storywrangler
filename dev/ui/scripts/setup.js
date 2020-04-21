@@ -82,4 +82,6 @@ function setupPage() {
     makeCharts()
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
+    if (params['ngrams'].length < 1) {defaultNgrams.forEach(n => loadData(n))}
+    else {params['ngrams'].forEach(n => loadData(n))}
 }
