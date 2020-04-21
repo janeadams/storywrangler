@@ -1,4 +1,4 @@
-console.log("loaded timeseries.js")
+console.log("loaded visualization.js")
 
 function drawCharts() {
     setRanges()

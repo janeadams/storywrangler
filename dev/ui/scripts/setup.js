@@ -50,13 +50,6 @@ const colors = {
 function colorMe(name, type='main') { return colors[type][colors["names"].indexOf(name)] }
 //console.log(colorMe("sky"))
 
-function setSizing() {
-    params.sizing[0] = 0.8 * (document.documentElement.clientWidth)
-    //console.log("Updating width to...", params.sizing[0])
-    params.sizing[1] = 0.6 * (document.documentElement.clientHeight)
-    //console.log("Updating height to...", params.sizing[1])
-}
-
 function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
@@ -82,9 +75,8 @@ function setRanges() {
 function setupPage() {
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
-    setSizing()
     // Check the correct boxes in the filter form according to the parameters
-    setFilters()
-    setRanges()
+    //setFilters()
+    //setRanges()
     setupCharts()
 }

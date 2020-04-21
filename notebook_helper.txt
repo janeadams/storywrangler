@@ -3,7 +3,7 @@ ssh janeadams@hydra.uvm.edu
 alias hydra="ssh janeadams@hydra.uvm.edu"
 
 # Sublime Editor:
-alias sublime="ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu 'rsub ui/index.html  && rsub ui/scripts/setup.js && rsub ui/scripts/timeseries.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css && rsub ui/styles/main.css; bash -l'"
+alias sublime="ssh -R 52698:localhost:52698 janeadams@hydra.uvm.edu 'rsub ui/index.html  && rsub ui/scripts/setup.js && rsub ui/scripts/visualization.js && rsub ui/scripts/query.js && rsub ui/styles/query.css && rsub ui/styles/chart.css && rsub ui/styles/main.css; bash -l'"
 
 # Jupyter:
 # for local:

@@ -106,5 +106,5 @@ There are several key scripts in the UI `scripts/` directory:
 | filter.js     | Checks boxes on filters corresponding to parameters; monitors for changes                             |
 | load-data.js  | Parse parameter selections into a URL query to the API;<br>format the returned data for visualization |
 | query.js      | Handle new queries from the submission box; parse with `load-data.js`                                 |
-| timeseries.js | Visualization code (using D3)                                                                         |
+| visualization.js | Visualization code (using D3)                                                                         |
 
