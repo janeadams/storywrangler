@@ -19,6 +19,8 @@ const defaultparams = {
     "rt": false,
     "scale": "log",
     "xviewrange": [lastyeardate, today],
+    "xrange": [lastyeardate, today],
+    "yrange": [10000, 1],
     "sizing": [800, 600]
 }
 // Limit options for certain parameters
@@ -53,19 +55,8 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
-    Object.keys(ngramData).forEach(ngram => {
-        let ndata = ngramData[ngram]
-        xmins.push(ndata["min_date"])
-        xmaxes.push(ndata["max_date"])
-        ymins.push(ndata["min_rank"])
-        ymaxes.push(ndata["max_rank"])
-    })
-    if (d3.min(xmins) < thisfirst) {
-        params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    } else {
-        params.xrange = [thisfirst, d3.max(xmaxes)]
-    }
-    params.yrange[0] = d3.max(ymaxes) * 1.2;
+    params.xrange = [d3.min(xmins), d3.max(xmaxes)]
+    params.yrange[0] = d3.max(ymaxes) * 1.2
     if (params['metric'] === 'freq') {
         params.yrange[1] = 0
     } else {
