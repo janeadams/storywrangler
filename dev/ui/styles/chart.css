@@ -3,6 +3,10 @@
     display: inline-block;
 }
 
+#mainplot {
+    max-width: 85%;
+}
+
 #mainplot,
 .subplots{
     width: 90%;
