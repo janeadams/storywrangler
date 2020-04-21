@@ -10,7 +10,11 @@ function loadData(query) {
     d3.json(url).then((data, error) => {
         errors = data['errors']
         console.log(`Received API response:`)
-        console.table(data)
+        let debug = {}
+        (['ngrams','database','metric','rt','language','errors']).forEach(v => {
+            debug[v]=data[v]
+        })
+        console.table(debug)
         let newNgrams = []
         data['ngrams'].forEach(n => {
             // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
