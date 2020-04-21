@@ -61,6 +61,7 @@ function addNgram(n) {
         .style("background-color", colors.light[ndata['colorid']])
         .on("click", function (d, i) {
             removeNgram(n)
+            this.remove()
         })
     mainChart.addLine(n)
 }

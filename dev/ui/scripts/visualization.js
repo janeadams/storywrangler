@@ -59,7 +59,7 @@ class Chart {
             .attr("class","axislabel")
 
         this.plot.append("text")
-            .attr("y", 0 + this.margin.top + 10)
+            .attr("y", this.margin.top + 10)
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
             .text("Lexical Fame")
@@ -99,13 +99,13 @@ class Chart {
         this.margin = { top: 0.1 * this.height, right: 0.15 * this.width, bottom: 0.25 * this.height, left: 0.2 * this.width }
         // set up parent element and SVG
         this.element.innerHTML = '';
-        const svg = d3.select(this.element).append('svg');
-        svg.attr('width',  this.width);
-        svg.attr('height', this.height);
+        const svg = d3.select(this.element).append('svg')
+        svg.attr('width', this.width)
+        svg.attr('height', this.height)
 
-        // we'll actually be appending to a <g> element
         this.plot = svg.append('g')
-            .attr('transform',`translate(${this.margin.left},${this.margin.top})`);
+            .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
+            .attr('class','plot')
 
         this.createScales()
         this.addAxes()
