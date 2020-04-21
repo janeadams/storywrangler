@@ -95,7 +95,7 @@ class Chart {
     }
 
     removeLine(ngram){
-        this.plot.selectAll('path.uuid-'+ngramData[n]['uuid']).remove()
+        this.plot.selectAll('path.uuid-'+ngramData[ngram]['uuid']).remove()
     }
 
     draw() {
