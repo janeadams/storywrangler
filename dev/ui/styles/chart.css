@@ -3,15 +3,16 @@
     display: inline-block;
 }
 
-#timeseries,
-#subplots {
+#mainplot,
+.subplots{
     width: 90%;
-    background-color: white;
     margin: 20px auto;
     min-height: 40px;
 }
 
-#subplots {}
+.subplots {
+
+}
 
 .axislabel {
     font-size: 10px;
