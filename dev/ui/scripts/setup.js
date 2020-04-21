@@ -1,13 +1,13 @@
 console.log("Loading setup.js")
 // Today's date
-today = new Date()
+let today = new Date()
 // Extract year from today's date
-thisyear = today.getFullYear()
+let thisyear = today.getFullYear()
 // Get one year ago
-lastyeardate = new Date()
-lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
+let lastyeardate = new Date()
+let lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
 // January 1st, this year
-thisfirst = new Date(thisyear, 0, 1)
+let thisfirst = new Date(thisyear, 0, 1)
 
 const defaultNgrams = ["hahaha","one two three","🦠","#friday"]
 
@@ -38,6 +38,7 @@ let ngramIDs = {}
 let xmins = []
 let xmaxes = []
 let ymaxes = []
+let mainChart
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],

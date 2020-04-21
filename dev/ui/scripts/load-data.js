@@ -65,5 +65,5 @@ function addNgram(value) {
         .on("click", function (d, i) {
             removeNgram(value)
         })
-    mainchart.addLine(value)
+    mainChart.addLine(value)
 }
