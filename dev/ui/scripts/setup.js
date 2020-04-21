@@ -18,9 +18,7 @@ const defaultparams = {
     "metric": "rank",
     "rt": false,
     "scale": "log",
-    "xrange": [new Date(2009, 6, 31), today],
     "xviewrange": [lastyeardate, today],
-    "yrange": [1, 100000],
     "sizing": [800, 600]
 }
 // Limit options for certain parameters

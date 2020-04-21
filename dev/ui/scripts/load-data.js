@@ -19,8 +19,8 @@ function loadData(query) {
             i+=1
             xmins.push(thisdata['min_date'])
             xmaxes.push(thisdata['max_date'])
-            ymins.push(thisdata['min_%{params.metric}'])
-            ymaxes.push(thisdata['max_%{params.metric}'])
+            ymins.push(thisdata[`min_${params.metric}`])
+            ymaxes.push(thisdata[`max_${params.metric}`])
             addNgram(n)
         })
     })
