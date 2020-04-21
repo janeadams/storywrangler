@@ -88,8 +88,7 @@ class Chart {
         this.plot.append('path')
             // use data stored in `this`
             .datum(ndata)
-            .attr('class','line')
-            .attr('class', uuid)
+            .attr('class',`line ${uuid})`)
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
             .attr('d',line)
