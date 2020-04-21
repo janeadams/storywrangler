@@ -11,7 +11,7 @@ function loadData(query) {
         errors = data['errors']
         console.log(`Received API response:`)
         let debug = {}
-        let debugvals = ['ngrams','database','metric','rt','language']
+        let debugvals = ['ngrams','database','metric','rt','language','errors']
         debugvals.forEach(v => (debug[v]=[data[v]]))
         console.table(debug)
         let newNgrams = []
