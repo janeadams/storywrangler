@@ -26,11 +26,6 @@ class Chart {
         const xAxis = d3.axisBottom()
             .scale(this.xScale)
             .ticks(d3.timeMonth)
-            .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-45)")
 
         const yAxis = d3.axisLeft()
             .scale(this.yScale)
@@ -40,7 +35,12 @@ class Chart {
         this.plot.append("g")
             .attr("class", "xaxis")
             .attr("transform", `translate(0, ${this.height-(this.margin.top+this.margin.bottom)})`)
-            .call(xAxis);
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-45)")
 
         // Add Y Axis
         this.plot.append("g")
