@@ -12,6 +12,7 @@ function loadData(query) {
         errors = data['errors']
         newNgrams = data['ngrams']
         newNgrams.forEach(n => {
+            if (Object.keys(ngramData).length > 10){dumpFirst()}
             // Find the x- and y-range of this data set
             let thisdata = data['ngramdata'][n]
             ngramData[n] = thisdata
