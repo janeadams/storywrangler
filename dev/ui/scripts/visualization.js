@@ -2,6 +2,7 @@ console.log("loaded visualization.js")
 
 let width = window.innerWidth
 let height = window.innerHeight
+const dateParser = date => new Date(d3.timeParse(date))
 
 class Chart {
     constructor(opts){
@@ -80,7 +81,7 @@ class Chart {
         const colorid = ngramData[ngram]['colorid']
 
         const line = d3.line()
-            .x(d => this.xScale(d[0]))
+            .x(d => this.xScale(dateParser(d[0])))
             .y(d => this.yScale(d[1]));
 
         this.plot.append('path')
