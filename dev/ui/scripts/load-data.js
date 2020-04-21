@@ -21,7 +21,9 @@ function loadData(query) {
             xmaxes.push(dateParser(thisdata['max_date']))
             ymins.push(thisdata[`min_${params.metric}`])
             ymaxes.push(thisdata[`max_${params.metric}`])
-            setRanges()
+        })
+        setRanges()
+        newNgrams.forEach(n => {
             addNgram(n)
         })
     })

@@ -91,7 +91,6 @@ class Chart {
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
             .attr('d',line)
-        this.draw()
     }
 
     draw() {

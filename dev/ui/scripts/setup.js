@@ -58,6 +58,7 @@ function setRanges() {
     params.xrange = [d3.min(xmins), d3.max(xmaxes)]
     if (params['metric'] === 'rank') {params.yrange = [d3.max(ymaxes) * 1.2, 1]}
     else {params.yrange = [0, d3.max(ymaxes) * 1.2]}
+    mainChart.draw()
 }
 
 function setupPage() {
