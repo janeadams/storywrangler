@@ -38,7 +38,7 @@ function removeNgram(n) {
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
     // Delete the word from the list of ngram data
     delete ngramData[n]
-    console.log("removed ", n, " from ngramData; length = " + Object.keys(ngramData).length + " and remaining ngrams are " + Object.keys(ngramData))
+    console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
 }
 
 function dumpFirst() {
@@ -50,7 +50,7 @@ function dumpFirst() {
 function addNgram(n) {
     params['ngrams'].push(n)
     ndata = ngramData[n]
-    console.log("Added data for " + n + " to data list; ngram data list length = " + params['ngrams'].length)
+    console.log(`Added data for ${n} to data list; ngram data list length = ${params['ngrams'].length}`)
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
         .text(n)
@@ -59,6 +59,7 @@ function addNgram(n) {
         .style("border-color", colors.main[ndata['colorid']])
         .style("background-color", colors.light[ndata['colorid']])
         .on("click", function (d, i) {
+            console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
     mainChart.addLine(n)
