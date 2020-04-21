@@ -34,7 +34,6 @@ const paramoptions = {
 let params = defaultparams
 let i = 0
 let ngramData = {}
-let ngramIDs = {}
 let xmins = []
 let xmaxes = []
 let ymins = []
@@ -56,12 +55,8 @@ function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
     params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    params.yrange[0] = d3.max(ymaxes) * 1.2
-    if (params['metric'] === 'freq') {
-        params.yrange[1] = 0
-    } else {
-        params.yrange[1] = 1
-    }
+    if (params['metric'] === 'rank') {params.yrange = [d3.max(ymaxes) * 1.2, 1]}
+    else {params.yrange = [0, d3.max(ymaxes) * 1.2]}
 }
 
 function setupPage() {
