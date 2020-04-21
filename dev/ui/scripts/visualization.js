@@ -94,6 +94,10 @@ class Chart {
             .attr('d',line)
     }
 
+    removeLine(ngram){
+        this.plot.selectAll('path.uuid-'+ngramData[n]['uuid']).remove()
+    }
+
     draw() {
         this.width = this.element.offsetWidth
         this.height = this.width/2
