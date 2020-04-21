@@ -88,15 +88,15 @@ class Chart {
         this.plot.append('path')
             // use data stored in `this`
             .datum(ndata)
-            .classed('line',true)
-            .attr('class',`line-${uuid}`)
-            .attr('d',line)
+            .attr('class','line')
+            .attr('class', uuid)
             // set stroke to specified color, or default to red
-            .style('stroke', colors.main[colorid] || 'red');
+            .attr('stroke', colors.main[colorid] || 'gray')
+            .attr('d',line)
     }
 
     removeLine(ngram) {
-        this.plot.select(`.line-${ngramData[ngram]['uuid']}`).remove()
+        this.plot.select(`.${ngramData[ngram]['uuid']}`).remove()
     }
 
     draw() {
