@@ -101,6 +101,8 @@ class Chart {
     brushed(){
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
         let s = d3.event.selection || this.xViewScale.range();
+        console.log(`brushed( this.xScale = ${this.xScale} )`)
+        console.log(this.xScale.domain)
         this.xScale.domain(s.map(this.xViewScale.invert, this.xViewScale));
         Object.keys(ngramData).forEach(n => this.addLine(n))
         this.addAxes()
@@ -112,11 +114,11 @@ class Chart {
 
     zoomed(){
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
-        var t = d3.event.transform;
-        x.domain(t.rescaleX(this.xViewScale).domain());
-        Line_chart.select(".line").attr("d", line);
+        let t = d3.event.transform;
+        this.xScale.domain(t.rescaleX(this.xViewScale).domain());
+        this.clipgroup.select(".line").attr("d", line);
         this.plot.select(".xaxis").call(xAxis);
-        context.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t));
+        this.viewfinder.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t));
     }
 
     addLine(ngram) {
