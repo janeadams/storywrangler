@@ -211,7 +211,7 @@ class Chart {
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
-            .attr("transform", `translate("${m.left}","${m.top + height + m.bottom}")`)
+            .attr("transform", `translate(${m.left},${m.top + height + m.bottom},0,0)`)
 
         this.viewfinder.append("g")
             .attr("class", "brush")
