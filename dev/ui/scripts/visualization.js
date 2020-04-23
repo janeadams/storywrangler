@@ -67,7 +67,7 @@ class Chart {
         // Add X Axis to viewfinder plot
         this.viewfinder.append("g")
             .attr("class", "xviewaxis")
-            .attr("transform", `translate(${m.left}, ${viewFinderHeight})`)
+            .attr("transform", `translate(0, ${viewFinderHeight})`)
             .call(xViewFinderAxis)
             .selectAll("text")
             .style("text-anchor", "end")
