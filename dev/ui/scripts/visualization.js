@@ -76,14 +76,14 @@ class Chart {
         const height = this.height
         const m = this.margin
         // Label xAxis with Metric
-        this.plot.append("text")
+        this.svg.append("text")
             .attr("y", height / 2 + m.top / 2)
             .attr("x", m.left / 2)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
             .attr("class","axislabel")
 
-        this.plot.append("text")
+        this.svg.append("text")
             .attr("y", m.top + 10)
             .attr("x", m.left / 2)
             .attr("dy", "0.5em")
@@ -91,7 +91,7 @@ class Chart {
             .attr("class","axislabel")
             .attr("text-anchor", "middle")
 
-        this.plot.append("text")
+        this.svg.append("text")
             .attr("y", this.height + this.margin.top)
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
