@@ -12,7 +12,9 @@ class Chart {
     createScales() {
         const m = this.margin
         this.xScale = d3.scaleTime().domain(params.xrange).range([0, this.width-m.left])
+        console.log(`createScales( set xScale to ${this.xScale})`)
         this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width-m.left])
+        console.log(`createScales( set xViewScale to ${this.xViewScale})`)
         // Choose and set time scales (logarithmic or linear) for the main plot *and* the viewfinder
         if (params["scale"] === "log") {this.yViewScale = this.yScale = d3.scaleLog().domain(params["yrange"])}
         else {this.yViewScale = this.yScale = d3.scaleLinear().domain(params["yrange"])}
