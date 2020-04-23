@@ -69,7 +69,7 @@ class Chart {
         // Add X Axis to viewfinder plot
         this.viewfinder.append("g")
             .attr("class", "xviewaxis")
-            .attr("transform", `translate(${m.left}, ${m.bottom})`)
+            //.attr("transform", `translate(${m.left}, ${m.bottom})`)
             .call(xViewFinderAxis)
             .selectAll("text")
             .style("text-anchor", "end")
@@ -217,7 +217,7 @@ class Chart {
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
-            .attr("transform", `translate(${m.left}, ${height+(m.top+m.bottom)})`)
+            .attr("transform", `translate(${this.margin.left}, ${this.height+(this.margin.top+this.margin.bottom)})`)
 
         this.viewfinder.append("g")
             .attr("class", "brush")
