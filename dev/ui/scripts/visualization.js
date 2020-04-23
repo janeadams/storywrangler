@@ -6,6 +6,7 @@ class Chart {
         this.width = this.element.offsetWidth
         this.height = this.width/2
         this.margin = { top: 0.1 * this.height, right: 0.15 * this.width, bottom: 0.25 * this.height, left: 0.1 * this.width }
+        this.plotHeight = this.height - (this.margin.top + this.margin.bottom)
         this.viewFinderHeight = 100
         this.draw()
     }
@@ -218,7 +219,7 @@ class Chart {
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
-            .attr("transform", `translate(${this.margin.left}, ${this.height})`)
+            .attr("transform", `translate(${this.margin.left}, ${this.plotHeight})`)
 
         this.viewfinder.append("g")
             .attr("class", "brush")
