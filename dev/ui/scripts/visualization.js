@@ -16,7 +16,7 @@ class Chart {
         this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width-m.left])
         console.log(`createScales( set xViewScale to ${this.xViewScale})`)
         // Choose and set time scales (logarithmic or linear) for the main plot *and* the viewfinder
-        if (params["scale"] === "log") {this.yViewScale = this.yScale = d3.scaleLog().domain(params["yrange"])}
+        if (params["scale"] === "log") {this.yViewerScale = this.yScale = d3.scaleLog().domain(params["yrange"])}
         else {this.yViewerScale = this.yScale = d3.scaleLinear().domain(params["yrange"])}
         // When showing ranks, put rank #1 at the top
         // When showing any other metric, put the highest number at the top and start at 0
