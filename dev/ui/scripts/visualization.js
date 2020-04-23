@@ -73,17 +73,19 @@ class Chart {
     }
 
     addLabels(){
+        const height = this.height
+        const m = this.margin
         // Label xAxis with Metric
         this.plot.append("text")
-            .attr("y", this.height / 2 + this.margin.top / 2)
-            .attr("x", this.margin.left / 2)
+            .attr("y", height / 2 + m.top / 2)
+            .attr("x", m.left / 2)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
             .attr("class","axislabel")
 
         this.plot.append("text")
-            .attr("y", this.margin.top + 10)
-            .attr("x", this.margin.left / 2)
+            .attr("y", m.top + 10)
+            .attr("x", m.left / 2)
             .attr("dy", "0.5em")
             .text("Lexical Fame")
             .attr("class","axislabel")
@@ -204,12 +206,12 @@ class Chart {
             .attr("class", "zoom")
             .attr("width", width)
             .attr("height", height)
-            .attr("transform", `translate(" + ${m.left} + "," + ${m.top} + ")`)
+            .attr("transform", `translate("${m.left}","${m.top}")`)
             .call(zoom);
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
-            .attr("transform", `translate(" + ${m.left} + "," + ${m.top + height + m.bottom} +")`)
+            .attr("transform", `translate("${m.left}","${m.top + height + m.bottom}")`)
 
         this.viewfinder.append("g")
             .attr("class", "brush")
