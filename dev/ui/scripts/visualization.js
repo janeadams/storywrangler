@@ -90,7 +90,7 @@ class Chart {
             .attr("text-anchor", "middle")
 
         this.plot.append("text")
-            .attr("y", height + this.margin.top)
+            .attr("y", this.height + this.margin.top)
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
             .text("Lexical Abyss")
