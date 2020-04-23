@@ -168,21 +168,21 @@ class Chart {
         this.createScales()
         let xScale = this.xScale
 
+        this.svg = d3.select(this.element).append('svg')
+        this.svg.attr('width', this.width)
+        this.svg.attr('height', this.height)
+
         let zoom = d3.zoom()
             .scaleExtent([1, 5])
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", this.zoomed)
+            .on("zoom", this.svg.zoomed)
 
         let brush = d3.brushX()
             .extent([[0, 0], [this.width, this.height/5]])
-            .on("brush end", this.brushed)
+            .on("brush end", this.svg.brushed)
 
-        const svg = d3.select(this.element).append('svg')
-        svg.attr('width', this.width)
-        svg.attr('height', this.height)
-
-        const clip = svg.append("defs").append("svg:clipPath")
+        this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
             .append("svg:rect")
             .attr("width", this.width)
@@ -201,8 +201,8 @@ class Chart {
 
         this.plot.append("rect")
             .attr("class", "zoom")
-            .attr("width", width)
-            .attr("height", height)
+            .attr("width", this.width)
+            .attr("height", this.height)
             .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top} + ")`)
             .call(zoom);
 
