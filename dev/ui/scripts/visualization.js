@@ -17,16 +17,16 @@ class Chart {
         console.log(`createScales( set xViewScale to ${this.xViewScale})`)
         // Choose and set time scales (logarithmic or linear) for the main plot *and* the viewfinder
         if (params["scale"] === "log") {this.yViewScale = this.yScale = d3.scaleLog().domain(params["yrange"])}
-        else {this.yViewScale = this.yScale = d3.scaleLinear().domain(params["yrange"])}
+        else {this.yViewerScale = this.yScale = d3.scaleLinear().domain(params["yrange"])}
         // When showing ranks, put rank #1 at the top
         // When showing any other metric, put the highest number at the top and start at 0
         if (params["metric"] === "rank") {
             this.yScale.range([this.height-(m.top+m.bottom), 1])
-            this.yViewScale.range([this.height/5-(m.top+m.bottom), 1+this.height])
+            this.yViewerScale.range([this.height/5-(m.top+m.bottom), 1])
         }
         else {
             this.yScale.range([0, this.height-(m.top+m.bottom)])
-            this.yViewScale.range([0+this.height, this.height/5-(m.top+m.bottom)])
+            this.yViewerScale.range([0, this.height/5-(m.top+m.bottom)])
         }
     }
 
@@ -131,12 +131,12 @@ class Chart {
         const uuid = ngramData[ngram]['uuid']
 
         const line = d3.line()
-            .x(d => this.xScale(dateParser(d[0])))
+            .x(d => this.xViewScale(dateParser(d[0])))
             .y(d => this.yScale(d[1]));
 
         const viewerline = d3.line()
-            .x(d => this.xViewScale(dateParser(d[0])))
-            .y(d => this.yViewScale(d[1]));
+            .x(d => this.xScale(dateParser(d[0])))
+            .y(d => this.yViewerScale(d[1]));
 
         this.clipgroup.append('path')
             // use data stored in `this`
@@ -212,7 +212,7 @@ class Chart {
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
-            .attr("transform", `translate(${m.left},${m.top + height + m.bottom},0,0)`)
+            .attr("transform", `translate(${m.left},${m.top + height + m.bottom})`)
 
         this.viewfinder.append("g")
             .attr("class", "brush")
