@@ -16,30 +16,30 @@ class Chart {
         this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width-m.left])
         console.log(`createScales( set xViewScale to ${this.xViewScale})`)
         // Choose and set time scales (logarithmic or linear) for the main plot *and* the viewfinder
-        if (params["scale"] === "log") {this.yViewerScale = this.yScale = d3.scaleLog().domain(params["yrange"])}
-        else {this.yViewerScale = this.yScale = d3.scaleLinear().domain(params["yrange"])}
+        if (params["scale"] === "log") {this.yViewFinderScale = this.yScale = d3.scaleLog().domain(params["yrange"])}
+        else {this.yViewFinderScale = this.yScale = d3.scaleLinear().domain(params["yrange"])}
         // When showing ranks, put rank #1 at the top
         // When showing any other metric, put the highest number at the top and start at 0
         if (params["metric"] === "rank") {
             this.yScale.range([this.height-(m.top+m.bottom), 1])
-            this.yViewerScale.range([this.height/5-(m.top+m.bottom), 1])
+            this.yViewFinderScale.range([this.height/5-(m.top+m.bottom), 1])
         }
         else {
             this.yScale.range([0, this.height-(m.top+m.bottom)])
-            this.yViewerScale.range([0, this.height/5-(m.top+m.bottom)])
+            this.yViewFinderScale.range([0, this.height/5-(m.top+m.bottom)])
         }
     }
 
     addAxes() {
-
+        const height = this.height
         const m = this.margin
 
         const xAxis = d3.axisBottom()
-            .scale(this.xScale)
+            .scale(this.xViewScale)
             .ticks(d3.timeMonth)
 
-        const xViewAxis = d3.axisBottom()
-            .scale(this.xViewScale)
+        const xViewFinderAxis = d3.axisBottom()
+            .scale(this.xScale)
             .ticks(d3.timeYear)
 
         const yAxis = d3.axisLeft()
@@ -49,7 +49,7 @@ class Chart {
         // Add X & Y Axes to main plot
         this.plot.append("g")
             .attr("class", "xaxis")
-            .attr("transform", `translate(0, ${this.height-(m.top+m.bottom)})`)
+            .attr("transform", `translate(0, ${height-(m.top+m.bottom)})`)
             .call(xAxis)
             .selectAll("text")
             .style("text-anchor", "end")
@@ -64,8 +64,8 @@ class Chart {
         // Add X Axis to viewfinder plot
         this.viewfinder.append("g")
             .attr("class", "xviewaxis")
-            .attr("transform", `translate(0, ${this.height*1.4-(m.top+m.bottom)})`)
-            .call(xViewAxis)
+            .attr("transform", `translate(0, ${height*1.4-(m.top+m.bottom)})`)
+            .call(xViewFinderAxis)
             .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
@@ -136,7 +136,7 @@ class Chart {
 
         const viewerline = d3.line()
             .x(d => this.xScale(dateParser(d[0])))
-            .y(d => this.yViewerScale(d[1]));
+            .y(d => this.yViewFinderScale(d[1]));
 
         this.clipgroup.append('path')
             // use data stored in `this`
