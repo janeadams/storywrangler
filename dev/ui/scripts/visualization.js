@@ -164,6 +164,7 @@ class Chart {
 
         this.createScales()
         let xScale = this.xScale
+        let xViewScale = this.xViewScale
         let width = this.width
         let height = this.height
         let m = this.margin
@@ -208,12 +209,12 @@ class Chart {
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
-            .attr("transform", `translate(" + ${m.left} + "," + ${m.top + height + bottom} +")`)
+            .attr("transform", `translate(" + ${m.left} + "," + ${m.top + height + m.bottom} +")`)
 
         this.viewfinder.append("g")
             .attr("class", "brush")
             .call(brush)
-            .call(brush.move, xScale.range())
+            .call(brush.move, xViewScale.range())
 
         this.addAxes()
         this.addLabels()
