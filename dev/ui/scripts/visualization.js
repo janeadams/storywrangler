@@ -34,6 +34,7 @@ class Chart {
 
     addAxes() {
         const height = this.height
+        const viewFinderHeight = this.viewFinderHeight
         const m = this.margin
 
         const xAxis = d3.axisBottom()
@@ -66,7 +67,7 @@ class Chart {
         // Add X Axis to viewfinder plot
         this.viewfinder.append("g")
             .attr("class", "xviewaxis")
-            .attr("transform", `"(${this.margin.left}, ${this.viewFinderHeight})"`)
+            .attr("transform", `translate(${m.left}, ${viewFinderHeight})`)
             .call(xViewFinderAxis)
             .selectAll("text")
             .style("text-anchor", "end")
