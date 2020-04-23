@@ -16,17 +16,22 @@ class Chart {
         this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width-m.left])
         console.log(`createScales( set xViewScale to ${this.xViewScale})`)
         // Choose and set time scales (logarithmic or linear) for the main plot *and* the viewfinder
-        if (params["scale"] === "log") {this.yViewFinderScale = this.yScale = d3.scaleLog().domain(params["yrange"])}
-        else {this.yViewFinderScale = this.yScale = d3.scaleLinear().domain(params["yrange"])}
+        if (params["scale"] === "log") {
+            this.yViewFinderScale = d3.scaleLog().domain(params["yrange"])
+            this.yScale = d3.scaleLog().domain(params["yrange"])}
+        else {
+            this.yViewFinderScale = d3.scaleLinear().domain(params["yrange"])
+            this.yScale = d3.scaleLinear().domain(params["yrange"])
+        }
         // When showing ranks, put rank #1 at the top
         // When showing any other metric, put the highest number at the top and start at 0
         if (params["metric"] === "rank") {
             this.yScale.range([this.height-(m.top+m.bottom), 1])
-            this.yViewFinderScale.range([this.height/5-(m.top+m.bottom), 1])
+            this.yViewFinderScale.range([100, 1])
         }
         else {
             this.yScale.range([0, this.height-(m.top+m.bottom)])
-            this.yViewFinderScale.range([0, this.height/5-(m.top+m.bottom)])
+            this.yViewFinderScale.range([0, 100])
         }
     }
 
@@ -188,8 +193,8 @@ class Chart {
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
             .append("svg:rect")
-            .attr("width", width)
-            .attr("height", height)
+            .attr("width", this.width)
+            .attr("height", this.height)
             .attr("x", 0)
             .attr("y", 0)
 
