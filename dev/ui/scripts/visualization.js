@@ -166,16 +166,16 @@ class Chart {
     draw() {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
+        this.viewFinderHeight = 100
         this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: 0.25 * this.width }
         this.plotHeight = this.height - (this.margin.top + this.margin.bottom)
-        this.viewFinderHeight = 100
         this.createScales()
         // set up parent element and SVG
         this.element.innerHTML = ''
 
         this.svg = d3.select(this.element).append('svg')
         this.svg.attr('width', this.width)
-        this.svg.attr('height', this.height)
+        this.svg.attr('height', this.margin.top + this.height + this.margin.bottom + this.viewFinderHeight)
 
         let zoom = d3.zoom()
             .scaleExtent([1, 5])
