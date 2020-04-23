@@ -98,7 +98,7 @@ class Chart {
 
     brushed(){
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
-        var s = d3.event.selection || this.xViewScale.range();
+        let s = d3.event.selection || this.xViewScale.range();
         this.xScale.domain(s.map(this.xViewScale.invert, this.xViewScale));
         Object.keys(ngramData).forEach(n => this.addLine(n))
         this.addAxes()
@@ -132,7 +132,7 @@ class Chart {
             .x(d => this.xViewScale(dateParser(d[0])))
             .y(d => this.yViewScale(d[1]));
 
-        this.plot.append('path')
+        this.clipgroup.append('path')
             // use data stored in `this`
             .datum(ndata)
             .attr('class',`line uuid-${uuid}`)
@@ -162,6 +162,7 @@ class Chart {
         this.element.innerHTML = ''
 
         this.createScales()
+        let xScale = this.xScale
 
         let zoom = d3.zoom()
             .scaleExtent([1, 5])
@@ -185,28 +186,30 @@ class Chart {
             .attr("x", 0)
             .attr("y", 0)
 
-        const plot = svg.append('g')
+        this.clipgroup = svg.append('g')
+            .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
+            .attr('class','plot')
+            .attr("clip-path", "url(#clip)")
+
+        this.plot = svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot')
 
-        const clipgroup = svg.append('g')
-            .attr("clip-path", "url(#clip)")
-
-        plot.append("rect")
+        this.plot.append("rect")
             .attr("class", "zoom")
             .attr("width", width)
             .attr("height", height)
             .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top} + ")`)
             .call(zoom);
 
-        const viewfinder = svg.append('g')
+        this.viewfinder = svg.append('g')
             .attr("class", "viewfinder")
             .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top + this.height + this.margin.bottom} +")`)
 
-        viewfinder.append("g")
+        this.viewfinder.append("g")
             .attr("class", "brush")
             .call(brush)
-            .call(brush.move, this.xScale.range())
+            .call(brush.move, xScale.range())
 
         this.addAxes()
         this.addLabels()
