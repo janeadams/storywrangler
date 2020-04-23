@@ -203,7 +203,7 @@ class Chart {
         this.viewfinder.append("g")
             .attr("class", "brush")
             .call(brush)
-            .call(brush.move, xScale.range())
+            .call(brush.move, this.xScale.range())
 
         this.createScales()
         this.addAxes()
