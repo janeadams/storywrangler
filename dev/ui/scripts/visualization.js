@@ -190,12 +190,12 @@ class Chart {
             .attr("x", 0)
             .attr("y", 0)
 
-        this.clipgroup = svg.append('g')
+        this.clipgroup = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
-        this.plot = svg.append('g')
+        this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot')
 
@@ -206,7 +206,7 @@ class Chart {
             .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top} + ")`)
             .call(zoom);
 
-        this.viewfinder = svg.append('g')
+        this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
             .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top + this.height + this.margin.bottom} +")`)
 
