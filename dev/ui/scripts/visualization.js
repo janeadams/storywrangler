@@ -1,11 +1,11 @@
 console.log("loaded visualization.js")
 
-let width = window.innerWidth
-let height = window.innerHeight
-
 class Chart {
     constructor(opts){
         this.element = opts.element
+        this.width = this.element.offsetWidth
+        this.height = this.width/2
+        this.margin = { top: 0.1 * this.height, right: 0.15 * this.width, bottom: 0.25 * this.height, left: 0.1 * this.width }
         this.draw()
     }
 
@@ -22,11 +22,11 @@ class Chart {
         // When showing any other metric, put the highest number at the top and start at 0
         if (params["metric"] === "rank") {
             this.yScale.range([this.height-(m.top+m.bottom), 1])
-            this.yViewScale.range([this.height*1.2-(m.top+m.bottom), 1])
+            this.yViewScale.range([this.height/5-(m.top+m.bottom), 1+this.height])
         }
         else {
             this.yScale.range([0, this.height-(m.top+m.bottom)])
-            this.yViewScale.range([0, this.height*1.2-(m.top+m.bottom)])
+            this.yViewScale.range([0+this.height, this.height/5-(m.top+m.bottom)])
         }
     }
 
@@ -35,11 +35,11 @@ class Chart {
         const m = this.margin
 
         const xAxis = d3.axisBottom()
-            .scale(this.xViewScale)
+            .scale(this.xScale)
             .ticks(d3.timeMonth)
 
         const xViewAxis = d3.axisBottom()
-            .scale(this.xScale)
+            .scale(this.xViewScale)
             .ticks(d3.timeYear)
 
         const yAxis = d3.axisLeft()
@@ -64,7 +64,7 @@ class Chart {
         // Add X Axis to viewfinder plot
         this.viewfinder.append("g")
             .attr("class", "xviewaxis")
-            .attr("transform", `translate(0, ${this.height*1.2-(m.top+m.bottom)})`)
+            .attr("transform", `translate(0, ${this.height*1.4-(m.top+m.bottom)})`)
             .call(xViewAxis)
             .selectAll("text")
             .style("text-anchor", "end")
@@ -159,56 +159,56 @@ class Chart {
     }
 
     draw() {
-        this.width = this.element.offsetWidth
-        this.height = this.width/2
-        this.margin = { top: 0.1 * this.height, right: 0.15 * this.width, bottom: 0.25 * this.height, left: 0.1 * this.width }
         // set up parent element and SVG
         this.element.innerHTML = ''
 
         this.createScales()
         let xScale = this.xScale
+        let width = this.width
+        let height = this.height
+        let m = this.margin
 
         this.svg = d3.select(this.element).append('svg')
-        this.svg.attr('width', this.width)
-        this.svg.attr('height', this.height)
+        this.svg.attr('width', width)
+        this.svg.attr('height', height)
 
         let zoom = d3.zoom()
             .scaleExtent([1, 5])
-            .translateExtent([[0, 0], [this.width, this.height]])
-            .extent([[0, 0], [this.width, this.height]])
+            .translateExtent([[0, 0], [width, height]])
+            .extent([[0, 0], [width, height]])
             .on("zoom", this.svg.zoomed)
 
         let brush = d3.brushX()
-            .extent([[0, 0], [this.width, this.height/5]])
+            .extent([[0, 0], [width, height/5]])
             .on("brush end", this.svg.brushed)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
             .append("svg:rect")
-            .attr("width", this.width)
-            .attr("height", this.height)
+            .attr("width", width)
+            .attr("height", height)
             .attr("x", 0)
             .attr("y", 0)
 
         this.clipgroup = this.svg.append('g')
-            .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
+            .attr('transform',`translate(${m.left},${m.top})`)
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
         this.plot = this.svg.append('g')
-            .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
+            .attr('transform',`translate(${m.left},${m.top})`)
             .attr('class','plot')
 
         this.plot.append("rect")
             .attr("class", "zoom")
-            .attr("width", this.width)
-            .attr("height", this.height)
-            .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top} + ")`)
+            .attr("width", width)
+            .attr("height", height)
+            .attr("transform", `translate(" + ${m.left} + "," + ${m.top} + ")`)
             .call(zoom);
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
-            .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top + this.height + this.margin.bottom} +")`)
+            .attr("transform", `translate(" + ${m.left} + "," + ${m.top + height + bottom} +")`)
 
         this.viewfinder.append("g")
             .attr("class", "brush")
