@@ -8,6 +8,7 @@ class Chart {
         this.margin = { top: 0.1 * this.height, right: 0.15 * this.width, bottom: 0.25 * this.height, left: 0.1 * this.width }
         this.plotHeight = this.height - (this.margin.top + this.margin.bottom)
         this.viewFinderHeight = 100
+        this.createScales()
         this.draw()
     }
 
@@ -171,25 +172,18 @@ class Chart {
         // set up parent element and SVG
         this.element.innerHTML = ''
 
-        this.createScales()
-        let xScale = this.xScale
-        let xViewScale = this.xViewScale
-        let width = this.width
-        let height = this.height
-        let m = this.margin
-
         this.svg = d3.select(this.element).append('svg')
-        this.svg.attr('width', width)
-        this.svg.attr('height', height)
+        this.svg.attr('width', this.width)
+        this.svg.attr('height', this.height)
 
         let zoom = d3.zoom()
             .scaleExtent([1, 5])
-            .translateExtent([[0, 0], [width, height]])
-            .extent([[0, 0], [width, height]])
+            .translateExtent([[0, 0], [this.width, this.height]])
+            .extent([[0, 0], [this.width, this.height]])
             .on("zoom", this.svg.zoomed)
 
         let brush = d3.brushX()
-            .extent([[0, 0], [width, height/5]])
+            .extent([[0, 0], [this.width, this.height/5]])
             .on("brush end", this.svg.brushed)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
@@ -201,19 +195,19 @@ class Chart {
             .attr("y", 0)
 
         this.clipgroup = this.svg.append('g')
-            .attr('transform',`translate(${m.left},${m.top})`)
+            .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
         this.plot = this.svg.append('g')
-            .attr('transform',`translate(${m.left},${m.top})`)
+            .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot')
 
         this.plot.append("rect")
             .attr("class", "zoom")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("transform", `translate("${m.left}","${m.top}")`)
+            .attr("width", this.width)
+            .attr("height", this.height)
+            .attr("transform", `translate("${this.margin.left}","${this.margin.top}")`)
             .attr("fill","none")
             .call(zoom);
 
@@ -224,7 +218,7 @@ class Chart {
         this.viewfinder.append("g")
             .attr("class", "brush")
             .call(brush)
-            .call(brush.move, xViewScale.range())
+            .call(brush.move, this.xViewScale.range())
 
         this.addAxes()
         this.addLabels()
