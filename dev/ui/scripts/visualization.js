@@ -99,9 +99,10 @@ class Chart {
     brushed(){
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
         var s = d3.event.selection || this.xViewScale.range();
-        xScale.domain(s.map(this.xViewScale.invert, this.xViewScale));
-        Line_chart.select(".line").attr("d", line);
-        this.plot.select(".xaxis").call(xAxis);
+        this.xScale.domain(s.map(this.xViewScale.invert, this.xViewScale));
+        Object.keys(ngramData).forEach(n => this.addLine(n))
+        this.addAxes()
+        this.addLabels()
         svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
             .scale(this.width / (s[1] - s[0]))
             .translate(-s[0], 0));
