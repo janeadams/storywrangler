@@ -6,6 +6,7 @@ class Chart {
         this.width = this.element.offsetWidth
         this.height = this.width/2
         this.margin = { top: 0.1 * this.height, right: 0.15 * this.width, bottom: 0.25 * this.height, left: 0.1 * this.width }
+        this.viewFinderHeight = 100
         this.draw()
     }
 
@@ -27,11 +28,11 @@ class Chart {
         // When showing any other metric, put the highest number at the top and start at 0
         if (params["metric"] === "rank") {
             this.yScale.range([this.height-(m.top+m.bottom), 1])
-            this.yViewFinderScale.range([100, 1])
+            this.yViewFinderScale.range([this.viewFinderHeight, 1])
         }
         else {
             this.yScale.range([0, this.height-(m.top+m.bottom)])
-            this.yViewFinderScale.range([0, 100])
+            this.yViewFinderScale.range([0, this.viewFinderHeight])
         }
     }
 
@@ -69,7 +70,7 @@ class Chart {
         // Add X Axis to viewfinder plot
         this.viewfinder.append("g")
             .attr("class", "xviewaxis")
-            //.attr("transform", `translate(${m.left}, ${m.bottom})`)
+            .attr("transform", `translate(${m.left}, ${this.viewFinderHeight})`)
             .call(xViewFinderAxis)
             .selectAll("text")
             .style("text-anchor", "end")
@@ -217,7 +218,7 @@ class Chart {
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
-            //.attr("transform", `translate(${this.margin.left}, ${this.height+(this.margin.top+this.margin.bottom)})`)
+            .attr("transform", `translate(${this.margin.left}, 0)`)
 
         this.viewfinder.append("g")
             .attr("class", "brush")
