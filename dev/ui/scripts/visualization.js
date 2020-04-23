@@ -44,7 +44,7 @@ class Chart {
             .scale(this.yScale)
             .ticks(10, "")
 
-        // Add X Axis to main plot
+        // Add X & Y Axes to main plot
         this.plot.append("g")
             .attr("class", "xaxis")
             .attr("transform", `translate(0, ${this.height-(m.top+m.bottom)})`)
@@ -55,13 +55,11 @@ class Chart {
             .attr("dy", ".15em")
             .attr("transform", "rotate(-45)")
 
-        // Add Y Axis to main plot
         this.plot.append("g")
             .attr("class", "yaxis")
             .call(yAxis)
 
         // Add X Axis to viewfinder plot
-        // Add X Axis
         this.viewfinder.append("g")
             .attr("class", "xviewaxis")
             .attr("transform", `translate(0, ${this.height*1.2-(m.top+m.bottom)})`)
@@ -162,6 +160,8 @@ class Chart {
         // set up parent element and SVG
         this.element.innerHTML = ''
 
+        this.createScales()
+
         let zoom = d3.zoom()
             .scaleExtent([1, 5])
             .translateExtent([[0, 0], [this.width, this.height]])
@@ -176,7 +176,7 @@ class Chart {
         svg.attr('width', this.width)
         svg.attr('height', this.height)
 
-        this.clip = svg.append("defs").append("svg:clipPath")
+        const clip = svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
             .append("svg:rect")
             .attr("width", this.width)
@@ -184,28 +184,29 @@ class Chart {
             .attr("x", 0)
             .attr("y", 0)
 
-        this.plot = svg.append('g')
+        const plot = svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot')
+
+        const clipgroup = svg.append('g')
             .attr("clip-path", "url(#clip)")
 
-        this.plot.append("rect")
+        plot.append("rect")
             .attr("class", "zoom")
             .attr("width", width)
             .attr("height", height)
             .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top} + ")`)
             .call(zoom);
 
-        this.viewfinder = svg.append('g')
+        const viewfinder = svg.append('g')
             .attr("class", "viewfinder")
             .attr("transform", `translate(" + ${this.margin.left} + "," + ${this.margin.top + this.height + this.margin.bottom} +")`)
 
-        this.viewfinder.append("g")
+        viewfinder.append("g")
             .attr("class", "brush")
             .call(brush)
             .call(brush.move, this.xScale.range())
 
-        this.createScales()
         this.addAxes()
         this.addLabels()
 
