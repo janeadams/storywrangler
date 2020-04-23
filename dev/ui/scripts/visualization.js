@@ -192,7 +192,6 @@ class Chart {
             .attr("height", height)
             .attr("x", 0)
             .attr("y", 0)
-            .attr("fill","none")
 
         this.clipgroup = this.svg.append('g')
             .attr('transform',`translate(${m.left},${m.top})`)
@@ -208,6 +207,7 @@ class Chart {
             .attr("width", width)
             .attr("height", height)
             .attr("transform", `translate("${m.left}","${m.top}")`)
+            .attr("fill","none")
             .call(zoom);
 
         this.viewfinder = this.svg.append('g')
