@@ -103,25 +103,25 @@ class Chart {
             .attr("text-anchor", "middle")
     }
 
-    brushed(){
+    brushed(xScale, xViewScale){
         console.log(`this = ${this.getAttribute("class")} )`)
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
-        let s = d3.event.selection || this.xViewScale.range();
-        console.log(`brushed( this.xScale = ${this.xScale} )`)
-        console.log(this.xScale.domain)
-        this.xScale.domain(s.map(this.xViewScale.invert, this.xViewScale))
+        let s = d3.event.selection || xViewScale.range();
+        console.log(`brushed( this.xScale = ${xScale} )`)
+        console.log(xScale.domain)
+        xScale.domain(s.map(xViewScale.invert, xViewScale))
         svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
             .scale(this.width / (s[1] - s[0]))
             .translate(-s[0], 0));
     }
 
-    zoomed(){
+    zoomed(xScale, xViewScale){
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
         let t = d3.event.transform;
-        this.xScale.domain(t.rescaleX(this.xViewScale).domain());
+        xScale.domain(t.rescaleX(xViewScale).domain());
         this.clipgroup.select(".line").attr("d", line);
         this.plot.select(".xaxis").call(xAxis);
-        this.viewfinder.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t));
+        this.viewfinder.select(".brush").call(brush.move, xScale.range().map(t.invertX, t));
     }
 
     addLine(ngram) {
@@ -175,17 +175,15 @@ class Chart {
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.margin.top + this.height + this.margin.bottom + this.viewFinderHeight)
 
-        let that = this
-
         let zoom = d3.zoom()
             .scaleExtent([1, 5])
-            .translateExtent([[0, 0], [that.width, that.height]])
-            .extent([[0, 0], [that.width, that.height]])
-            .on("zoom", that.zoomed)
+            .translateExtent([[0, 0], [this.width, this.height]])
+            .extent([[0, 0], [this.width, this.height]])
+            .on("zoom", this.zoomed(this.xScale, this.xViewScale))
 
         let brush = d3.brushX()
-            .extent([[0, 0], [that.width, that.height/5]])
-            .on("brush end", that.brushed)
+            .extent([[0, 0], [this.width, this.height/5]])
+            .on("brush end", this.brushed(this.xScale, this.xViewScale))
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
