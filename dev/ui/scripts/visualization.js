@@ -108,10 +108,7 @@ class Chart {
         let s = d3.event.selection || this.xViewScale.range();
         console.log(`brushed( this.xScale = ${this.xScale} )`)
         console.log(this.xScale.domain)
-        this.xScale.domain(s.map(this.xViewScale.invert, this.xViewScale));
-        Object.keys(ngramData).forEach(n => this.addLine(n))
-        this.addAxes()
-        this.addLabels()
+        this.xScale.domain(s.map(this.xViewScale.invert, this.xViewScale))
         svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
             .scale(this.width / (s[1] - s[0]))
             .translate(-s[0], 0));
@@ -181,11 +178,11 @@ class Chart {
             .scaleExtent([1, 5])
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", this.svg.zoomed)
+            .on("zoom", this.zoomed)
 
         let brush = d3.brushX()
             .extent([[0, 0], [this.width, this.height/5]])
-            .on("brush end", this.svg.brushed)
+            .on("brush end", this.brushed)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
