@@ -208,7 +208,7 @@ class Chart {
             .attr("class", "zoom")
             .attr("width", this.width)
             .attr("height", this.height)
-            .attr("transform", `translate("${this.margin.left}","${this.margin.top}")`)
+            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
             .attr("fill","none")
             .call(zoom);
 
