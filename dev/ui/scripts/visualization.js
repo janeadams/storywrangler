@@ -203,6 +203,7 @@ class Chart {
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot')
+            .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
         this.plot.append("rect")
             .attr("class", "zoom")

@@ -7,8 +7,14 @@
 .subplot {
     width: 90%;
     margin: 20px auto;
-    height: auto;
-    min-height: 40px;
+}
+
+#mainplot {
+    height: 600px;
+}
+
+.subplot {
+    height: 300px;
 }
 
 .axislabel {
