@@ -104,7 +104,7 @@ class Chart {
     }
 
     brushed(){
-        console.log(`this = ${this} )`)
+        console.log(`this = ${this.attr("class")} )`)
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
         let s = d3.event.selection || this.xViewScale.range();
         console.log(`brushed( this.xScale = ${this.xScale} )`)
