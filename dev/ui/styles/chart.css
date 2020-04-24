@@ -3,20 +3,12 @@
     display: inline-block;
 }
 
-#mainplot {
-    max-width: 85%;
-    height: auto;
-}
-
 #mainplot,
-.subplots{
+.subplot {
     width: 90%;
     margin: 20px auto;
+    height: auto;
     min-height: 40px;
-}
-
-.subplots {
-
 }
 
 .axislabel {
