@@ -30,6 +30,10 @@
     stroke-width: 1px;
 }
 
+.zoom {
+    cursor: move;
+}
+
 .overlay {
     fill: none;
     pointer-events: all;
