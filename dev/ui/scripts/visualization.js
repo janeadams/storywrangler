@@ -8,7 +8,7 @@ class Chart {
 
     createScales() {
         const m = this.margin
-        this.xScale = d3.scaleTime().domain(dateParser(params.xrange[0]),dateParser(params.xrange[1])).range([0, this.width-m.left])
+        this.xScale = d3.scaleTime().domain(dateParser(params.xrange[0]), dateParser(params.xrange[1])).range([0, this.width-m.left])
         console.log(`createScales( set xScale to ${this.xScale})`)
         this.xViewScale = d3.scaleTime().domain(params.xviewrange).range([0, this.width-m.left])
         console.log(`createScales( set xViewScale to ${this.xViewScale})`)
@@ -104,7 +104,24 @@ class Chart {
     }
 
     brushed(xScale, xViewScale){
+        console.log(`this = ${this.getAttribute("class")} )`)
+        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+        let s = d3.event.selection || xViewScale.range();
+        console.log(`brushed( this.xScale = ${xScale} )`)
+        console.log(xScale.domain)
+        xScale.domain(s.map(xViewScale.invert, xViewScale))
+        svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
+            .scale(this.width / (s[1] - s[0]))
+            .translate(-s[0], 0));
+    }
 
+    zoomed(xScale, xViewScale){
+        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+        let t = d3.event.transform;
+        xScale.domain(t.rescaleX(xViewScale).domain());
+        this.clipgroup.select(".line").attr("d", line);
+        this.plot.select(".xaxis").call(xAxis);
+        this.viewfinder.select(".brush").call(brush.move, xScale.range().map(t.invertX, t));
     }
 
     addLine(ngram) {
@@ -158,6 +175,15 @@ class Chart {
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.margin.top + this.height + this.margin.bottom + this.viewFinderHeight)
 
+        zoom = d3.zoom()
+            .scaleExtent([1, 5])
+            .translateExtent([[0, 0], [this.width, this.height]])
+            .extent([[0, 0], [this.width, this.height]])
+            .on("zoom", this.zoomed(this.xScale, this.xViewScale))
+
+        brush = d3.brushX()
+            .extent([[0, 0], [this.width, this.height/5]])
+            .on("brush end", this.brushed(this.xScale, this.xViewScale))
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
@@ -183,19 +209,7 @@ class Chart {
             .attr("height", this.height)
             .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
             .attr("fill","none")
-            .call(d3.zoom()
-                .scaleExtent([1, 5])
-                .translateExtent([[0, 0], [this.width, this.height]])
-                .extent([[0, 0], [this.width, this.height]])
-                .on("zoom", function() {
-                        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return
-                        let t = d3.event.transform;
-                        this.xScale.domain(t.rescaleX(this.xViewScale).domain());
-                        this.clipgroup.select(".line").attr("d", line);
-                        this.plot.select(".xaxis").call(xAxis);
-                        this.viewfinder.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t))
-                    }
-                ))
+            .call(zoom)
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
@@ -203,21 +217,7 @@ class Chart {
 
         this.viewfinder.append("g")
             .attr("class", "brush")
-            .call(d3.brushX()
-                .extent([[0, 0], [this.width, this.height/5]])
-                .on("brush end", function() {
-                    console.log(`this = ${this.getAttribute("class")} )`)
-                    if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
-                    let s = d3.event.selection || this.xViewScale.range();
-                    console.log(`brushed( this.xScale = ${this.xScale} )`)
-                    console.log(this.xScale.domain)
-                    this.xScale.domain(s.map(this.xViewScale.invert, this.xViewScale))
-                    /*
-                    svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
-                        .scale(this.width / (s[1] - s[0]))
-                        .translate(-s[0], 0));
-                     */
-                }))
+            .call(brush)
 
         this.addAxes()
         this.addLabels()
