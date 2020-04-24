@@ -103,25 +103,25 @@ class Chart {
             .attr("text-anchor", "middle")
     }
 
-    brushed(xScale, xViewScale){
+    brushed(){
         console.log(`this = ${this.getAttribute("class")} )`)
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
-        let s = d3.event.selection || xViewScale.range();
+        let s = d3.event.selection || this.xViewScale.range();
         console.log(`brushed( this.xScale = ${xScale} )`)
         console.log(xScale.domain)
-        xScale.domain(s.map(xViewScale.invert, xViewScale))
+        xScale.domain(s.map(this.xViewScale.invert, this.xViewScale))
         svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
             .scale(this.width / (s[1] - s[0]))
             .translate(-s[0], 0));
     }
 
-    zoomed(xScale, xViewScale){
+    zoomed(){
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
         let t = d3.event.transform;
-        xScale.domain(t.rescaleX(xViewScale).domain());
+        this.xScale.domain(t.rescaleX(this.xViewScale).domain());
         this.clipgroup.select(".line").attr("d", line);
         this.plot.select(".xaxis").call(xAxis);
-        this.viewfinder.select(".brush").call(brush.move, xScale.range().map(t.invertX, t));
+        this.viewfinder.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t));
     }
 
     addLine(ngram) {
