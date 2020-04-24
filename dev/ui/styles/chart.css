@@ -5,7 +5,7 @@
 
 #mainplot {
     max-width: 85%;
-    height: 300px;
+    height: auto;
 }
 
 #mainplot,

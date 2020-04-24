@@ -230,5 +230,7 @@ class Chart {
 
 function makeCharts(){
     mainChart = new Chart({element: document.querySelector('#mainplot')})
+    d3.select('#dataviz').append('div').attr('class','subplot')
+    Object.keys(ngramData).forEach(n => new Chart({element: document.querySelector('.subplot')}))
     d3.select(window).on('resize', () => (mainChart.draw()))
 }
