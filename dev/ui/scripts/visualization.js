@@ -175,13 +175,13 @@ class Chart {
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.margin.top + this.height + this.margin.bottom + this.viewFinderHeight)
 
-        zoom = () => (d3.zoom()
+        const zoom = () => (d3.zoom()
             .scaleExtent([1, 5])
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
             .on("zoom", this.zoomed(this.xScale, this.xViewScale)))
 
-        zoom = () => (d3.brushX()
+        const brush = () => (d3.brushX()
             .extent([[0, 0], [this.width, this.height/5]])
             .on("brush end", this.brushed(this.xScale, this.xViewScale)))
 
