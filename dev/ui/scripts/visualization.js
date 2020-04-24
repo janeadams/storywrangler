@@ -230,8 +230,13 @@ class Chart {
 
 function makeCharts(){
     mainChart = new Chart({element: document.querySelector('#mainplot')})
-    Object.keys(ngramData).forEach(n =>
-        d3.select('#dataviz').append('div').attr('class',`subplot ${ngramData[n]['uuid']}`))
-    Object.keys(ngramData).forEach(n => new Chart({element: document.querySelector('.subplot')}))
-    d3.select(window).on('resize', () => (mainChart.draw()))
+    Object.keys(ngramData).forEach(n => {
+        d3.select('#subplot-list').append('div').attr('class', `subplot ${ngramData[n]['uuid']}`)
+        const s = new Chart({element: document.querySelector('.subplot')})
+        subplots.push(s)
+    })
+    d3.select(window).on('resize', () => {
+        mainChart.draw()
+        subplots.forEach(subplot => subplot.draw())
+    })
 }
