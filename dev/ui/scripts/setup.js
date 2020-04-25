@@ -1,5 +1,4 @@
 console.log("Loading setup.js")
-const dateParser = date => new Date(d3.timeParse(date))
 // Today's date
 let today = new Date()
 // Extract year from today's date

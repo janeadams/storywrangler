@@ -95,8 +95,8 @@ class Chart {
         const uuid = ngramData[ngram]['uuid']
 
         const line = d3.line()
-            .x(d => this.xScale(dateParser(d[0])))
-            .y(d => this.yScale(d[1]));
+            .x(d => this.xScale(d[0]))
+            .y(d => this.yScale(d[1]))
 
         this.clipgroup.append('path')
             // use data stored in `this`
