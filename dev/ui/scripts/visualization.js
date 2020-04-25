@@ -66,7 +66,7 @@ class Chart {
             .attr("x", this.margin.left / 2)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
-            .attr("class","axislabel")
+            .attr("class","axislabel-large")
 
         this.svg.append("text")
             .attr("y", this.margin.top + 10)
