@@ -209,7 +209,7 @@ class Chart {
             .attr("height", this.height)
             .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
             .attr("fill","none")
-            .call(zoom, this
+            .call(zoom, this)
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
