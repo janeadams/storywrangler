@@ -60,26 +60,24 @@ class Chart {
     }
 
     addLabels(){
-        const height = this.height
-        const m = this.margin
         // Label xAxis with Metric
         this.svg.append("text")
-            .attr("y", height / 2 + m.top / 2)
-            .attr("x", m.left / 2)
+            .attr("y", (this.height-this.margin.top-this.margin.bottom) / 2)
+            .attr("x", this.margin.left / 2)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
             .attr("class","axislabel")
 
         this.svg.append("text")
-            .attr("y", m.top + 10)
-            .attr("x", m.left / 2)
+            .attr("y", this.margin.top + 10)
+            .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
             .text("Lexical Fame")
             .attr("class","axislabel")
             .attr("text-anchor", "middle")
 
         this.svg.append("text")
-            .attr("y", this.height + this.margin.top)
+            .attr("y", this.height - (this.margin.top+ this.margin.bottom))
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
             .text("Lexical Abyss")
