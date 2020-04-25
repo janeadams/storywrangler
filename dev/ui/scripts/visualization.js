@@ -65,21 +65,29 @@ class Chart {
             .attr("class","axislabel-large")
 
         this.svg.append("text")
+            .attr("class","axislabel")
             .attr("text-anchor", "start")
             .attr("y", this.margin.top + 10)
             .attr("x", 10)
             .attr("dy", "0.5em")
-            .text("Lexical\nFame")
-            .attr("class","axislabel")
+            .text("Lexical")
+            .append('svg:tspan')
+            .attr('x', 10)
+            .attr('dy', "0.8em")
+            .text("Fame")
 
 
         this.svg.append("text")
+            .attr("class","axislabel")
             .attr("text-anchor", "start")
             .attr("y", this.height - (this.margin.top))
             .attr("x", 10)
             .attr("dy", "0.5em")
-            .text("Lexical\nAbyss")
-            .attr("class","axislabel")
+            .text("Lexical")
+            .append('svg:tspan')
+            .attr('x', 10)
+            .attr('dy', "0.8em")
+            .text("Abyss")
     }
 
     addLine(ngram) {
