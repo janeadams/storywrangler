@@ -20,10 +20,10 @@
     fill: darkgrey;
 }
 .axislabel-large {
-    font-size: 20px;
+    font-size: 15px;
 }
 .axislabel {
-    font-size: 15px;
+    font-size: 10px;
 }
 
 .hoverline {
