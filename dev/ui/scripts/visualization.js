@@ -10,7 +10,7 @@ class Chart {
         const m = this.margin
         this.xScale = d3.scaleTime().domain(dateParser(params.xrange[0]), dateParser(params.xrange[1])).range([0, this.width-m.left])
         console.log(`createScales( set xScale to ${this.xScale})`)
-        this.xViewScale = d3.scaleTime().domain(dateParser(params.xviewrange[0], dateParser(params.xviewrange[1])).range([0, this.width-m.left])
+        this.xViewScale = d3.scaleTime().domain(dateParser(params.xviewrange[0]), dateParser(params.xviewrange[1])).range([0, this.width-m.left])
         console.log(`createScales( set xViewScale to ${this.xViewScale})`)
         // Choose and set time scales (logarithmic or linear) for the main plot *and* the viewfinder
         if (params["scale"] === "log") {
@@ -103,27 +103,6 @@ class Chart {
             .attr("text-anchor", "middle")
     }
 
-    brushed(){
-        console.log(`this = ${this.getAttribute("class")} )`)
-        //if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
-        let s = d3.event.selection || this.xViewScale.range();
-        console.log(`brushed( this.xScale = ${xScale} )`)
-        console.log(xScale.domain)
-        xScale.domain(s.map(this.xViewScale.invert, this.xViewScale))
-        svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
-            .scale(this.width / (s[1] - s[0]))
-            .translate(-s[0], 0));
-    }
-
-    zoomed(){
-        //if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
-        let t = d3.event.transform;
-        this.xScale.domain(t.rescaleX(this.xViewScale).domain());
-        this.clipgroup.select(".line").attr("d", line);
-        this.plot.select(".xaxis").call(xAxis);
-        this.viewfinder.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t));
-    }
-
     addLine(ngram) {
 
         console.log(`Adding line for ${ngram} to ${this.plot.attr('class')}`)
@@ -175,16 +154,6 @@ class Chart {
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.margin.top + this.height + this.margin.bottom + this.viewFinderHeight)
 
-        const zoom = () => (d3.zoom(this)
-            .scaleExtent([1, 5])
-            .translateExtent([[0, 0], [this.width, this.height]])
-            .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", this.zoomed()))
-
-        const brush = () => (d3.brushX(this)
-            .extent([[0, 0], [this.width, this.height/5]])
-            .on("brush end", this.brushed()))
-
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
             .append("svg:rect")
@@ -203,23 +172,9 @@ class Chart {
             .attr('class','plot')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
-        this.plot.append("rect")
-            .attr("class", "zoom")
-            .attr("width", this.width)
-            .attr("height", this.height)
-            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
-            .attr("fill","none")
-            .call(d3.zoom().on("zoom", function () {
-                svg.attr("transform", d3.event.transform)
-            }))
-
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
             .attr("transform", `translate(${this.margin.left}, ${this.plotHeight + this.margin.top + this.margin.bottom})`)
-
-        this.viewfinder.append("g")
-            .attr("class", "brush")
-            //.call(brush, this)
 
         this.addAxes()
         this.addLabels()
