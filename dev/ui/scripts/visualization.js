@@ -62,7 +62,7 @@ class Chart {
     addLabels(){
         // Label xAxis with Metric
         this.svg.append("text")
-            .attr("y", (this.height-this.margin.top-this.margin.bottom) / 2)
+            .attr("y", (this.height-this.margin.top) / 2)
             .attr("x", this.margin.left / 2)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
