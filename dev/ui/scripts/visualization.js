@@ -57,27 +57,29 @@ class Chart {
     addLabels(){
         // Label xAxis with Metric
         this.svg.append("text")
+            .attr("text-anchor", "start")
             .attr("y", (this.height-this.margin.top) / 2)
-            .attr("x", this.margin.left / 2)
+            .attr("x", 0)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
             .attr("class","axislabel-large")
 
         this.svg.append("text")
+            .attr("text-anchor", "start")
             .attr("y", this.margin.top + 10)
-            .attr("x", this.margin.left / 2)
+            .attr("x", 0)
             .attr("dy", "0.5em")
             .text("Lexical\nFame")
             .attr("class","axislabel")
-            .attr("text-anchor", "middle")
+
 
         this.svg.append("text")
+            .attr("text-anchor", "start")
             .attr("y", this.height - (this.margin.top))
-            .attr("x", this.margin.left / 2)
+            .attr("x", 0)
             .attr("dy", "0.5em")
             .text("Lexical\nAbyss")
             .attr("class","axislabel")
-            .attr("text-anchor", "middle")
     }
 
     addLine(ngram) {
