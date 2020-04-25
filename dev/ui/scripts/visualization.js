@@ -41,10 +41,6 @@ class Chart {
             .scale(this.xViewScale)
             .ticks(d3.timeMonth)
 
-        const xViewFinderAxis = d3.axisBottom()
-            .scale(this.xScale)
-            .ticks(d3.timeYear)
-
         const yAxis = d3.axisLeft()
             .scale(this.yScale)
             .ticks(10, "")
@@ -63,16 +59,6 @@ class Chart {
         this.plot.append("g")
             .attr("class", "yaxis")
             .call(yAxis)
-
-        // Add X Axis to viewfinder plot
-        this.viewfinder.append("g")
-            .attr("class", "xviewaxis")
-            .attr("transform", `translate(0, ${viewFinderHeight})`)
-            .call(xViewFinderAxis)
-            .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
     }
 
     addLabels(){
@@ -114,10 +100,6 @@ class Chart {
             .x(d => this.xViewScale(dateParser(d[0])))
             .y(d => this.yScale(d[1]));
 
-        const viewerline = d3.line()
-            .x(d => this.xScale(dateParser(d[0])))
-            .y(d => this.yViewFinderScale(d[1]));
-
         this.clipgroup.append('path')
             // use data stored in `this`
             .datum(ndata)
@@ -125,14 +107,6 @@ class Chart {
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
             .attr('d',line)
-
-        this.viewfinder.append('path')
-            // use data stored in `this`
-            .datum(ndata)
-            .attr('class',`line uuid-${uuid}`)
-            // set stroke to specified color, or default to red
-            .attr('stroke', colors.main[colorid] || 'gray')
-            .attr('d',viewerline)
     }
 
     removeLine(ngram){
@@ -171,10 +145,6 @@ class Chart {
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
-
-        this.viewfinder = this.svg.append('g')
-            .attr("class", "viewfinder")
-            .attr("transform", `translate(${this.margin.left}, ${this.plotHeight + this.margin.top + this.margin.bottom})`)
 
         this.addAxes()
         this.addLabels()
