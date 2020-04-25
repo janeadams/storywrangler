@@ -80,7 +80,7 @@ class Chart {
         this.svg.append("text")
             .attr("class","axislabel")
             .attr("text-anchor", "start")
-            .attr("y", this.height - (this.margin.top))
+            .attr("y", this.height - (this.margin.top + this.margin.bottom))
             .attr("x", 10)
             .attr("dy", "0.5em")
             .text("Lexical")
