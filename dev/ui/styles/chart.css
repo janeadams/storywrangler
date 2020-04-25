@@ -4,14 +4,17 @@
 }
 
 #mainplot,
-.subplots{
+.subplot {
     width: 90%;
     margin: 20px auto;
-    min-height: 40px;
 }
 
-.subplots {
+#mainplot {
+    height: 600px;
+}
 
+.subplot {
+    height: 300px;
 }
 
 .axislabel {
@@ -31,6 +34,10 @@
 .line {
     fill: none;
     stroke-width: 1px;
+}
+
+.zoom {
+    cursor: move;
 }
 
 .overlay {

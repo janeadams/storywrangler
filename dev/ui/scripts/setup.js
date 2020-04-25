@@ -1,12 +1,11 @@
 console.log("Loading setup.js")
-const dateParser = date => new Date(d3.timeParse(date))
 // Today's date
 let today = new Date()
 // Extract year from today's date
 let thisyear = today.getFullYear()
 // Get one year ago
 let lastyeardate = new Date()
-lastyeardate = lastyeardate.setFullYear( lastyeardate.getFullYear() - 1 );
+lastyeardate.setFullYear(lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 let thisfirst = new Date(thisyear, 0, 1)
 
@@ -40,6 +39,7 @@ let xmaxes = []
 let ymins = []
 let ymaxes = []
 let mainChart
+let subplots = []
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
