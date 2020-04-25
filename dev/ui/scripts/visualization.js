@@ -59,7 +59,7 @@ class Chart {
         this.svg.append("text")
             .attr("text-anchor", "start")
             .attr("y", (this.height-this.margin.top) / 2)
-            .attr("x", this.margin.left/2)
+            .attr("x", this.margin.left/3)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
             .attr("class","axislabel-large")
@@ -67,7 +67,7 @@ class Chart {
         this.svg.append("text")
             .attr("text-anchor", "start")
             .attr("y", this.margin.top + 10)
-            .attr("x", this.margin.left/2)
+            .attr("x", this.margin.left/3)
             .attr("dy", "0.5em")
             .text("Lexical\nFame")
             .attr("class","axislabel")
@@ -76,7 +76,7 @@ class Chart {
         this.svg.append("text")
             .attr("text-anchor", "start")
             .attr("y", this.height - (this.margin.top))
-            .attr("x", this.margin.left/2)
+            .attr("x", this.margin.left/3)
             .attr("dy", "0.5em")
             .text("Lexical\nAbyss")
             .attr("class","axislabel")
@@ -110,7 +110,6 @@ class Chart {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
         this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: d3.min([0.2 * this.width, 100]) }
-        this.plotHeight = this.height - (this.margin.top + this.margin.bottom)
         this.createScales()
         // set up parent element and SVG
         this.element.innerHTML = ''
