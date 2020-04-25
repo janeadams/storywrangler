@@ -109,7 +109,7 @@ class Chart {
     draw() {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: d3.max([0.2 * this.width, 50]) }
+        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: d3.min([0.2 * this.width, 50]) }
         this.plotHeight = this.height - (this.margin.top + this.margin.bottom)
         this.createScales()
         // set up parent element and SVG
