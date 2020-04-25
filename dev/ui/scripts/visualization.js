@@ -67,6 +67,7 @@ class Chart {
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
             .attr("class","axislabel")
+            .attr("font-size", 20)
 
         this.svg.append("text")
             .attr("y", this.margin.top + 10)
@@ -77,7 +78,7 @@ class Chart {
             .attr("text-anchor", "middle")
 
         this.svg.append("text")
-            .attr("y", this.height - (this.margin.top+ this.margin.bottom))
+            .attr("y", this.height - (this.margin.top) + this.margin.bottom)
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
             .text("Lexical Abyss")
