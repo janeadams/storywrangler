@@ -179,11 +179,11 @@ class Chart {
             .scaleExtent([1, 5])
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", zoomed(this.xScale, this.xViewScale)))
+            .on("zoom", this.zoomed()))
 
         const brush = () => (d3.brushX(this)
             .extent([[0, 0], [this.width, this.height/5]])
-            .on("brush end", brushed(this.xScale, this.xViewScale)))
+            .on("brush end", this.brushed()))
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
@@ -209,7 +209,7 @@ class Chart {
             .attr("height", this.height)
             .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
             .attr("fill","none")
-            .call(zoom)
+            .call(zoom, this
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
@@ -217,7 +217,7 @@ class Chart {
 
         this.viewfinder.append("g")
             .attr("class", "brush")
-            .call(brush)
+            .call(brush, this)
 
         this.addAxes()
         this.addLabels()
