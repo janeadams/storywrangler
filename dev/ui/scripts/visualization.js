@@ -8,7 +8,7 @@ class Chart {
 
     createScales() {
         const m = this.margin
-        this.xScale = d3.scaleTime().domain(params.xrange).range([0, this.width-m.left])
+        this.xScale = d3.scaleTime().domain(dateParser(params.xrange[0]), dateParser(params.xrange[1])).range([0, this.width-m.left])
         console.log(`createScales( set xScale to ${this.xScale})`)
         // Choose and set time scales (logarithmic or linear) for the main plot *and* the viewfinder
         if (params["scale"] === "log") {
@@ -61,16 +61,14 @@ class Chart {
 
     addLabels(){
         // Label xAxis with Metric
-        const labelHolder = this.svg.append("div")
-            .attr("class","labelHolder")
-        labelHolder.append("text")
+        this.svg.append("text")
             .attr("y", (this.height-this.margin.top) / 2)
             .attr("x", this.margin.left / 2)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
             .attr("class","axislabel-large")
 
-        labelHolder.append("text")
+        this.svg.append("text")
             .attr("y", this.margin.top + 10)
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
@@ -78,7 +76,7 @@ class Chart {
             .attr("class","axislabel")
             .attr("text-anchor", "middle")
 
-        labelHolder.append("text")
+        this.svg.append("text")
             .attr("y", this.height - (this.margin.top))
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
