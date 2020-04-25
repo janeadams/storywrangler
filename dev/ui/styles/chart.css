@@ -10,16 +10,20 @@
 }
 
 #mainplot {
-    height: 600px;
+    height: 400px;
 }
 
 .subplot {
     height: 300px;
 }
-
+.axislabel, .axislabel-large {
+    fill: darkgrey;
+}
+.axislabel-large {
+    font-size: 15px;
+}
 .axislabel {
     font-size: 10px;
-    fill: darkgrey;
 }
 
 .hoverline {

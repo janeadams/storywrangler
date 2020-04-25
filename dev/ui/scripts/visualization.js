@@ -8,31 +8,26 @@ class Chart {
 
     createScales() {
         const m = this.margin
-        this.xScale = d3.scaleTime().domain(params.xrange).range([0, this.width-m.left])
+        this.xScale = d3.scaleTime().domain([dateParser(params.xrange[0]), dateParser(params.xrange[1])]).range([0, this.width-m.left])
         console.log(`createScales( set xScale to ${this.xScale})`)
-        // Choose and set time scales (logarithmic or linear) for the main plot *and* the viewfinder
+        // Choose and set time scales (logarithmic or linear) for the main plot
         if (params["scale"] === "log") {
-            this.yViewFinderScale = d3.scaleLog().domain(params["yrange"])
             this.yScale = d3.scaleLog().domain(params["yrange"])}
         else {
-            this.yViewFinderScale = d3.scaleLinear().domain(params["yrange"])
             this.yScale = d3.scaleLinear().domain(params["yrange"])
         }
         // When showing ranks, put rank #1 at the top
         // When showing any other metric, put the highest number at the top and start at 0
         if (params["metric"] === "rank") {
             this.yScale.range([this.height-(m.top+m.bottom), 1])
-            this.yViewFinderScale.range([this.viewFinderHeight, 1])
         }
         else {
             this.yScale.range([0, this.height-(m.top+m.bottom)])
-            this.yViewFinderScale.range([0, this.viewFinderHeight])
         }
     }
 
     addAxes() {
         const height = this.height
-        const viewFinderHeight = this.viewFinderHeight
         const m = this.margin
 
         const xAxis = d3.axisBottom()
@@ -60,31 +55,39 @@ class Chart {
     }
 
     addLabels(){
-        const height = this.height
-        const m = this.margin
         // Label xAxis with Metric
         this.svg.append("text")
-            .attr("y", height / 2 + m.top / 2)
-            .attr("x", m.left / 2)
+            .attr("text-anchor", "start")
+            .attr("y", (this.height-this.margin.top) / 2)
+            .attr("x", 10)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
-            .attr("class","axislabel")
+            .attr("class","axislabel-large")
 
         this.svg.append("text")
-            .attr("y", m.top + 10)
-            .attr("x", m.left / 2)
-            .attr("dy", "0.5em")
-            .text("Lexical Fame")
             .attr("class","axislabel")
-            .attr("text-anchor", "middle")
+            .attr("text-anchor", "start")
+            .attr("y", this.margin.top + 10)
+            .attr("x", 10)
+            .attr("dy", "0.5em")
+            .text("Lexical")
+            .append('svg:tspan')
+            .attr('x', 10)
+            .attr('dy', "1em")
+            .text("Fame")
+
 
         this.svg.append("text")
-            .attr("y", this.height + this.margin.top)
-            .attr("x", this.margin.left / 2)
-            .attr("dy", "0.5em")
-            .text("Lexical Abyss")
             .attr("class","axislabel")
-            .attr("text-anchor", "middle")
+            .attr("text-anchor", "start")
+            .attr("y", this.height - this.margin.top)
+            .attr("x", 10)
+            .attr("dy", "0.5em")
+            .text("Lexical")
+            .append('svg:tspan')
+            .attr('x', 10)
+            .attr('dy', "1em")
+            .text("Abyss")
     }
 
     addLine(ngram) {
@@ -95,7 +98,7 @@ class Chart {
         const uuid = ngramData[ngram]['uuid']
 
         const line = d3.line()
-            .x(d => this.xScale(d[0]))
+            .x(d => this.xScale(dateParser(d[0])))
             .y(d => this.yScale(d[1]))
 
         this.clipgroup.append('path')
@@ -109,22 +112,19 @@ class Chart {
 
     removeLine(ngram){
         this.plot.select('.uuid-'+ngramData[ngram]['uuid']).remove()
-        this.viewfinder.select('.uuid-'+ngramData[ngram]['uuid']).remove()
     }
 
     draw() {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        this.viewFinderHeight = 100
-        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: 0.25 * this.width }
-        this.plotHeight = this.height - (this.margin.top + this.margin.bottom)
+        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: d3.min([0.2 * this.width, 100]) }
         this.createScales()
         // set up parent element and SVG
         this.element.innerHTML = ''
 
         this.svg = d3.select(this.element).append('svg')
         this.svg.attr('width', this.width)
-        this.svg.attr('height', this.margin.top + this.height + this.margin.bottom + this.viewFinderHeight)
+        this.svg.attr('height', this.margin.top + this.height + this.margin.bottom)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
@@ -156,10 +156,9 @@ function makeCharts(){
     Object.keys(ngramData).forEach(n => {
         d3.select('#subplot-list').append('div').attr('class', `subplot ${ngramData[n]['uuid']}`)
         const s = new Chart({element: document.querySelector('.subplot')})
-        subplots.push(s)
+        s.draw()
     })
     d3.select(window).on('resize', () => {
         mainChart.draw()
-        subplots.forEach(subplot => subplot.draw())
     })
 }
