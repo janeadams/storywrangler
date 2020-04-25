@@ -154,10 +154,9 @@ function makeCharts(){
     Object.keys(ngramData).forEach(n => {
         d3.select('#subplot-list').append('div').attr('class', `subplot ${ngramData[n]['uuid']}`)
         const s = new Chart({element: document.querySelector('.subplot')})
-        subplots.push(s)
+        s.draw()
     })
     d3.select(window).on('resize', () => {
         mainChart.draw()
-        subplots.forEach(subplot => subplot.draw())
     })
 }
