@@ -105,7 +105,7 @@ class Chart {
 
     brushed(){
         console.log(`this = ${this.getAttribute("class")} )`)
-        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+        //if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
         let s = d3.event.selection || this.xViewScale.range();
         console.log(`brushed( this.xScale = ${xScale} )`)
         console.log(xScale.domain)
@@ -116,7 +116,7 @@ class Chart {
     }
 
     zoomed(){
-        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+        //if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
         let t = d3.event.transform;
         this.xScale.domain(t.rescaleX(this.xViewScale).domain());
         this.clipgroup.select(".line").attr("d", line);
@@ -179,11 +179,11 @@ class Chart {
             .scaleExtent([1, 5])
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", this.zoomed(this.xScale, this.xViewScale)))
+            .on("zoom", zoomed(this.xScale, this.xViewScale)))
 
         const brush = () => (d3.brushX(this)
             .extent([[0, 0], [this.width, this.height/5]])
-            .on("brush end", this.brushed(this.xScale, this.xViewScale)))
+            .on("brush end", brushed(this.xScale, this.xViewScale)))
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
