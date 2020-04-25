@@ -209,7 +209,9 @@ class Chart {
             .attr("height", this.height)
             .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
             .attr("fill","none")
-            .call(zoom, this)
+            .call(d3.zoom().on("zoom", function () {
+                svg.attr("transform", d3.event.transform)
+            }))
 
         this.viewfinder = this.svg.append('g')
             .attr("class", "viewfinder")
@@ -217,7 +219,7 @@ class Chart {
 
         this.viewfinder.append("g")
             .attr("class", "brush")
-            .call(brush, this)
+            //.call(brush, this)
 
         this.addAxes()
         this.addLabels()
