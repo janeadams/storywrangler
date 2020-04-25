@@ -73,7 +73,7 @@ class Chart {
             .text("Lexical")
             .append('svg:tspan')
             .attr('x', 10)
-            .attr('dy', "0.8em")
+            .attr('dy', "1em")
             .text("Fame")
 
 
@@ -86,7 +86,7 @@ class Chart {
             .text("Lexical")
             .append('svg:tspan')
             .attr('x', 10)
-            .attr('dy', "0.8em")
+            .attr('dy', "1em")
             .text("Abyss")
     }
 
