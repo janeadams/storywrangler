@@ -44,11 +44,17 @@ function loadData(query) {
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
-    let uuid = ngramData[n]['uuid']
+    const thisdata = ngramData[n]
+    let uuid = thisdata['uuid']
     console.log(`removing all elements with uuid ${uuid}`)
     d3.selectAll('.uuid-'+uuid).remove()
     // Filter the ngram list to include every ngram except this one
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
+    // Remove these mins and maxes
+    xmins = xmins.filter(ele => ele !== dateParser(thisdata['min_date']))
+    xmaxes = xmins.filter(ele => ele !== dateParser(thisdata['max_date']))
+    ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
+    ymaxes = ymins.filter(ele => ele !== thisdata[`max_${params.metric}`])
     // Delete the word from the list of ngram data
     delete ngramData[n]
     console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
