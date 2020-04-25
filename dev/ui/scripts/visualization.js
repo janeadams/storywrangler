@@ -36,7 +36,7 @@ class Chart {
         const m = this.margin
 
         const xAxis = d3.axisBottom()
-            .scale(this.xViewScale)
+            .scale(this.xScale)
             .ticks(d3.timeMonth)
 
         const yAxis = d3.axisLeft()
