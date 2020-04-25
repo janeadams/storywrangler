@@ -52,9 +52,13 @@ function removeNgram(n) {
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
     // Remove these mins and maxes
     xmins = xmins.filter(ele => ele !== dateParser(thisdata['min_date']))
+    console.log(`Removed ${dateParser(thisdata['min_date'])} from xmins`)
     xmaxes = xmins.filter(ele => ele !== dateParser(thisdata['max_date']))
+    console.log(`Removed ${dateParser(thisdata['max_date'])} from xmaxes`)
     ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
-    ymaxes = ymins.filter(ele => ele !== thisdata[`max_${params.metric}`])
+    console.log(`Removed ${thisdata['min_'+params.metric]} from ymins`)
+    ymaxes = ymaxes.filter(ele => ele !== thisdata[`max_${params.metric}`])
+    console.log(`Removed ${thisdata['max_'+params.metric]} from ymaxes`)
     // Delete the word from the list of ngram data
     delete ngramData[n]
     console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
