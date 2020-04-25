@@ -72,7 +72,7 @@ class Chart {
             .attr("y", this.margin.top + 10)
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
-            .text("Lexical<br/>Fame")
+            .text("Lexical\nFame")
             .attr("class","axislabel")
             .attr("text-anchor", "middle")
 
@@ -80,7 +80,7 @@ class Chart {
             .attr("y", this.height - (this.margin.top))
             .attr("x", this.margin.left / 2)
             .attr("dy", "0.5em")
-            .text("Lexical<br/>Abyss")
+            .text("Lexical\nAbyss")
             .attr("class","axislabel")
             .attr("text-anchor", "middle")
     }
