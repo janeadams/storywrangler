@@ -3,7 +3,7 @@ function readUrlVars() {
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
         console.log("key = ", key, " value = ", value)
         // Parse arrays:
-        value = value.replace("[", "").replace("/]", "").split(",")
+        value.replace("[", "").replace("/]", "").split(",")
         // If the parameter has a specified set of options:
         if (Object.keys(paramoptions).includes(key)) {
             //console.log("paramoptions includes ", key)
@@ -33,8 +33,7 @@ function readUrlVars() {
             // Create an array
             vars[key] = []
             // Add the value to it
-            values.forEach(v => decodeURIComponent(v))
-            vars[key].push(values)
+            value.forEach(v => vars[key].push(decodeURIComponent(v)))
         } else {
             vars[key] = decodeURIComponent(value)
         }
