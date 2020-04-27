@@ -152,7 +152,6 @@ class Chart {
 }
 
 function makeCharts(){
-    setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot')})
     Object.keys(ngramData).forEach(n => {
         d3.select('#subplot-list').append('div').attr('class', `subplot ${ngramData[n]['uuid']}`)
@@ -162,4 +161,8 @@ function makeCharts(){
     d3.select(window).on('resize', () => {
         mainChart.draw()
     })
+}
+
+function redrawCharts(){
+    mainChart.draw()
 }

@@ -37,7 +37,10 @@ function loadData(query) {
         newNgrams.forEach(n => {
             addNgram(n)
         })
-        if (newNgrams.length > 0) {setRanges()}
+        if (newNgrams.length > 0) {
+            setRanges()
+            redrawCharts()
+        }
     })
 }
 
