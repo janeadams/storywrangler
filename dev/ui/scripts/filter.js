@@ -32,5 +32,4 @@ function filterSubmission() {
     }
     params['RT']=d3.select("input[value ='RT']").property('checked')
     console.log(`Set params['RT'] to ${params['RT']}`)
-    updateURL()
 }
