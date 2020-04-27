@@ -22,7 +22,7 @@ function readUrlVars() {
                     vars[key] = value
                 } else {
                     // If the value isn't one of the allowed options, set to default
-                    console.log(`${value} is an invalid option for the ${key} parameter! Setting ${key} to default: ${defaultparams[key]})
+                    console.log(`${value} is an invalid option for the ${key} parameter! Setting ${key} to default: ${defaultparams[key]}`)
                     vars[value] = defaultparams[key]
                 }
             }
