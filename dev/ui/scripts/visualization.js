@@ -8,22 +8,21 @@ class Chart {
 
     createScales() {
         const m = this.margin
-        this.xScale = d3.scaleTime().domain([dateParser(params.xrange[0]), dateParser(params.xrange[1])]).range([0, this.width-m.left])
-        console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
+        this.xScale = d3.scaleTime()
+            .domain([dateParser(params.xrange[0]), dateParser(params.xrange[1])])
+            .range([0, this.width-m.left])
+        //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
         if (params["scale"] === "log") {
             this.yScale = d3.scaleLog().domain(params["yrange"])}
         else {
-            this.yScale = d3.scaleLinear().domain(params["yrange"])
-        }
+            this.yScale = d3.scaleLinear().domain(params["yrange"])}
         // When showing ranks, put rank #1 at the top
         // When showing any other metric, put the highest number at the top and start at 0
         if (params["metric"] === "rank") {
-            this.yScale.range([this.height-(m.top+m.bottom), 1])
-        }
+            this.yScale.range([this.height-(m.top+m.bottom), 1]) }
         else {
-            this.yScale.range([0, this.height-(m.top+m.bottom)])
-        }
+            this.yScale.range([0, this.height-(m.top+m.bottom)]) }
     }
 
     addAxes() {
