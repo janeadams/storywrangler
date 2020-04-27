@@ -65,6 +65,9 @@ function getUrlParams() {
         else {
             // If not specified, set to default values
             params[p] = defaultparams[p]
+            if (p === 'ngrams'){
+                params['ngrams'].forEach(n => loadData(n))
+            }
         }
     }
 }
@@ -79,9 +82,6 @@ function updateURL() {
         console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);
         if (params[p] !== defaultparams[p]) {
             customparams[p] = params[p]
-            if (p === 'ngrams'){
-                params['ngrams'].forEach(n => loadData(n))
-            }
         }
         else {
         }
