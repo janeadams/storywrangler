@@ -36,11 +36,11 @@ function readUrlVars() {
         if (key==="ngrams") {
             // Create an array
             vars[key] = []
-            value = value.split(",")
-            console.log(`Line 36 in url parse: key ${key} / value ${value}`)
+            values = value.split(",")
+            console.log(`Line 36 in url parse: key ${key} / values ${values}`)
             // Add the value to it
-            value.forEach(v => {
-                if (params['ngrams'].includes(value)){`params[ngrams] already included ${value}`}
+            values.forEach(v => {
+                if (params['ngrams'].includes(v)){`params[ngrams] already included ${v}`}
                 else {loadData(decodeURIComponent(v))}
             })
         } else {

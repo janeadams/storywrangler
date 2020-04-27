@@ -3,7 +3,7 @@ function loadData(query) {
     console.log("Loading data for ", query, "...");
     let errors = ""
     // Pull the JSON data
-    formatted_query = query.replace("#", "%23");
+    formatted_query = query.encodeURIComponent(query)
     //console.log("Formatted query = ", formatted_query);
     var url = encodeURI("http://hydra.uvm.edu:3000/api/" + formatted_query + "?src=ui&language=" + params["language"] + "&metric=" + params['metric'])
     //console.log("Querying URL = ", url)
