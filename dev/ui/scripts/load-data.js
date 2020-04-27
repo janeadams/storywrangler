@@ -1,14 +1,13 @@
-console.log("load data script loaded")
 function loadData(query) {
-    console.log("Loading data for ", query, "...");
+    console.log(`Loading data for ${query}...`)
     let errors = ""
     // Pull the JSON data
     let formatted_query = encodeURIComponent(query)
-    //console.log("Formatted query = ", formatted_query);
+    //console.log(`Formatted query: ${formatted_query}`)
     var url = encodeURI(`http://hydra.uvm.edu:3000/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
-    //console.log("Querying URL = ", url)
+    //console.log(`Querying URL ${url}`)
     d3.json(url).then((data, error) => {
-        errors = data['errors']
+        errors.concat(data['errors'])
         //console.log(`Received API response:`)
         //let debug = {}
         //let debugvals = ['ngrams','database','metric','rt','language','errors']
@@ -52,7 +51,7 @@ function removeNgram(n) {
     //console.log(`removing all elements with uuid ${uuid}`)
     d3.selectAll('.uuid-'+uuid).remove()
     // Filter the ngram list to include every ngram except this one
-    params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
+    params['ngrams'] = params['ngrams'].filter(ele => ele !== n)
     // Remove these mins and maxes
     xmins = xmins.filter(ele => ele !== dateParser(thisdata['min_date']))
     console.log(`Removed ${dateParser(thisdata['min_date'])} from xmins`)
