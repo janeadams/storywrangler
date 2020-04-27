@@ -39,7 +39,10 @@ function readUrlVars() {
             value = value.split(",")
             console.log(`Line 36 in url parse: key ${key} / value ${value}`)
             // Add the value to it
-            value.forEach(v => vars[key].push(decodeURIComponent(v)))
+            value.forEach(v => {
+                if (params['ngrams'].includes(value)){}
+                else {loadData(decodeURIComponent(v))}
+            })
         } else {
             vars[key] = value
             console.log(`45: set vars[${key}] to ${value}`)
