@@ -1,7 +1,7 @@
 function readUrlVars() {
     let vars = {};
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-        console.log("key = ", key, " value = ", value)
+        console.log(`4: received key = ${key} / value = ${value}`)
         // Parse arrays:
         value = value.replace("[", "").replace("/]", "")
 
@@ -14,16 +14,19 @@ function readUrlVars() {
                 if (value === 'true'){value = true}
                 if (value === 'false'){value = false}
                 vars[key] = value
+                console.log(`16: set vars[${key}] to ${value}`)
             }
             else {
                 if (paramoptions[key].includes(value)) {
                     // Accept the value from the url parameter
                     console.log(`paramoptions for ${key} includes ${value}`)
                     vars[key] = value
+                    console.log(`24: set vars[${key}] to ${value}`)
                 } else {
                     // If the value isn't one of the allowed options, set to default
                     console.log(`${value} is an invalid option for the ${key} parameter! Setting ${key} to default: ${defaultparams[key]}`)
-                    vars[value] = defaultparams[key]
+                    vars[key] = defaultparams[key]
+                    console.log(`29: set vars[${key}] to ${value}`)
                 }
             }
         }
@@ -38,7 +41,8 @@ function readUrlVars() {
             // Add the value to it
             value.forEach(v => vars[key].push(decodeURIComponent(v)))
         } else {
-            vars[key] = decodeURIComponent(value)
+            vars[key] = value
+            console.log(`45: set vars[${key}] to ${value}`)
         }
     })
     console.log(`readURLvars() returns:`)
