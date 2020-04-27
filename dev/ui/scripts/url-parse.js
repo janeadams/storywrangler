@@ -41,7 +41,8 @@ function readUrlVars() {
             vars[key] = decodeURIComponent(value)
         }
     })
-    console.log(`readURLvars() returns ${vars}`)
+    console.log(`readURLvars() returns:`)
+    console.table(vars)
     return vars;
 }
 // Get the parameters from the URL
