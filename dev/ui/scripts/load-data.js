@@ -1,19 +1,18 @@
-console.log("load data script loaded")
 function loadData(query) {
-    console.log("Loading data for ", query, "...");
+    console.log(`Loading data for ${query}...`)
     let errors = ""
     // Pull the JSON data
-    formatted_query = query.replace("#", "%23");
-    console.log("Formatted query = ", formatted_query);
-    var url = encodeURI("http://hydra.uvm.edu:3000/api/" + formatted_query + "?src=ui&language=" + params["language"] + "&metric=" + params['metric'])
-    console.log("Querying URL = ", url)
+    let formatted_query = encodeURIComponent(query)
+    //console.log(`Formatted query: ${formatted_query}`)
+    var url = encodeURI(`http://hydra.uvm.edu:3000/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
+    //console.log(`Querying URL ${url}`)
     d3.json(url).then((data, error) => {
-        errors = data['errors']
-        console.log(`Received API response:`)
-        let debug = {}
-        let debugvals = ['ngrams','database','metric','rt','language','errors']
-        debugvals.forEach(v => (debug[v]=[data[v]]))
-        console.table(debug)
+        errors.concat(data['errors'])
+        //console.log(`Received API response:`)
+        //let debug = {}
+        //let debugvals = ['ngrams','database','metric','rt','language','errors']
+        //debugvals.forEach(v => (debug[v]=[data[v]]))
+        //console.table(debug)
         let newNgrams = []
         data['ngrams'].forEach(n => {
             // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
@@ -37,24 +36,36 @@ function loadData(query) {
         newNgrams.forEach(n => {
             addNgram(n)
         })
-        if (newNgrams.length > 0) {setRanges()}
+        if (newNgrams.length > 0) {
+            setRanges()
+            redrawCharts()
+        }
     })
 }
 
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
-    let uuid = ngramData[n]['uuid']
-    console.log(`removing all elements with uuid ${uuid}`)
+    const thisdata = ngramData[n]
+    let uuid = thisdata['uuid']
+    //console.log(`removing all elements with uuid ${uuid}`)
     d3.selectAll('.uuid-'+uuid).remove()
-    mainChart.removeLine(n)
-    subplots.forEach(subplot => subplot.removeLine(n))
     // Filter the ngram list to include every ngram except this one
-    params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
+    params['ngrams'] = params['ngrams'].filter(ele => ele !== n)
+    // Remove these mins and maxes
+    xmins = xmins.filter(ele => ele !== dateParser(thisdata['min_date']))
+    console.log(`Removed ${dateParser(thisdata['min_date'])} from xmins`)
+    xmaxes = xmaxes.filter(ele => ele !== dateParser(thisdata['max_date']))
+    console.log(`Removed ${dateParser(thisdata['max_date'])} from xmaxes`)
+    ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
+    console.log(`Removed ${thisdata['min_'+params.metric]} from ymins`)
+    ymaxes = ymaxes.filter(ele => ele !== thisdata[`max_${params.metric}`])
+    console.log(`Removed ${thisdata['max_'+params.metric]} from ymaxes`)
     // Delete the word from the list of ngram data
     delete ngramData[n]
-    console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
+    //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     setRanges()
+    redrawCharts()
 }
 
 // When a word is submitted via inputClick...

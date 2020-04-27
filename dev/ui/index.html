@@ -31,32 +31,20 @@
                 <section id="metricFilter">
                     <h4>Options</h4>
                     <ul>
-                        <!--<li><input type="radio" name="metric" value="rank">Rank</li>
-                        <li><input type="radio" name="metric" value="freq">Frequency</li>
-                        <li><input type="radio" name="metric" value="counts">Raw Count</li>-->
-                        <li><input type="checkbox" name="options" value="RT">Include Retweets?</li>
-                        <!--
+                        <li><input class="filter" type="radio" name="metric" value="rank">Rank</li>
+                        <li><input class="filter" type="radio" name="metric" value="freq">Frequency</li>
+                        <li><input class="filter" type="radio" name="metric" value="counts">Raw Count</li>
+                        <li><input class="filter" type="checkbox" name="options" value="RT">Include Retweets?</li>
                     </ul>
                 </section>
                 <section id="scaleFilter">
                     <h4>Scale</h4>
                     <ul>
-                        <li><input type="radio" name="scale" value="log">Logarithmic scale</li>
-                        <li><input type="radio" name="scale" value="lin">Linear scale</li>-->
+                        <li><input class="filter" type="radio" name="scale" value="log">Logarithmic scale</li>
+                        <li><input class="filter" type="radio" name="scale" value="lin">Linear scale</li>
                     </ul>
                 </section>
             </form>
-            <!--
-            <form id="debugForm">
-                <section>
-                    <h4>Debugging options:</h4>
-                    <ul>
-                        <li><input type="checkbox" name="debug" value="static">Use static data</li>
-                        <li><input type="checkbox" name="debug" value="console">Print messages to console</li>
-                    </ul>
-                </section>
-            </form>
-            -->
         </section>
         <!-- Data visualization area -->
         <section id="dataviz">
@@ -81,10 +69,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.independent.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>
     <script type='text/javascript' src="scripts/url-parse.js"></script>
-    <script type='text/javascript' src="scripts/filter.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
     <script type='text/javascript' src="scripts/visualization.js"></script>
     <script type='text/javascript' src="scripts/setup.js"></script>
+    <script type='text/javascript' src="scripts/filter.js"></script>
     <script type='text/javascript'>window.onload = setupPage</script>
     <!--<script type='text/javascript' src="scripts/autocomplete.js"></script>-->
 </body>

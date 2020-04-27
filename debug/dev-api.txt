@@ -3481,3 +3481,1277 @@ searching the 1grams db for 🦠
 ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
 searching the 1grams db for #friday
 [pid: 4613|app: 0|req: 1051/1051] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 13:28:59 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 558 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['lol'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for lol
+[pid: 4613|app: 0|req: 1052/1052] 10.241.1.4 () {44 vars in 735 bytes} [Sat Apr 25 13:30:29 2020] GET /api/lol?src=ui&language=en&metric=rank => generated 80396 bytes in 3597 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1053/1053] 10.241.1.4 () {44 vars in 741 bytes} [Sat Apr 25 13:32:40 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 732 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1054/1054] 10.241.1.4 () {44 vars in 759 bytes} [Sat Apr 25 13:32:41 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 587 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1055/1055] 10.241.1.4 () {44 vars in 749 bytes} [Sat Apr 25 13:32:41 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 646 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1056/1056] 10.241.1.4 () {44 vars in 745 bytes} [Sat Apr 25 13:32:42 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 182 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1057/1057] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:31:32 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 570 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1058/1058] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:31:32 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 596 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1059/1059] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:31:33 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 599 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1060/1060] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:31:34 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 156 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['lol'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for lol
+[pid: 4613|app: 0|req: 1061/1061] 10.241.1.4 () {44 vars in 736 bytes} [Sat Apr 25 14:31:41 2020] GET /api/lol?src=ui&language=en&metric=rank => generated 80396 bytes in 2016 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1062/1062] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:34:35 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 651 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1063/1063] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:34:35 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 416 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1064/1064] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:34:36 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 615 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1065/1065] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:34:36 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 162 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1066/1066] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:37:09 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 649 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1067/1067] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:37:09 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 496 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1068/1068] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:37:10 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 583 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1069/1069] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:37:10 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 133 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1070/1070] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:37:42 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 202 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1071/1071] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:37:42 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 606 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1072/1072] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:37:43 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 541 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1073/1073] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:37:44 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 680 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1074/1074] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:38:05 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 589 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1075/1075] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:38:06 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 433 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1076/1076] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:38:06 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 559 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1077/1077] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:38:07 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 132 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1078/1078] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:43:52 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 1140 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1079/1079] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:43:53 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 474 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1080/1080] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:43:54 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 128 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1081/1081] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:43:54 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 528 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1082/1082] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:44:02 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 631 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1083/1083] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:44:03 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 581 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1084/1084] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:44:03 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 687 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1085/1085] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:44:04 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 162 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1086/1086] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:44:09 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 607 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1087/1087] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:44:10 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 522 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1088/1088] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:44:10 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 132 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1089/1089] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:44:11 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 652 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1090/1090] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:44:17 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 636 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1091/1091] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:44:18 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 627 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1092/1092] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:44:19 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 151 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1093/1093] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:44:19 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 661 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1094/1094] 10.241.1.4 () {44 vars in 760 bytes} [Sat Apr 25 14:47:49 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74472 bytes in 540 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1095/1095] 10.241.1.4 () {44 vars in 742 bytes} [Sat Apr 25 14:47:50 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83621 bytes in 657 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1096/1096] 10.241.1.4 () {44 vars in 750 bytes} [Sat Apr 25 14:47:50 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 89970 bytes in 799 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1097/1097] 10.241.1.4 () {44 vars in 746 bytes} [Sat Apr 25 14:47:51 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15446 bytes in 129 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1098/1098] 10.241.3.248 () {44 vars in 762 bytes} [Mon Apr 27 10:41:21 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 5048 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1099/1099] 10.241.3.248 () {44 vars in 744 bytes} [Mon Apr 27 10:41:26 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 4259 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1100/1100] 10.241.3.248 () {44 vars in 752 bytes} [Mon Apr 27 10:41:30 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 4129 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1101/1101] 10.241.3.248 () {44 vars in 748 bytes} [Mon Apr 27 10:41:34 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 97 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['test'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for test
+[pid: 4613|app: 0|req: 1102/1102] 10.241.3.248 () {44 vars in 740 bytes} [Mon Apr 27 10:41:40 2020] GET /api/test?src=ui&language=en&metric=rank => generated 85348 bytes in 4373 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1103/1103] 10.241.3.248 () {44 vars in 744 bytes} [Mon Apr 27 10:43:30 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 661 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1104/1104] 10.241.3.248 () {44 vars in 762 bytes} [Mon Apr 27 10:43:31 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 487 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1105/1105] 10.241.3.248 () {44 vars in 752 bytes} [Mon Apr 27 10:43:31 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 612 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1106/1106] 10.241.3.248 () {44 vars in 748 bytes} [Mon Apr 27 10:43:32 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 166 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1107/1107] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:43:58 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 519 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1108/1108] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:43:58 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 404 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1109/1109] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:43:59 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 678 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1110/1110] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:44:00 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 187 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1111/1111] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:46:27 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 413 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1112/1112] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:46:27 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 369 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1113/1113] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:46:28 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 81 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1114/1114] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:46:28 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 375 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['lol'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for lol
+[pid: 4613|app: 0|req: 1115/1115] 10.241.3.248 () {44 vars in 739 bytes} [Mon Apr 27 10:46:37 2020] GET /api/lol?src=ui&language=en&metric=rank => generated 80438 bytes in 3547 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['how about now'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for how about now
+[pid: 4613|app: 0|req: 1116/1116] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:46:45 2020] GET /api/how%20about%20now?src=ui&language=en&metric=rank => generated 51533 bytes in 3233 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1117/1117] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:48:49 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 674 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1118/1118] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:48:50 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 527 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1119/1119] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:48:50 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 603 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1120/1120] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:48:51 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 100 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1121/1121] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:48:59 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 570 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1122/1122] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:48:59 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 608 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1123/1123] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:49:00 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 163 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1124/1124] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:49:00 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 635 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1125/1125] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:49:06 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 622 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1126/1126] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:49:07 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 540 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1127/1127] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:49:07 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 633 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1128/1128] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:49:08 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 147 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1129/1129] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:49:59 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 686 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1130/1130] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:49:59 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 633 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1131/1131] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:50:00 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 592 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1132/1132] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:50:01 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 194 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['lol'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for lol
+[pid: 4613|app: 0|req: 1133/1133] 10.241.3.248 () {44 vars in 739 bytes} [Mon Apr 27 10:50:07 2020] GET /api/lol?src=ui&language=en&metric=rank => generated 80438 bytes in 635 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['how about now'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for how about now
+[pid: 4613|app: 0|req: 1134/1134] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:50:10 2020] GET /api/how%20about%20now?src=ui&language=en&metric=rank => generated 51533 bytes in 324 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['what', 'if', 'we', 'test', 'lots', 'and', 'of', 'ngrams'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for what
+searching the 1grams db for if
+searching the 1grams db for we
+searching the 1grams db for test
+searching the 1grams db for lots
+searching the 1grams db for and
+searching the 1grams db for of
+searching the 1grams db for ngrams
+[pid: 4613|app: 0|req: 1135/1135] 10.241.3.248 () {44 vars in 826 bytes} [Mon Apr 27 10:50:19 2020] GET /api/what%20if%20we%20test%20lots%20and%20lots%20of%20ngrams?src=ui&language=en&metric=rank => generated 563203 bytes in 13222 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1136/1136] 10.241.3.248 () {44 vars in 761 bytes} [Mon Apr 27 10:54:24 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 406 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1137/1137] 10.241.3.248 () {44 vars in 743 bytes} [Mon Apr 27 10:54:25 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 346 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1138/1138] 10.241.3.248 () {44 vars in 751 bytes} [Mon Apr 27 10:54:25 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 453 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1139/1139] 10.241.3.248 () {44 vars in 748 bytes} [Mon Apr 27 10:54:26 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 117 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1140/1140] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:54:56 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 472 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1141/1141] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:54:56 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 300 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1142/1142] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:54:56 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 430 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1143/1143] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:54:57 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 128 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1144/1144] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:57:04 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 965 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1145/1145] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:57:05 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 620 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1146/1146] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:57:05 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 882 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1147/1147] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:57:06 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 161 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1148/1148] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 10:57:09 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 399 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1149/1149] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 10:57:10 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 406 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1150/1150] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 10:57:10 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 102 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1151/1151] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 10:57:10 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 702 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1152/1152] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 11:00:11 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 608 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1153/1153] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 11:00:12 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 598 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1154/1154] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 11:00:13 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 694 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1155/1155] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 11:00:13 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 170 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1156/1156] 10.241.3.248 () {44 vars in 745 bytes} [Mon Apr 27 11:00:22 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 643 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1157/1157] 10.241.3.248 () {44 vars in 763 bytes} [Mon Apr 27 11:00:22 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 509 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1158/1158] 10.241.3.248 () {44 vars in 753 bytes} [Mon Apr 27 11:00:23 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 565 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1159/1159] 10.241.3.248 () {44 vars in 749 bytes} [Mon Apr 27 11:00:24 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 156 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['how', 'about', 'now', 'is', 'it', 'working', 'much', 'faster'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for how
+searching the 1grams db for about
+searching the 1grams db for now
+searching the 1grams db for is
+searching the 1grams db for it
+searching the 1grams db for working
+searching the 1grams db for much
+searching the 1grams db for faster
+[pid: 4613|app: 0|req: 1160/1160] 10.241.3.248 () {44 vars in 825 bytes} [Mon Apr 27 11:01:11 2020] GET /api/how%20about%20now%20is%20it%20working%20much%20faster?src=ui&language=en&metric=rank => generated 642823 bytes in 9617 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+[pid: 4613|app: 0|req: 1161/1161] 10.241.3.248 () {40 vars in 764 bytes} [Mon Apr 27 11:02:03 2020] GET / => generated 232 bytes in 2 msecs (HTTP/1.1 404) 2 headers in 72 bytes (1 switches on core 0)
+ngrams :['how', 'about', 'now', 'is', 'it', 'working', 'much', 'faster'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for how
+searching the 1grams db for about
+searching the 1grams db for now
+searching the 1grams db for is
+searching the 1grams db for it
+searching the 1grams db for working
+searching the 1grams db for much
+searching the 1grams db for faster
+[pid: 4613|app: 0|req: 1162/1162] 10.241.3.248 () {40 vars in 864 bytes} [Mon Apr 27 11:02:15 2020] GET /api/how%20about%20now%20is%20it%20working%20much%20faster => generated 642823 bytes in 5093 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+searching the 1grams db for two
+searching the 1grams db for three
+searching the 1grams db for four
+searching the 1grams db for five
+searching the 1grams db for six
+searching the 1grams db for seven
+searching the 1grams db for eight
+searching the 1grams db for nine
+searching the 1grams db for ten
+[pid: 4613|app: 0|req: 1163/1163] 10.241.3.248 () {40 vars in 886 bytes} [Mon Apr 27 11:03:17 2020] GET /api/one%20two%20three%20four%20five%20six%20seven%20eight%20nine%20ten => generated 849750 bytes in 26723 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+searching the 1grams db for two
+searching the 1grams db for three
+searching the 1grams db for four
+searching the 1grams db for five
+searching the 1grams db for six
+searching the 1grams db for seven
+searching the 1grams db for eight
+searching the 1grams db for nine
+searching the 1grams db for ten
+[pid: 4613|app: 0|req: 1164/1164] 127.0.0.1 () {38 vars in 1334 bytes} [Mon Apr 27 11:11:01 2020] GET /api/one%20two%20three%20four%20five%20six%20seven%20eight%20nine%20ten => generated 849750 bytes in 6045 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+searching the 1grams db for two
+searching the 1grams db for three
+searching the 1grams db for four
+searching the 1grams db for five
+searching the 1grams db for six
+searching the 1grams db for seven
+searching the 1grams db for eight
+searching the 1grams db for nine
+searching the 1grams db for ten
+[pid: 4613|app: 0|req: 1165/1165] 127.0.0.1 () {40 vars in 1365 bytes} [Mon Apr 27 11:11:28 2020] GET /api/one%20two%20three%20four%20five%20six%20seven%20eight%20nine%20ten => generated 849750 bytes in 6255 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+searching the 1grams db for two
+searching the 1grams db for three
+searching the 1grams db for four
+searching the 1grams db for five
+searching the 1grams db for six
+searching the 1grams db for seven
+searching the 1grams db for eight
+searching the 1grams db for nine
+searching the 1grams db for ten
+[pid: 4613|app: 0|req: 1166/1166] 127.0.0.1 () {40 vars in 1365 bytes} [Mon Apr 27 11:11:41 2020] GET /api/one%20two%20three%20four%20five%20six%20seven%20eight%20nine%20ten => generated 849750 bytes in 6577 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+searching the 1grams db for two
+searching the 1grams db for three
+searching the 1grams db for four
+searching the 1grams db for five
+searching the 1grams db for six
+searching the 1grams db for seven
+searching the 1grams db for eight
+searching the 1grams db for nine
+searching the 1grams db for ten
+[pid: 4613|app: 0|req: 1167/1167] 127.0.0.1 () {40 vars in 1365 bytes} [Mon Apr 27 11:14:47 2020] GET /api/one%20two%20three%20four%20five%20six%20seven%20eight%20nine%20ten => generated 849750 bytes in 6098 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+searching the 1grams db for two
+searching the 1grams db for three
+searching the 1grams db for four
+searching the 1grams db for five
+searching the 1grams db for six
+searching the 1grams db for seven
+searching the 1grams db for eight
+searching the 1grams db for nine
+searching the 1grams db for ten
+[pid: 4613|app: 0|req: 1168/1168] 127.0.0.1 () {38 vars in 1334 bytes} [Mon Apr 27 11:18:13 2020] GET /api/one%20two%20three%20four%20five%20six%20seven%20eight%20nine%20ten => generated 849750 bytes in 6657 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['one'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+[pid: 4613|app: 0|req: 1169/1169] 127.0.0.1 () {38 vars in 1226 bytes} [Mon Apr 27 11:18:26 2020] GET /api/one => generated 78564 bytes in 617 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+ngrams :['one'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+[pid: 4613|app: 0|req: 1170/1170] 127.0.0.1 () {40 vars in 1257 bytes} [Mon Apr 27 11:18:31 2020] GET /api/one => generated 78564 bytes in 654 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+ngrams :['one'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+[pid: 4613|app: 0|req: 1171/1171] 127.0.0.1 () {40 vars in 1257 bytes} [Mon Apr 27 11:19:04 2020] GET /api/one => generated 78564 bytes in 612 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+ngrams :['one'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+[pid: 4613|app: 0|req: 1172/1172] 127.0.0.1 () {40 vars in 1257 bytes} [Mon Apr 27 11:19:15 2020] GET /api/one => generated 78564 bytes in 583 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+ngrams :['one'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+[pid: 4613|app: 0|req: 1173/1173] 127.0.0.1 () {40 vars in 1257 bytes} [Mon Apr 27 11:19:17 2020] GET /api/one => generated 78564 bytes in 598 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+ngrams :['one'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+[pid: 4613|app: 0|req: 1174/1174] 127.0.0.1 () {40 vars in 1257 bytes} [Mon Apr 27 11:19:22 2020] GET /api/one => generated 78564 bytes in 572 msecs (HTTP/1.1 200) 3 headers in 106 bytes (1 switches on core 0)
+ngrams :['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+searching the 1grams db for two
+searching the 1grams db for three
+searching the 1grams db for four
+searching the 1grams db for five
+searching the 1grams db for six
+searching the 1grams db for seven
+searching the 1grams db for eight
+searching the 1grams db for nine
+searching the 1grams db for ten
+[pid: 4613|app: 0|req: 1175/1175] 127.0.0.1 () {40 vars in 1365 bytes} [Mon Apr 27 11:21:22 2020] GET /api/one%20two%20three%20four%20five%20six%20seven%20eight%20nine%20ten => generated 849750 bytes in 4807 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one
+searching the 1grams db for two
+searching the 1grams db for three
+searching the 1grams db for four
+searching the 1grams db for five
+searching the 1grams db for six
+searching the 1grams db for seven
+searching the 1grams db for eight
+searching the 1grams db for nine
+searching the 1grams db for ten
+[pid: 4613|app: 0|req: 1176/1176] 127.0.0.1 () {38 vars in 1334 bytes} [Mon Apr 27 11:22:20 2020] GET /api/one%20two%20three%20four%20five%20six%20seven%20eight%20nine%20ten => generated 849750 bytes in 6093 msecs (HTTP/1.1 200) 3 headers in 107 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1177/1177] 10.241.3.250 () {40 vars in 692 bytes} [Mon Apr 27 17:00:48 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 626 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1178/1178] 10.241.3.250 () {40 vars in 710 bytes} [Mon Apr 27 17:00:49 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 2385 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1179/1179] 10.241.3.250 () {40 vars in 700 bytes} [Mon Apr 27 17:00:51 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 773 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1180/1180] 10.241.3.250 () {40 vars in 696 bytes} [Mon Apr 27 17:00:52 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 102 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :["don't say it"], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for don't say it
+[pid: 4613|app: 0|req: 1181/1181] 10.241.3.250 () {40 vars in 708 bytes} [Mon Apr 27 17:01:04 2020] GET /api/don't%20say%20it?src=ui&language=en&metric=rank => generated 89333 bytes in 635 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1182/1182] 10.241.3.250 () {40 vars in 693 bytes} [Mon Apr 27 17:01:16 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 544 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1183/1183] 10.241.3.250 () {40 vars in 711 bytes} [Mon Apr 27 17:01:17 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 404 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1184/1184] 10.241.3.250 () {40 vars in 701 bytes} [Mon Apr 27 17:01:17 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 524 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1185/1185] 10.241.3.250 () {40 vars in 697 bytes} [Mon Apr 27 17:01:18 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 102 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1186/1186] 10.241.3.250 () {44 vars in 763 bytes} [Mon Apr 27 17:18:19 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 645 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1187/1187] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 17:18:20 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 653 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1188/1188] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 17:18:20 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 744 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1189/1189] 10.241.3.250 () {44 vars in 749 bytes} [Mon Apr 27 17:18:21 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 128 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1190/1190] 10.241.3.250 () {44 vars in 763 bytes} [Mon Apr 27 17:18:24 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 539 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1191/1191] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 17:18:25 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 694 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1192/1192] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 17:18:26 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 605 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1193/1193] 10.241.3.250 () {44 vars in 749 bytes} [Mon Apr 27 17:18:26 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 127 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1194/1194] 10.241.3.250 () {44 vars in 763 bytes} [Mon Apr 27 17:20:25 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 667 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1195/1195] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 17:20:25 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 510 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1196/1196] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 17:20:26 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 639 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1197/1197] 10.241.3.250 () {44 vars in 749 bytes} [Mon Apr 27 17:20:27 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 161 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1198/1198] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 17:21:35 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 626 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1199/1199] 10.241.3.250 () {44 vars in 764 bytes} [Mon Apr 27 17:21:36 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 525 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1200/1200] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 17:21:37 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 620 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1201/1201] 10.241.3.250 () {44 vars in 750 bytes} [Mon Apr 27 17:21:37 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 150 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1202/1202] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 17:21:43 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 418 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1203/1203] 10.241.3.250 () {44 vars in 764 bytes} [Mon Apr 27 17:21:43 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74521 bytes in 421 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1204/1204] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 17:21:44 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 592 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1205/1205] 10.241.3.250 () {44 vars in 750 bytes} [Mon Apr 27 17:21:44 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 173 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1206/1206] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 17:35:56 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 582 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1207/1207] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 17:35:57 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 480 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1208/1208] 10.241.3.250 () {44 vars in 764 bytes} [Mon Apr 27 17:35:58 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 406 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1209/1209] 10.241.3.250 () {44 vars in 750 bytes} [Mon Apr 27 17:35:58 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 102 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1210/1210] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 17:36:02 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 514 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1211/1211] 10.241.3.250 () {44 vars in 750 bytes} [Mon Apr 27 17:36:03 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 104 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1212/1212] 10.241.3.250 () {44 vars in 764 bytes} [Mon Apr 27 17:36:03 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 402 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1213/1213] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 17:36:03 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 515 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1214/1214] 10.241.3.250 () {44 vars in 744 bytes} [Mon Apr 27 17:37:38 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 298 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1215/1215] 10.241.3.250 () {44 vars in 764 bytes} [Mon Apr 27 17:37:39 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 299 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1216/1216] 10.241.3.250 () {44 vars in 748 bytes} [Mon Apr 27 17:37:39 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 54 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1217/1217] 10.241.3.250 () {44 vars in 752 bytes} [Mon Apr 27 17:37:39 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 258 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1218/1218] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 17:37:45 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 326 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1219/1219] 10.241.3.250 () {44 vars in 763 bytes} [Mon Apr 27 17:37:45 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 229 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1220/1220] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 17:37:45 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 262 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1221/1221] 10.241.3.250 () {44 vars in 749 bytes} [Mon Apr 27 17:37:45 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 55 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1222/1222] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 17:39:08 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 585 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1223/1223] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 17:39:09 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 528 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1224/1224] 10.241.3.250 () {44 vars in 764 bytes} [Mon Apr 27 17:39:09 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 446 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1225/1225] 10.241.3.250 () {44 vars in 750 bytes} [Mon Apr 27 17:39:10 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 103 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1226/1226] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 17:41:08 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 531 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1227/1227] 10.241.3.250 () {44 vars in 764 bytes} [Mon Apr 27 17:41:09 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 410 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1228/1228] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 17:41:09 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 554 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1229/1229] 10.241.3.250 () {44 vars in 750 bytes} [Mon Apr 27 17:41:10 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 145 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:undefined, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1230/1230] 10.241.3.250 () {44 vars in 828 bytes} [Mon Apr 27 17:41:22 2020] GET /api/one%2520two%2520three?src=ui&language=undefined&metric=undefined => generated 155 bytes in 401 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1231/1231] 10.241.3.250 () {44 vars in 802 bytes} [Mon Apr 27 17:41:22 2020] GET /api/hahaha?src=ui&language=undefined&metric=undefined => generated 141 bytes in 512 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1232/1232] 10.241.3.250 () {44 vars in 810 bytes} [Mon Apr 27 17:41:22 2020] GET /api/%2523friday?src=ui&language=undefined&metric=undefined => generated 143 bytes in 475 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1233/1233] 10.241.3.250 () {44 vars in 763 bytes} [Mon Apr 27 17:52:39 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 402 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1234/1234] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 17:52:40 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 510 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1235/1235] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 17:52:40 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 499 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1236/1236] 10.241.3.250 () {44 vars in 749 bytes} [Mon Apr 27 17:52:41 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 80 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['lol'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for lol
+[pid: 4613|app: 0|req: 1237/1237] 10.241.3.250 () {44 vars in 738 bytes} [Mon Apr 27 17:53:12 2020] GET /api/lol?src=ui&language=en&metric=rank => generated 80438 bytes in 403 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1238/1238] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 17:53:40 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 450 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1239/1239] 10.241.3.250 () {44 vars in 763 bytes} [Mon Apr 27 17:53:40 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 390 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1240/1240] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 17:53:40 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 518 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1241/1241] 10.241.3.250 () {44 vars in 749 bytes} [Mon Apr 27 17:53:41 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 110 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1242/1242] 10.241.3.250 () {44 vars in 780 bytes} [Mon Apr 27 18:06:30 2020] GET /api/%F0%9F%A6%A0?src=ui&language=undefined&metric=undefined => generated 153 bytes in 104 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:undefined, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1243/1243] 10.241.3.250 () {44 vars in 794 bytes} [Mon Apr 27 18:06:30 2020] GET /api/one%20two%20three?src=ui&language=undefined&metric=undefined => generated 155 bytes in 324 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1244/1244] 10.241.3.250 () {44 vars in 784 bytes} [Mon Apr 27 18:06:31 2020] GET /api/%2523friday?src=ui&language=undefined&metric=undefined => generated 143 bytes in 250 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1245/1245] 10.241.3.250 () {44 vars in 776 bytes} [Mon Apr 27 18:06:31 2020] GET /api/hahaha?src=ui&language=undefined&metric=undefined => generated 141 bytes in 259 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1246/1246] 10.241.3.250 () {44 vars in 785 bytes} [Mon Apr 27 18:12:53 2020] GET /api/%2523friday?src=ui&language=undefined&metric=undefined => generated 143 bytes in 636 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:undefined, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1247/1247] 10.241.3.250 () {44 vars in 795 bytes} [Mon Apr 27 18:12:54 2020] GET /api/one%20two%20three?src=ui&language=undefined&metric=undefined => generated 155 bytes in 507 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1248/1248] 10.241.3.250 () {44 vars in 777 bytes} [Mon Apr 27 18:12:54 2020] GET /api/hahaha?src=ui&language=undefined&metric=undefined => generated 141 bytes in 666 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1249/1249] 10.241.3.250 () {44 vars in 781 bytes} [Mon Apr 27 18:12:55 2020] GET /api/%F0%9F%A6%A0?src=ui&language=undefined&metric=undefined => generated 153 bytes in 115 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1250/1250] 10.241.3.250 () {44 vars in 785 bytes} [Mon Apr 27 18:14:16 2020] GET /api/%2523friday?src=ui&language=undefined&metric=undefined => generated 143 bytes in 462 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:undefined, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1251/1251] 10.241.3.250 () {44 vars in 795 bytes} [Mon Apr 27 18:14:16 2020] GET /api/one%20two%20three?src=ui&language=undefined&metric=undefined => generated 155 bytes in 303 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1252/1252] 10.241.3.250 () {44 vars in 777 bytes} [Mon Apr 27 18:14:17 2020] GET /api/hahaha?src=ui&language=undefined&metric=undefined => generated 141 bytes in 555 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1253/1253] 10.241.3.250 () {44 vars in 781 bytes} [Mon Apr 27 18:14:17 2020] GET /api/%F0%9F%A6%A0?src=ui&language=undefined&metric=undefined => generated 153 bytes in 99 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1254/1254] 10.241.3.250 () {44 vars in 785 bytes} [Mon Apr 27 18:16:20 2020] GET /api/%2523friday?src=ui&language=undefined&metric=undefined => generated 143 bytes in 580 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:undefined, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1255/1255] 10.241.3.250 () {44 vars in 795 bytes} [Mon Apr 27 18:16:21 2020] GET /api/one%20two%20three?src=ui&language=undefined&metric=undefined => generated 155 bytes in 423 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1256/1256] 10.241.3.250 () {44 vars in 777 bytes} [Mon Apr 27 18:16:21 2020] GET /api/hahaha?src=ui&language=undefined&metric=undefined => generated 141 bytes in 536 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1257/1257] 10.241.3.250 () {44 vars in 781 bytes} [Mon Apr 27 18:16:22 2020] GET /api/%F0%9F%A6%A0?src=ui&language=undefined&metric=undefined => generated 153 bytes in 115 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1258/1258] 10.241.3.250 () {44 vars in 785 bytes} [Mon Apr 27 18:21:19 2020] GET /api/%2523friday?src=ui&language=undefined&metric=undefined => generated 143 bytes in 561 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:undefined, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1259/1259] 10.241.3.250 () {44 vars in 795 bytes} [Mon Apr 27 18:21:20 2020] GET /api/one%20two%20three?src=ui&language=undefined&metric=undefined => generated 155 bytes in 388 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1260/1260] 10.241.3.250 () {44 vars in 777 bytes} [Mon Apr 27 18:21:20 2020] GET /api/hahaha?src=ui&language=undefined&metric=undefined => generated 141 bytes in 494 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:undefined, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1261/1261] 10.241.3.250 () {44 vars in 781 bytes} [Mon Apr 27 18:21:21 2020] GET /api/%F0%9F%A6%A0?src=ui&language=undefined&metric=undefined => generated 153 bytes in 99 msecs (HTTP/1.1 200) 4 headers in 142 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1262/1262] 10.241.3.250 () {44 vars in 760 bytes} [Mon Apr 27 18:24:02 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 678 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1263/1263] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 18:24:03 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 450 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1264/1264] 10.241.3.250 () {44 vars in 752 bytes} [Mon Apr 27 18:24:03 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 577 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1265/1265] 10.241.3.250 () {44 vars in 756 bytes} [Mon Apr 27 18:24:04 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 107 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1266/1266] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:24:52 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 579 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1267/1267] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:24:52 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 378 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1268/1268] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:24:53 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 151 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1269/1269] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:24:53 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 611 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1270/1270] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:26:57 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 627 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1271/1271] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:26:57 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 472 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1272/1272] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:26:58 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 733 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1273/1273] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:26:59 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 176 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1274/1274] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:26:59 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 632 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1275/1275] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:26:59 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 558 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1276/1276] 10.241.3.250 () {44 vars in 751 bytes} [Mon Apr 27 18:27:00 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 660 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1277/1277] 10.241.3.250 () {44 vars in 756 bytes} [Mon Apr 27 18:27:01 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 97 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1278/1278] 10.241.3.250 () {44 vars in 760 bytes} [Mon Apr 27 18:27:01 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 476 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1279/1279] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 18:27:01 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 400 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1280/1280] 10.241.3.250 () {44 vars in 752 bytes} [Mon Apr 27 18:27:02 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 689 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1281/1281] 10.241.3.250 () {44 vars in 756 bytes} [Mon Apr 27 18:27:02 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 153 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1282/1282] 10.241.3.250 () {44 vars in 760 bytes} [Mon Apr 27 18:27:03 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 688 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1283/1283] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 18:27:03 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 505 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1284/1284] 10.241.3.250 () {44 vars in 752 bytes} [Mon Apr 27 18:27:04 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 709 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1285/1285] 10.241.3.250 () {44 vars in 756 bytes} [Mon Apr 27 18:27:04 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 204 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1286/1286] 10.241.3.250 () {44 vars in 752 bytes} [Mon Apr 27 18:27:05 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 679 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1287/1287] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 18:27:05 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 480 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1288/1288] 10.241.3.250 () {44 vars in 760 bytes} [Mon Apr 27 18:27:06 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 622 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1289/1289] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:27:06 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 134 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1290/1290] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:29:13 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 601 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1291/1291] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:29:14 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 463 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1292/1292] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:29:14 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 556 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1293/1293] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:29:15 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 527 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1294/1294] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:29:15 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 120 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1295/1295] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:29:16 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 443 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1296/1296] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:29:16 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 589 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1297/1297] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:29:17 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 106 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1298/1298] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:29:17 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 558 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1299/1299] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:29:17 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 455 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1300/1300] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:29:18 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 335 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1301/1301] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:29:18 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 103 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1302/1302] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:29:18 2020] GET /api/%2523friday?src=ui&language=en&metric=freq => generated 144157 bytes in 498 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:freq, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1303/1303] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:29:19 2020] GET /api/one%20two%20three?src=ui&language=en&metric=freq => generated 116418 bytes in 469 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1304/1304] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:29:19 2020] GET /api/hahaha?src=ui&language=en&metric=freq => generated 146645 bytes in 587 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1305/1305] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:29:20 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=freq => generated 24537 bytes in 110 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1306/1306] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:29:20 2020] GET /api/hahaha?src=ui&language=en&metric=freq => generated 146645 bytes in 533 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:freq, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1307/1307] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:29:20 2020] GET /api/one%20two%20three?src=ui&language=en&metric=freq => generated 116418 bytes in 441 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1308/1308] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:29:21 2020] GET /api/%2523friday?src=ui&language=en&metric=freq => generated 144157 bytes in 488 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1309/1309] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:29:21 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=freq => generated 24537 bytes in 102 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1310/1310] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:30:25 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 526 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1311/1311] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:30:26 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 506 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1312/1312] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:30:26 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 559 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1313/1313] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:30:27 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 131 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1314/1314] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:30:27 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 630 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1315/1315] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:30:27 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 426 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1316/1316] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:30:28 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 593 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1317/1317] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:30:28 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 104 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1318/1318] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:30:28 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 592 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1319/1319] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:30:29 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 419 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1320/1320] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:30:30 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 477 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1321/1321] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:30:30 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 101 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1322/1322] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:30:30 2020] GET /api/%2523friday?src=ui&language=en&metric=freq => generated 144157 bytes in 489 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:freq, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1323/1323] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:30:31 2020] GET /api/one%20two%20three?src=ui&language=en&metric=freq => generated 116418 bytes in 420 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1324/1324] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:30:31 2020] GET /api/hahaha?src=ui&language=en&metric=freq => generated 146645 bytes in 547 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1325/1325] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:30:32 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=freq => generated 24537 bytes in 117 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1326/1326] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:30:32 2020] GET /api/hahaha?src=ui&language=en&metric=freq => generated 146645 bytes in 515 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:freq, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1327/1327] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:30:32 2020] GET /api/one%20two%20three?src=ui&language=en&metric=freq => generated 116418 bytes in 475 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1328/1328] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:30:33 2020] GET /api/%2523friday?src=ui&language=en&metric=freq => generated 144157 bytes in 538 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:freq, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1329/1329] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:30:33 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=freq => generated 24537 bytes in 155 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1330/1330] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:33:47 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 661 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1331/1331] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:33:47 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 452 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1332/1332] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:33:48 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 525 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1333/1333] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:33:48 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 101 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1334/1334] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:33:48 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 516 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1335/1335] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:33:49 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 574 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1336/1336] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:33:50 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 571 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1337/1337] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:33:50 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 111 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1338/1338] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:33:50 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 602 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1339/1339] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:33:51 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 551 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1340/1340] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:33:51 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 641 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1341/1341] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:33:52 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 142 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1342/1342] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:33:52 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 614 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1343/1343] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:33:53 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 330 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1344/1344] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:33:53 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 328 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1345/1345] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:33:53 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 117 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1346/1346] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:33:54 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 607 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1347/1347] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:33:54 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 499 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1348/1348] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:33:55 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 540 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1349/1349] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:33:55 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 132 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1350/1350] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 18:36:07 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 511 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1351/1351] 10.241.3.250 () {44 vars in 760 bytes} [Mon Apr 27 18:36:08 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 591 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1352/1352] 10.241.3.250 () {44 vars in 752 bytes} [Mon Apr 27 18:36:08 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 510 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1353/1353] 10.241.3.250 () {44 vars in 760 bytes} [Mon Apr 27 18:36:09 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 584 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1354/1354] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 18:36:09 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 366 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1355/1355] 10.241.3.250 () {44 vars in 756 bytes} [Mon Apr 27 18:36:10 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 96 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1356/1356] 10.241.3.250 () {44 vars in 752 bytes} [Mon Apr 27 18:36:10 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 633 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1357/1357] 10.241.3.250 () {44 vars in 756 bytes} [Mon Apr 27 18:36:10 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 147 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1358/1358] 10.241.3.250 () {44 vars in 760 bytes} [Mon Apr 27 18:36:11 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 636 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1359/1359] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 18:36:11 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 512 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1360/1360] 10.241.3.250 () {44 vars in 752 bytes} [Mon Apr 27 18:36:12 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 595 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1361/1361] 10.241.3.250 () {44 vars in 756 bytes} [Mon Apr 27 18:36:12 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 119 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1362/1362] 10.241.3.250 () {44 vars in 761 bytes} [Mon Apr 27 18:36:12 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 523 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1363/1363] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:36:13 2020] GET /api/one%20two%20three?src=ui&language=en&metric=rank => generated 74545 bytes in 514 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1364/1364] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:36:13 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 543 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1365/1365] 10.241.3.250 () {44 vars in 757 bytes} [Mon Apr 27 18:36:14 2020] GET /api/%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 15490 bytes in 104 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday,one', 'two', 'three,hahaha', ',', '🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday,one
+searching the 1grams db for two
+searching the 1grams db for three,hahaha
+searching the 1grams db for ,
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1366/1366] 10.241.3.250 () {44 vars in 832 bytes} [Mon Apr 27 18:39:17 2020] GET /api/%2523friday,one%2520two%2520three,hahaha,%F0%9F%A6%A0?src=ui&language=en&metric=rank => generated 172527 bytes in 1675 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['one,two,three'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for one,two,three
+[pid: 4613|app: 0|req: 1367/1367] 10.241.3.250 () {44 vars in 759 bytes} [Mon Apr 27 18:39:46 2020] GET /api/one,two,three?src=ui&language=en&metric=rank => generated 4769 bytes in 159 msecs (HTTP/1.1 200) 4 headers in 143 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1368/1368] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 18:49:45 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 576 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1369/1369] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:49:46 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 407 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1370/1370] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:49:46 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 479 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1371/1371] 10.241.3.250 () {44 vars in 765 bytes} [Mon Apr 27 18:49:46 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 101 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1372/1372] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 18:49:51 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 530 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1373/1373] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 18:49:52 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 400 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1374/1374] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 18:49:52 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 475 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1375/1375] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 18:49:52 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 100 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['lol'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for lol
+[pid: 4613|app: 0|req: 1376/1376] 10.241.3.250 () {44 vars in 740 bytes} [Mon Apr 27 18:50:09 2020] GET /api/lol?src=ui&language=en&metric=rank => generated 80438 bytes in 755 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1377/1377] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 18:51:06 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 429 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1378/1378] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 18:51:06 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 532 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1379/1379] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 18:51:07 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 495 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1380/1380] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 18:51:07 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 105 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['lol'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for lol
+[pid: 4613|app: 0|req: 1381/1381] 10.241.3.250 () {44 vars in 740 bytes} [Mon Apr 27 18:51:22 2020] GET /api/lol?src=ui&language=en&metric=rank => generated 80438 bytes in 576 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :["i can't even"], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for i can't even
+[pid: 4613|app: 0|req: 1382/1382] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 18:51:26 2020] GET /api/i%2520can't%2520even?src=ui&language=en&metric=rank => generated 88350 bytes in 3245 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['haha', ',', 'one', 'two'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for haha
+searching the 1grams db for ,
+searching the 1grams db for one
+searching the 1grams db for two
+[pid: 4613|app: 0|req: 1383/1383] 10.241.3.250 () {44 vars in 785 bytes} [Mon Apr 27 18:51:35 2020] GET /api/haha%252C%2520one%252C%2520two?src=ui&language=en&metric=rank => generated 318517 bytes in 3230 msecs (HTTP/1.1 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1384/1384] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 18:52:10 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 507 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1385/1385] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 18:52:10 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 397 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1386/1386] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 18:52:11 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 475 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1387/1387] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 18:52:11 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 100 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1388/1388] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:52:29 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 467 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1389/1389] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:52:30 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 480 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1390/1390] 10.241.3.250 () {44 vars in 765 bytes} [Mon Apr 27 18:52:30 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 113 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1391/1391] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 18:52:31 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 518 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1392/1392] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 18:54:14 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 512 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1393/1393] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 18:54:14 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 398 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1394/1394] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 18:54:15 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 479 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1395/1395] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 18:54:15 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 101 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1396/1396] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 18:54:21 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 512 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1397/1397] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 18:54:21 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 398 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1398/1398] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 18:54:22 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 475 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1399/1399] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 18:54:22 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 100 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1400/1400] 10.241.3.250 () {44 vars in 771 bytes} [Mon Apr 27 18:54:27 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 401 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1401/1401] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 18:54:28 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 577 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1402/1402] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 18:54:28 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 480 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1403/1403] 10.241.3.250 () {44 vars in 765 bytes} [Mon Apr 27 18:54:29 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 101 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1404/1404] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:00:00 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 314 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1405/1405] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:00:00 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 287 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1406/1406] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:00:00 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 205 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1407/1407] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:00:01 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 52 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1408/1408] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:00:11 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 329 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1409/1409] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:00:11 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 510 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1410/1410] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:00:11 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 107 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1411/1411] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:00:11 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 548 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1412/1412] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:01:18 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 286 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1413/1413] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:01:18 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 214 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1414/1414] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:01:18 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 303 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1415/1415] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:01:18 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 59 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1416/1416] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:01:49 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 272 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1417/1417] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:01:49 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 206 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1418/1418] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:01:49 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 245 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1419/1419] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:01:50 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 55 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1420/1420] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:01:54 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 402 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1421/1421] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:01:55 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 505 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1422/1422] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:01:55 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 477 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1423/1423] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:01:56 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 100 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1424/1424] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:04:30 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 536 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1425/1425] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:04:30 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 398 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1426/1426] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:04:31 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 475 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1427/1427] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:04:31 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 101 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1428/1428] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:06:54 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 319 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1429/1429] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:06:54 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 207 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1430/1430] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:06:54 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 254 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1431/1431] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:06:54 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 55 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1432/1432] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:10:03 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 222 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1433/1433] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:10:04 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 383 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1434/1434] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:10:04 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 478 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1435/1435] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:10:04 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 101 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1436/1436] 10.241.3.250 () {44 vars in 745 bytes} [Mon Apr 27 19:23:21 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 606 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1437/1437] 10.241.3.250 () {44 vars in 770 bytes} [Mon Apr 27 19:23:21 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 422 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1438/1438] 10.241.3.250 () {44 vars in 753 bytes} [Mon Apr 27 19:23:22 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 502 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1439/1439] 10.241.3.250 () {44 vars in 765 bytes} [Mon Apr 27 19:23:22 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 104 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['one two three'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for one two three
+[pid: 4613|app: 0|req: 1440/1440] 10.241.3.250 () {44 vars in 772 bytes} [Mon Apr 27 19:23:50 2020] GET /api/one%2520two%2520three?src=ui&language=en&metric=rank => generated 74545 bytes in 490 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['hahaha'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for hahaha
+[pid: 4613|app: 0|req: 1441/1441] 10.241.3.250 () {44 vars in 746 bytes} [Mon Apr 27 19:23:51 2020] GET /api/hahaha?src=ui&language=en&metric=rank => generated 83665 bytes in 543 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['#friday'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for #friday
+[pid: 4613|app: 0|req: 1442/1442] 10.241.3.250 () {44 vars in 754 bytes} [Mon Apr 27 19:23:51 2020] GET /api/%2523friday?src=ui&language=en&metric=rank => generated 90017 bytes in 581 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['🦠'], n:1, metric:rank, rt:False, language:en
+searching the 1grams db for 🦠
+[pid: 4613|app: 0|req: 1443/1443] 10.241.3.250 () {44 vars in 766 bytes} [Mon Apr 27 19:23:52 2020] GET /api/%25F0%259F%25A6%25A0?src=ui&language=en&metric=rank => generated 15490 bytes in 106 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)

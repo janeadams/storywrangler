@@ -10,11 +10,9 @@ lastyeardate.setFullYear(lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 let thisfirst = new Date(thisyear, 0, 1)
 
-const defaultNgrams = ["hahaha","one two three","#friday","🦠"]
-
 // Set default options
 const defaultparams = {
-    "ngrams": [],
+    "ngrams": ["hahaha","one two three","#friday","🦠"],
     "language": "en",
     "metric": "rank",
     "rt": false,
@@ -22,7 +20,6 @@ const defaultparams = {
     "xviewrange": [lastyeardate, today],
     "xrange": [lastyeardate, today],
     "yrange": [10000, 1],
-    "sizing": [800, 600]
 }
 // Limit options for certain parameters
 const paramoptions = {
@@ -57,18 +54,16 @@ function setRanges() {
     //console.log("Setting ranges...")
     // Lists of all date and metric min/max:
     params.xrange = [d3.min(xmins), d3.max(xmaxes)]
+    //console.log(`Setting params[xrange] to ${params.xrange}`)
     if (params['metric'] === 'rank') {params.yrange = [d3.max(ymaxes) * 1.2, 1]}
     else {params.yrange = [0, d3.max(ymaxes) * 1.2]}
-    mainChart.draw()
+    //console.log(`Setting params[yrange] to ${params.yrange}`)
 }
 
 function setupPage() {
-    // Check the correct boxes in the filter form according to the parameters
-    //setFilters()
-    //setRanges()
-    makeCharts()
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
-    if (params['ngrams'].length < 1) {defaultNgrams.forEach(n => loadData(n))}
-    else {params['ngrams'].forEach(n => loadData(n))}
+    // Check the correct boxes in the filter form according to the parameters
+    setFilters()
+    makeCharts()
 }
