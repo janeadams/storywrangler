@@ -1,7 +1,7 @@
 d3.selectAll("input[value ='RT']").property('checked', params['RT'])
 
 
-d3.select("#filterForm").selectAll("li").addEventListener("click", function(e, i) {
+document.getElementById("#filterForm").addEventListener("click", function(e, i) {
     // When the list item is clicked, remove the word from the query list and delete the data
     if (this.checked == false) {
         params[this.name] = this.value
