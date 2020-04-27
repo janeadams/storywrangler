@@ -22,7 +22,6 @@ const defaultparams = {
     "xviewrange": [lastyeardate, today],
     "xrange": [lastyeardate, today],
     "yrange": [10000, 1],
-    "sizing": [800, 600]
 }
 // Limit options for certain parameters
 const paramoptions = {

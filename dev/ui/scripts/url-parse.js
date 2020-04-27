@@ -33,6 +33,7 @@ function readUrlVars() {
         if (typeof(params[key]) == "object" && typeof(value) == "string") {
             // Create an array
             vars[key] = []
+            console.log(`Line 36 in url parse: key ${key} / value ${value}`)
             // Add the value to it
             value.forEach(v => vars[key].push(decodeURIComponent(v)))
         } else {
