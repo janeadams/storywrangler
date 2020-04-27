@@ -9,7 +9,7 @@ class Chart {
     createScales() {
         const m = this.margin
         this.xScale = d3.scaleTime().domain([dateParser(params.xrange[0]), dateParser(params.xrange[1])]).range([0, this.width-m.left])
-        console.log(`createScales( set xScale to ${this.xScale})`)
+        console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
         if (params["scale"] === "log") {
             this.yScale = d3.scaleLog().domain(params["yrange"])}
