@@ -68,6 +68,4 @@ function setupPage() {
     // Check the correct boxes in the filter form according to the parameters
     setFilters()
     makeCharts()
-    if (params['ngrams'].length < 1) {defaultNgrams.forEach(n => loadData(n))}
-    else {params['ngrams'].forEach(n => loadData(n))}
 }
