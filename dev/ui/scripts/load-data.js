@@ -66,6 +66,7 @@ function removeNgram(n) {
     delete ngramData[n]
     console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     setRanges()
+    redrawCharts()
 }
 
 // When a word is submitted via inputClick...
