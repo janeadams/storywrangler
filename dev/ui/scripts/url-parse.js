@@ -36,7 +36,7 @@ function readUrlVars() {
         if (key==="ngrams") {
             // Create an array
             vars[key] = []
-            values = value.split(",")
+            let values = value.split(",")
             console.log(`Line 36 in url parse: key ${key} / values ${values}`)
             // Add the value to it
             values.forEach(v => {
@@ -79,9 +79,11 @@ function updateURL() {
         console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);
         if (params[p] !== defaultparams[p]) {
             customparams[p] = params[p]
+            if (p === 'ngrams'){
+                params['ngrams'].forEach(n => loadData(n))
+            }
         }
         else {
-            customparams[p] = defaultparams[p]
         }
     }
     console.log("customparams = ", customparams);
