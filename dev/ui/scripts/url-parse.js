@@ -4,11 +4,11 @@ function readUrlVars() {
         console.log("key = ", key, " value = ", value)
         // Parse arrays:
         value = value.replace("[", "").replace("/]", "")
-        value = value.split(",")
+
         // If the parameter has a specified set of options:
         if (Object.keys(paramoptions).includes(key)) {
             //console.log("paramoptions includes ", key)
-            //console.log("paramoptions[", key, "] = ", paramoptions[key])
+            console.log(`paramoptions[${key}] = ${paramoptions[key]}`)
             // And the value returned is incldued in those options:
             if (key = 'RT'){
                 if (value === 'true'){value = true}
@@ -18,12 +18,12 @@ function readUrlVars() {
             else {
                 if (paramoptions[key].includes(value)) {
                     // Accept the value from the url parameter
-                    console.log("paramoptions for", key, " includes ", value)
+                    console.log(`paramoptions for ${key} includes ${value}`)
                     vars[key] = value
                 } else {
                     // If the value isn't one of the allowed options, set to default
-                    //console.log(value + " is an invalid option for the " + key + " parameter! Setting " + key + "to default:" + defaultparams[key])
-                    value = defaultparams[key]
+                    console.log(`${value} is an invalid option for the ${key} parameter! Setting ${key} to default: ${defaultparams[key]})
+                    vars[value] = defaultparams[key]
                 }
             }
         }
@@ -33,6 +33,7 @@ function readUrlVars() {
         if (key==="ngrams") {
             // Create an array
             vars[key] = []
+            value = value.split(",")
             console.log(`Line 36 in url parse: key ${key} / value ${value}`)
             // Add the value to it
             value.forEach(v => vars[key].push(decodeURIComponent(v)))
@@ -40,6 +41,7 @@ function readUrlVars() {
             vars[key] = decodeURIComponent(value)
         }
     })
+    console.log(`readURLvars() returns ${vars}`)
     return vars;
 }
 // Get the parameters from the URL
