@@ -10,7 +10,7 @@ function readUrlVars() {
             //console.log("paramoptions includes ", key)
             console.log(`paramoptions[${key}] = ${paramoptions[key]}`)
             // And the value returned is incldued in those options:
-            if (key = 'RT'){
+            if (key === 'RT'){
                 if (value === 'true'){value = true}
                 if (value === 'false'){value = false}
                 vars[key] = value
