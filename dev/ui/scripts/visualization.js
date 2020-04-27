@@ -92,7 +92,7 @@ class Chart {
 
     addLine(ngram) {
 
-        console.log(`Adding line for ${ngram} to ${this.plot.attr('class')}`)
+        //console.log(`Adding line for ${ngram} to ${this.plot.attr('class')}`)
         const ndata = ngramData[ngram]['data']
         const colorid = ngramData[ngram]['colorid']
         const uuid = ngramData[ngram]['uuid']

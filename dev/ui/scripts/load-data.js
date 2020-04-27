@@ -4,16 +4,16 @@ function loadData(query) {
     let errors = ""
     // Pull the JSON data
     formatted_query = query.replace("#", "%23");
-    console.log("Formatted query = ", formatted_query);
+    //console.log("Formatted query = ", formatted_query);
     var url = encodeURI("http://hydra.uvm.edu:3000/api/" + formatted_query + "?src=ui&language=" + params["language"] + "&metric=" + params['metric'])
-    console.log("Querying URL = ", url)
+    //console.log("Querying URL = ", url)
     d3.json(url).then((data, error) => {
         errors = data['errors']
-        console.log(`Received API response:`)
-        let debug = {}
-        let debugvals = ['ngrams','database','metric','rt','language','errors']
-        debugvals.forEach(v => (debug[v]=[data[v]]))
-        console.table(debug)
+        //console.log(`Received API response:`)
+        //let debug = {}
+        //let debugvals = ['ngrams','database','metric','rt','language','errors']
+        //debugvals.forEach(v => (debug[v]=[data[v]]))
+        //console.table(debug)
         let newNgrams = []
         data['ngrams'].forEach(n => {
             // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
@@ -49,7 +49,7 @@ function loadData(query) {
 function removeNgram(n) {
     const thisdata = ngramData[n]
     let uuid = thisdata['uuid']
-    console.log(`removing all elements with uuid ${uuid}`)
+    //console.log(`removing all elements with uuid ${uuid}`)
     d3.selectAll('.uuid-'+uuid).remove()
     // Filter the ngram list to include every ngram except this one
     params["ngrams"] = params["ngrams"].filter(ele => ele !== n)
@@ -64,7 +64,7 @@ function removeNgram(n) {
     console.log(`Removed ${thisdata['max_'+params.metric]} from ymaxes`)
     // Delete the word from the list of ngram data
     delete ngramData[n]
-    console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
+    //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     setRanges()
     redrawCharts()
 }
