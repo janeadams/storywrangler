@@ -30,7 +30,7 @@ function readUrlVars() {
         // Set the parameter to the value from the URL
         //console.log("Setting key:", key, " to value:", value)
         // If the parameter should be formatted as an array:
-        if (typeof(params[key]) == "object" && typeof(value) == "string") {
+        if (key==="ngrams") {
             // Create an array
             vars[key] = []
             console.log(`Line 36 in url parse: key ${key} / value ${value}`)
