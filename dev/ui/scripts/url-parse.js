@@ -33,8 +33,8 @@ function readUrlVars() {
             // Create an array
             vars[key] = []
             // Add the value to it
-            value.forEach(v => decodeURIComponent(v))
-            vars[key].push(value)
+            values.forEach(v => decodeURIComponent(v))
+            vars[key].push(values)
         } else {
             vars[key] = decodeURIComponent(value)
         }
