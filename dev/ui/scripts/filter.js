@@ -1,4 +1,20 @@
+d3.selectAll("input[value ='RT']").property('checked', params['RT'])
+
+
+d3.select("#filterForm").selectAll("li").addEventListener("click", function(e, i) {
+    // When the list item is clicked, remove the word from the query list and delete the data
+    if (this.checked == false) {
+        params[this.name] = this.value
+        this.setAttribute("checked", "checked")
+        this.checked = true
+    } else {
+        return false
+    }
+
+})
+
 function setFilters() {
+
     // Check the boxes based on the parameters
     for (var filter of ['metric', 'language', 'scale']) {
         console.log("Clearing all checkboxes for ", filter)
@@ -8,22 +24,6 @@ function setFilters() {
         console.log("Checking box for", params[filter], "on filter", filter)
         d3.selectAll("input[value = " + params[filter] + "]").property('checked', true)
     }
-
-
-    d3.selectAll("input[value ='RT']").property('checked', params['RT'])
-
-
-    d3.selectAll("#filterForm li").addEventListener("click", function(e, i) {
-        // When the list item is clicked, remove the word from the query list and delete the data
-        if (this.checked == false) {
-            currentParams[this.name] = this.value
-            this.setAttribute("checked", "checked")
-            this.checked = true
-        } else {
-            return false
-        }
-
-    })
 
 
     if (params['metric'] == 'freq') {
