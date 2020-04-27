@@ -1,19 +1,3 @@
-d3.selectAll("input[value ='RT']").property('checked', params['RT'])
-
-document.querySelectorAll('.filter').forEach(item => {
-    item.addEventListener("click", function(e, i) {
-        console.log(`Clicked on ${this}`)
-        // When the list item is clicked, remove the word from the query list and delete the data
-        if (this.checked == false) {
-            params[this.name] = this.value
-            this.setAttribute("checked", "checked")
-            this.checked = true
-        } else {
-            return false
-        }
-    })
-})
-
 function setFilters() {
 
     // Check the boxes based on the parameters
@@ -36,4 +20,17 @@ function setFilters() {
         d3.select("#scaleFilter").style("display", "inline-block")
     }
 
+}
+
+function filterSubmission() {
+    console.log("filter selected!");
+    // Check the boxes based on the parameters
+    for (var p of ['metric', 'scale']) {
+        // Get the selected language and metric, and update the parameters variable
+        params[p] = d3.select("input[name = '" + p + "']").property('value')
+        console.log(`Set params[${p}] to ${params[p]}`)
+    }
+    params['RT']=d3.select("input[value ='RT']").property('checked')
+    console.log(`Set params['RT'] to ${params['RT']}`)
+    updateURL()
 }
