@@ -67,7 +67,6 @@ function setRanges() {
 function setupPage() {
     // Check the correct boxes in the filter form according to the parameters
     //setFilters()
-    setRanges()
     makeCharts()
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
