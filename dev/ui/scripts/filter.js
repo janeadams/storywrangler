@@ -27,7 +27,7 @@ function filterSubmission() {
     // Check the boxes based on the parameters
     for (var p of ['metric', 'scale']) {
         // Get the selected language and metric, and update the parameters variable
-        params[p] = d3.select("input[name = '" + p + "']").property('value')
+        params[p] = d3.select("input[name = '" + p + "']").filter(':checked').property('value')
         console.log(`Set params[${p}] to ${params[p]}`)
     }
     params['RT']=d3.select("input[value ='RT']").property('checked')
