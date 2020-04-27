@@ -16,7 +16,7 @@ class Chart {
         if (params.scale === "log") {
             this.yScale = d3.scaleLog().domain(params.yrange)}
         else {
-            this.yScale = d3.scaleLinear().domain(params.yrange])}
+            this.yScale = d3.scaleLinear().domain(params.yrange)}
         // When showing ranks, put rank #1 at the top
         // When showing any other metric, put the highest number at the top and start at 0
         if (params.metric === "rank") {
