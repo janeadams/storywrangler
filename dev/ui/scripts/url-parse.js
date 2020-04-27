@@ -68,6 +68,9 @@ function updateURL() {
         if (params[p] !== defaultparams[p]) {
             customparams[p] = params[p]
         }
+        else {
+            customparams[p] = defaultparams[p]
+        }
     }
     console.log("customparams = ", customparams);
     let paramlist = [];
