@@ -126,7 +126,7 @@ class Chart {
         }
         var mousemove = function(d) {
             Tooltip
-                .html(ngram+ ": " + this.xScale(dateParser(d[0])))
+                .html(ngram+ ": " + (d => this.xScale(dateParser(d[0]))))
                 .style("left", (d3.mouse(this)[0]+70) + "px")
                 .style("top", (d3.mouse(this)[1]) + "px")
         }
@@ -139,12 +139,12 @@ class Chart {
         this.clipgroup
             .append("g")
             .selectAll("dot")
-            .data(ndata)
+            .datum(ndata)
             .enter()
             .append("circle")
             .attr("class", "myCircle")
-            .attr("cx", function(d) { return this.xScale(dateParser(d[0])) } )
-            .attr("cy", function(d) { return this.yScale(d[1]) } )
+            .attr("cx", (d => this.xScale(dateParser(d[0]))))
+            .attr("cy", (d => this.yScale(d[1])))
             .attr("r", 5)
             .attr("stroke", colors.main[colorid])
             .attr("stroke-width", 3)
