@@ -26,7 +26,7 @@ const paramoptions = {
     "language": ["en","es","ru","fr"],
     "metric": ["rank", "counts", "freq"],
     "scale": ["log", "lin"],
-    "RT": [true,false]
+    "rt": [true,false]
 }
 // An object containing our parameters
 let params = defaultparams

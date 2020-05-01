@@ -10,7 +10,7 @@ function readUrlVars() {
             //console.log("paramoptions includes ", key)
             console.log(`paramoptions[${key}] = ${paramoptions[key]}`)
             // And the value returned is incldued in those options:
-            if (key === 'RT'){
+            if (key === 'rt'){
                 if (value === 'true'){value = true}
                 if (value === 'false'){value = false}
                 vars[key] = value
@@ -78,7 +78,7 @@ function updateURL() {
     console.log("currentURL = ", currentURL);
     let splitURL = currentURL.split("?");
     let customparams = {};
-    for (let p of ['ngrams', 'metric', 'language', 'scale','RT']) {
+    for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
         console.log("var p = ", p);
         console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);
         if (params[p] !== defaultparams[p]) {
