@@ -21,7 +21,7 @@ function loadData(query) {
             }
             else if (data['ngramdata'][n] == null) {
                 console.log(`No data available for ${n}`)
-                alert(`We couldn't find any ${data['metric']} data for ${n} in the ${data['language']} ${data['database']}grams database`)
+                alert(`Sorry! We couldn't find any ${data['metric']} data for ${n} in the ${data['language']} ${data['database']}grams database`)
             }
             else {
                 newNgrams.push(n)
