@@ -59,7 +59,6 @@ function getUrlParams() {
     }
     else {
         params['ngrams'] = defaultparams['ngrams']
-        params['ngrams'].forEach(n => loadData(n))
     }
     /*
     for (let p in params) {
