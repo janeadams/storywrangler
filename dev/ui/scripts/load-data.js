@@ -7,12 +7,12 @@ function loadData(query) {
     var url = encodeURI(`http://hydra.uvm.edu:3000/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
     //console.log(`Querying URL ${url}`)
     d3.json(url).then((data, error) => {
-        errors.append(data['errors'])
-        //console.log(`Received API response:`)
-        //let debug = {}
-        //let debugvals = ['ngrams','database','metric','rt','language','errors']
-        //debugvals.forEach(v => (debug[v]=[data[v]]))
-        //console.table(debug)
+        //errors.append(data['errors'])
+        console.log(`Received API response:`)
+        let debug = {}
+        let debugvals = ['ngrams','database','metric','rt','language','errors']
+        debugvals.forEach(v => (debug[v]=[data[v]]))
+        console.table(debug)
         let newNgrams = []
         data['ngrams'].forEach(n => {
             // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
