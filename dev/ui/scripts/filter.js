@@ -24,7 +24,6 @@ function setFilters() {
 
 function filterSubmission() {
     console.log("filter selected!")
-    this.property('checked',true)
     // Check the boxes based on the parameters
     for (var p of ['metric', 'scale']) {
         // Get the selected language and metric, and update the parameters variable
