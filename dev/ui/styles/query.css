@@ -16,7 +16,7 @@
     margin-right: 5%;
 }
 
-#download:hover {
+#download a:hover {
     border: 4px solid darkred;
     color: darkred;
 }
