@@ -44,6 +44,7 @@ function loadData(query) {
         if (newNgrams.length > 0) {
             setRanges()
             redrawCharts()
+            updateURL()
         }
     })
 }
