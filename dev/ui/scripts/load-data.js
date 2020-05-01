@@ -38,7 +38,7 @@ function loadData(query) {
         })
         if (newNgrams.length > 0) {
             setRanges()
-            updateURL()
+            //updateURL()
         }
     })
 }
@@ -65,7 +65,7 @@ function removeNgram(n) {
     delete ngramData[n]
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     setRanges()
-    updateURL()
+    //updateURL()
 }
 
 // When a word is submitted via inputClick...
