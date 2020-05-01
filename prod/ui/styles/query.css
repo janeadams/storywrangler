@@ -1,22 +1,34 @@
-#queryList {
+#ngramList {
     display: inline-block;
     width: 100%;
     padding: 5px;
 }
 
-#queryList li {
-    display: inline-block;
+#download {
+    padding: 10px 15px;
+    background-color: lightcoral;
+    border-radius: 3px;
+    border: 2px solid #FAC1BE;
+    color: white;
+    font-size: 1.4em;
+    float: right;
+    text-decoration: none;
+    margin-right: 5%;
+}
+
+#ngramList li {
     padding: 7px 10px;
     margin: 3px;
+    display: inline-block;
     color: #00B6CF;
     background-color: #B5E2EA;
     border: 1px solid;
     border-color: #0681A2;
-    border-radius: 2px;
     font-size: 1.2em;
+    border-radius: 2px;
 }
 
-#queryList li:hover {
+#ngramList li:hover {
     background-color: #FAC1BE;
     border: 2px dashed #EF3D25;
     text-decoration: line-through;
@@ -60,7 +72,7 @@
 
 #queryForm input[type=text] {
     background-color: lightgray;
-    width: 70%;
+    width: 65%;
     float: left;
 }
 
