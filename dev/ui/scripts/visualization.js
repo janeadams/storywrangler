@@ -107,6 +107,51 @@ class Chart {
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
             .attr('d',line)
+
+        // create a tooltip
+        var Tooltip = d3.select(this.element)
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "2px")
+            .style("border-radius", "5px")
+            .style("padding", "5px")
+
+        // Three function that change the tooltip when user hover / move / leave a cell
+        var mouseover = function(d) {
+            Tooltip
+                .style("opacity", 1)
+        }
+        var mousemove = function(d) {
+            Tooltip
+                .html(ngram+ ": " + this.xScale(dateParser(d[0])))
+                .style("left", (d3.mouse(this)[0]+70) + "px")
+                .style("top", (d3.mouse(this)[1]) + "px")
+        }
+        var mouseleave = function(d) {
+            Tooltip
+                .style("opacity", 0)
+        }
+
+        // Add the points
+        this.clipgroup
+            .append("g")
+            .selectAll("dot")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("class", "myCircle")
+            .attr("cx", function(d) { return this.xScale(dateParser(d[0])) } )
+            .attr("cy", function(d) { return this.yScale(d[1]) } )
+            .attr("r", 5)
+            .attr("stroke", colors.main[colorid])
+            .attr("stroke-width", 3)
+            .attr("fill", "white")
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
     }
 
     draw() {
@@ -148,11 +193,11 @@ class Chart {
 
 function makeCharts(){
     mainChart = new Chart({element: document.querySelector('#mainplot')})
-    Object.keys(ngramData).forEach(n => {
+    /*Object.keys(ngramData).forEach(n => {
         d3.select('#subplot-list').append('div').attr('class', `subplot ${ngramData[n]['uuid']}`)
         const s = new Chart({element: document.querySelector('.subplot')})
         s.draw()
-    })
+    })*/
     d3.select(window).on('resize', () => {
         mainChart.draw()
     })
