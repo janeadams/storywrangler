@@ -81,10 +81,11 @@ function getUrlParams() {
 }
 
 function updateURL() {
-    let currentURL = String(window.location.href);
-    console.log("currentURL = ", currentURL);
-    let splitURL = currentURL.split("?");
+    let currentURL = String(window.location.href)
+    console.log("currentURL = ", currentURL)
+    let splitURL = currentURL.split("?")
     let newURL = String(splitURL[0]) + "?ngrams=" + params['ngrams']
+    window.location.href = newURL
     /*
     let customparams = {};
     for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
