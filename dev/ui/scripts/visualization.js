@@ -139,7 +139,7 @@ class Chart {
         this.clipgroup
             .append("g")
             .selectAll("dot")
-            .data(data)
+            .datum(ndata)
             .enter()
             .append("circle")
             .attr("class", "myCircle")
