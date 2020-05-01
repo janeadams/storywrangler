@@ -16,7 +16,7 @@ function loadData(query) {
         let newNgrams = []
         data['ngrams'].forEach(n => {
             // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
-            if (!(Object.keys(ngramData).includes(n))) {
+            if (Object.keys(ngramData).includes(n)) {
                 console.log(`${n} was already added to the ngram data`)
             }
             else if (Object.keys(data['ngramdata'][n]).length < 1) {
