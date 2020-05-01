@@ -4,7 +4,14 @@
     padding: 5px;
 }
 
-#queryList li {
+#download {
+    color: darkred;
+    background-color: #FAC1BE;
+    border-color: darkred;
+    float: right;
+}
+
+#queryList li, #download {
     display: inline-block;
     padding: 7px 10px;
     margin: 3px;

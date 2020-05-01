@@ -44,13 +44,6 @@ main {
     margin: 0 auto;
 }
 
-#download {
-    padding: 10px;
-    border: 2px solid darkred;
-    color: darkred;
-    background-color: #FAC1BE;
-}
-
 footer {
     border-top: 2px solid lightgrey;
     width: 80%;
