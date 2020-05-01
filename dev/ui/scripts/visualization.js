@@ -121,6 +121,8 @@ class Chart {
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.margin.top + this.height + this.margin.bottom)
 
+        this.svg.append("a").attr("id","download").innerHTML("Download this data!").attr("href", "https:/storywrangling.org/api/"+params['ngrams'].join(" "))
+
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
             .append("svg:rect")

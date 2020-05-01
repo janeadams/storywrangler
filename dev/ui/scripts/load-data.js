@@ -45,7 +45,7 @@ function loadData(query) {
         if (newNgrams.length > 0) {
             setRanges()
             redrawCharts()
-            d3.select("#download").attr("href", "https:/storywrangling.org/api/"+params['ngrams'].join(" "))
+            //d3.select("#download").attr("href", "https:/storywrangling.org/api/"+params['ngrams'].join(" "))
             //updateURL()
         }
     })
