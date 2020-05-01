@@ -84,7 +84,7 @@ function updateURL() {
     console.log("currentURL = ", currentURL)
     let splitURL = currentURL.split("?")
     let newURL = String(splitURL[0]) + "?ngrams=" + params['ngrams']
-    window.location.href = newURL
+    history.pushState({},null, newURL)
     /*
     let customparams = {};
     for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
