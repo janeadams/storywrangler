@@ -24,7 +24,7 @@ function setFilters() {
 
 function filterSubmission() {
     console.log("filter selected!");
-    var checked = d3.select(`input[name = '${p}']`).property('checked',true).property('value')
+    var checked = d3.select(`input[name ='metric']`).property('checked',true).property('value')
     console.log(checked + "is checked")
     // Check the boxes based on the parameters
     for (var p of ['metric', 'scale']) {
