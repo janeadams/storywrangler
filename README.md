@@ -22,7 +22,7 @@ Note that API URLs should not contain quote characters.
 | query     | one or more ngrams to search<br>(goes immediately after `/api/`) | `#MeToo`,`does anyone else`,`😊` |
 | metric    | which measure of lexical fame to return<br>(default is `rank`)   | `rank`,`counts`,`freq`                  |
 | language  | which language database to query<br>(default is English as `en`) | `en`,`es`,`ru`,`fr`                     |
-| RT        | boolean for whether to include retweets<br>(default is `false`)  | `true`,`false`                          |
+| rt        | boolean for whether to include retweets<br>(default is `false`)  | `true`,`false`                          |
 | src       | metadata for logging & debugging purposes<br>(default is `api`)  | `api`,`ui`                              |
 
 Here is an example query searching the Spanish ngrams database for the frequencies of ngrams related to Hurricane Maria, from all tweets, including retweets:
@@ -56,7 +56,7 @@ The UI takes several parameters, stored in the `params` object:
 | ngrams     | string list of ngrams to display (up to 10) | `'#MeToo'`,`'does anyone else'`,`'😊'` |
 | metric    | string for which measure of lexical fame to return<br>(default is `'rank'`)   | `'rank'`,`'counts'`,`'freq'`                  |
 | language  | string for which language database to query<br>(default is English as `'en'`) | `'en'`,`'es'`,`'ru'`,`'fr'`                     |
-| RT        | boolean for whether to include retweets<br>(default is `false`)  | `true`,`false`                          |
+| rt        | boolean for whether to include retweets<br>(default is `false`)  | `true`,`false`                          |
 | scale       | string for visualization scale (linear or logarithmic)<br>(default is `'log'`)  | `'log'`,`'lin'`                              |
 | xrange       | list of dates of length 2, for data to query: `[<start date>, <end date>]`<br>(default is `[<June 31 2009>, <today>]`)  | `[Fri Jul 31 2009, Sat Mar 28 2020]`|
 | xviewrange       | list of dates of length 2, to view in the chart: `[<start date>, <end date>]`<br>(default is `[<one year ago today>, <today>]`)  | `[Thu Mar 28 2019, Sat Mar 28 2020]`|
