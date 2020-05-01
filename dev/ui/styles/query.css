@@ -12,12 +12,12 @@
 
 #download {
     background-color: lightcoral;
-    border: #FAC1BE;
-    color: #FAC1BE;
+    border: 2px solid #FAC1BE;
+    color: white;
     font-size: 1.4em;
     float: right;
     text-decoration: none;
-    margin-right: 15%;
+    margin-right: 5%;
 }
 
 #ngramList li {
