@@ -70,7 +70,6 @@ function getUrlParams() {
             }
         }
     }
-    updateURL()
 }
 
 function updateURL() {
