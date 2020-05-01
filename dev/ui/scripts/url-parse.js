@@ -93,5 +93,5 @@ function updateURL() {
     }
     let newURL = String(splitURL[0]) + "?" + paramlist.join("&");
     console.log("newURL = ", newURL);
-    window.location.href = newURL;
+    history.pushState({},null, newURL)
 }
