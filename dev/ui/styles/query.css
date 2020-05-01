@@ -4,20 +4,20 @@
     padding: 5px;
 }
 
-#download {
-    background-color: #FAC1BE;
-    border: 2px solid darkred;
-    color: darkred;
-    font-size: 1.4em;
-    float: right;
-    text-decoration: none;
-    margin-right: 15%;
-}
-
 #download, #ngramList li {
     padding: 7px 10px;
     margin: 3px;
     border-radius: 2px;
+}
+
+#download {
+    background-color: lightcoral;
+    border: #FAC1BE;
+    color: #FAC1BE;
+    font-size: 1.4em;
+    float: right;
+    text-decoration: none;
+    margin-right: 15%;
 }
 
 #ngramList li {
