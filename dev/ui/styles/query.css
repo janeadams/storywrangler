@@ -4,14 +4,10 @@
     padding: 5px;
 }
 
-#download, #ngramList li {
-    padding: 7px 10px;
-    margin: 3px;
-    border-radius: 2px;
-}
-
 #download {
+    padding: 10px 15px;
     background-color: lightcoral;
+    border-radius: 3px;
     border: 2px solid #FAC1BE;
     color: white;
     font-size: 1.4em;
@@ -20,13 +16,21 @@
     margin-right: 5%;
 }
 
+#download:hover {
+    border: 4px solid darkred;
+    color: darkred;
+}
+
 #ngramList li {
+    padding: 7px 10px;
+    margin: 3px;
     display: inline-block;
     color: #00B6CF;
     background-color: #B5E2EA;
     border: 1px solid;
     border-color: #0681A2;
     font-size: 1.2em;
+    border-radius: 2px;
 }
 
 #ngramList li:hover {
