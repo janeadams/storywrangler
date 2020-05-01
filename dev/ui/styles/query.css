@@ -11,7 +11,7 @@
     font-size: 1.4em;
     float: right;
     text-decoration: none;
-    padding-right: 15%;
+    margin-right: 15%;
 }
 
 #download, #ngramList li {
