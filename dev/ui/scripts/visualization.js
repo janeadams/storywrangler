@@ -107,51 +107,6 @@ class Chart {
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
             .attr('d',line)
-
-        // create a tooltip
-        var Tooltip = d3.select(this.element)
-            .append("div")
-            .style("opacity", 0)
-            .attr("class", "tooltip")
-            .style("background-color", "white")
-            .style("border", "solid")
-            .style("border-width", "2px")
-            .style("border-radius", "5px")
-            .style("padding", "5px")
-
-        // Three function that change the tooltip when user hover / move / leave a cell
-        var mouseover = function(d) {
-            Tooltip
-                .style("opacity", 1)
-        }
-        var mousemove = function(d) {
-            Tooltip
-                .html(ngram+ ": " + (d => this.xScale(dateParser(d[0]))))
-                .style("left", (d3.mouse(this)[0]+70) + "px")
-                .style("top", (d3.mouse(this)[1]) + "px")
-        }
-        var mouseleave = function(d) {
-            Tooltip
-                .style("opacity", 0)
-        }
-
-        // Add the points
-        this.clipgroup
-            .append("g")
-            .selectAll("dot")
-            .datum(ndata)
-            .enter()
-            .append("circle")
-            .attr("class", "myCircle")
-            .attr("cx", (d => this.xScale(dateParser(d[0]))))
-            .attr("cy", (d => this.yScale(d[1])))
-            .attr("r", 5)
-            .attr("stroke", colors.main[colorid])
-            .attr("stroke-width", 3)
-            .attr("fill", "white")
-            .on("mouseover", mouseover)
-            .on("mousemove", mousemove)
-            .on("mouseleave", mouseleave)
     }
 
     draw() {
