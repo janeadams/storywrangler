@@ -19,7 +19,7 @@ function loadData(query) {
             if (Object.keys(ngramData).includes(n)) {
                 console.log(`${n} was already added to the ngram data`)
             }
-            else if (Object.keys(data['ngramdata'][n]).length < 1) {
+            else if (data['ngramdata'][n] == null) {
                 console.log(`No data available for ${n}`)
             }
             else {
