@@ -67,4 +67,5 @@ function setupPage() {
     //setFilters()
     params = defaultparams
     makeCharts()
+    params['ngrams'].forEach(n => loadData(n))
 }
