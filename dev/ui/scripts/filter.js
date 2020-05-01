@@ -4,7 +4,7 @@ function setFilters() {
     for (var filter of ['metric', 'scale']) {
         console.log(`Clearing all checkboxes for  ${filter}`)
         // Clear all checked boxes
-        d3.selectAll(`input[name = ${filter}]`).attr('checked', false)
+        d3.selectAll(`input[name = ${filter}]`).property('checked', false)
         // Check only the correct box for this parameter value
         console.log(`Checking box for ${params[filter]} on filter ${filter}`)
         d3.selectAll(`input[value =${params[filter]}]`).property('checked', true)
@@ -30,6 +30,6 @@ function filterSubmission() {
         //params[p] = d3.select(`input[name = '${p}']`).property('checked',true).property('value')
         console.log(`Params[${p}] = ${params[p]}`)
     }
-    params['RT']=d3.select("input[value ='RT']").property('checked')
+    params['RT']=d3.select("input[value ='RT']:checked")
     console.log(`Set params['RT'] to ${params['RT']}`)
 }
