@@ -4,7 +4,7 @@ function setFilters() {
     for (var filter of ['metric', 'scale']) {
         console.log(`Clearing all checkboxes for  ${filter}`)
         // Clear all checked boxes
-        //d3.selectAll(`input[name = ${filter}]`).attr('checked', false)
+        d3.selectAll(`input[name = ${filter}]`).attr('checked', false)
         // Check only the correct box for this parameter value
         console.log(`Checking box for ${params[filter]} on filter ${filter}`)
         d3.selectAll(`input[value =${params[filter]}]`).property('checked', true)
