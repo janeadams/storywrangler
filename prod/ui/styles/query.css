@@ -11,7 +11,7 @@
     float: right;
 }
 
-#queryList li, #download {
+#download, #queryList li {
     display: inline-block;
     padding: 7px 10px;
     margin: 3px;
