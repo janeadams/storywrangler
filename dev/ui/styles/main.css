@@ -164,11 +164,13 @@ footer img {
 
     #menu {
         float: none;
+        display: block;
         margin: 0 auto;
         width: 90%;
     }
     #navigation .social {
         float: none;
+        display: block;
         margin: 0 auto;
         width: 90%;
     }
