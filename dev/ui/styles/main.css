@@ -141,6 +141,7 @@ footer img {
         margin: 0 auto;
         width: 90%;
         display: block;
+        text-align: center;
     }
 
     #navigation {
