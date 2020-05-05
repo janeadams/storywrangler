@@ -159,9 +159,12 @@ main {
 #related-work {
     font-size: 1.2em;
     color: #666;
+    font-family: "Helvetica", sans-serif;
+    padding-bottom: 0;
 }
 
 #related-work h1 {
+    padding-top: 20px;
     font-weight: bold;
 }
 
