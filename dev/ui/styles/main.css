@@ -51,6 +51,11 @@ header {
     float: right;
 }
 
+#menu {
+    display: inline-block;
+    float: left;
+}
+
 #menu li {
     padding: 5px 10px;
     display: inline-block;
@@ -67,6 +72,11 @@ header {
 #menu a:hover {
     font-weight: bold;
     font-size: 1.3em;
+}
+
+.social {
+    display: inline-block;
+    float: left;
 }
 
 .social li {
