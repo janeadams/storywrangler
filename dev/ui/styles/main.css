@@ -157,10 +157,10 @@ main {
 }
 
 #related-work {
-    font-size: 1.2em;
-    color: #666;
-    font-family: "Helvetica", sans-serif;
-    padding-bottom: 0;
+    font-size: 1.2em !important;
+    color: #666 !important;
+    font-family: "Helvetica", sans-serif !important;
+    padding-bottom: 0 !important;
 }
 
 #related-work h1 {
