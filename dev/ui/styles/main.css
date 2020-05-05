@@ -148,6 +148,15 @@ footer img {
         margin: 0 auto;
         width: 90%;
     }
+
+    #menu {
+        display: block;
+        float: none;
+    }
+    #navigation .social {
+        display: block;
+        float: none;
+    }
 }
 
 @media screen and (max-width: 600px) {
