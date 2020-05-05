@@ -7,7 +7,7 @@ h2,
 h3,
 h4 {
     font-family: "Helvetica", sans-serif;
-    color: #999;
+    color: #333;
 }
 
 ul {
@@ -114,7 +114,6 @@ main {
     width: 90%;
     margin: 0 auto;
     padding: 20px 5%;
-    color: #333;
 }
 
 .textblock p {
