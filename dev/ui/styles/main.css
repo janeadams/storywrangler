@@ -182,7 +182,8 @@ main {
 }
 
 footer {
-    border-top: 2px solid lightgrey;
+    border-top: 2px solid #999;
+    box-shadow: 5px -10px 18px #888888;
     width: 90%;
     padding: 10px 5% 20px 5%;
     display: block;
