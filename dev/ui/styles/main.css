@@ -122,9 +122,27 @@ main {
     font-size: 1.4em;
 }
 
-.textblock h1,h2,h3,h4 {
+.textblock h1,h2,h3 {
     font-family: "Pangolin", "Helvetica", sans-serif;
     margin-top: 10px;
+}
+
+.textblock h1 {
+    font-size: 1.8em;
+}
+.textblock h2 {
+    font-size: 1.6em;
+}
+.textblock h4 {
+    font-weight: bold;
+}
+.textblock a {
+    color: #417DD6;
+    text-decoration: none;
+}
+.textblock a:hover {
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 footer {
@@ -208,6 +226,11 @@ footer img {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
+    }
+
+    .textblock p {
+        line-height: 140%;
+        font-size: 1.2em;
     }
 
     footer p, footer img {
