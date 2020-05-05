@@ -136,19 +136,22 @@ footer img {
 
 @media screen and (max-width: 1000px) {
     #logo {
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
         width: 90%;
         display: block;
     }
     #logo p {
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
         width: 90%;
         display: block;
         text-align: center;
     }
 
     #navigation {
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
         width: 90%;
         float: none;
     }
@@ -168,23 +171,27 @@ footer img {
     #menu {
         float: none;
         display: block;
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
         width: 90%;
     }
     #menu li {
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
         width: 90%;
         text-align: center;
     }
     #navigation .social {
         float: none;
         display: block;
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
         width: 90%;
     }
 
     footer p, footer img {
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
         width: 60%;
         height: auto;
         display: block;
