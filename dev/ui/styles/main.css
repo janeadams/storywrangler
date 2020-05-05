@@ -168,6 +168,11 @@ footer img {
         margin: 0 auto;
         width: 90%;
     }
+    #menu li {
+        margin: 0 auto;
+        width: 90%;
+        text-align: center;
+    }
     #navigation .social {
         float: none;
         display: block;
