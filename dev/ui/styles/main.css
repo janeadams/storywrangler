@@ -69,12 +69,18 @@ header {
     font-size: 1.3em;
 }
 
-.social_icon {
+.social li {
+    padding: 2px 10px;
+    display: inline-block;
+    float: left;
+}
+
+.social img {
     width: 30px;
     height: 30px;
 }
 
-.social_icon:hover {
+.social img:hover {
     width: 35px;
     height: 35px;
 }
