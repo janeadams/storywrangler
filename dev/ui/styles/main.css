@@ -14,7 +14,7 @@ body {
     padding: 0;
     margin: 0;
 }
-/*
+
 header {
     width: 100%;
     padding: 30px 10%;
@@ -25,9 +25,11 @@ header {
 #logo {
     width: 350px;
     max-width:100%;
+    /*
     display: inline-block;
     transition: width 0.5s;
     float: left;
+    */
 }
 
 #logo img {
@@ -36,11 +38,13 @@ header {
 }
 
 #navigation {
+    /*
     display: inline-block;
     float: right;
     width: auto;
     max-width:100%;
-    transition: width 0.5s;*/
+    transition: width 0.5s;
+    */
 }
 
 #menu li {
