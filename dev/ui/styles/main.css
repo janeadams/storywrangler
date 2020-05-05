@@ -22,11 +22,16 @@ header {
 }
 
 #logo {
-    width: 600px;
+    width: 250px;
     max-width:100%;
     display: block;
     transition: width 0.5s;
     float: left;
+}
+
+#logo img {
+    width: 100%;
+    height: auto;
 }
 
 #navigation {
