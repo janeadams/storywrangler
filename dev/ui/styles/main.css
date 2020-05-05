@@ -139,35 +139,57 @@ footer img {
 
 
 @media screen and (max-width: 1000px) {
-    #logo, #navigation {
+    #logo {
         margin-left: auto;
         margin-right: auto;
         width: 90%;
         display: block;
-        float: none;
     }
     #logo p {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        display: block;
         text-align: center;
     }
-    #navigation ul {
-        display: block;
+
+    #navigation {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        float: none;
     }
+
     #menu {
+        display: block;
         float: left;
     }
     #navigation .social {
+        display: block;
         float: right;
     }
 }
 
 @media screen and (max-width: 600px) {
 
-    #navigation ul {
+    #menu {
         float: none;
         display: block;
         margin-left: auto;
         margin-right: auto;
         width: 90%;
+    }
+    #menu li {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        text-align: center;
+    }
+    #navigation .social {
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     #navigation li {
