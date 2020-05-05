@@ -152,13 +152,24 @@ footer img {
 
     #menu {
         display: block;
+        float: left;
     }
     #navigation .social {
         display: block;
+        float: right;
     }
 }
 
 @media screen and (max-width: 600px) {
+
+    #menu {
+        float: none;
+        margin: 0 auto;
+    }
+    #navigation .social {
+        float: none;
+        margin: 0 auto;
+    }
 
     footer p, footer img {
         margin: 0 auto;
