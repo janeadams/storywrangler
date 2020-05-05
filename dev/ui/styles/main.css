@@ -147,6 +147,7 @@ footer img {
     #navigation {
         margin: 0 auto;
         width: 90%;
+        float: none;
     }
 
     #menu {
