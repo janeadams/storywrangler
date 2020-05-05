@@ -1,0 +1,61 @@
+#dataviz {
+    width: 100%;
+    display: inline-block;
+}
+
+#mainplot,
+.subplot {
+    width: 90%;
+    margin: 20px auto;
+}
+
+#mainplot {
+    height: 400px;
+}
+
+.subplot {
+    height: 300px;
+}
+.axislabel, .axislabel-large {
+    fill: darkgrey;
+}
+.axislabel-large {
+    font-size: 15px;
+}
+.axislabel {
+    font-size: 10px;
+}
+
+.hoverline {
+    stroke-width: 3px;
+}
+
+.unfocus {
+    opacity: 0.3;
+}
+
+/* Style the lines by removing the fill and applying a stroke */
+.line {
+    fill: none;
+    stroke-width: 1px;
+}
+
+.zoom {
+    cursor: move;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+/* Style the dots by assigning a fill and stroke */
+.dot {
+    fill: #ffab00;
+    stroke: #fff;
+}
+
+.main circle {
+    fill: none;
+    stroke: steelblue;
+}
