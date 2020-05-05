@@ -35,6 +35,13 @@ header {
     height: auto;
 }
 
+#logo p {
+    font-family: "Pangolin", "Helvetica", sans-serif;
+    color: #666;
+    font-size: 1.2em;
+    text-decoration: None;
+}
+
 #navigation {
     display: inline-block;
     vertical-align: middle;
