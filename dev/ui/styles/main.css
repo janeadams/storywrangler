@@ -24,7 +24,7 @@ header {
 #logo {
     width: 350px;
     max-width:100%;
-    display: block;
+    display: inline-block;
     transition: width 0.5s;
     float: left;
 }
@@ -35,7 +35,7 @@ header {
 }
 
 #navigation {
-    display: block;
+    display: inline-block;
     float: right;
     width: auto;
     max-width:100%;
