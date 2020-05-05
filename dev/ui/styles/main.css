@@ -14,19 +14,10 @@ body {
     padding: 0;
     margin: 0;
 }
-
-ul {
-    padding: 0;
-    padding-inline-start: 0 !important;
-    margin-block-start: 0 !important;
-    margin-block-end: 0 !important;
-    margin-inline-start: 0 !important;
-    margin-inline-end: 0 !important;
-}
-
 header {
     width: 100%;
     padding: 30px 10%;
+    border-bottom: 1px solid #999;
 }
 
 #logo {
@@ -35,6 +26,25 @@ header {
     display: block;
     transition: width 0.5s;
     float: left;
+}
+
+#navigation {
+    float: right;
+    width: auto;
+    max-width:100%;
+    transition: width 0.5s;
+}
+
+#menu li {
+    padding: 7px 10px;
+    display: inline-block;
+    color: #333;
+    font-size: 1.8em;
+}
+
+#menu li:hover {
+    font-weight: bold;
+    font-size: 1.9em;
 }
 
 main {
@@ -72,14 +82,18 @@ footer img {
 }
 
 @media screen and (max-width: 600px) {
-    header img {
+
+    #logo {
         margin-left: auto;
         margin-right: auto;
         width: 90%;
-        /*max-width: 400px;*/
+        float: none;
     }
 
-    #logo {
+    #navigation {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
         float: none;
     }
 
