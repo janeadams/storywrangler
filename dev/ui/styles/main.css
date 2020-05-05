@@ -31,6 +31,7 @@ header {
     padding: 20px 5% 20px 5%;
     border-bottom: 2px solid #999;
     display: block;
+    box-shadow: 5px 10px 18px #888888;
 }
 
 #logo {
