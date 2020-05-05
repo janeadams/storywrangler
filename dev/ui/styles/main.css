@@ -152,11 +152,9 @@ footer img {
 
     #menu {
         display: block;
-        float: left;
     }
     #navigation .social {
         display: block;
-        float: right;
     }
 }
 
