@@ -163,6 +163,7 @@ main {
 
 #related-work h1, #related-work h2, #related-work h3{
     font-size: 1.2em;
+    font-weight: normal;
     color: #666;
     font-family: "Helvetica", sans-serif;
     padding-bottom: 0;
