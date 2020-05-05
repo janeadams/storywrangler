@@ -16,6 +16,7 @@ body {
 }
 header {
     width: 100%;
+    height: auto;
     padding: 30px 10%;
     border-bottom: 1px solid #999;
 }
@@ -29,6 +30,7 @@ header {
 }
 
 #navigation {
+    display: block;
     float: right;
     width: auto;
     max-width:100%;
@@ -36,15 +38,17 @@ header {
 }
 
 #menu li {
+    font-family: "Helvetica", sans-serif;
     padding: 7px 10px;
     display: inline-block;
     color: #333;
-    font-size: 1.8em;
+    font-size: 1.2em;
+    text-decoration: None;
 }
 
 #menu li:hover {
     font-weight: bold;
-    font-size: 1.9em;
+    font-size: 1.3em;
 }
 
 main {
