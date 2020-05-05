@@ -46,6 +46,7 @@ header {
     font-family: "Helvetica", sans-serif;
     padding: 7px 10px;
     display: inline-block;
+    float: right;
     color: #333;
     font-size: 1.2em;
     text-decoration: None;
