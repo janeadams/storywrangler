@@ -165,10 +165,12 @@ footer img {
     #menu {
         float: none;
         margin: 0 auto;
+        width: 90%;
     }
     #navigation .social {
         float: none;
         margin: 0 auto;
+        width: 90%;
     }
 
     footer p, footer img {
