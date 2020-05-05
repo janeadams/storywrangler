@@ -127,14 +127,14 @@ main {
 
 .textblock h1,h2,h3 {
     font-family: "Pangolin", "Helvetica", sans-serif;
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 .textblock h1 {
-    font-size: 2.0em;
+    font-size: 2.4em;
 }
 .textblock h2 {
-    font-size: 1.8em;
+    font-size: 2.0em;
 }
 .textblock h4 {
     font-weight: bold;
