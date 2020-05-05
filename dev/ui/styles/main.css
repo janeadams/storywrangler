@@ -135,11 +135,13 @@ footer img {
     #logo {
         margin: 0 auto;
         width: 90%;
+        display: block;
     }
 
     #navigation {
         margin: 0 auto;
         width: 90%;
+        display: block;
     }
 }
 
