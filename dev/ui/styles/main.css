@@ -37,9 +37,10 @@ header {
 
 #logo p {
     font-family: "Pangolin", "Helvetica", sans-serif;
-    color: #666;
+    color: #999;
     font-size: 1.2em;
     text-decoration: None;
+    padding: 0;
 }
 
 #navigation {
