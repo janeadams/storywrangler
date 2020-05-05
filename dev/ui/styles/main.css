@@ -114,6 +114,15 @@ main {
     width: 90%;
     margin: 0 auto;
     padding: 20px 5%;
+    color: #666;
+}
+
+.textblock p {
+    line-height: 140%;
+}
+
+.textblock h1,h2,h3,h4 {
+    font-family: "Pangolin", "Helvetica", sans-serif;
 }
 
 footer {
@@ -166,7 +175,7 @@ footer img {
         float: none;
     }
 
-    #menu {
+    ul#menu {
         display: block;
         float: left;
     }
