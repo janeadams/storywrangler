@@ -156,6 +156,19 @@ main {
     padding: 0 20px 20px 0;
 }
 
+#related-work {
+    font-size: 1.2em;
+    color: #666;
+}
+
+#related-work h1 {
+    font-weight: bold;
+}
+
+#related-work h2 {
+    font-style: italic;
+}
+
 footer {
     border-top: 2px solid lightgrey;
     width: 90%;
