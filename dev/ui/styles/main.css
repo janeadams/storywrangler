@@ -52,7 +52,7 @@ header {
 }
 
 #menu li {
-    padding: 7px 10px;
+    padding: 5px 10px;
     display: inline-block;
     float: left;
 }
@@ -72,6 +72,11 @@ header {
 .social_icon {
     width: 30px;
     height: 30px;
+}
+
+.social_icon:hover {
+    width: 35px;
+    height: 35px;
 }
 
 main {
