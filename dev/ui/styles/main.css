@@ -110,6 +110,12 @@ main {
     padding: 30px 0;
 }
 
+.textblock {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 5%;
+}
+
 footer {
     border-top: 2px solid lightgrey;
     width: 90%;
