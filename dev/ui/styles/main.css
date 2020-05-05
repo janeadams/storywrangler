@@ -156,12 +156,18 @@ main {
     padding: 0 20px 20px 0;
 }
 
+#related-work li {
+    list-style: circle;
+    margin-left: 20px;
+}
+
 #related-work h1, #related-work h2, #related-work h3{
     font-size: 1.2em;
     color: #666;
     font-family: "Helvetica", sans-serif;
     padding-bottom: 0;
-    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 0;
 }
 
 #related-work h1 {
