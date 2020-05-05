@@ -26,6 +26,7 @@ ul {
 
 header {
     width: 100%;
+    padding: 30px 10%;
 }
 
 #logo {
@@ -33,8 +34,7 @@ header {
     max-width:100%;
     display: block;
     transition: width 0.5s;
-    margin-left: auto;
-    margin-right: auto;
+    float: left;
 }
 
 main {
@@ -77,6 +77,10 @@ footer img {
         margin-right: auto;
         width: 90%;
         /*max-width: 400px;*/
+    }
+
+    #logo {
+        float: none;
     }
 
 
