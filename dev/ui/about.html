@@ -52,9 +52,7 @@
 
     <h2>Some of the many gory details</h2>
 
-    <img id="pattern_match" src="img/pattern_match.png">
-
-    <p>Parsing tweets into components is harder than we expected, so we have a few specifics to share about how it is being done. Regarding the definition of an n-gram, 1-grams are bounded by spaces. 2-grams comprise a pair of 1-grams with a space between them. Punctuation is hard so we&rsquo;ve left it in.</p>
+    <p><img id="pattern_match" src="img/pattern_match.png"> Parsing tweets into components is harder than we expected, so we have a few specifics to share about how it is being done. Regarding the definition of an n-gram, 1-grams are bounded by spaces. 2-grams comprise a pair of 1-grams with a space between them. Punctuation is hard so we&rsquo;ve left it in.</p>
 
     <p>Our pattern match is restricted to n-grams containing at least one latin character or emoji. Hashtags and handles are in. URLs and carriage returns and other unicode trouble are out. The database is case sensitive, so if you&rsquo;re looking for the popularity of playing card game &ldquo;Trump suits&rdquo;, you&rsquo;ll want to use the lower case version &ldquo;trump&rdquo;.</p>
 

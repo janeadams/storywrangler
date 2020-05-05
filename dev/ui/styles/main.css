@@ -148,6 +148,7 @@ main {
     width: auto;
     height: auto;
     max-width: 600px;
+    display: inline;
 }
 
 footer {
@@ -208,6 +209,12 @@ footer img {
         display: block;
         float: right;
     }
+
+    .textblock img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -236,10 +243,6 @@ footer img {
     .textblock p {
         line-height: 140%;
         font-size: 1.2em;
-    }
-
-    .textblock img {
-        max-width: 100%;
     }
 
     footer p, footer img {
