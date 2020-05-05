@@ -26,7 +26,7 @@ header {
     width: 350px;
     max-width:100%;
     display: inline-block;
-    vertical-align: center;
+    vertical-align: middle;
     transition: width 0.5s;
 }
 
@@ -37,7 +37,7 @@ header {
 
 #navigation {
     display: inline-block;
-    vertical-align: center;
+    vertical-align: middle;
     max-width:100%;
     transition: width 0.5s;
 }
