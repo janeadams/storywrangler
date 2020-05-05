@@ -40,19 +40,23 @@ header {
     vertical-align: middle;
     max-width:100%;
     transition: width 0.5s;
+    float: right;
 }
 
 #menu li {
-    font-family: "Helvetica", sans-serif;
     padding: 7px 10px;
     display: inline-block;
-    float: right;
+    float: left;
+}
+
+#menu a {
+    font-family: "Pangolin", "Helvetica", sans-serif;
     color: #333;
     font-size: 1.2em;
     text-decoration: None;
 }
 
-#menu li:hover {
+#menu a:hover {
     font-weight: bold;
     font-size: 1.3em;
 }
