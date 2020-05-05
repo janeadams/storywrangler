@@ -139,57 +139,42 @@ footer img {
 
 
 @media screen and (max-width: 1000px) {
-    #logo {
+    #logo, #navigation {
         margin-left: auto;
         margin-right: auto;
         width: 90%;
         display: block;
-    }
-    #logo p {
-        margin-left: auto;
-        margin-right: auto;
-        width: 90%;
-        display: block;
-        text-align: center;
-    }
-
-    #navigation {
-        margin-left: auto;
-        margin-right: auto;
-        width: 90%;
         float: none;
     }
-
-    #menu {
+    #logo p {
+        text-align: center;
+    }
+    #navigation ul {
         display: block;
+    }
+    #menu {
         float: left;
     }
     #navigation .social {
-        display: block;
         float: right;
     }
 }
 
 @media screen and (max-width: 600px) {
 
-    #menu {
+    #navigation ul {
         float: none;
         display: block;
         margin-left: auto;
         margin-right: auto;
         width: 90%;
     }
-    #menu li {
+
+    #navigation li {
         margin-left: auto;
         margin-right: auto;
         width: 90%;
         text-align: center;
-    }
-    #navigation .social {
-        float: none;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
     }
 
     footer p, footer img {
