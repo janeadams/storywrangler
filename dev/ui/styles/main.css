@@ -26,10 +26,8 @@ header {
     width: 350px;
     max-width:100%;
     display: inline-block;
-    /*
+    vertical-align: center;
     transition: width 0.5s;
-    float: left;
-    */
 }
 
 #logo img {
@@ -39,12 +37,9 @@ header {
 
 #navigation {
     display: inline-block;
-    /*
-    float: right;
-    width: auto;
+    vertical-align: center;
     max-width:100%;
     transition: width 0.5s;
-    */
 }
 
 #menu li {
