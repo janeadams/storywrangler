@@ -56,6 +56,11 @@ header {
     font-size: 1.3em;
 }
 
+.social_icon {
+    width: 30px;
+    height: 30px;
+}
+
 main {
     width: 100%;
     height: auto;
