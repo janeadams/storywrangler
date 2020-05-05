@@ -42,7 +42,7 @@
 }
 
 .controls {
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
 }
 
@@ -77,7 +77,7 @@
 
 #queryForm input[type=text] {
     background-color: lightgray;
-    width: 65%;
+    width: 70%;
     float: left;
 }
 
