@@ -16,8 +16,8 @@ body {
 }
 
 header {
-    width: 100%;
-    margin: 30px 10%;
+    width: 80%;
+    padding: 30px 10%;
     border-bottom: 1px solid #999;
     display: block;
 }
