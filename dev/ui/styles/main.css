@@ -19,6 +19,7 @@ header {
     height: auto;
     padding: 30px 10%;
     border-bottom: 1px solid #999;
+    display: block;
 }
 
 #logo {
