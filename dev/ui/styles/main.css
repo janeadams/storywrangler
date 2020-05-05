@@ -133,12 +133,14 @@ footer img {
 
 @media screen and (max-width: 1000px) {
     #logo {
+        display: block;
         margin-left: auto;
         margin-right: auto;
         width: 90%;
     }
 
     #navigation {
+        display: block;
         margin-left: auto;
         margin-right: auto;
         width: 90%;
@@ -150,6 +152,7 @@ footer img {
     footer p, footer img {
         margin: 0 auto;
         width: 60%;
+        height: auto;
         display: block;
     }
 }
