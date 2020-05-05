@@ -117,7 +117,6 @@ footer section {
 
 footer p {
     display: inline-block;
-    float: left;
     padding: 5px;
 }
 
@@ -125,7 +124,6 @@ footer img {
     height: 30px;
     width: auto;
     max-width: 100%;
-    float: left;
     display: inline-block;
     padding: 10px 20px;
     transition: width 0.5s;
@@ -138,14 +136,12 @@ footer img {
         margin-left: auto;
         margin-right: auto;
         width: 90%;
-        float: none;
     }
 
     #navigation {
         margin-left: auto;
         margin-right: auto;
         width: 90%;
-        float: none;
     }
 }
 
