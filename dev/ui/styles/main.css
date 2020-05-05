@@ -17,7 +17,7 @@ body {
 
 header {
     width: 100%;
-    padding: 30px 10%;
+    margin: 30px 10%;
     border-bottom: 1px solid #999;
     display: block;
 }
