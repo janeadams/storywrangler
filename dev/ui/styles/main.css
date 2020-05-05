@@ -161,6 +161,7 @@ main {
     color: #666;
     font-family: "Helvetica", sans-serif;
     padding-bottom: 0;
+    margin-bottom: 5px;
 }
 
 #related-work h1 {
