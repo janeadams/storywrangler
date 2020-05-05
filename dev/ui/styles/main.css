@@ -105,8 +105,9 @@ main {
 
 footer {
     border-top: 2px solid lightgrey;
-    width: 80%;
-    padding: 20px 10%;
+    width: 90%;
+    padding: 10px 5% 20px 5%;
+    display: block;
 }
 
 footer section {
@@ -130,8 +131,9 @@ footer img {
     transition: width 0.5s;
 }
 
-@media screen and (max-width: 600px) {
 
+
+@media screen and (max-width: 1000px) {
     #logo {
         margin-left: auto;
         margin-right: auto;
@@ -145,11 +147,13 @@ footer img {
         width: 90%;
         float: none;
     }
+}
 
+@media screen and (max-width: 600px) {
 
-    footer img {
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
+    footer p, footer img {
+        margin: 0 auto;
+        width: 60%;
+        display: block;
     }
 }
