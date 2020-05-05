@@ -23,8 +23,8 @@
             <!--<li><a href="about.html">About</a></li>-->
         </ul>
         <ul class="social">
-            <li><a href="https://twitter.com/compstorylab"><img src="img/social_twitter.svg" alt="Follow the Computational Story Lab on Twitter!"></a></li>
-            <li><a href="https://www.instagram.com/computationalstorylab/"><img src="img/social_insta.svg" alt="Follow the Computational Story Lab on Instagram!"></a></li>
+            <li><a href="https://twitter.com/compstorylab" target="_blank"><img src="img/social_twitter.svg" alt="Follow the Computational Story Lab on Twitter!"></a></li>
+            <li><a href="https://www.instagram.com/computationalstorylab/" target="_blank"><img src="img/social_insta.svg" alt="Follow the Computational Story Lab on Instagram!"></a></li>
         </ul>
     </div>
 </header>
@@ -38,9 +38,9 @@
 
     <p>While most of our online activity is not broadcast publicly, the things we do choose to share are important, and worthy of careful enumeration. One prominent source for real-time global information is social media. Half of a billion messages are posted to Twitter every day! Written on post-it notes, they would wrap around the Earth&rsquo;s equator in a neon hug full of politics, pop music, and sports.</p>
 
-    <p>At the Computational Story Lab, since 2008 we have collected a random 10% of all public messages using Twitter&rsquo;s Decahose API.  Overall, our collection comprises roughly 150 billion messages requiring 100TB of storage. Inspired by the Google n-grams project which smashes books into bits, we&rsquo;ve meticulously parsed these tweets into daily frequencies of words, 2-word phrases, and three word expressions.  Scientists call these different types &ldquo;n-grams&rdquo; for n = 1, 2, 3.</p>
+        <p>At the <a href="https://twitter.com/compstorylab" target="_blank">Computational Story Lab</a>, since 2008 we have collected a random 10% of all public messages using Twitter&rsquo;s Decahose API.  Overall, our collection comprises roughly 150 billion messages requiring 100TB of storage. Inspired by the Google n-grams project which smashes books into bits, we&rsquo;ve meticulously parsed these tweets into daily frequencies of words, 2-word phrases, and three word expressions.  Scientists call these different types &ldquo;n-grams&rdquo; for n = 1, 2, 3.</p>
 
-    <p>We&rsquo;re able to categorize tweets into roughly 170 languages, but for now we&rsquo;re simply combining them all into a single bag when tallying the votes. To explore how people are feeling, at the site for our flagship instrument http://hedonometer.org we use this same data to visualize daily sentiment in 9 languages. Importantly, this site offers visitors the opportunity to toggle retweets on and off, allowing for the inclusion or exclusion of social amplification. While we&rsquo;re not able to share individual tweets, we do provide an API for exporting data at the daily resolution. Source code associated with the API can be found here, and the pattern match used to parse tweets can be found here.</p>
+        <p>We&rsquo;re able to categorize tweets into roughly <a href="https://arxiv.org/abs/2003.03667" target="_blank">170 languages</a>, but for now we&rsquo;re simply combining them all into a single bag when tallying the votes. To explore how people are feeling, at the site for our flagship instrument <a href="http://hedonometer.org/" target="_blank">hedonometer.org</a> we use this same data to visualize daily sentiment in 9 languages. Importantly, this site offers visitors the opportunity to toggle retweets on and off, allowing for the inclusion or exclusion of social amplification. While we&rsquo;re not able to share individual tweets, we do provide an API for exporting data at the daily resolution. Source code associated with the API can be found <a href="https://github.com/janeadams/storywrangler" target="_blank">here</a>, and the pattern match used to parse tweets can be found <a href="https://gitlab.com/compstorylab/storywrangler" target="_blank">here</a>.</p>
 
     <h2>The Visualization</h2>
 
@@ -52,7 +52,7 @@
 
     <h2>Some of the many gory details</h2>
 
-    <p><img id="pattern_match" src="img/pattern_match.png"> Parsing tweets into components is harder than we expected, so we have a few specifics to share about how it is being done. Regarding the definition of an n-gram, 1-grams are bounded by spaces. 2-grams comprise a pair of 1-grams with a space between them. Punctuation is hard so we&rsquo;ve left it in.</p>
+        <p><img id="pattern_match" src="img/pattern_match.png"> Parsing tweets into components is <a href="https://twitter.com/compstorylab/status/1195888902646710272" target="_blank">harder</a> than we expected, so we have a few specifics to share about how it is being done. Regarding the definition of an n-gram, 1-grams are bounded by spaces. 2-grams comprise a pair of 1-grams with a space between them. Punctuation is <a href="https://twitter.com/compstorylab/status/1255882917357780994" target="_blank">hard</a> so we&rsquo;ve left it in.</p>
 
     <p>Our pattern match is restricted to n-grams containing at least one latin character or emoji. Hashtags and handles are in. URLs and carriage returns and other unicode trouble are out. The database is case sensitive, so if you&rsquo;re looking for the popularity of playing card game &ldquo;Trump suits&rdquo;, you&rsquo;ll want to use the lower case version &ldquo;trump&rdquo;.</p>
 
