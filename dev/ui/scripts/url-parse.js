@@ -49,7 +49,7 @@ function readUrlVars() {
                 let arrayVars = ['xrange','xviewrange','yrange','yviewrange']
                 if (arrayVars.includes(key)){
                     let dateValues = value.split(",")
-                    dateValues.forEach(d => dateParser(d))
+                    dateValues.forEach(d => d)
                     vars[key] = dateValues
                 }
             }
