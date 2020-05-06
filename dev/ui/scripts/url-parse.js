@@ -78,9 +78,6 @@ function getUrlParams() {
 function updateURL() {
     let currentURL = String(window.location.href)
     console.log("currentURL = ", currentURL)
-    let splitURL = currentURL.split("?")
-    let newURL = String(splitURL[0]) + "?ngrams=" + params['ngrams']
-    history.pushState({},null, newURL)
     let customparams = {};
     for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
         console.log("var p = ", p);
@@ -99,5 +96,4 @@ function updateURL() {
     let newURL = String(splitURL[0]) + "?" + paramlist.join("&");
     console.log("newURL = ", newURL);
     history.pushState(customparams,'', newURL)
-
 }
