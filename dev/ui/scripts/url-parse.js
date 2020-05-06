@@ -86,9 +86,10 @@ function updateURL() {
             console.log(defaultparams[p])
             const datevars = ['xrange', 'xviewrange']
             if (datevars.includes(p)){
-                let formatdates = []
+                let formatteddates = []
                 v.forEach(d => {
-                    formatdates.push(dateFormatter(d))
+                    let f = dateFormatter(d)
+                    formatteddates.push(f)
                 })
                 paramlist.push(p + "=" + formatdates)
             }
