@@ -52,13 +52,19 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 //console.log(colorMe("sky"))
 
 function setRanges() {
-    //console.log("Setting ranges...")
-    // Lists of all date and metric min/max:
-    params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    //console.log(`Setting params[xrange] to ${params.xrange}`)
-    if (params['metric'] === 'rank') {params.yrange = [d3.max(ymaxes) * 1.2, 1]}
-    else {params.yrange = [0, d3.max(ymaxes) * 1.2]}
-    //console.log(`Setting params[yrange] to ${params.yrange}`)
+    if (Object.keys(ngramData).length > 0 ){
+        console.log("Setting ranges...")
+        // Lists of all date and metric min/max:
+        params.xrange = [d3.min(xmins), d3.max(xmaxes)]
+        console.log(`Setting params[xrange] to ${params.xrange}`)
+        if (params['metric'] === 'rank') {params.yrange = [d3.max(ymaxes) * 1.2, 1]}
+        else {params.yrange = [0, d3.max(ymaxes) * 1.2]}
+        console.log(`Setting params[yrange] to ${params.yrange}`)
+    }
+    else {
+        params.xrange = defaultparams.xrange
+        params.yrange = defaultparams.yrange
+    }
 }
 
 function setupPage() {
