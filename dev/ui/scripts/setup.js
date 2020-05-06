@@ -30,7 +30,7 @@ const paramoptions = {
     "rt": [true,false]
 }
 // An object containing our parameters
-let params = Object.assign({}, defaultparams)
+let params = {}
 let i = 0
 let ngramData = {}
 let xmins = []
@@ -68,8 +68,9 @@ function setRanges() {
 }
 
 function setupPage() {
+    params = Object.assign({}, defaultparams)
     // Let's freeze the defaults, since they shouldn't ever change
-    //Object.freeze(defaultparams)
+    Object.freeze(defaultparams)
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
     // Check the correct boxes in the filter form according to the parameters
