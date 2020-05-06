@@ -45,7 +45,7 @@ function readUrlVars() {
                         console.log(`${value} is an invalid option for the ${key} parameter! Setting ${key} to default: ${defaultparams[key]}`)
                         vars[key] = defaultparams[key]
                         console.log(`vars[${key}]:`)
-                        console.log(defaultparams[key])
+                        console.log(vars[key])
                     }
                 }
             }
