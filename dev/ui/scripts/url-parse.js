@@ -88,7 +88,15 @@ function updateURL() {
             console.log(params[p])
             console.log(`defaultparams[${p}]:`)
             console.log(defaultparams[p])
-            paramlist.push(p + "=" + v)
+            const datevars = ['xrange', 'xviewrange']
+            if (datevars.includes(p)){
+                let formatdates = []
+                v.forEach(d => {
+                    formatdates.append(dateFormatter(d))
+                })
+                paramlist.push(p + "=" + formatdates)
+            }
+            else { paramlist.push(p + "=" + v) }
             console.log(`Added ${p}:${v} to paramlist. Paramlist:`)
             console.log(paramlist)
         }
