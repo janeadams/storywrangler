@@ -61,7 +61,7 @@ function getUrlParams() {
         params['ngrams'].push(readUrlVars()["ngrams"])
     }
     else {
-        params['ngrams'].push(defaultparams['ngrams'])
+        params['ngrams'] = defaultparams['ngrams']
     }
     for (let p in params) {
         // If the parameter is in the URL
@@ -82,6 +82,11 @@ function updateURL() {
     console.log(`splitURL:`)
     console.log(splitURL)
     let customparams = {};
+    for (let [p, v] of Object.entries(defaultparams)) {
+        if (params[p] !== v) {
+            customparams[p] = params[p]
+        }
+    }
     for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
         console.log(`updateURL() checking param ${p}...`);
         console.log(`params[${p}]:`)
