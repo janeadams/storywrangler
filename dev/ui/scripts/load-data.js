@@ -34,8 +34,8 @@ function loadData(query) {
             ngramData[n]['colorid']=i
             i+=1
             if (i > 10){i=1}
-            xmins.push(dateParser(thisdata['min_date']))
-            xmaxes.push(dateParser(thisdata['max_date']))
+            xmins.push(thisdata['min_date'])
+            xmaxes.push(thisdata['max_date'])
             ymins.push(thisdata[`min_${params.metric}`])
             ymaxes.push(thisdata[`max_${params.metric}`])
         })
@@ -64,10 +64,10 @@ function removeNgram(n) {
     // Filter the ngram list to include every ngram except this one
     params['ngrams'] = params['ngrams'].filter(ele => ele !== n)
     // Remove these mins and maxes
-    xmins = xmins.filter(ele => ele !== dateParser(thisdata['min_date']))
-    console.log(`Removed ${dateParser(thisdata['min_date'])} from xmins`)
-    xmaxes = xmaxes.filter(ele => ele !== dateParser(thisdata['max_date']))
-    console.log(`Removed ${dateParser(thisdata['max_date'])} from xmaxes`)
+    xmins = xmins.filter(ele => ele !== thisdata['min_date'])
+    console.log(`Removed ${thisdata['min_date']} from xmins`)
+    xmaxes = xmaxes.filter(ele => ele !== thisdata['max_date'])
+    console.log(`Removed ${thisdata['max_date']} from xmaxes`)
     ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
     console.log(`Removed ${thisdata['min_'+params.metric]} from ymins`)
     ymaxes = ymaxes.filter(ele => ele !== thisdata[`max_${params.metric}`])
