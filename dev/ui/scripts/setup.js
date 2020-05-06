@@ -1,6 +1,6 @@
 console.log("Loading setup.js")
 const dateParser = date => new Date(d3.timeParse(date))
-const dateFormatter = d3.timeFormat("%YYYY-%mm-%dd")
+const dateFormatter = d3.timeFormat("%Y-%m-%d")
 
 // Today's date
 let today = new Date()
