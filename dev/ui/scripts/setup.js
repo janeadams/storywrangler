@@ -21,6 +21,9 @@ const defaultparams = {
     "xrange": [lastyeardate, today],
     "yrange": [10000, 1],
 }
+// Let's freeze this object, since it shouldn't ever change
+Object.freeze(defaultparams)
+
 // Limit options for certain parameters
 const paramoptions = {
     "language": ["en","es","ru","fr"],

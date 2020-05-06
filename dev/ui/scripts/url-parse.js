@@ -88,9 +88,14 @@ function updateURL() {
     let customparams = {};
     for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
         console.log("var p = ", p);
-        console.log("params[p] = ", params[p], " defaultparams[p] = ", defaultparams[p]);
+        console.log("params[p]:")
+        console.log(params[p])
+        console.log("defaultparams[p]:")
+        console.log(defaultparams[p])
         if (params[p] !== defaultparams[p]) {
             customparams[p] = params[p]
+            console.log(`Set customparams[${p}]:`)
+            console.log(customparams[p])
         }
         else {
         }
