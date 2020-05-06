@@ -40,6 +40,9 @@ function loadData(query) {
             ymaxes.push(thisdata[`max_${params.metric}`])
         })
         newNgrams.forEach(n => {
+            // If this ngram is already in the params ngrams list
+            if (params['ngrams'].includes(n)){} // do nothing
+            else { params['ngrams'].push(n) } // otherwise, add it
             addNgram(n)
         })
         if (newNgrams.length > 0) {
@@ -79,9 +82,7 @@ function removeNgram(n) {
 
 // When a word is submitted via inputClick...
 function addNgram(n) {
-    // If this ngram is already in the params ngrams list
-    if (params['ngrams'].includes(n)){} // do nothing
-    else { params['ngrams'].push(n) } // otherwise, add it
+
     ndata = ngramData[n] // create a shortcut for accessing this specific ngram's data
     console.log(`Added data for ${n} to data list; ngram data list length = ${params['ngrams'].length}`)
     // Add the word as a list item so the user knows it's been added and can delete later
