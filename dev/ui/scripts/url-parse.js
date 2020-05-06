@@ -60,7 +60,6 @@ function getUrlParams() {
     else {
         params['ngrams'] = defaultparams['ngrams']
     }
-    /*
     for (let p in params) {
         // If the parameter is in the URL
         if (window.location.href.indexOf(p) > -1) {
@@ -72,11 +71,8 @@ function getUrlParams() {
         else {
             // If not specified, set to default values
             params[p] = defaultparams[p]
-            if (p === 'ngrams'){
-                params['ngrams'].forEach(n => loadData(n))
-            }
         }
-    }*/
+    }
 }
 
 function updateURL() {
@@ -85,7 +81,6 @@ function updateURL() {
     let splitURL = currentURL.split("?")
     let newURL = String(splitURL[0]) + "?ngrams=" + params['ngrams']
     history.pushState({},null, newURL)
-    /*
     let customparams = {};
     for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
         console.log("var p = ", p);
@@ -103,7 +98,6 @@ function updateURL() {
     }
     let newURL = String(splitURL[0]) + "?" + paramlist.join("&");
     console.log("newURL = ", newURL);
-    history.pushState({},null, newURL)
-    */
+    history.pushState(customparams,'', newURL)
 
 }

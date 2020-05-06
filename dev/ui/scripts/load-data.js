@@ -45,8 +45,8 @@ function loadData(query) {
         if (newNgrams.length > 0) {
             setRanges()
             redrawCharts()
+            updateURL()
             //d3.select("#download").attr("href", "https:/storywrangling.org/api/"+params['ngrams'].join(" "))
-            //updateURL()
         }
     })
 }
@@ -74,12 +74,15 @@ function removeNgram(n) {
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     setRanges()
     redrawCharts()
+    updateURL()
 }
 
 // When a word is submitted via inputClick...
 function addNgram(n) {
-    params['ngrams'].push(n)
-    ndata = ngramData[n]
+    // If this ngram is already in the params ngrams list
+    if (params['ngrams'].includes(n)){} // do nothing
+    else { params['ngrams'].push(n) } // otherwise, add it
+    ndata = ngramData[n] // create a shortcut for accessing this specific ngram's data
     console.log(`Added data for ${n} to data list; ngram data list length = ${params['ngrams'].length}`)
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
