@@ -87,10 +87,10 @@ function updateURL() {
     console.log(splitURL)
     let customparams = {};
     for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
-        console.log("var p = ", p);
-        console.log("params[p]:")
+        console.log(`updateURL() checking param ${p}...`);
+        console.log(`params[${p}]:`)
         console.log(params[p])
-        console.log("defaultparams[p]:")
+        console.log(`defaultparams[${p}]:`)
         console.log(defaultparams[p])
         if (params[p] !== defaultparams[p]) {
             customparams[p] = params[p]
