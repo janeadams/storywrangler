@@ -146,7 +146,6 @@ main {
 }
 .textblock a:hover {
     text-decoration: underline;
-    font-weight: bold;
 }
 .textblock img {
     width: auto;
