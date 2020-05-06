@@ -45,6 +45,12 @@ function readUrlVars() {
                     }
                 }
             }
+            else {
+                let arrayVars = ['xrange','xviewrange','yrange','yviewrange']
+                if (arrayVars.includes(key)){
+                    vars[key] = value.split(",")
+                }
+            }
         }
     })
     console.log(`readURLvars() returns:`)
