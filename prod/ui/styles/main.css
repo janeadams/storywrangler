@@ -31,7 +31,7 @@ header {
     padding: 20px 5% 30px 5%;
     border-bottom: 2px solid #ccc;
     display: block;
-    box-shadow: 5px 10px 18px #999;
+    box-shadow: 0 10px 18px #999;
 }
 
 #logo {
@@ -183,7 +183,7 @@ main {
 
 footer {
     border-top: 2px solid #ccc;
-    box-shadow: 5px -10px 18px #999;
+    box-shadow: 0 -10px 18px #999;
     width: 90%;
     padding: 10px 5% 20px 5%;
     display: block;
