@@ -78,34 +78,20 @@ function updateURL() {
     let currentURL = String(window.location.href)
     console.log(`currentURL:`)
     console.log(currentURL)
-    let splitURL = currentURL.split("&")
+    let splitURL = currentURL.split("?")
     console.log(`splitURL:`)
     console.log(splitURL)
-    let customparams = {};
+    let paramlist = [];
     for (let [p, v] of Object.entries(defaultparams)) {
         if (params[p] !== v) {
-            customparams[p] = params[p]
+            console.log(`params[${p}]:`)
+            console.log(params[p])
+            console.log(`defaultparams[${p}]:`)
+            console.log(defaultparams[p])
+            paramlist.push(p + "=" + v)
+            console.log(`Added ${p}:${v} to paramlist. Paramlist:`)
+            console.log(paramlist)
         }
-    }
-    for (let p of ['ngrams', 'metric', 'language', 'scale','rt']) {
-        console.log(`updateURL() checking param ${p}...`);
-        console.log(`params[${p}]:`)
-        console.log(params[p])
-        console.log(`defaultparams[${p}]:`)
-        console.log(defaultparams[p])
-        if (params[p] !== defaultparams[p]) {
-            customparams[p] = params[p]
-            console.log(`Set customparams[${p}]:`)
-            console.log(customparams[p])
-        }
-        else {
-        }
-    }
-    console.log("customparams:")
-    console.log(customparams)
-    let paramlist = [];
-    for (let [p, v] of Object.entries(customparams)) {
-        paramlist.push(p + "=" + v)
     }
     if (paramlist.length > 0){
         let newURL = String(splitURL[0]) + "?" + paramlist.join("&")
