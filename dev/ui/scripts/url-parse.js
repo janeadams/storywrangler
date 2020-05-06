@@ -92,7 +92,7 @@ function updateURL() {
             if (datevars.includes(p)){
                 let formatdates = []
                 v.forEach(d => {
-                    formatdates.append(dateFormatter(d))
+                    formatdates.push(dateFormatter(d))
                 })
                 paramlist.push(p + "=" + formatdates)
             }
