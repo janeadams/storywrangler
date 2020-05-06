@@ -9,7 +9,7 @@ class Chart {
     createScales() {
         const m = this.margin
         this.xScale = d3.scaleTime()
-            .domain([dateParser(params.xrange[0]), dateParser(params.xrange[1])])
+            .domain(params.xrange)
             .range([0, this.width-m.left])
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
@@ -97,7 +97,7 @@ class Chart {
         const uuid = ngramData[ngram]['uuid']
 
         const line = d3.line()
-            .x(d => this.xScale(dateParser(d[0])))
+            .x(d => this.xScale(d[0]))
             .y(d => this.yScale(d[1]))
 
         this.clipgroup.append('path')

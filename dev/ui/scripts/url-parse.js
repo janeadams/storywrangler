@@ -48,7 +48,9 @@ function readUrlVars() {
             else {
                 let arrayVars = ['xrange','xviewrange','yrange','yviewrange']
                 if (arrayVars.includes(key)){
-                    vars[key] = value.split(",")
+                    let dateValues = value.split(",")
+                    dateValues.forEach(d => dateParser(d))
+                    vars[key] = dateValues
                 }
             }
         }
@@ -99,9 +101,12 @@ function updateURL() {
                     formattedDates.push(f)
                 })
                 paramlist.push(p + "=" + formattedDates)
+                console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
             }
-            else { paramlist.push(p + "=" + v) }
-            console.log(`Added ${p}:${v} to paramlist. Paramlist:`)
+            else {
+                paramlist.push(p + "=" + v)
+                console.log(`Added ${p}:${v} to paramlist. Paramlist:`)
+            }
             console.log(paramlist)
         }
     }
