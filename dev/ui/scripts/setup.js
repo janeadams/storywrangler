@@ -69,7 +69,7 @@ function setRanges() {
 
 function setupPage() {
     // Let's freeze the defaults, since they shouldn't ever change
-    Object.freeze(defaultparams)
+    //Object.freeze(defaultparams)
     // Get parameters from the URL and update current parameters accordingly
     getUrlParams()
     // Check the correct boxes in the filter form according to the parameters
