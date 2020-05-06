@@ -10,7 +10,6 @@ function readUrlVars() {
             // Create an array
             vars[key] = []
             let values = value.split(",")
-            console.log(`Line 36 in url parse: key ${key} / values ${values}`)
             // Add the value to it
             values.forEach(v => {
                 if (params['ngrams'].includes(v)){`params[ngrams] already included ${v}`}
@@ -42,10 +41,7 @@ function readUrlVars() {
                         console.log(value)
                     } else {
                         // If the value isn't one of the allowed options, set to default value
-                        console.log(`${value} is an invalid option for the ${key} parameter! Setting ${key} to default: ${defaultparams[key]}`)
-                        vars[key] = defaultparams[key]
-                        console.log(`vars[${key}]:`)
-                        console.log(vars[key])
+                        console.log(`${value} is an invalid option for the ${key} parameter!`)
                     }
                 }
             }
