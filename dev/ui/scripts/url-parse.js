@@ -101,8 +101,10 @@ function updateURL() {
     for (let [p, v] of Object.entries(customparams)) {
         paramlist.push(p + "=" + v)
     }
-    let newURL = String(splitURL[0]) + "?" + paramlist.join("&");
-    console.log("newURL:")
-    console.log(newURL)
-    history.pushState(customparams,'', newURL)
+    if (paramlist.length > 0){
+        let newURL = String(splitURL[0]) + "?" + paramlist.join("&")
+        console.log("newURL:")
+        console.log(newURL)
+        history.pushState(customparams,'', newURL)
+    }
 }
