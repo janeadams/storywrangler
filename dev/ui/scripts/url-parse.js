@@ -69,7 +69,7 @@ function getUrlParams() {
             // set the variable to the value in the url
             //console.log("Found ", p, " parameter in URL as ", urlvar)
             params[p] = readUrlVars()[p]
-            console.log("Changed params[", p, "] to ", params[p])
+            console.log(`Changed params[${p}] to ${params[p]}`)
         }
     }
 }
@@ -97,7 +97,7 @@ function updateURL() {
         let newURL = String(splitURL[0]) + "?" + paramlist.join("&")
         console.log("newURL:")
         console.log(newURL)
-        history.pushState(customparams,'', newURL)
+        history.pushState(paramlist,'', newURL)
     }
 }
 
