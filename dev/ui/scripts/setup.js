@@ -29,7 +29,7 @@ const paramoptions = {
     "rt": [true,false]
 }
 // An object containing our parameters
-let params = defaultparams
+let params = Object.assign({}, defaultparams)
 let i = 0
 let ngramData = {}
 let xmins = []
