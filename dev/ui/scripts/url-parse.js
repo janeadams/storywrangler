@@ -14,7 +14,7 @@ function readUrlVars() {
             // Add the value to it
             values.forEach(v => {
                 if (params['ngrams'].includes(v)){`params[ngrams] already included ${v}`}
-                else {loadData(decodeURIComponent(v))}
+                else {params['ngrams'].push(decodeURIComponent(v))}
             })
         }
         else {
@@ -58,10 +58,10 @@ function readUrlVars() {
 // Get the parameters from the URL
 function getUrlParams() {
     if (window.location.href.indexOf('ngrams') > -1) {
-        params['ngrams'] = readUrlVars()["ngrams"]
+        params['ngrams'].push(readUrlVars()["ngrams"])
     }
     else {
-        params['ngrams'] = defaultparams['ngrams']
+        params['ngrams'].push(defaultparams['ngrams'])
     }
     for (let p in params) {
         // If the parameter is in the URL
@@ -70,10 +70,6 @@ function getUrlParams() {
             //console.log("Found ", p, " parameter in URL as ", urlvar)
             params[p] = readUrlVars()[p]
             console.log("Changed params[", p, "] to ", params[p])
-        }
-        else {
-            // If not specified, set to default values
-            params[p] = defaultparams[p]
         }
     }
 }
