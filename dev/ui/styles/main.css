@@ -10,7 +10,7 @@ h4 {
     color: #666;
 }
 
-body.busy-cursor {
+body {
     cursor: progress;
 }
 
