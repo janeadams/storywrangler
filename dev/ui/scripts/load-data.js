@@ -1,7 +1,5 @@
 function loadData(query) {
 
-    d3.select('body').classed('busy-cursor',true)
-
     console.log(`Loading data for ${query}...`)
     let errors = ""
     // Pull the JSON data
@@ -64,7 +62,7 @@ function loadData(query) {
             updateURL()
         }
     })
-    d3.select('body').classed('busy-cursor',false)
+
 }
 
 
