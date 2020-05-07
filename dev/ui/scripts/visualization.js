@@ -120,8 +120,7 @@ class Chart {
         this.svg = d3.select(this.element).append('svg')
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.margin.top + this.height + this.margin.bottom)
-        let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(ngramData))
-        d3.select(this.element).append('a').attr("id","download").text("Download this data!").attr("href", dataStr).attr("target","_blank").attr("download","storywrangler_data.json")
+        d3.select(this.element).append('a').attr("id","download").text("Download this data!").attr("href", formatDataForDownload()).attr("target","_blank").attr("download","storywrangler_data.json")
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
