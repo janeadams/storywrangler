@@ -33,14 +33,13 @@ function loadData(query) {
             ngramData[n] = thisdata
             ngramData[n]['colorid']=i
             i+=1
-            if (i > 10){i=1}
+            if (i > 11){i=0}
             xmins.push(thisdata['min_date'])
             xmaxes.push(thisdata['max_date'])
             ymins.push(thisdata[`min_${params.metric}`])
             ymaxes.push(thisdata[`max_${params.metric}`])
-            ngramData[n]['data'].forEach(t => {
-                return [dateParser(t[0]),t[1]] // Parse all dates
-            })
+            const dataFormatter = tuple => [dateParser(tuple[0]),tuple[1]]
+            ngramData[n]['data'].forEach(t => dataFormatter(t))
         })
         newNgrams.forEach(n => {
             // If this ngram is already in the params ngrams list

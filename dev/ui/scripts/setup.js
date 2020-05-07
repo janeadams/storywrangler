@@ -33,7 +33,7 @@ const paramoptions = {
 }
 // An object containing our parameters
 let params = {}
-let i = 0
+let i = 0 // For counting which color to choose for the ngram
 let ngramData = {}
 let xmins = []
 let xmaxes = []
