@@ -107,9 +107,12 @@ function updateURL() {
                 console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
             }
             else {
-                if (!(["xrange","yrange"].includes(p))){
+                const autoranges = ["xrange","yrange"]
+                if (autoranges.includes(p)){
                     // Don't include x- and y-ranges in customizable parameters; this is set automatically
-                    // * DO * include x- and y- VIEW ranges
+                    console.log(`${p} is set automatically`)
+                }
+                else {
                     paramlist.push(p + "=" + params[p])
                     console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
                 }
