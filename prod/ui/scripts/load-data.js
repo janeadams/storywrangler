@@ -1,4 +1,5 @@
 function loadData(query) {
+
     console.log(`Loading data for ${query}...`)
     let errors = ""
     // Pull the JSON data
@@ -28,27 +29,43 @@ function loadData(query) {
             }
         })
         newNgrams.forEach(n => {
-            // Find the x- and y-range of this data set
-            let thisdata = data['ngramdata'][n]
-            ngramData[n] = thisdata
+            ngramData[n] = {}
+            let loadedData = data['ngramdata'][n]
+            // Parse all the dates
+            ngramData[n]['data'] = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+            // Get the unique identifier (for labeling objects in-browser)
+            ngramData[n]['uuid'] = loadedData['uuid']
+            // Find and format the x- and y-ranges of this data set
+            ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
+            ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
+            ngramData[n][`min_${params.metric}`] = loadedData[`min_${params.metric}`]
+            ngramData[n][`max_${params.metric}`] = loadedData[`max_${params.metric}`]
+            // Set the color identifier for this set, & cycle through
             ngramData[n]['colorid']=i
             i+=1
-            if (i > 10){i=1}
-            xmins.push(dateParser(thisdata['min_date']))
-            xmaxes.push(dateParser(thisdata['max_date']))
-            ymins.push(thisdata[`min_${params.metric}`])
-            ymaxes.push(thisdata[`max_${params.metric}`])
+            if (i > 11){i=0}
+            xmins.push(ngramData[n]['min_date'])
+            xmaxes.push(ngramData[n]['max_date'])
+            ymins.push(ngramData[n][`min_${params.metric}`])
+            ymaxes.push(ngramData[n][`max_${params.metric}`])
+
         })
+        let currentNgrams = Object.assign([], params['ngrams'])
         newNgrams.forEach(n => {
+            // If this ngram is already in the params ngrams list
+            if (currentNgrams.includes(n)){} // do nothing
+            else {
+                currentNgrams.push(n)
+                params['ngrams'] = currentNgrams } // otherwise, add it
             addNgram(n)
         })
-        if (newNgrams.length > 0) {
+        if (newNgrams.length > 0) { // If new ngrams have been added...
             setRanges()
             redrawCharts()
-            //d3.select("#download").attr("href", "https:/storywrangling.org/api/"+params['ngrams'].join(" "))
-            //updateURL()
+            updateURL()
         }
     })
+
 }
 
 
@@ -61,10 +78,10 @@ function removeNgram(n) {
     // Filter the ngram list to include every ngram except this one
     params['ngrams'] = params['ngrams'].filter(ele => ele !== n)
     // Remove these mins and maxes
-    xmins = xmins.filter(ele => ele !== dateParser(thisdata['min_date']))
-    console.log(`Removed ${dateParser(thisdata['min_date'])} from xmins`)
-    xmaxes = xmaxes.filter(ele => ele !== dateParser(thisdata['max_date']))
-    console.log(`Removed ${dateParser(thisdata['max_date'])} from xmaxes`)
+    xmins = xmins.filter(ele => ele !== thisdata['min_date'])
+    console.log(`Removed ${thisdata['min_date']} from xmins`)
+    xmaxes = xmaxes.filter(ele => ele !== thisdata['max_date'])
+    console.log(`Removed ${thisdata['max_date']} from xmaxes`)
     ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
     console.log(`Removed ${thisdata['min_'+params.metric]} from ymins`)
     ymaxes = ymaxes.filter(ele => ele !== thisdata[`max_${params.metric}`])
@@ -74,12 +91,13 @@ function removeNgram(n) {
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     setRanges()
     redrawCharts()
+    updateURL()
 }
 
 // When a word is submitted via inputClick...
 function addNgram(n) {
-    params['ngrams'].push(n)
-    ndata = ngramData[n]
+
+    ndata = ngramData[n] // create a shortcut for accessing this specific ngram's data
     console.log(`Added data for ${n} to data list; ngram data list length = ${params['ngrams'].length}`)
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
@@ -92,4 +110,25 @@ function addNgram(n) {
             console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
+}
+
+
+function formatDataForDownload(){
+    let allData
+    if(Object.keys(ngramData).length > 0) {
+        let downloadData = {}
+        Object.keys(ngramData).forEach(n => {
+            downloadData[n] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
+        })
+        let metaData = {}
+        let metrics = ['ngrams','metric','language','rt']
+        metrics.forEach(m => {
+            metaData[m] = params[m]
+        })
+        allData = {'metadata': metaData, 'data': downloadData}
+    }
+    else {
+        allData = {'metadata': "Error! No data"}
+    }
+    return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
 }

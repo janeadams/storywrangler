@@ -1,5 +1,7 @@
 console.log("Loading setup.js")
 const dateParser = date => new Date(d3.timeParse(date))
+const dateFormatter = d3.timeFormat("%Y-%m-%d")
+
 // Today's date
 let today = new Date()
 // Extract year from today's date
@@ -21,6 +23,9 @@ const defaultparams = {
     "xrange": [lastyeardate, today],
     "yrange": [10000, 1],
 }
+
+let params = {}
+
 // Limit options for certain parameters
 const paramoptions = {
     "language": ["en","es","ru","fr"],
@@ -28,9 +33,8 @@ const paramoptions = {
     "scale": ["log", "lin"],
     "rt": [true,false]
 }
-// An object containing our parameters
-let params = defaultparams
-let i = 0
+
+let i = 0 // For counting which color to choose for the ngram
 let ngramData = {}
 let xmins = []
 let xmaxes = []
@@ -51,21 +55,47 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 //console.log(colorMe("sky"))
 
 function setRanges() {
-    //console.log("Setting ranges...")
-    // Lists of all date and metric min/max:
-    params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-    //console.log(`Setting params[xrange] to ${params.xrange}`)
-    if (params['metric'] === 'rank') {params.yrange = [d3.max(ymaxes) * 1.2, 1]}
-    else {params.yrange = [0, d3.max(ymaxes) * 1.2]}
-    //console.log(`Setting params[yrange] to ${params.yrange}`)
+    if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
+        console.log("Setting ranges...")
+        // Get the minimum and maximum values for all ngrams
+        params.xrange = [d3.min(xmins), d3.max(xmaxes)]
+        console.log(`Setting params[xrange] to ${params.xrange}`)
+        // If the metric is rank, go from highest to lowest
+        if (params['metric'] === 'rank') {params.yrange = [Math.ceil(d3.max(ymaxes) * 1.2), 1]}
+        // Otherwise, go from lowest to highest
+        else {params.yrange = [0, Math.ceil(d3.max(ymaxes) * 1.2)]}
+        // Note above: Math.ceil() and * 1.2 pads the range a little
+        console.log(`Setting params[yrange] to ${params.yrange}`)
+    }
+    else { // Otherwise, set to the default ranges
+        params.xrange = defaultparams.xrange.valueOf()
+        params.yrange = defaultparams.yrange.valueOf()
+    }
+}
+
+function deepFreeze(o) {
+    Object.freeze(o)
+    Object.getOwnPropertyNames(o).forEach(function(prop) {
+        if (o.hasOwnProperty(prop)
+            && o[prop] !== null
+            && (typeof o[prop] === "object" || typeof o[prop] === "function")
+            && !Object.isFrozen(o[prop])) {
+            deepFreeze(o[prop])
+        }
+    })
+    return o
 }
 
 function setupPage() {
-    // Get parameters from the URL and update current parameters accordingly
-    //getUrlParams()
-    // Check the correct boxes in the filter form according to the parameters
-    //setFilters()
-    params = defaultparams
-    makeCharts()
-    params['ngrams'].forEach(n => loadData(n))
+    d3.select('body').classed('busy-cursor',true)
+    /*for (let [k,v] of Object.entries(defaultparams)) { // set params to defaults
+        params[k] = v.valueOf()
+    }*/
+    params = Object.assign({}, defaultparams)
+    deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
+    getUrlParams() // Get parameters from the URL and update current parameters accordingly
+    //setFilters() // Check the correct boxes in the filter form according to the parameters
+    makeCharts() // Make all the charts
+    params['ngrams'].forEach(n => loadData(n)) // Load data for all the ngrams
+    setTimeout(() => {d3.select('body').classed('busy-cursor',false)})
 }

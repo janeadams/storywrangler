@@ -10,6 +10,10 @@ h4 {
     color: #666;
 }
 
+.busy-cursor {
+    cursor: progress;
+}
+
 a {
     text-decoration: none;
 }
@@ -31,7 +35,7 @@ header {
     padding: 20px 5% 30px 5%;
     border-bottom: 2px solid #ccc;
     display: block;
-    box-shadow: 0 10px 18px #999;
+    box-shadow: 5px 10px 18px #999;
 }
 
 #logo {
@@ -48,7 +52,7 @@ header {
 }
 
 #logo p {
-    font-family: "Pangolin", "Helvetica", sans-serif;
+    font-family: "Helvetica", sans-serif;
     color: #999;
     font-size: 0.8em;
     text-decoration: None;
@@ -75,7 +79,7 @@ header {
 }
 
 #menu a {
-    font-family: "Pangolin", "Helvetica", sans-serif;
+    font-family: "Helvetica", sans-serif;
     color: #666;
     font-size: 1.2em;
     text-decoration: None;
@@ -127,7 +131,7 @@ main {
 }
 
 .textblock h1,h2,h3 {
-    font-family: "Pangolin", "Helvetica", sans-serif;
+    font-family: "Helvetica", sans-serif;
     margin-top: 80px;
 }
 
@@ -182,7 +186,7 @@ main {
 
 footer {
     border-top: 2px solid #ccc;
-    box-shadow: 0 -10px 18px #999;
+    box-shadow: 5px -10px 18px #999;
     width: 90%;
     padding: 10px 5% 20px 5%;
     display: block;

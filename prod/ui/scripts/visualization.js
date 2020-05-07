@@ -9,7 +9,7 @@ class Chart {
     createScales() {
         const m = this.margin
         this.xScale = d3.scaleTime()
-            .domain([dateParser(params.xrange[0]), dateParser(params.xrange[1])])
+            .domain(params.xrange)
             .range([0, this.width-m.left])
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
@@ -97,7 +97,7 @@ class Chart {
         const uuid = ngramData[ngram]['uuid']
 
         const line = d3.line()
-            .x(d => this.xScale(dateParser(d[0])))
+            .x(d => this.xScale(d[0]))
             .y(d => this.yScale(d[1]))
 
         this.clipgroup.append('path')
@@ -120,8 +120,7 @@ class Chart {
         this.svg = d3.select(this.element).append('svg')
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.margin.top + this.height + this.margin.bottom)
-
-        d3.select(this.element).append('a').attr("id","download").text("Download this data!").attr("href", "https:/storywrangling.org/api/"+params['ngrams'].join(" "))
+        d3.select(this.element).append('a').attr("id","download").text("Download this data!").attr("href", formatDataForDownload()).attr("target","_blank").attr("download","storywrangler_data.json")
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
