@@ -107,8 +107,8 @@ function updateURL() {
                 console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
             }
             else {
-                paramlist.push(p + "=" + v)
-                console.log(`Added ${p}:${v} to paramlist. Paramlist:`)
+                paramlist.push(p + "=" + params[p])
+                console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
             }
             console.log(paramlist)
         }
