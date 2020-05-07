@@ -73,12 +73,12 @@ function setRanges() {
 }
 
 function setupPage() {
+    d3.select('body').classed('busy-cursor',true)
     params = Object.assign({}, defaultparams) // Make a copy of the default parameters
     Object.freeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     //setFilters() // Check the correct boxes in the filter form according to the parameters
     makeCharts() // Make all the charts
-    d3.select('body').classed('busy-cursor',true)
     params['ngrams'].forEach(n => loadData(n)) // Load data for all the ngrams
     setTimeout(() => {d3.select('body').classed('busy-cursor',false)})
 }
