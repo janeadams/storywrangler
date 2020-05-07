@@ -89,14 +89,14 @@ function updateURL() {
     console.log(`splitURL:`)
     console.log(splitURL)
     let paramlist = [];
-    for (let [p, v] of Object.entries(defaultparams)) {
+    for (let p of Object.keys(params)) {
         const autoranges = ["xrange","yrange"]
         if (autoranges.includes(p)) {
             // Don't include x- and y-ranges in customizable parameters; this is set automatically
             console.log(`${p} is set automatically`)
         }
         else {
-            if (params[p] !== v) {
+            if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
                 console.log(`params[${p}]:`)
                 console.log(params[p])
                 console.log(`defaultparams[${p}]:`)
@@ -104,10 +104,10 @@ function updateURL() {
                 const dateVars = ['xrange', 'xviewrange']
                 if (dateVars.includes(p)) {
                     let formattedDates = []
-                    v.forEach(d => {
-                        let f = dateFormatter(d)
-                        console.log(`Formatted ${d} as ${f}`)
-                        formattedDates.push(f)
+                    defaultparams[p].forEach(date => {
+                        let formatted = dateFormatter(date)
+                        console.log(`Formatted ${date} as ${formatted}`)
+                        formattedDates.push(formatted)
                     })
                     paramlist.push(p + "=" + formattedDates)
                     console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
