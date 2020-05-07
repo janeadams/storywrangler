@@ -90,34 +90,33 @@ function updateURL() {
     console.log(splitURL)
     let paramlist = [];
     for (let [p, v] of Object.entries(defaultparams)) {
-        if (params[p] !== v) {
-            console.log(`params[${p}]:`)
-            console.log(params[p])
-            console.log(`defaultparams[${p}]:`)
-            console.log(defaultparams[p])
-            const dateVars = ['xrange', 'xviewrange']
-            if (dateVars.includes(p)){
-                let formattedDates = []
-                v.forEach(d => {
-                    let f = dateFormatter(d)
-                    console.log(`Formatted ${d} as ${f}`)
-                    formattedDates.push(f)
-                })
-                paramlist.push(p + "=" + formattedDates)
-                console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
-            }
-            else {
-                const autoranges = ["xrange","yrange"]
-                if (autoranges.includes(p)){
-                    // Don't include x- and y-ranges in customizable parameters; this is set automatically
-                    console.log(`${p} is set automatically`)
-                }
-                else {
+        const autoranges = ["xrange","yrange"]
+        if (autoranges.includes(p)) {
+            // Don't include x- and y-ranges in customizable parameters; this is set automatically
+            console.log(`${p} is set automatically`)
+        }
+        else {
+            if (params[p] !== v) {
+                console.log(`params[${p}]:`)
+                console.log(params[p])
+                console.log(`defaultparams[${p}]:`)
+                console.log(defaultparams[p])
+                const dateVars = ['xrange', 'xviewrange']
+                if (dateVars.includes(p)) {
+                    let formattedDates = []
+                    v.forEach(d => {
+                        let f = dateFormatter(d)
+                        console.log(`Formatted ${d} as ${f}`)
+                        formattedDates.push(f)
+                    })
+                    paramlist.push(p + "=" + formattedDates)
+                    console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
+                } else {
                     paramlist.push(p + "=" + params[p])
                     console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
                 }
+                console.log(paramlist)
             }
-            console.log(paramlist)
         }
     }
     if (paramlist.length > 0){
