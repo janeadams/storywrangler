@@ -43,11 +43,10 @@ function loadData(query) {
             ngramData[n]['colorid']=i
             i+=1
             if (i > 11){i=0}
-            let formattedData = ngramData[n]
-            xmins.push(formattedData['min_date'])
-            xmaxes.push(formattedData['max_date'])
-            ymins.push(formattedData[`min_${params.metric}`])
-            ymaxes.push(formattedData[`max_${params.metric}`])
+            xmins.push(ngramData[n]['min_date'])
+            xmaxes.push(ngramData[n]['max_date'])
+            ymins.push(ngramData[n][`min_${params.metric}`])
+            ymaxes.push(ngramData[n][`max_${params.metric}`])
 
         })
         newNgrams.forEach(n => {
@@ -111,11 +110,11 @@ function addNgram(n) {
 
 function formatDataForDownload(){
     if(Object.keys(ngramData).length > 0) {
-        let formattedData = Object.assign({}, ngramData)
+        let downloadData = Object.assign({}, ngramData)
         Object.keys(ngramData).forEach(n => {
-            formattedData[n]['data'] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
-            delete formattedData[n]['uuid']
-            delete formattedData[n]['colorid']
+            downloadData[n]['data'] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
+            delete downloadData[n]['uuid']
+            delete downloadData[n]['colorid']
         })
         return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formattedData))
     }
