@@ -88,11 +88,11 @@ function deepFreeze(o) {
 
 function setupPage() {
     d3.select('body').classed('busy-cursor',true)
-    //deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
     /*for (let [k,v] of Object.entries(defaultparams)) { // set params to defaults
         params[k] = v.valueOf()
     }*/
     params = Object.assign({}, defaultparams)
+    deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     //setFilters() // Check the correct boxes in the filter form according to the parameters
     makeCharts() // Make all the charts
