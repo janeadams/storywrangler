@@ -109,6 +109,7 @@ function addNgram(n) {
 
 
 function formatDataForDownload(){
+    let allData
     if(Object.keys(ngramData).length > 0) {
         let downloadData = {}
         Object.keys(ngramData).forEach(n => {
@@ -119,10 +120,10 @@ function formatDataForDownload(){
         metrics.forEach(m => {
             metaData[m] = params[m]
         })
-        let allData = {'metadata': metaData, 'data': downloadData}
-        return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
+        allData = {'metadata': metaData, 'data': downloadData}
     }
     else {
-        return "Error! No data"
+        allData = {'metadata': "Error! No data"}
     }
+    return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
 }
