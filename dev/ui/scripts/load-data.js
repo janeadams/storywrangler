@@ -110,7 +110,7 @@ function addNgram(n) {
 
 function formatDataForDownload(){
     if(Object.keys(ngramData).length > 0) {
-        let downloadData = Object.assign({}, ngramData)
+        let downloadData = ngramData
         Object.keys(ngramData).forEach(n => {
             downloadData[n]['data'] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
             delete downloadData[n]['uuid']
