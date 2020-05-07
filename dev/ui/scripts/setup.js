@@ -80,5 +80,5 @@ function setupPage() {
     makeCharts() // Make all the charts
     d3.select('body').classed('busy-cursor',true)
     params['ngrams'].forEach(n => loadData(n)) // Load data for all the ngrams
-    d3.select('body').classed('busy-cursor',false)
+    setTimeout(() => {d3.select('body').classed('busy-cursor',false)})
 }
