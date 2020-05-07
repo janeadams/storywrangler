@@ -112,7 +112,7 @@ function formatDataForDownload(){
     if(Object.keys(ngramData).length > 0) {
         let downloadData = {}
         Object.keys(ngramData).forEach(n => {
-            downloadData[n]['data'] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
+            downloadData[n] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
         })
         return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(downloadData))
     }
