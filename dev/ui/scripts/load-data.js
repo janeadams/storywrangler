@@ -29,16 +29,21 @@ function loadData(query) {
         })
         newNgrams.forEach(n => {
             // Find the x- and y-range of this data set
-            let thisdata = data['ngramdata'][n]
-            ngramData[n] = thisdata
+            let loadedData = data['ngramdata'][n]
+            ngramData[n]['data'] = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+            ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
+            ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
+            ngramData[n][`min_${params.metric}`] = loadedData[`min_${params.metric}`]
+            ngramData[n][`max_${params.metric}`] = loadedData[`max_${params.metric}`]
             ngramData[n]['colorid']=i
             i+=1
             if (i > 11){i=0}
-            xmins.push(thisdata['min_date'])
-            xmaxes.push(thisdata['max_date'])
-            ymins.push(thisdata[`min_${params.metric}`])
-            ymaxes.push(thisdata[`max_${params.metric}`])
-            ngramData[n]['data'] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+            let formattedData = ngramData[n]
+            xmins.push(formattedData['min_date'])
+            xmaxes.push(formattedData['max_date'])
+            ymins.push(formattedData[`min_${params.metric}`])
+            ymaxes.push(formattedData[`max_${params.metric}`])
+
         })
         newNgrams.forEach(n => {
             // If this ngram is already in the params ngrams list
