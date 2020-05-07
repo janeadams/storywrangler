@@ -28,11 +28,6 @@ function loadData(query) {
                 newNgrams.push(n)
             }
         })
-        if (newNgrams.length > 0 && (Object.keys(ngramData) == defaultparams['ngrams'])){
-            defaultparams['ngrams'].forEach(defaultNgram => {
-                removeNgram(defaultNgram)
-            })
-        }
         newNgrams.forEach(n => {
             ngramData[n] = {}
             let loadedData = data['ngramdata'][n]
