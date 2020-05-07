@@ -110,7 +110,7 @@ function addNgram(n) {
 function formatDataForDownload(){
     if(Object.keys(ngramData).length > 0) {
         let formattedData = Object.assign({}, ngramData)
-        ngramData.forEach(n => {
+        Object.keys(ngramData).forEach(n => {
             formattedData[n]['data'] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
         })
         return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formattedData))
