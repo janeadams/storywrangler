@@ -72,12 +72,25 @@ function setRanges() {
     }
 }
 
+function deepFreeze(o) {
+    Object.freeze(o)
+    Object.getOwnPropertyNames(o).forEach(function(prop) {
+        if (o.hasOwnProperty(prop)
+            && o[prop] !== null
+            && (typeof o[prop] === "object" || typeof o[prop] === "function")
+            && !Object.isFrozen(o[prop])) {
+            deepFreeze(o[prop])
+        }
+    })
+    return o
+}
+
 function setupPage() {
     d3.select('body').classed('busy-cursor',true)
     for (let [k,v] of Object.entries(defaultparams)) { // set params to defaults
         params[k] = v
     }
-    Object.freeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
+    deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     //setFilters() // Check the correct boxes in the filter form according to the parameters
     makeCharts() // Make all the charts
