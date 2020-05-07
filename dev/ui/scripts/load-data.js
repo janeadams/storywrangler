@@ -1,6 +1,6 @@
 function loadData(query) {
 
-    d3.select('body').attr('class','busy-cursor')
+    d3.select('body').classed('busy-cursor',true)
 
     console.log(`Loading data for ${query}...`)
     let errors = ""
