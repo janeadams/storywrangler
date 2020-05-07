@@ -116,7 +116,7 @@ function formatDataForDownload(){
             delete downloadData[n]['uuid']
             delete downloadData[n]['colorid']
         })
-        return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formattedData))
+        return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(downloadData))
     }
     else {
         return "Error! No data"
