@@ -50,10 +50,13 @@ function loadData(query) {
             ymaxes.push(ngramData[n][`max_${params.metric}`])
 
         })
+        let currentNgrams = params['ngrams']
         newNgrams.forEach(n => {
             // If this ngram is already in the params ngrams list
-            if (params['ngrams'].includes(n)){} // do nothing
-            else { params['ngrams'].push(n) } // otherwise, add it
+            if (currentNgrams.includes(n)){} // do nothing
+            else {
+                currentNgrams.push(n)
+                params['ngrams'] = currentNgrams } // otherwise, add it
             addNgram(n)
         })
         if (newNgrams.length > 0) { // If new ngrams have been added...
