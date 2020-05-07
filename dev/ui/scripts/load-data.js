@@ -50,7 +50,7 @@ function loadData(query) {
             ymaxes.push(ngramData[n][`max_${params.metric}`])
 
         })
-        let currentNgrams = params['ngrams']
+        let currentNgrams = Object.assign([], params['ngrams'])
         newNgrams.forEach(n => {
             // If this ngram is already in the params ngrams list
             if (currentNgrams.includes(n)){} // do nothing
