@@ -107,8 +107,10 @@ function updateURL() {
                 console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
             }
             else {
-                paramlist.push(p + "=" + params[p])
-                console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
+                if (params[p] !== 'yrange'){ // Don't include yrange in customizable parameters; this is set automatically
+                    paramlist.push(p + "=" + params[p])
+                    console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
+                }
             }
             console.log(paramlist)
         }
