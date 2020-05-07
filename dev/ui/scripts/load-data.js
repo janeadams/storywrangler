@@ -32,6 +32,8 @@ function loadData(query) {
             let loadedData = data['ngramdata'][n]
             // Parse all the dates
             ngramData[n]['data'] = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+            // Get the unique identifier (for labeling objects in-browser)
+            ngramData[n]['uuid'] = loadedData['uuid']
             // Find and format the x- and y-ranges of this data set
             ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
             ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
@@ -112,6 +114,8 @@ function formatDataForDownload(){
         let formattedData = Object.assign({}, ngramData)
         Object.keys(ngramData).forEach(n => {
             formattedData[n]['data'] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
+            delete formattedData[n]['uuid']
+            delete formattedData[n]['colorid']
         })
         return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formattedData))
     }
