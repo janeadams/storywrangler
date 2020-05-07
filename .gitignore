@@ -1,11 +1,8 @@
 # Don't track content of these folders
-output/
 node_modules/
-debug/console_*.txt
-api/logs/
+debug/prod-*.txt
+*/api/logs/*
 .*
-api/*log.csv
 ai/
-onegram.sublime*
 notes/
 static/
