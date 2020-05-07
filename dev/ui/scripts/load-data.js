@@ -38,7 +38,7 @@ function loadData(query) {
             xmaxes.push(thisdata['max_date'])
             ymins.push(thisdata[`min_${params.metric}`])
             ymaxes.push(thisdata[`max_${params.metric}`])
-            ngramData[n]['data'] = ngramData[n]['data'].forEach(t => {
+            ngramData[n]['data'].forEach(t => {
                 return [dateParser(t[0]),t[1]] // Parse all dates
             })
         })
