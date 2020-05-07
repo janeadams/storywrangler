@@ -74,7 +74,7 @@ function setRanges() {
 
 function setupPage() {
     d3.select('body').classed('busy-cursor',true)
-    for (let [k,v] in Object.entries(defaultparams)) { // set params to defaults
+    for (let [k,v] of Object.entries(defaultparams)) { // set params to defaults
         params[k] = v
     }
     Object.freeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
