@@ -15,7 +15,7 @@ function readUrlVars() {
             // Add the value to it
             values.forEach(v => {
                 if (params['ngrams'].includes(v)){`params[ngrams] already included ${v}`}
-                else {vars[key].push(v)}
+                else {vars[key].push(decodeURIComponent(v))}
             })
         }
         else {
