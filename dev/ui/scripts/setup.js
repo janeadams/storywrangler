@@ -74,7 +74,9 @@ function setRanges() {
 
 function setupPage() {
     d3.select('body').classed('busy-cursor',true)
-    params = Object.assign({}, defaultparams) // Make a copy of the default parameters
+    for (let k in Object.keys(defaultparams)){
+        params[k] = defaultparams[k]
+    }
     Object.freeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     //setFilters() // Check the correct boxes in the filter form according to the parameters
