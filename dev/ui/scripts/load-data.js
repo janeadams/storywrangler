@@ -115,9 +115,10 @@ function formatDataForDownload(){
             downloadData[n] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
         })
         let metaData = {}
-        for (let p in ['ngrams','metric','language','rt']){
-            metaData[p] = params[p]
-        }
+        let metrics = ['ngrams','metric','language','rt']
+        metrics.forEach(m => {
+            metaData[m] = params[m]
+        })
         let allData = {'metadata': metaData, 'data': downloadData}
         return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
     }
