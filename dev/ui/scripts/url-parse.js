@@ -9,11 +9,13 @@ function readUrlVars() {
         if (key==="ngrams") {
             // Create an array
             vars[key] = []
+            console.log(`Found ${value} for ${key}`)
             let values = value.split(",")
+            console.log(`Split ${value} into ${values}`)
             // Add the value to it
             values.forEach(v => {
                 if (params['ngrams'].includes(v)){`params[ngrams] already included ${v}`}
-                else {params['ngrams'].push(decodeURIComponent(v))}
+                else {vars[key].push(v)}
             })
         }
         else {
@@ -62,10 +64,11 @@ function readUrlVars() {
 // Get the parameters from the URL
 function getUrlParams() {
     if (window.location.href.indexOf('ngrams') > -1) {
-        params['ngrams'].push(readUrlVars()["ngrams"])
+        params['ngrams'] = [] // Clear any existing ngrams
+        params['ngrams'].push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
     }
     else {
-        params['ngrams'] = defaultparams['ngrams']
+        params['ngrams'] = defaultparams['ngrams'] // Set to default keywords
     }
     for (let p in params) {
         // If the parameter is in the URL

@@ -45,11 +45,10 @@ function loadData(query) {
             else { params['ngrams'].push(n) } // otherwise, add it
             addNgram(n)
         })
-        if (newNgrams.length > 0) {
+        if (newNgrams.length > 0) { // If new ngrams have been added...
             setRanges()
             redrawCharts()
             updateURL()
-            //d3.select("#download").attr("href", "https:/storywrangling.org/api/"+params['ngrams'].join(" "))
         }
     })
 }
