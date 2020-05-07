@@ -1,6 +1,6 @@
 function loadData(query) {
 
-    document.body.classList.add('busy-cursor')
+    d3.select('body').attr('class','busy-cursor')
 
     console.log(`Loading data for ${query}...`)
     let errors = ""
@@ -64,7 +64,7 @@ function loadData(query) {
             updateURL()
         }
     })
-    document.body.classList.remove('busy-cursor')
+    d3.select('body').classed('busy-cursor',false)
 }
 
 
