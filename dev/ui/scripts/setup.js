@@ -24,6 +24,10 @@ const defaultparams = {
     "yrange": [10000, 1],
 }
 
+deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
+
+let params = {}
+
 // Limit options for certain parameters
 const paramoptions = {
     "language": ["en","es","ru","fr"],
@@ -31,8 +35,7 @@ const paramoptions = {
     "scale": ["log", "lin"],
     "rt": [true,false]
 }
-// An object containing our parameters
-let params = {}
+
 let i = 0 // For counting which color to choose for the ngram
 let ngramData = {}
 let xmins = []
@@ -87,9 +90,15 @@ function deepFreeze(o) {
 
 function setupPage() {
     d3.select('body').classed('busy-cursor',true)
-    deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
-    for (let [k,v] of Object.entries(defaultparams)) { // set params to defaults
-        params[k] = v
+    params = {
+        "ngrams": ["hahaha","one two three","#friday","🦠"],
+        "language": "en",
+        "metric": "rank",
+        "rt": false,
+        "scale": "log",
+        "xviewrange": [lastyeardate, today],
+        "xrange": [lastyeardate, today],
+        "yrange": [10000, 1],
     }
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     //setFilters() // Check the correct boxes in the filter form according to the parameters
