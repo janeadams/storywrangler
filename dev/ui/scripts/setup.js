@@ -1,5 +1,5 @@
 console.log("Loading setup.js")
-const dateParser = d3.timeParse("%B %d, %Y")
+const dateParser = date => new Date(d3.timeParse(date))
 const dateFormatter = d3.timeFormat("%Y-%m-%d")
 
 // Today's date
@@ -54,29 +54,29 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 //console.log(colorMe("sky"))
 
 function setRanges() {
-    if (Object.keys(ngramData).length > 0 ){
+    if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
         console.log("Setting ranges...")
-        // Lists of all date and metric min/max:
+        // Get the minimum and maximum values for all ngrams
         params.xrange = [d3.min(xmins), d3.max(xmaxes)]
         console.log(`Setting params[xrange] to ${params.xrange}`)
+        // If the metric is rank, go from highest to lowest
         if (params['metric'] === 'rank') {params.yrange = [Math.ceil(d3.max(ymaxes) * 1.2), 1]}
+        // Otherwise, go from lowest to highest
         else {params.yrange = [0, Math.ceil(d3.max(ymaxes) * 1.2)]}
+        // Note above: Math.ceil() and * 1.2 pads the range a little
         console.log(`Setting params[yrange] to ${params.yrange}`)
     }
-    else {
+    else { // Otherwise, set to the default ranges
         params.xrange = defaultparams.xrange
         params.yrange = defaultparams.yrange
     }
 }
 
 function setupPage() {
-    params = Object.assign({}, defaultparams)
-    // Let's freeze the defaults, since they shouldn't ever change
-    Object.freeze(defaultparams)
-    // Get parameters from the URL and update current parameters accordingly
-    getUrlParams()
-    // Check the correct boxes in the filter form according to the parameters
-    //setFilters()
-    makeCharts()
-    params['ngrams'].forEach(n => loadData(n))
+    params = Object.assign({}, defaultparams) // Make a copy of the default parameters
+    Object.freeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
+    getUrlParams() // Get parameters from the URL and update current parameters accordingly
+    //setFilters() // Check the correct boxes in the filter form according to the parameters
+    makeCharts() // Make all the charts
+    params['ngrams'].forEach(n => loadData(n)) // Load data for all the ngrams
 }

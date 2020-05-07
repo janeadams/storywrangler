@@ -38,6 +38,7 @@ function loadData(query) {
             xmaxes.push(thisdata['max_date'])
             ymins.push(thisdata[`min_${params.metric}`])
             ymaxes.push(thisdata[`max_${params.metric}`])
+            ngramData[n]['data'].forEach()
         })
         newNgrams.forEach(n => {
             // If this ngram is already in the params ngrams list
