@@ -1,4 +1,7 @@
 function loadData(query) {
+
+    document.body.classList.add('busy-cursor')
+
     console.log(`Loading data for ${query}...`)
     let errors = ""
     // Pull the JSON data
@@ -61,6 +64,7 @@ function loadData(query) {
             updateURL()
         }
     })
+    document.body.classList.remove('busy-cursor')
 }
 
 
