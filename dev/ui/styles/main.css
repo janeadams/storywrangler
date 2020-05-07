@@ -52,7 +52,7 @@ header {
 }
 
 #logo p {
-    font-family: "Pangolin", "Helvetica", sans-serif;
+    font-family: "Helvetica", sans-serif;
     color: #999;
     font-size: 0.8em;
     text-decoration: None;
@@ -79,7 +79,7 @@ header {
 }
 
 #menu a {
-    font-family: "Pangolin", "Helvetica", sans-serif;
+    font-family: "Helvetica", sans-serif;
     color: #666;
     font-size: 1.2em;
     text-decoration: None;
@@ -131,7 +131,7 @@ main {
 }
 
 .textblock h1,h2,h3 {
-    font-family: "Pangolin", "Helvetica", sans-serif;
+    font-family: "Helvetica", sans-serif;
     margin-top: 80px;
 }
 
