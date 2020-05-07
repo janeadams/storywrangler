@@ -28,13 +28,16 @@ function loadData(query) {
             }
         })
         newNgrams.forEach(n => {
-            // Find the x- and y-range of this data set
+            ngramData[n] = {}
             let loadedData = data['ngramdata'][n]
+            // Parse all the dates
             ngramData[n]['data'] = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+            // Find and format the x- and y-ranges of this data set
             ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
             ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
             ngramData[n][`min_${params.metric}`] = loadedData[`min_${params.metric}`]
             ngramData[n][`max_${params.metric}`] = loadedData[`max_${params.metric}`]
+            // Set the color identifier for this set, & cycle through
             ngramData[n]['colorid']=i
             i+=1
             if (i > 11){i=0}
