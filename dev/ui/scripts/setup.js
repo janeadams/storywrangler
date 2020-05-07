@@ -24,8 +24,6 @@ const defaultparams = {
     "yrange": [10000, 1],
 }
 
-deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
-
 let params = {}
 
 // Limit options for certain parameters
@@ -70,8 +68,8 @@ function setRanges() {
         console.log(`Setting params[yrange] to ${params.yrange}`)
     }
     else { // Otherwise, set to the default ranges
-        params.xrange = defaultparams.xrange
-        params.yrange = defaultparams.yrange
+        params.xrange = defaultparams.xrange.valueOf()
+        params.yrange = defaultparams.yrange.valueOf()
     }
 }
 
@@ -90,15 +88,9 @@ function deepFreeze(o) {
 
 function setupPage() {
     d3.select('body').classed('busy-cursor',true)
-    params = {
-        "ngrams": ["hahaha","one two three","#friday","🦠"],
-        "language": "en",
-        "metric": "rank",
-        "rt": false,
-        "scale": "log",
-        "xviewrange": [lastyeardate, today],
-        "xrange": [lastyeardate, today],
-        "yrange": [10000, 1],
+    deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
+    for (let [k,v] of Object.entries(defaultparams)) { // set params to defaults
+        params[k] = v.valueOf()
     }
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     //setFilters() // Check the correct boxes in the filter form according to the parameters

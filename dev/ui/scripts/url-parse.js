@@ -68,7 +68,7 @@ function getUrlParams() {
         params['ngrams'].push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
     }
     else {
-        params['ngrams'] = defaultparams['ngrams'] // Set to default keywords
+        params['ngrams'] = defaultparams['ngrams'].valueOf() // Set to default keywords
     }
     for (let p in params) {
         // If the parameter is in the URL
@@ -96,7 +96,7 @@ function updateURL() {
             console.log(`${p} is set automatically`)
         }
         else {
-            if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
+            if (params[p] !== defaultparams[p].valueOf()) { // If the parameter doesn't match the defaults
                 console.log(`params[${p}]:`)
                 console.log(params[p])
                 console.log(`defaultparams[${p}]:`)
