@@ -5,7 +5,7 @@ function loadData(query) {
     // Pull the JSON data
     let formatted_query = encodeURIComponent(query)
     //console.log(`Formatted query: ${formatted_query}`)
-    var url = encodeURI(`http://hydra.uvm.edu:3000/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
+    var url = encodeURI(`/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
     //console.log(`Querying URL ${url}`)
     d3.json(url).then((data, error) => {
         //errors.append(data['errors'])
