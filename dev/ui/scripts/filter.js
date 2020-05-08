@@ -15,7 +15,12 @@ function setFilters() {
         // Remove the log toggle from the options list
         d3.select("#scaleFilter").style("display", "none")
         // If we're counting frequency, force scale to linear
-        params["scale"] = "lin"
+        let newScale = "lin"
+        if (params["scale"] !== newScale) {
+            params["scale"] = newScale
+            console.log(`Changed params['scale'] to ${params['scale']}`)
+            triggerUpdates()
+        }
     } else {
         d3.select("#scaleFilter").style("display", "inline-block")
     }
@@ -44,9 +49,13 @@ function filterSubmission() {
         console.log(`isUpdated = ${isUpdated}`)
     }
     if (isUpdated) {
-        console.log(`There was an update to the parameters through filter submission`)
-        setFilters()
-        updateURL()
-        redrawCharts()
+        triggerUpdates()
     }
+}
+
+function triggerUpdates(){
+    console.log(`There was an update to the parameters`)
+    setFilters()
+    updateURL()
+    redrawCharts()
 }
