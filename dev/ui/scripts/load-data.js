@@ -134,5 +134,8 @@ function formatDataForDownload(){
 }
 
 function loadAllData(){
-    params['ngrams'].forEach(n => loadData(n))
+    let currentNgrams = Object.assign([], params['ngrams'])
+    params['ngrams'] = []
+    ngramData = {}
+    currentNgrams.forEach(n => loadData(n))
 }
