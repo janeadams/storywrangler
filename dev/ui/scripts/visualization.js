@@ -109,7 +109,7 @@ class Chart {
         this.clipgroup.append('path')
             // use data stored in `this`
             .datum(ndata)
-            .attr('class',`line uuid-${uuid}`)
+            .attr('class',`line uuid-${uuid} dataline`)
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
             .attr('d',line)
@@ -169,4 +169,10 @@ function makeCharts(){
 function redrawCharts(){
     setRanges()
     mainChart.draw()
+}
+
+function clearCharts(){
+    params['ngrams'].forEach(n){
+        d3.selectAll('.dataline').remove()
+    }
 }

@@ -132,13 +132,10 @@ function formatDataForDownload(){
     return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
 }
 
-function reloadAllData(){
+function reloadAllData() {
     let currentNgrams = Object.assign([], params['ngrams'])
+    clearCharts()
     params['ngrams'] = []
-    currentNgrams.forEach(n => {
-        if (n in Object.keys(ngramData)) {
-            removeNgram(n)
-        }
-        loadData(n)
-    })
+    ngramData = {}
+    currentNgrams.forEach(n => loadData(n))
 }
