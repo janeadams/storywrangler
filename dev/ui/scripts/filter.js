@@ -31,6 +31,6 @@ function filterSubmission() {
         // console.log(`Params[${p}] = ${params[p]}`)
         console.log(`params[${p}] = ${params[p]}`)
     }
-    params['RT']=d3.select("input[value ='rt']:checked")
-    console.log(`Set params['rt'] to ${params['rt']}`)
+    params['rt']=d3.select("input[value ='rt']").property('checked')
+    console.log(`params['rt'] = ${params['rt']}`)
 }
