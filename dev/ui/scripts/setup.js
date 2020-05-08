@@ -94,6 +94,6 @@ function setupPage() {
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     setFilters() // Check the correct boxes in the filter form according to the parameters
     makeCharts() // Make all the charts
-    loadAllData()// Load data for all the ngrams
+    params['ngrams'].forEach(n => loadData(n))
     setTimeout(() => {d3.select('body').classed('busy-cursor',false)})
 }
