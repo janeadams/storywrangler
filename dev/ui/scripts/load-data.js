@@ -134,6 +134,5 @@ function formatDataForDownload(){
 }
 
 function loadAllData(){
-    ngramData = {}
     params['ngrams'].forEach(n => loadData(n))
 }
