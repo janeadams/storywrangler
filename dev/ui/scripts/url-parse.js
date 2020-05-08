@@ -56,7 +56,8 @@ function readUrlVars() {
 // Get the parameters from the URL
 function getUrlParams() {
     if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
-        Ngrams.push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
+        let newNgrams = readUrlVars()["ngrams"] // Add the ngrams specified in the URL
+        newNgrams.forEach(n => Ngrams.append(n))
     }
     else {
         Ngrams = Object.assign([],defaultNgrams) // Set to default ngrams
@@ -71,6 +72,8 @@ function getUrlParams() {
             params[p] = defaultparams[p]
         }
     })
+
+    Ngrams.forEach(n => loadData(n))
 }
 
 function updateURL() {
