@@ -62,7 +62,7 @@ function getUrlParams() {
                 params['ngrams'].push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
             }
             else {
-                params['ngrams'] = Object.assign([], defaultparams['ngrams']) // Set to default ngrams
+                defaultparams['ngrams'].forEach(n => params['ngrams'].push(n)) // Set to default ngrams
             }
         }
         else {
@@ -86,20 +86,32 @@ function updateURL() {
     console.log(splitURL)
     let paramlist = [];
     for (let p of Object.keys(defaultparams)) {
-            if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
-                console.log(`params[${p}]:`)
-                console.log(params[p])
-                console.log(`defaultparams[${p}]:`)
-                console.log(defaultparams[p])
-                const dateVars = ['start', 'end']
-                if (dateVars.includes(p)) {
-                    paramlist.push(p + "=" + dateFormatter(params[p]))
-                    console.log(`Added ${p}:${dateFormatter(params[p])} to paramlist. Paramlist:`)
-                } else {
-                    paramlist.push(p + "=" + params[p])
-                    //console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
+            if (p === 'ngrams') {
+                let isDifferent = false
+                params['ngrams'].forEach(n => {
+                    if (n in defaultparams['ngrams']){}
+                    else {isDifferent = true}
+                })
+                if (isDifferent){
+                    paramlist.push("ngrams=" + params[p])
                 }
-                console.log(paramlist)
+            }
+            else {
+                if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
+                    console.log(`params[${p}]:`)
+                    console.log(params[p])
+                    console.log(`defaultparams[${p}]:`)
+                    console.log(defaultparams[p])
+                    const dateVars = ['start', 'end']
+                    if (dateVars.includes(p)) {
+                        paramlist.push(p + "=" + dateFormatter(params[p]))
+                        console.log(`Added ${p}:${dateFormatter(params[p])} to paramlist. Paramlist:`)
+                    } else {
+                        paramlist.push(p + "=" + params[p])
+                        //console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
+                    }
+                    console.log(paramlist)
+                }
             }
     }
     if (paramlist.length > 0){
