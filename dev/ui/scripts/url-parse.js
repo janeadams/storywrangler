@@ -125,5 +125,11 @@ function updateURL() {
         console.log(newURL)
         history.pushState(paramlist,'', newURL)
     }
+    else {
+        let newURL = String(splitURL[0])
+        console.log("newURL:")
+        console.log(newURL)
+        history.pushState([],'', newURL)
+    }
 }
 
