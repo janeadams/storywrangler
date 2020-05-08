@@ -5,7 +5,7 @@ function loadData(query) {
     // Pull the JSON data
     let formatted_query = encodeURIComponent(query)
     //console.log(`Formatted query: ${formatted_query}`)
-    var url = encodeURI(`/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
+    var url = encodeURI(`https://storywrangling.org/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
     //console.log(`Querying URL ${url}`)
     d3.json(url).then((data, error) => {
         //errors.append(data['errors'])
@@ -50,13 +50,13 @@ function loadData(query) {
             ymaxes.push(ngramData[n][`max_${params.metric}`])
 
         })
-        let currentNgrams = Object.assign([], params['ngrams'])
+        let currentNgrams = Object.assign([], Ngrams)
         newNgrams.forEach(n => {
             // If this ngram is already in the params ngrams list
             if (currentNgrams.includes(n)){} // do nothing
             else {
                 currentNgrams.push(n)
-                params['ngrams'] = currentNgrams } // otherwise, add it
+                Ngrams = currentNgrams } // otherwise, add it
             addNgram(n)
         })
         if (newNgrams.length > 0) { // If new ngrams have been added...
@@ -76,7 +76,7 @@ function removeNgram(n) {
     //console.log(`removing all elements with uuid ${uuid}`)
     d3.selectAll('.uuid-'+uuid).remove()
     // Filter the ngram list to include every ngram except this one
-    params['ngrams'] = params['ngrams'].filter(ele => ele !== n)
+    Ngrams = Ngrams.filter(ele => ele !== n)
     // Remove these mins and maxes
     xmins = xmins.filter(ele => ele !== thisdata['min_date'])
     console.log(`Removed ${thisdata['min_date']} from xmins`)
@@ -89,7 +89,6 @@ function removeNgram(n) {
     // Delete the word from the list of ngram data
     delete ngramData[n]
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
-    setRanges()
     redrawCharts()
     updateURL()
 }
@@ -98,7 +97,7 @@ function removeNgram(n) {
 function addNgram(n) {
 
     ndata = ngramData[n] // create a shortcut for accessing this specific ngram's data
-    console.log(`Added data for ${n} to data list; ngram data list length = ${params['ngrams'].length}`)
+    console.log(`Added data for ${n} to data list; ngram data list length = ${Ngrams.length}`)
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
         .text(n)
@@ -121,7 +120,8 @@ function formatDataForDownload(){
             downloadData[n] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
         })
         let metaData = {}
-        let metrics = ['ngrams','metric','language','rt']
+        metaData['ngrams'] = Ngrams
+        let metrics = ['metric','language','rt']
         metrics.forEach(m => {
             metaData[m] = params[m]
         })
@@ -131,4 +131,12 @@ function formatDataForDownload(){
         allData = {'metadata': "Error! No data"}
     }
     return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
+}
+
+function reloadAllData() {
+    let currentNgrams = Object.assign([], Ngrams)
+    clearCharts()
+    Ngrams = []
+    ngramData = {}
+    currentNgrams.forEach(n => loadData(n))
 }
