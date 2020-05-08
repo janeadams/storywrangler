@@ -68,7 +68,7 @@ function getUrlParams() {
         params['ngrams'].push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
     }
     else {
-        params['ngrams'] = defaultparams['ngrams'].valueOf() // Set to default keywords
+        params['ngrams'] = Object.assign([], defaultparams['ngrams']) // Set to default keywords
     }
     for (let p in params) {
         // If the parameter is in the URL
