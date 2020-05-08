@@ -33,6 +33,7 @@ function filterSubmission() {
             params[p] = newParam
             console.log(`Changed params[${p}] to ${params[p]}`)
             isUpdated = true
+            console.log(`isUpdated = ${isUpdated}`)
         }
     }
     let newRTparam = d3.select("input[value ='rt']").property('checked')
@@ -40,8 +41,10 @@ function filterSubmission() {
         params['rt'] = newRTparam
         console.log(`Changed params['rt'] to ${params['rt']}`)
         isUpdated = true
+        console.log(`isUpdated = ${isUpdated}`)
     }
     if (isUpdated) {
+        console.log(`There was an update to the parameters through filter submission`)
         setFilters()
         updateURL()
         redrawCharts()
