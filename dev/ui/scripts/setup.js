@@ -54,6 +54,7 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 //console.log(colorMe("sky"))
 
 function setRanges() {
+    params['ngrams'] = []
     params['xrange'] = []
     params['yrange'] = []
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...

@@ -58,7 +58,6 @@ function getUrlParams() {
     Object.keys(defaultparams).forEach(p => { // For all parameters
         if (p === 'ngrams') {
             if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
-                params['ngrams'] = [] // Clear any existing ngrams
                 params['ngrams'].push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
             }
             else {
