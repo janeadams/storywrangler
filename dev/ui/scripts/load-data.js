@@ -134,6 +134,7 @@ function formatDataForDownload(){
 
 function reloadAllData(){
     let currentNgrams = Object.assign([], params['ngrams'])
+    params['ngrams'] = []
     currentNgrams.forEach(n => {
         if (n in Object.keys(ngramData)) {
             removeNgram(n)
