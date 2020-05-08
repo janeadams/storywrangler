@@ -10,7 +10,7 @@ function setFilters() {
         d3.selectAll(`input[value =${params[p]}]`).property('checked', true)
     }
 
-
+    /*
     if (params['metric'] === 'freq') {
         // Remove the log toggle from the options list
         d3.select("#scaleFilter").style("display", "none")
@@ -24,6 +24,7 @@ function setFilters() {
     } else {
         d3.select("#scaleFilter").style("display", "inline-block")
     }
+     */
 
 }
 
