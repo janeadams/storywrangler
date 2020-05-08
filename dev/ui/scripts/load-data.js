@@ -89,7 +89,6 @@ function removeNgram(n) {
     // Delete the word from the list of ngram data
     delete ngramData[n]
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
-    setRanges()
     redrawCharts()
     updateURL()
 }

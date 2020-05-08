@@ -167,5 +167,6 @@ function makeCharts(){
 }
 
 function redrawCharts(){
+    setRanges()
     mainChart.draw()
 }
