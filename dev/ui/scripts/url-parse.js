@@ -93,6 +93,7 @@ function updateURL() {
                 })
                 if (isDifferent){
                     paramlist.push("ngrams=" + params[p])
+                    params['ngrams'].forEach(n => loadData(n))
                 }
             }
             else {
