@@ -133,7 +133,12 @@ function formatDataForDownload(){
     return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
 }
 
-function loadAllData(){
-    params['ngrams'].forEach(n => removeNgram(n))
-    params['ngrams'].forEach(n => loadData(n))
+function reloadAllData(){
+    let currentNgrams = Object.assign([], params['ngrams'])
+    currentNgrams.forEach(n => {
+        if (n in Object.keys(ngramData)) {
+            removeNgram(n)
+        }
+        loadData(n)
+    })
 }

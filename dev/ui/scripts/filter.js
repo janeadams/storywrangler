@@ -57,6 +57,6 @@ function triggerUpdates(){
     console.log(`There was an update to the parameters`)
     setFilters()
     updateURL()
-    loadAllData()
+    reloadAllData()
     redrawCharts()
 }
