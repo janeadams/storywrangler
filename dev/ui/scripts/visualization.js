@@ -172,7 +172,7 @@ function redrawCharts(){
 }
 
 function clearCharts(){
-    params['ngrams'].forEach(n => {
+    Ngrams.forEach(n => {
         d3.selectAll('.dataline').remove()
     })
 }

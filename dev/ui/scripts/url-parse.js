@@ -55,23 +55,20 @@ function readUrlVars() {
 }
 // Get the parameters from the URL
 function getUrlParams() {
+    if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
+        Ngrams.push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
+    }
+    else {
+        Ngrams = Object.assign([],defaultNgrams) // Set to default ngrams
+    }
+
     Object.keys(defaultparams).forEach(p => { // For all parameters
-        if (p === 'ngrams') {
-            if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
-                params['ngrams'].push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
-            }
-            else {
-                defaultparams['ngrams'].forEach(n => params['ngrams'].push(n)) // Set to default ngrams
-            }
-        }
-        else {
-            // If the parameter is in the URL
-            if (window.location.href.indexOf(p) > -1) {
-                params[p] = readUrlVars()[p] // set the variable to the value in the url
-                console.log(`Changed params[${p}] to ${params[p]}`)
-            } else { // If the parameter is not specified in the URL
-                params[p] = defaultparams[p]
-            }
+        // If the parameter is in the URL
+        if (window.location.href.indexOf(p) > -1) {
+            params[p] = readUrlVars()[p] // set the variable to the value in the url
+            console.log(`Changed params[${p}] to ${params[p]}`)
+        } else { // If the parameter is not specified in the URL
+            params[p] = defaultparams[p]
         }
     })
 }
@@ -83,35 +80,31 @@ function updateURL() {
     let splitURL = currentURL.split("?")
     console.log(`splitURL:`)
     console.log(splitURL)
-    let paramlist = [];
+    let paramlist = []
+    let isDifferent = false
+    Ngrams.forEach(n => {
+        if (n in defaultNgrams){}
+        else {isDifferent = true}
+    })
+    if (isDifferent){
+        paramlist.push("ngrams=" + Ngrams)
+        Ngrams.forEach(n => loadData(n))
+    }
     for (let p of Object.keys(defaultparams)) {
-            if (p === 'ngrams') {
-                let isDifferent = false
-                params['ngrams'].forEach(n => {
-                    if (n in defaultparams['ngrams']){}
-                    else {isDifferent = true}
-                })
-                if (isDifferent){
-                    paramlist.push("ngrams=" + params[p])
-                    params['ngrams'].forEach(n => loadData(n))
+            if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
+                console.log(`params[${p}]:`)
+                console.log(params[p])
+                console.log(`defaultparams[${p}]:`)
+                console.log(defaultparams[p])
+                const dateVars = ['start', 'end']
+                if (dateVars.includes(p)) {
+                    paramlist.push(p + "=" + dateFormatter(params[p]))
+                    console.log(`Added ${p}:${dateFormatter(params[p])} to paramlist. Paramlist:`)
+                } else {
+                    paramlist.push(p + "=" + params[p])
+                    //console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
                 }
-            }
-            else {
-                if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
-                    console.log(`params[${p}]:`)
-                    console.log(params[p])
-                    console.log(`defaultparams[${p}]:`)
-                    console.log(defaultparams[p])
-                    const dateVars = ['start', 'end']
-                    if (dateVars.includes(p)) {
-                        paramlist.push(p + "=" + dateFormatter(params[p]))
-                        console.log(`Added ${p}:${dateFormatter(params[p])} to paramlist. Paramlist:`)
-                    } else {
-                        paramlist.push(p + "=" + params[p])
-                        //console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
-                    }
-                    console.log(paramlist)
-                }
+                console.log(paramlist)
             }
     }
     if (paramlist.length > 0){

@@ -12,9 +12,10 @@ lastyeardate.setFullYear(lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 let thisfirst = new Date(thisyear, 0, 1)
 
+const defaultNgrams = ["hahaha","one two three","#friday","🦠"]
+
 // Set default options
 const defaultparams = {
-    "ngrams": ["hahaha","one two three","#friday","🦠"],
     "language": "en",
     "metric": "rank",
     "rt": false,
@@ -23,6 +24,7 @@ const defaultparams = {
     "end": today
 }
 
+let Ngrams = []
 let params = {}
 
 // Limit options for certain parameters
@@ -86,7 +88,6 @@ function deepFreeze(o) {
 
 
 function setupPage() {
-    params['ngrams'] = []
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     setFilters() // Check the correct boxes in the filter form according to the parameters
     makeCharts() // Make all the charts\
