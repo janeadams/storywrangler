@@ -93,7 +93,7 @@ function updateURL() {
         const autoranges = ["xrange","yrange"]
         if (autoranges.includes(p)) {
             // Don't include x- and y-ranges in customizable parameters; this is set automatically
-            console.log(`${p} is set automatically`)
+            // console.log(`${p} is set automatically`)
         }
         else {
             if (params[p] !== defaultparams[p].valueOf()) { // If the parameter doesn't match the defaults
@@ -110,10 +110,10 @@ function updateURL() {
                         formattedDates.push(formatted)
                     })
                     paramlist.push(p + "=" + formattedDates)
-                    console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
+                    //console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
                 } else {
                     paramlist.push(p + "=" + params[p])
-                    console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
+                    //console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
                 }
                 console.log(paramlist)
             }
