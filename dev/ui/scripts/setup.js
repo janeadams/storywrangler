@@ -54,7 +54,6 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 //console.log(colorMe("sky"))
 
 function setRanges() {
-    params['ngrams'] = []
     params['xrange'] = []
     params['yrange'] = []
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
@@ -87,6 +86,7 @@ function deepFreeze(o) {
 
 
 function setupPage() {
+    params['ngrams'] = []
     d3.select('body').classed('busy-cursor',true)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     setFilters() // Check the correct boxes in the filter form according to the parameters
