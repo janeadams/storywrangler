@@ -47,14 +47,6 @@ function readUrlVars() {
                     }
                 }
             }
-            else {
-                let arrayVars = ['xrange','xviewrange','yrange','yviewrange']
-                if (arrayVars.includes(key)){
-                    let dateValues = value.split(",")
-                    dateValues.forEach(d => d)
-                    vars[key] = dateValues
-                }
-            }
         }
     })
     console.log(`readURLvars() returns:`)
@@ -63,22 +55,26 @@ function readUrlVars() {
 }
 // Get the parameters from the URL
 function getUrlParams() {
-    if (window.location.href.indexOf('ngrams') > -1) {
-        params['ngrams'] = [] // Clear any existing ngrams
-        params['ngrams'].push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
-    }
-    else {
-        params['ngrams'] = Object.assign([], defaultparams['ngrams']) // Set to default keywords
-    }
-    for (let p in params) {
-        // If the parameter is in the URL
-        if (window.location.href.indexOf(p) > -1) {
-            // set the variable to the value in the url
-            //console.log("Found ", p, " parameter in URL as ", urlvar)
-            params[p] = readUrlVars()[p]
-            console.log(`Changed params[${p}] to ${params[p]}`)
+    Object.keys(defaultparams).forEach(p => { // For all parameters
+        if (p === 'ngrams') {
+            if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
+                params['ngrams'] = [] // Clear any existing ngrams
+                params['ngrams'].push(readUrlVars()["ngrams"]) // Add the ngrams specified in the URL
+            }
+            else {
+                params['ngrams'] = Object.assign([], defaultparams['ngrams']) // Set to default ngrams
+            }
         }
-    }
+        else {
+            // If the parameter is in the URL
+            if (window.location.href.indexOf(p) > -1) {
+                params[p] = readUrlVars()[p] // set the variable to the value in the url
+                console.log(`Changed params[${p}] to ${params[p]}`)
+            } else { // If the parameter is not specified in the URL
+                params[p] = defaultparams[p]
+            }
+        }
+    })
 }
 
 function updateURL() {
@@ -89,35 +85,22 @@ function updateURL() {
     console.log(`splitURL:`)
     console.log(splitURL)
     let paramlist = [];
-    for (let p of Object.keys(params)) {
-        const autoranges = ["xrange","yrange"]
-        if (autoranges.includes(p)) {
-            // Don't include x- and y-ranges in customizable parameters; this is set automatically
-            // console.log(`${p} is set automatically`)
-        }
-        else {
-            if (params[p] !== defaultparams[p].valueOf()) { // If the parameter doesn't match the defaults
+    for (let p of Object.keys(defaultparams)) {
+            if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
                 console.log(`params[${p}]:`)
                 console.log(params[p])
                 console.log(`defaultparams[${p}]:`)
                 console.log(defaultparams[p])
-                const dateVars = ['xrange', 'xviewrange']
+                const dateVars = ['start', 'end']
                 if (dateVars.includes(p)) {
-                    let formattedDates = []
-                    defaultparams[p].forEach(date => {
-                        let formatted = dateFormatter(date)
-                        console.log(`Formatted ${date} as ${formatted}`)
-                        formattedDates.push(formatted)
-                    })
-                    paramlist.push(p + "=" + formattedDates)
-                    //console.log(`Added ${p}:${formattedDates} to paramlist. Paramlist:`)
+                    paramlist.push(p + "=" + dateFormatter(params[p]))
+                    console.log(`Added ${p}:${dateFormatter(params[p])} to paramlist. Paramlist:`)
                 } else {
                     paramlist.push(p + "=" + params[p])
                     //console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
                 }
                 console.log(paramlist)
             }
-        }
     }
     if (paramlist.length > 0){
         let newURL = String(splitURL[0]) + "?" + paramlist.join("&")

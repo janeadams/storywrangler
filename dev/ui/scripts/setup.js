@@ -19,9 +19,8 @@ const defaultparams = {
     "metric": "rank",
     "rt": false,
     "scale": "log",
-    "xviewrange": [lastyeardate, today],
-    "xrange": [lastyeardate, today],
-    "yrange": [10000, 1],
+    "start": lastyeardate,
+    "end": today
 }
 
 let params = {}
@@ -55,6 +54,8 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 //console.log(colorMe("sky"))
 
 function setRanges() {
+    params['xrange'] = []
+    params['yrange'] = []
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
         console.log("Setting ranges...")
         // Get the minimum and maximum values for all ngrams
@@ -67,10 +68,6 @@ function setRanges() {
         // Set the max of the range to the max of all values. Math.ceil() and '* 1.2' pads the range a little
         params.yrange[1] = Math.ceil(d3.max(ymaxes) * 1.2)
         console.log(`Setting params[yrange] to ${params.yrange}`)
-    }
-    else { // Otherwise, set to the default ranges
-        params.xrange = defaultparams.xrange.valueOf()
-        params.yrange = defaultparams.yrange.valueOf()
     }
 }
 
