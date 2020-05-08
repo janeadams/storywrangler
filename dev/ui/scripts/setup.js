@@ -60,8 +60,8 @@ function setRanges() {
         // Get the minimum and maximum values for all ngrams
         params.xrange = [d3.min(xmins), d3.max(xmaxes)]
         console.log(`Setting params[xrange] to ${params.xrange}`)
-        // If the metric is rank, go from highest to lowest
-        if (params['metric'] === 'rank') {params.yrange = [Math.ceil(d3.max(ymaxes) * 1.2), 1]}
+        // If the metric is rank, start at 1, otherwise start at 0
+        if (params['metric'] === 'rank') {params.yrange = [1, Math.ceil(d3.max(ymaxes) * 1.2)]}
         // Otherwise, go from lowest to highest
         else {params.yrange = [0, Math.ceil(d3.max(ymaxes) * 1.2)]}
         // Note above: Math.ceil() and * 1.2 pads the range a little
