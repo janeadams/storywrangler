@@ -114,13 +114,19 @@ function updateURL() {
         let newURL = String(splitURL[0]) + "?" + paramlist.join("&")
         console.log("newURL:")
         console.log(newURL)
-        history.pushState(paramlist,'', newURL)
+        let encoded = encodeURIComponent(newURL)
+        console.log("encoded URL:")
+        console.log(encoded)
+        history.pushState([],'', encoded)
     }
     else {
         let newURL = String(splitURL[0])
         console.log("newURL:")
         console.log(newURL)
-        history.pushState([],'', newURL)
+        let encoded = encodeURIComponent(newURL)
+        console.log("encoded URL:")
+        console.log(encoded)
+        history.pushState([],'', encoded)
     }
 }
 
