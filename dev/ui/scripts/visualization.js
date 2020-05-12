@@ -13,19 +13,21 @@ class Chart {
             .range([0, this.width-m.left])
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
-        let yRange = Object.assign([], params.yrange)
-        let formattedYrange
-        if (params.metric === "rank") {formattedYrange = [yRange[1],yRange[0]]}
-        else {formattedYrange = [yRange[0],yRange[1]]}
+        if (params.metric === "rank") {
+            // When showing ranks, put rank #1 at the top
+            this.yScale.range([0, this.height-(m.top+m.bottom)])
+        }
+        else {
+            // When showing any other metric, put the highest number at the top and start at 0
+            this.yScale.range([0, this.height-(m.top+m.bottom)])
+        }
         if (params.scale === "log") {
-            this.yScale = d3.scaleLog().domain(formattedYrange)
+            this.yScale = d3.scaleLog().domain(params.yrange)
             }
         else {
-            this.yScale = d3.scaleLinear().domain(formattedYrange)
+            this.yScale = d3.scaleLinear().domain(params.yrange)
         }
-        // When showing ranks, put rank #1 at the top
-        // When showing any other metric, put the highest number at the top and start at 0
-        this.yScale.range([0, this.height-(m.top+m.bottom)])
+
     }
 
     addAxes() {
