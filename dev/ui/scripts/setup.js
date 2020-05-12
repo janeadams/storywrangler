@@ -56,13 +56,13 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 //console.log(colorMe("sky"))
 
 function setRanges() {
+    params['xrange'] = []
+    params['yrange'] = []
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
         console.log("Setting ranges...")
         // Get the minimum and maximum values for all ngrams
         params.xrange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
         console.log(`Setting params[xrange] to ${params.xrange}`)
-
-        params['yrange'] = Object.assign([])
         // If the metric is rank, start at 1
         if (params['metric'] === 'rank') {params.yrange[0] = 1}
         // Otherwise start at 0
