@@ -63,7 +63,6 @@ function loadData(query) {
                 addNgram(n)
             })
             if (newNgrams.length > 0) { // If new ngrams have been added...
-                setRanges()
                 redrawCharts()
                 updateURL()
             }
@@ -141,5 +140,9 @@ function reloadAllData() {
     clearCharts()
     Ngrams = []
     ngramData = {}
+    ymins = []
+    ymaxes = []
+    xmins = []
+    xmaxes = []
     currentNgrams.forEach(n => loadData(n))
 }
