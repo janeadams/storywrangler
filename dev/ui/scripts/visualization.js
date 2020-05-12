@@ -26,10 +26,10 @@ class Chart {
         // When showing any other metric, put the highest number at the top and start at 0
         else {
             if (params.scale === "log") {
-                this.yScale = d3.scaleLog().domain([yRange[0], yRange[1]]).range([0, this.height - (m.top + m.bottom)])
+                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).range([0, this.height - (m.top + m.bottom)])
             }
             else {
-                this.yScale = d3.scaleLinear().domain([yRange[0], yRange[1]]).range([0, this.height - (m.top + m.bottom)])
+                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).range([0, this.height - (m.top + m.bottom)])
             }
         }
     }
