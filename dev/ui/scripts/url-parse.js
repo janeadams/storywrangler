@@ -90,7 +90,9 @@ function updateURL() {
         else {isDifferent = true}
     })
     if (isDifferent){
-        paramlist.push("ngrams=" + Ngrams)
+        let encoded = []
+        Ngrams.forEach(n => encoded.push(encodeURIComponent(n)))
+        paramlist.push("ngrams=" + encoded)
         Ngrams.forEach(n => loadData(n))
     }
     for (let p of Object.keys(defaultparams)) {
@@ -114,19 +116,13 @@ function updateURL() {
         let newURL = String(splitURL[0]) + "?" + paramlist.join("&")
         console.log("newURL:")
         console.log(newURL)
-        let encoded = encodeURIComponent(newURL)
-        console.log("encoded URL:")
-        console.log(encoded)
-        history.pushState([],'', encoded)
+        history.pushState([],'', newURL)
     }
     else {
         let newURL = String(splitURL[0])
         console.log("newURL:")
         console.log(newURL)
-        let encoded = encodeURIComponent(newURL)
-        console.log("encoded URL:")
-        console.log(encoded)
-        history.pushState([],'', encoded)
+        history.pushState([],'', newURL)
     }
 }
 
