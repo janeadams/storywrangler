@@ -11,6 +11,7 @@ class Chart {
         this.xScale = d3.scaleTime()
             .domain(params.xrange)
             .range([0, this.width-m.left])
+        this.yrange =
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
         if (params.metric === "rank") {

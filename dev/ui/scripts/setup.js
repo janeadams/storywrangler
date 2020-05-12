@@ -67,8 +67,8 @@ function setRanges() {
         if (params['metric'] === 'rank') {params.yrange[0] = 1}
         // Otherwise start at 0
         else {params.yrange[0] = 0}
-        // Set the max of the range to the max of all values. Math.ceil() and '* 1.2' pads the range a little
-        params.yrange[1] = Math.ceil(d3.max(ymaxes) * 1.2)
+        // Set the max of the range to the max of all values. '* 1.2' pads the range a little
+        params.yrange[1] = d3.max(ymaxes) * 1.2
         console.log(`Setting params[yrange] to ${params.yrange}`)
     }
 }
