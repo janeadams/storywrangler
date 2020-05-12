@@ -43,6 +43,8 @@ let ymins = []
 let ymaxes = []
 let mainChart
 let subplots = []
+let xRange = []
+let yRange = []
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
@@ -56,20 +58,20 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 //console.log(colorMe("sky"))
 
 function setRanges() {
-    params['xrange'] = []
-    params['yrange'] = []
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
         console.log("Setting ranges...")
         // Get the minimum and maximum values for all ngrams
-        params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-        console.log(`Setting params[xrange] to ${params.xrange}`)
+        xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
+        console.log(`Setting xRange to ${xRange}`)
         // If the metric is rank, start at 1
-        if (params['metric'] === 'rank') {params.yrange[0] = 1}
+        if (params['metric'] === 'rank') {yRange[0] = 1}
         // Otherwise start at 0
-        else {params.yrange[0] = 0}
-        // Set the max of the range to the max of all values. Math.ceil() and '* 1.2' pads the range a little
-        params.yrange[1] = Math.ceil(d3.max(ymaxes) * 1.2)
-        console.log(`Setting params[yrange] to ${params.yrange}`)
+        else if (params['metric'] === 'freq') {yRange[0] = 0.001}
+        // Otherwise start at 0
+        else {yRange[0] = 0.001}
+        // Set the max of the range to the max of all values. '* 1.2' pads the range a little
+        yRange[1] = d3.max(ymaxes) * 1.2
+        console.log(`Setting yRange to ${yRange}`)
     }
 }
 

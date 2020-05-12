@@ -14,7 +14,7 @@ function readUrlVars() {
             console.log(`Split ${value} into ${values}`)
             // Add the value to it
             values.forEach(v => {
-                if (params['ngrams'].includes(v)){`params[ngrams] already included ${v}`}
+                if (Ngrams.includes(v)){`Ngrams already included ${v}`}
                 else {vars[key].push(decodeURIComponent(v))}
             })
         }
@@ -57,7 +57,7 @@ function readUrlVars() {
 function getUrlParams() {
     if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
         let newNgrams = readUrlVars()["ngrams"] // Add the ngrams specified in the URL
-        newNgrams.forEach(n => Ngrams.append(n))
+        newNgrams.forEach(n => Ngrams.push(n))
     }
     else {
         Ngrams = Object.assign([],defaultNgrams) // Set to default ngrams
@@ -90,7 +90,9 @@ function updateURL() {
         else {isDifferent = true}
     })
     if (isDifferent){
-        paramlist.push("ngrams=" + Ngrams)
+        let encoded = []
+        Ngrams.forEach(n => encoded.push(encodeURIComponent(n)))
+        paramlist.push("ngrams=" + encoded)
         Ngrams.forEach(n => loadData(n))
     }
     for (let p of Object.keys(defaultparams)) {
@@ -114,7 +116,7 @@ function updateURL() {
         let newURL = String(splitURL[0]) + "?" + paramlist.join("&")
         console.log("newURL:")
         console.log(newURL)
-        history.pushState(paramlist,'', newURL)
+        history.pushState([],'', newURL)
     }
     else {
         let newURL = String(splitURL[0])

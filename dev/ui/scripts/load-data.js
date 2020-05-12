@@ -1,71 +1,73 @@
 function loadData(query) {
+    if (Object.keys(ngramData).includes(query)) {
+        console.log(`${query} is already in the ngram data`)
+    }
+    else {
+        console.log(`Loading data for ${query}...`)
+        let errors = ""
+        // Pull the JSON data
+        let formatted_query = encodeURIComponent(query)
+        //console.log(`Formatted query: ${formatted_query}`)
+        var url = encodeURI(`https://storywrangling.org/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
+        //console.log(`Querying URL ${url}`)
+        d3.json(url).then((data, error) => {
+            //errors.append(data['errors'])
+            console.log(`Received API response:`)
+            let debug = {}
+            let debugvals = ['ngrams','database','metric','rt','language','errors']
+            debugvals.forEach(v => (debug[v]=[data[v]]))
+            console.table(debug)
+            let newNgrams = []
+            data['ngrams'].forEach(n => {
+                // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
+                if (Object.keys(ngramData).includes(n)) {
+                    console.log(`${n} was already added to the ngram data`)
+                }
+                else if (data['ngramdata'][n] == null) {
+                    console.log(`No data available for ${n}`)
+                    alert(`Sorry! We couldn't find any ${data['metric']} data for ${n} in the ${data['language']} ${data['database']}grams database`)
+                }
+                else {
+                    newNgrams.push(n)
+                }
+            })
+            newNgrams.forEach(n => {
+                ngramData[n] = {}
+                let loadedData = data['ngramdata'][n]
+                // Parse all the dates
+                ngramData[n]['data'] = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+                // Get the unique identifier (for labeling objects in-browser)
+                ngramData[n]['uuid'] = loadedData['uuid']
+                // Find and format the x- and y-ranges of this data set
+                ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
+                ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
+                ngramData[n][`min_${params.metric}`] = loadedData[`min_${params.metric}`]
+                ngramData[n][`max_${params.metric}`] = loadedData[`max_${params.metric}`]
+                // Set the color identifier for this set, & cycle through
+                ngramData[n]['colorid']=i
+                i+=1
+                if (i > 11){i=0}
+                xmins.push(ngramData[n]['min_date'])
+                xmaxes.push(ngramData[n]['max_date'])
+                ymins.push(ngramData[n][`min_${params.metric}`])
+                ymaxes.push(ngramData[n][`max_${params.metric}`])
 
-    console.log(`Loading data for ${query}...`)
-    let errors = ""
-    // Pull the JSON data
-    let formatted_query = encodeURIComponent(query)
-    //console.log(`Formatted query: ${formatted_query}`)
-    var url = encodeURI(`https://storywrangling.org/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
-    //console.log(`Querying URL ${url}`)
-    d3.json(url).then((data, error) => {
-        //errors.append(data['errors'])
-        console.log(`Received API response:`)
-        let debug = {}
-        let debugvals = ['ngrams','database','metric','rt','language','errors']
-        debugvals.forEach(v => (debug[v]=[data[v]]))
-        console.table(debug)
-        let newNgrams = []
-        data['ngrams'].forEach(n => {
-            // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
-            if (Object.keys(ngramData).includes(n)) {
-                console.log(`${n} was already added to the ngram data`)
-            }
-            else if (data['ngramdata'][n] == null) {
-                console.log(`No data available for ${n}`)
-                alert(`Sorry! We couldn't find any ${data['metric']} data for ${n} in the ${data['language']} ${data['database']}grams database`)
-            }
-            else {
-                newNgrams.push(n)
+            })
+            let currentNgrams = Object.assign([], Ngrams)
+            newNgrams.forEach(n => {
+                // If this ngram is already in the params ngrams list
+                if (currentNgrams.includes(n)){} // do nothing
+                else {
+                    currentNgrams.push(n)
+                    Ngrams = currentNgrams } // otherwise, add it
+                addNgram(n)
+            })
+            if (newNgrams.length > 0) { // If new ngrams have been added...
+                redrawCharts()
+                updateURL()
             }
         })
-        newNgrams.forEach(n => {
-            ngramData[n] = {}
-            let loadedData = data['ngramdata'][n]
-            // Parse all the dates
-            ngramData[n]['data'] = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
-            // Get the unique identifier (for labeling objects in-browser)
-            ngramData[n]['uuid'] = loadedData['uuid']
-            // Find and format the x- and y-ranges of this data set
-            ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
-            ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
-            ngramData[n][`min_${params.metric}`] = loadedData[`min_${params.metric}`]
-            ngramData[n][`max_${params.metric}`] = loadedData[`max_${params.metric}`]
-            // Set the color identifier for this set, & cycle through
-            ngramData[n]['colorid']=i
-            i+=1
-            if (i > 11){i=0}
-            xmins.push(ngramData[n]['min_date'])
-            xmaxes.push(ngramData[n]['max_date'])
-            ymins.push(ngramData[n][`min_${params.metric}`])
-            ymaxes.push(ngramData[n][`max_${params.metric}`])
-
-        })
-        let currentNgrams = Object.assign([], Ngrams)
-        newNgrams.forEach(n => {
-            // If this ngram is already in the params ngrams list
-            if (currentNgrams.includes(n)){} // do nothing
-            else {
-                currentNgrams.push(n)
-                Ngrams = currentNgrams } // otherwise, add it
-            addNgram(n)
-        })
-        if (newNgrams.length > 0) { // If new ngrams have been added...
-            setRanges()
-            redrawCharts()
-            updateURL()
-        }
-    })
-
+    }
 }
 
 
@@ -138,5 +140,9 @@ function reloadAllData() {
     clearCharts()
     Ngrams = []
     ngramData = {}
+    ymins = []
+    ymaxes = []
+    xmins = []
+    xmaxes = []
     currentNgrams.forEach(n => loadData(n))
 }
