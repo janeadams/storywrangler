@@ -25,7 +25,7 @@ class Chart {
         }
         // When showing ranks, put rank #1 at the top
         // When showing any other metric, put the highest number at the top and start at 0
-        this.yScale.range([0, this.height-(m.top+m.bottom)]) }
+        this.yScale.range([0, this.height-(m.top+m.bottom)])
     }
 
     addAxes() {
