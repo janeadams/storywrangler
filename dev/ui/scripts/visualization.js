@@ -16,19 +16,19 @@ class Chart {
         if (params.metric === "rank") {
             // When showing ranks, put rank #1 at the top
             if (params.scale === "log") {
-                this.yScale = d3.scaleLog().domain([params.yrange[1], params.yrange[0]]).range([0, this.height-(m.top+m.bottom)])
+                this.yScale = d3.scaleLog().domain([params.yrange[1], params.yrange[0]]).range([this.height-(m.top+m.bottom), 0])
             }
             else {
-                this.yScale = d3.scaleLinear().domain([params.yrange[1], params.yrange[0]]).range([0, this.height-(m.top+m.bottom)])
+                this.yScale = d3.scaleLinear().domain([params.yrange[1], params.yrange[0]]).range([this.height-(m.top+m.bottom), 0])
             }
         }
         // When showing any other metric, put the highest number at the top and start at 0
         else {
             if (params.scale === "log") {
-                this.yScale = d3.scaleLog().domain(params.yrange[0], params.yrange[1]).range([0, this.height - (m.top + m.bottom)])
+                this.yScale = d3.scaleLog().domain([params.yrange[0], params.yrange[1]]).range([0, this.height - (m.top + m.bottom)])
             }
             else {
-                this.yScale = d3.scaleLinear().domain(params.yrange[0], params.yrange[1]).range([0, this.height - (m.top + m.bottom)])
+                this.yScale = d3.scaleLinear().domain([params.yrange[0], params.yrange[1]]).range([0, this.height - (m.top + m.bottom)])
             }
         }
     }
