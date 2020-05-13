@@ -6,3 +6,4 @@ debug/prod-*.txt
 ai/
 notes/
 static/
+package-lock.json
