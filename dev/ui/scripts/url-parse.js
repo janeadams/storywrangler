@@ -93,7 +93,7 @@ function updateURL() {
         let encoded = []
         Ngrams.forEach(n => encoded.push(encodeURIComponent(n)))
         paramlist.push("ngrams=" + encoded)
-        Ngrams.forEach(n => loadData(n))
+        Ngrams.forEach(n => loadData(n, false))
     }
     for (let p of Object.keys(defaultparams)) {
             if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults

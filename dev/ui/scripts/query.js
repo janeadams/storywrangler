@@ -4,7 +4,7 @@ function querySubmission(event) {
     if (query === '') {
         console.log("Nothing entered in the search box")
     } else {
-        loadData(query)}
+        loadData(query, false)}
     // Clear the search box
     document.getElementById('queryForm').reset()
     // Don't reload the page on submit

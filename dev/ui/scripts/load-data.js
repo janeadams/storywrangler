@@ -1,4 +1,4 @@
-function loadData(query, reload=false) {
+function loadData(query, reload) {
     if (reload===false) {
         if (Object.keys(ngramData).includes(query)) {
             console.log(`${query} is already in the ngram data`)
