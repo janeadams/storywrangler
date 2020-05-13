@@ -9,20 +9,29 @@ class Chart {
     createScales() {
         const m = this.margin
         this.xScale = d3.scaleTime()
-            .domain(params.xrange)
+            .domain(xRange)
             .range([0, this.width-m.left])
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
-        if (params.scale === "log") {
-            this.yScale = d3.scaleLog().domain(params.yrange)}
-        else {
-            this.yScale = d3.scaleLinear().domain(params.yrange)}
-        // When showing ranks, put rank #1 at the top
-        // When showing any other metric, put the highest number at the top and start at 0
         if (params.metric === "rank") {
-            this.yScale.range([this.height-(m.top+m.bottom), 1]) }
+            // When showing ranks, put rank #1 at the top
+            if (params.scale === "log") {
+                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).range([this.height-(m.top+m.bottom), 0])
+            }
+            else {
+                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).range([this.height-(m.top+m.bottom), 0])
+            }
+        }
+
+        // When showing any other metric, put the highest number at the top and start at 0
         else {
-            this.yScale.range([0, this.height-(m.top+m.bottom)]) }
+            if (params.scale === "log") {
+                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).range([0, this.height - (m.top + m.bottom)])
+            }
+            else {
+                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).range([0, this.height - (m.top + m.bottom)])
+            }
+        }
     }
 
     addAxes() {
@@ -103,7 +112,7 @@ class Chart {
         this.clipgroup.append('path')
             // use data stored in `this`
             .datum(ndata)
-            .attr('class',`line uuid-${uuid}`)
+            .attr('class',`line uuid-${uuid} dataline`)
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
             .attr('d',line)
@@ -148,6 +157,7 @@ class Chart {
 }
 
 function makeCharts(){
+    setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot')})
     /*Object.keys(ngramData).forEach(n => {
         d3.select('#subplot-list').append('div').attr('class', `subplot ${ngramData[n]['uuid']}`)
@@ -160,5 +170,12 @@ function makeCharts(){
 }
 
 function redrawCharts(){
+    setRanges()
     mainChart.draw()
+}
+
+function clearCharts(){
+    Ngrams.forEach(n => {
+        removeNgram(n)
+    })
 }
