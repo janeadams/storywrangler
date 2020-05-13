@@ -70,6 +70,7 @@ function getUrlParams() {
             console.log(`Changed params[${p}] to ${params[p]}`)
         } else { // If the parameter is not specified in the URL
             params[p] = defaultparams[p]
+            console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
 
