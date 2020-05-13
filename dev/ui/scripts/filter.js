@@ -10,6 +10,8 @@ function setFilters() {
         d3.selectAll(`input[value =${params[p]}]`).property('checked', true)
     }
 
+    d3.select("input[value ='rt']").property('checked', params['rt'])
+
 }
 
 function filterSubmission() {
