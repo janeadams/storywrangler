@@ -8,7 +8,7 @@ function loadData(query) {
         // Pull the JSON data
         let formatted_query = encodeURIComponent(query)
         //console.log(`Formatted query: ${formatted_query}`)
-        let url = encodeURI(`https://storywrangling.org/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
+        let url = encodeURI(`https://storywrangling.org/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
         console.log(`Querying API URL:`)
         console.log(url)
         d3.json(url).then((data, error) => {
