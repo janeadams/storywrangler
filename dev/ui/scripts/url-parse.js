@@ -27,7 +27,7 @@ function readUrlVars() {
                 // And the value returned is incldued in those options:
                 if (key === 'rt'){
                     if (value === 'true'){value = true}
-                    if (value === 'false'){value = false}
+                    else {value = false}
                     // Set the parameter to the value from the URL
                     vars[key] = value
                     console.log(`vars[${key}]:`)
