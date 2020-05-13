@@ -5,6 +5,11 @@ function loadData(query, reload=false) {
             return
         }
     }
+    if (reload===true) {
+        if (Object.keys(ngramData).includes(query)) {
+            delete ngramData[query]
+        }
+    }
     console.log(`Loading data for ${query}...`)
     // Pull the JSON data
     let formatted_query = encodeURIComponent(query)
@@ -23,7 +28,13 @@ function loadData(query, reload=false) {
         data['ngrams'].forEach(n => {
             // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
             if (Object.keys(ngramData).includes(n)) {
-                console.log(`${n} was already added to the ngram data`)
+                if (reload===false){
+                    console.log(`${n} was already added to the ngram data`)
+                }
+                else {
+                    delete ngramData[n]
+                    newNgrams.push(n)
+                }
             }
             else if (data['ngramdata'][n] == null) {
                 console.log(`No data available for ${n}`)
