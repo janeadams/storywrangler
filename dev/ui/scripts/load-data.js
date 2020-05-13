@@ -35,7 +35,20 @@ function loadData(query) {
                 ngramData[n] = {}
                 let loadedData = data['ngramdata'][n]
                 // Parse all the dates
-                ngramData[n]['data'] = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+                let allPairs = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+                if (params['metric'] !== 'rank'){
+                    // Remove zeroes from counts and frequency data sets
+                    let nonZero = []
+                    allPairs.forEach(pair => {
+                        if (pair[1] !== 0){
+                            nonZero.push(pair)
+                        }
+                    })
+                    ngramData[n]['data'] = Object.assign([], nonZero)
+                }
+                else {
+                    ngramData[n]['data'] = allPairs
+                }
                 // Get the unique identifier (for labeling objects in-browser)
                 ngramData[n]['uuid'] = loadedData['uuid']
                 // Find and format the x- and y-ranges of this data set
