@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>StoryWrangler - Twitter Ngram Search</title>
+    <meta name="description"
+          content="View timeseries of word usage on Twitter, curated by the Complex Systems Center's Computational Story Lab at the University of Vermont.">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/query.css">
+    <link rel="stylesheet" type="text/css" href="styles/chart.css">
+    <link href="https://fonts.googleapis.com/css?family=Pangolin&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="https://storywrangling.org">
+        <div id="logo">
+            <img src="img/storywrangler_small.svg" alt="Story Wrangler: stories from the Twitterverse. From the University of Vermont Complex Systems Center">
+            <p>from the University of Vermont Computational Story Lab</p>
+        </div>
+        </a>
+        <div id="navigation">
+            <ul id="menu">
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <ul class="social">
+                <li><a href="https://twitter.com/compstorylab" target="_blank"><img src="img/social_twitter.svg" alt="Follow the Computational Story Lab on Twitter!"></a></li>
+                <li><a href="https://www.instagram.com/computationalstorylab/" target="_blank"><img src="img/social_insta.svg" alt="Follow the Computational Story Lab on Instagram!"></a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <!-- Search bar and filters -->
+        <section class="controls">
+            <!-- Queries inputted -->
+            <ul id="ngramList"></ul>
+            <!-- Search bar -->
+            <form autocomplete="off" id="queryForm" onSubmit="return querySubmission()">
+                <div class="autocomplete">
+                    <input name="query" type="text" id="queryInput" placeholder='Enter a query, like "haha", "happy new year", "#throwbackthursday", or "😊"' data-emoji="true" class="form-control">
+                    <input type="submit" value="What's the story?">
+                </div>
+            </form>
+            <form id="filterForm" onChange="return filterSubmission()">
+                <section id="metricFilter">
+                    <h4>Options</h4>
+                    <ul>
+                        <li><input class="filter" type="radio" name="metric" value="rank">Rank</li>
+                        <li><input class="filter" type="radio" name="metric" value="freq">Frequency</li>
+                        <li><input class="filter" type="radio" name="metric" value="counts">Raw Count</li>
+                        <li><input class="filter" type="checkbox" name="options" value="rt">Include Retweets?</li>
+                    </ul>
+                </section>
+                <section id="scaleFilter">
+                    <h4>Scale</h4>
+                    <ul>
+                        <li><input class="filter" type="radio" name="scale" value="log">Logarithmic scale</li>
+                        <li><input class="filter" type="radio" name="scale" value="lin">Linear scale</li>
+                    </ul>
+                </section>
+            </form>
+        </section>
+
+        <!-- Data visualization area -->
+        <section id="dataviz">
+            <div id="mainplot">
+
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section id="thanks">
+            <p>A research tool from:</p>
+            <a href="https://twitter.com/compstorylab"><img id="storylab" src="img/footer/storylab.svg" alt="Computational Story Lab"></a>
+            <a href="http://vermontcomplexsystems.org/"><img id="csc" src="img/footer/csc_roboctopus.svg" alt="The Vermont Complex Systems Center"></a>
+            <a href="http://vermontcomplexsystems.org/partner/MMCOE/"><img id="mm-coe" src="img/footer/mm-coe.svg" alt="Mass Mutual Center of Excellence in Complex Systems and Data Science"></a>
+            <!--<a href="https://www.uvm.edu/cems"><img id="uvm-cems" src="img/footer/uvm-cems.svg" alt="University of Vermont College of Engineering and Mathematical Sciences"></a>-->
+        </section>
+    </footer>
+    <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.independent.js"></script>
+    <script type='text/javascript' src="scripts/load-data.js"></script>
+    <script type='text/javascript' src="scripts/url-parse.js"></script>
+    <script type='text/javascript' src="scripts/query.js"></script>
+    <script type='text/javascript' src="scripts/visualization.js"></script>
+    <script type='text/javascript' src="scripts/setup.js"></script>
+    <script type='text/javascript' src="scripts/filter.js"></script>
+    <script type='text/javascript'>window.onload = setupPage</script>
+    <!--<script type='text/javascript' src="scripts/autocomplete.js"></script>-->
+</body>
+
+</html>
