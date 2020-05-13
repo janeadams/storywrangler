@@ -8,8 +8,9 @@ function loadData(query) {
         // Pull the JSON data
         let formatted_query = encodeURIComponent(query)
         //console.log(`Formatted query: ${formatted_query}`)
-        var url = encodeURI(`https://storywrangling.org/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
-        //console.log(`Querying URL ${url}`)
+        let url = encodeURI(`https://storywrangling.org/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}`)
+        console.log(`Querying API URL:`)
+        console.log(url)
         d3.json(url).then((data, error) => {
             //errors.append(data['errors'])
             console.log(`Received API response:`)
@@ -35,7 +36,20 @@ function loadData(query) {
                 ngramData[n] = {}
                 let loadedData = data['ngramdata'][n]
                 // Parse all the dates
-                ngramData[n]['data'] = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+                let allPairs = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
+                if (params['metric'] !== 'rank'){
+                    // Remove zeroes from counts and frequency data sets
+                    let nonZero = []
+                    allPairs.forEach(pair => {
+                        if (pair[1] !== 0){
+                            nonZero.push(pair)
+                        }
+                    })
+                    ngramData[n]['data'] = Object.assign([], nonZero)
+                }
+                else {
+                    ngramData[n]['data'] = allPairs
+                }
                 // Get the unique identifier (for labeling objects in-browser)
                 ngramData[n]['uuid'] = loadedData['uuid']
                 // Find and format the x- and y-ranges of this data set
@@ -46,7 +60,7 @@ function loadData(query) {
                 // Set the color identifier for this set, & cycle through
                 ngramData[n]['colorid']=i
                 i+=1
-                if (i > 11){i=0}
+                if (i > 10){i=0}
                 xmins.push(ngramData[n]['min_date'])
                 xmaxes.push(ngramData[n]['max_date'])
                 ymins.push(ngramData[n][`min_${params.metric}`])

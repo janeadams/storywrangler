@@ -12,18 +12,19 @@ lastyeardate.setFullYear(lastyeardate.getFullYear() - 1 );
 // January 1st, this year
 let thisfirst = new Date(thisyear, 0, 1)
 
+const defaultNgrams = ["hahaha","one two three","#friday","🦠"]
+
 // Set default options
 const defaultparams = {
-    "ngrams": ["hahaha","one two three","#friday","🦠"],
     "language": "en",
     "metric": "rank",
     "rt": false,
     "scale": "log",
-    "xviewrange": [lastyeardate, today],
-    "xrange": [lastyeardate, today],
-    "yrange": [10000, 1],
+    "start": lastyeardate,
+    "end": today
 }
 
+let Ngrams = []
 let params = {}
 
 // Limit options for certain parameters
@@ -42,6 +43,8 @@ let ymins = []
 let ymaxes = []
 let mainChart
 let subplots = []
+let xRange = []
+let yRange = []
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
@@ -58,18 +61,15 @@ function setRanges() {
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
         console.log("Setting ranges...")
         // Get the minimum and maximum values for all ngrams
-        params.xrange = [d3.min(xmins), d3.max(xmaxes)]
-        console.log(`Setting params[xrange] to ${params.xrange}`)
-        // If the metric is rank, go from highest to lowest
-        if (params['metric'] === 'rank') {params.yrange = [Math.ceil(d3.max(ymaxes) * 1.2), 1]}
-        // Otherwise, go from lowest to highest
-        else {params.yrange = [0, Math.ceil(d3.max(ymaxes) * 1.2)]}
-        // Note above: Math.ceil() and * 1.2 pads the range a little
-        console.log(`Setting params[yrange] to ${params.yrange}`)
-    }
-    else { // Otherwise, set to the default ranges
-        params.xrange = defaultparams.xrange.valueOf()
-        params.yrange = defaultparams.yrange.valueOf()
+        xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
+        console.log(`Setting xRange to ${xRange}`)
+        // If the metric is freq, start at near-zero
+        if (params['metric'] === 'freq') {yRange[0] = 0.00000001}
+        // Otherwise start at 1
+        else {yRange[0] = 1}
+        // Set the max of the range to the max of all values. '* 1.2' pads the range a little
+        yRange[1] = d3.max(ymaxes) * 1.2
+        console.log(`Setting yRange to ${yRange}`)
     }
 }
 
@@ -86,16 +86,9 @@ function deepFreeze(o) {
     return o
 }
 
+
 function setupPage() {
-    d3.select('body').classed('busy-cursor',true)
-    /*for (let [k,v] of Object.entries(defaultparams)) { // set params to defaults
-        params[k] = v.valueOf()
-    }*/
-    params = Object.assign({}, defaultparams)
-    deepFreeze(defaultparams) // Freeze the defaults, since they shouldn't ever change
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
-    //setFilters() // Check the correct boxes in the filter form according to the parameters
-    makeCharts() // Make all the charts
-    params['ngrams'].forEach(n => loadData(n)) // Load data for all the ngrams
-    setTimeout(() => {d3.select('body').classed('busy-cursor',false)})
+    setFilters() // Check the correct boxes in the filter form according to the parameters
+    makeCharts() // Make all the charts\
 }
