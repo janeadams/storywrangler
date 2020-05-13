@@ -268,3 +268,51 @@ searching the 3grams db for happy new year
 ngrams :['happy new year'], n:3, metric:rank, rt:False, language:en
 searching the 3grams db for happy new year
 [pid: 17265|app: 0|req: 81/81] 132.198.100.185 () {56 vars in 985 bytes} [Wed May 13 17:24:42 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=rank&rt=false => generated 73303 bytes in 489 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 82/82] 132.198.100.185 () {56 vars in 1012 bytes} [Wed May 13 17:26:30 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=rank&rt=false => generated 73303 bytes in 558 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 83/83] 132.198.100.185 () {56 vars in 996 bytes} [Wed May 13 17:26:33 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=rank&rt=false => generated 73303 bytes in 417 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 84/84] 132.198.100.185 () {56 vars in 1021 bytes} [Wed May 13 17:27:59 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=rank&rt=false => generated 73303 bytes in 585 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 85/85] 132.198.100.185 () {56 vars in 1022 bytes} [Wed May 13 17:28:25 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=rank&rt=false => generated 73303 bytes in 555 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 86/86] 132.198.100.185 () {56 vars in 1022 bytes} [Wed May 13 17:29:02 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=rank&rt=false => generated 73303 bytes in 522 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 87/87] 132.198.100.185 () {56 vars in 986 bytes} [Wed May 13 17:29:09 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=rank&rt=false => generated 73303 bytes in 568 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:freq, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 88/88] 132.198.100.185 () {56 vars in 998 bytes} [Wed May 13 17:29:20 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=freq&rt=false => generated 116306 bytes in 516 msecs (HTTP/1.0 200) 4 headers in 145 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:counts, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 89/89] 132.198.100.185 () {56 vars in 1004 bytes} [Wed May 13 17:29:44 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=counts&rt=false => generated 62229 bytes in 439 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:counts, rt:True, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 90/90] 132.198.100.185 () {56 vars in 1010 bytes} [Wed May 13 17:29:47 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=counts&rt=true => generated 62877 bytes in 483 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:counts, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 91/91] 132.198.100.185 () {56 vars in 1004 bytes} [Wed May 13 17:29:50 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=counts&rt=false => generated 62229 bytes in 491 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:counts, rt:True, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 92/92] 132.198.100.185 () {56 vars in 1009 bytes} [Wed May 13 17:29:54 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=counts&rt=true => generated 62877 bytes in 425 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:counts, rt:True, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 93/93] 132.198.100.185 () {56 vars in 1036 bytes} [Wed May 13 17:34:13 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=counts&rt=true => generated 62877 bytes in 1465 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:counts, rt:False, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 94/94] 132.198.100.185 () {56 vars in 1003 bytes} [Wed May 13 17:48:18 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=counts&rt=false => generated 62229 bytes in 731 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:counts, rt:True, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 95/95] 132.198.100.185 () {56 vars in 1010 bytes} [Wed May 13 17:48:27 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=counts&rt=true => generated 62877 bytes in 773 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:rank, rt:True, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 96/96] 132.198.100.185 () {56 vars in 992 bytes} [Wed May 13 17:48:34 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=rank&rt=true => generated 73460 bytes in 566 msecs (HTTP/1.0 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['happy new year'], n:3, metric:freq, rt:True, language:en
+searching the 3grams db for happy new year
+[pid: 17265|app: 0|req: 97/97] 132.198.100.185 () {56 vars in 1004 bytes} [Wed May 13 17:48:40 2020] GET /api/happy%2520new%2520year?src=ui&language=en&metric=freq&rt=true => generated 116380 bytes in 640 msecs (HTTP/1.0 200) 4 headers in 145 bytes (1 switches on core 0)
