@@ -73,7 +73,7 @@ function getUrlParams() {
         }
     })
 
-    Ngrams.forEach(n => loadData(n))
+    Ngrams.forEach(n => loadData(n, true))
 }
 
 function updateURL() {
