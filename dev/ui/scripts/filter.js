@@ -10,22 +10,6 @@ function setFilters() {
         d3.selectAll(`input[value =${params[p]}]`).property('checked', true)
     }
 
-    /*
-    if (params['metric'] === 'freq') {
-        // Remove the log toggle from the options list
-        d3.select("#scaleFilter").style("display", "none")
-        // If we're counting frequency, force scale to linear
-        let newScale = "lin"
-        if (params["scale"] !== newScale) {
-            params["scale"] = newScale
-            console.log(`Changed params['scale'] to ${params['scale']}`)
-            triggerUpdates()
-        }
-    } else {
-        d3.select("#scaleFilter").style("display", "inline-block")
-    }
-     */
-
 }
 
 function filterSubmission() {

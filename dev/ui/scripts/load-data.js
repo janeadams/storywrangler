@@ -60,7 +60,7 @@ function loadData(query) {
                 // Set the color identifier for this set, & cycle through
                 ngramData[n]['colorid']=i
                 i+=1
-                if (i > 11){i=0}
+                if (i > 10){i=0}
                 xmins.push(ngramData[n]['min_date'])
                 xmaxes.push(ngramData[n]['max_date'])
                 ymins.push(ngramData[n][`min_${params.metric}`])
