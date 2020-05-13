@@ -45,8 +45,16 @@ class Chart {
         const yAxis = d3.axisLeft()
             .scale(this.yScale)
             .ticks(5, "")
-            .tickFormat(d3.format(".00s"))
 
+        if (params['metric']==='rank'){
+            yAxis.tickFormat(d3.format(".00s"))
+        }
+        else if (params['metric']==='freq') {
+            yAxis.tickFormat(d3.format(",.0f"))
+        }
+        else {
+            yAxis.tickFormat(d3.format(".00s"))
+        }
         // Add X & Y Axes to main plot
         this.plot.append("g")
             .attr("class", "xaxis")
