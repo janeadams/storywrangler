@@ -47,7 +47,7 @@ class Chart {
             .ticks(10, "")
 
         if (params['metric']==='rank'){
-            yAxis.tickFormat(d3.format(",.0f"))
+            yAxis.tickFormat(d3.format(".0s"))
         }
 
         // Add X & Y Axes to main plot
