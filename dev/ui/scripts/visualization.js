@@ -45,7 +45,7 @@ class Chart {
         const yAxis = d3.axisLeft()
             .scale(this.yScale)
             .ticks(5, "")
-            .tickFormat(d3.format(5,".00s"))
+            .tickFormat(d3.format(".00s"))
 
         // Add X & Y Axes to main plot
         this.plot.append("g")
