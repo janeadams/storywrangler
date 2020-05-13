@@ -27,7 +27,7 @@ function readUrlVars() {
                 // And the value returned is incldued in those options:
                 if (key === 'rt'){
                     if (value === 'true'){value = true}
-                    if (value === 'false'){value = false}
+                    else {value = false}
                     // Set the parameter to the value from the URL
                     vars[key] = value
                     console.log(`vars[${key}]:`)
@@ -70,10 +70,11 @@ function getUrlParams() {
             console.log(`Changed params[${p}] to ${params[p]}`)
         } else { // If the parameter is not specified in the URL
             params[p] = defaultparams[p]
+            console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
 
-    Ngrams.forEach(n => loadData(n))
+    Ngrams.forEach(n => loadData(n, true))
 }
 
 function updateURL() {
@@ -93,7 +94,7 @@ function updateURL() {
         let encoded = []
         Ngrams.forEach(n => encoded.push(encodeURIComponent(n)))
         paramlist.push("ngrams=" + encoded)
-        Ngrams.forEach(n => loadData(n))
+        Ngrams.forEach(n => loadData(n, false))
     }
     for (let p of Object.keys(defaultparams)) {
             if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
