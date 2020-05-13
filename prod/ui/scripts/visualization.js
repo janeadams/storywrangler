@@ -1,5 +1,3 @@
-console.log("loaded visualization.js")
-
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -164,6 +162,7 @@ class Chart {
 }
 
 function makeCharts(){
+    console.log("Making charts...")
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot')})
     /*Object.keys(ngramData).forEach(n => {
@@ -177,11 +176,13 @@ function makeCharts(){
 }
 
 function redrawCharts(){
+    console.log("Redrawing charts...")
     setRanges()
     mainChart.draw()
 }
 
 function clearCharts(){
+    console.log("Clearing all charts...")
     Ngrams.forEach(n => {
         removeNgram(n)
     })

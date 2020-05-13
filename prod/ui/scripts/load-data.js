@@ -1,4 +1,5 @@
-function loadData(query, reload=false) {
+function loadData(query, reload) {
+    console.log(`Loading data for ${query}. Reload = ${reload}`)
     if (reload===false) {
         if (Object.keys(ngramData).includes(query)) {
             console.log(`${query} is already in the ngram data`)
@@ -10,7 +11,6 @@ function loadData(query, reload=false) {
             delete ngramData[query]
         }
     }
-    console.log(`Loading data for ${query}...`)
     // Pull the JSON data
     let formatted_query = encodeURIComponent(query)
     //console.log(`Formatted query: ${formatted_query}`)
@@ -161,6 +161,7 @@ function formatDataForDownload(){
 }
 
 function reloadAllData() {
+    console.log("Reloading all data...")
     let currentNgrams = Object.assign([], Ngrams)
     clearCharts()
     Ngrams = []
