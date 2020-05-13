@@ -46,6 +46,10 @@ class Chart {
             .scale(this.yScale)
             .ticks(10, "")
 
+        if (params['metric']==='rank'){
+            yAxis.tickFormat(d3.format(",.0f"))
+        }
+
         // Add X & Y Axes to main plot
         this.plot.append("g")
             .attr("class", "xaxis")
