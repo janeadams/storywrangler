@@ -17,7 +17,7 @@
     height: 300px;
 }
 .axislabel, .axislabel-large {
-    fill: darkgrey;
+    fill: #333;
 }
 .axislabel-large {
     font-size: 15px;
