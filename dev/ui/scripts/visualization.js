@@ -44,7 +44,7 @@ class Chart {
 
         const yAxis = d3.axisLeft()
             .scale(this.yScale)
-            .ticks(10, "")
+            .ticks(20, "")
 
         if (params['metric']==='rank'){
             yAxis.tickFormat(d3.format(".0s"))
