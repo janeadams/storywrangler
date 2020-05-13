@@ -50,7 +50,7 @@ class Chart {
             yAxis.tickFormat(d3.format(".00s"))
         }
         else if (params['metric']==='freq') {
-            yAxis.tickFormat(d3.format("f"))
+            yAxis.tickFormat(d3.format(".00s"))
         }
         else {
             yAxis.tickFormat(d3.format(".00s"))
