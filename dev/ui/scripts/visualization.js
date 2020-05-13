@@ -100,8 +100,8 @@ class Chart {
     }
 
     resetAxes(){
-        this.selectAll(".xaxis").remove()
-        this.selectAll(".yaxis").remove()
+        d3.select(this.element).selectAll(".xaxis").remove()
+        d3.select(this.element).selectAll(".yaxis").remove()
         this.addAxes()
     }
 
