@@ -44,10 +44,10 @@ class Chart {
 
         const yAxis = d3.axisLeft()
             .scale(this.yScale)
-            .ticks(20, "")
+            .ticks(10, "")
 
         if (params['metric']==='rank'){
-            yAxis.tickFormat(d3.format(".0s"))
+            yAxis.tickFormat(d3.format(".00s"))
         }
 
         // Add X & Y Axes to main plot
