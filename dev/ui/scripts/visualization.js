@@ -99,8 +99,14 @@ class Chart {
             .text("Abyss")
     }
 
-    addLine(ngram) {
+    resetAxes(){
+        this.selectAll(".xaxis").remove()
+        this.selectAll(".yaxis").remove()
+        this.addAxes()
+    }
 
+    addLine(ngram) {
+        this.resetAxes()
         //console.log(`Adding line for ${ngram} to ${this.plot.attr('class')}`)
         const ndata = ngramData[ngram]['data']
         const colorid = ngramData[ngram]['colorid']
