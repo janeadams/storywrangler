@@ -110,9 +110,11 @@ class Chart {
         const colorid = ngramData[ngram]['colorid']
         const uuid = ngramData[ngram]['uuid']
 
-        const line = d3.line().defined(function (d) { return d[1] !== null })
-            .x(d => this.xScale(d[0]))
-            .y(d => this.yScale(d[1]))
+        const notnull = d => d[1] !== null
+
+        const line = d3.line()
+            .x(d => this.xScale(notnull(d)[0]))
+            .y(d => this.yScale(notnull(d)[1]))
 
         this.clipgroup.append('path')
             // use data stored in `this`
