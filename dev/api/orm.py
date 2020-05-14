@@ -48,11 +48,11 @@ def get_ngrams(q):
     ngrams = list(r.ngram_parser(q, regex))
     n = len(ngrams)
     if n==3:
-        if language in language_support['3grams']:
+        if language is in language_support['3grams']:
             ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
         else: n=1
     if n==2:
-        if language in language_support['2grams']:
+        if language is in language_support['2grams']:
             ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
         else: n=1
     if n==1:
@@ -106,7 +106,7 @@ def get_data(query):
         src = str(request.args.get('src'))
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
     language = str(request.args.get('language'))
-    if language in language_support['1grams']:
+    if language is in language_support['1grams']:
         language = language
     else:
         language = 'en'
