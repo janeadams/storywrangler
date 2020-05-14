@@ -110,7 +110,7 @@ class Chart {
         const colorid = ngramData[ngram]['colorid']
         const uuid = ngramData[ngram]['uuid']
 
-        const notnull = d => d[1] !== null
+        const notnull = d => d[0] !== null
 
         const line = d3.line()
             .x(d => this.xScale(notnull(d)[0]))
