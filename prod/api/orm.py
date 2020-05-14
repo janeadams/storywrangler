@@ -25,10 +25,10 @@ username = os.getenv("USERNAME")
 # Connect to mongo using the credentials from .env file
 client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
-with open('prod/api/ngrams.bin', "rb") as f:
+with open('dev/api/ngrams.bin', "rb") as f:
     regex = pickle.load(f)
     
-with open('prod/api/language_support.json', 'r') as f:
+with open('dev/api/language_support.json', 'r') as f:
     language_support = json.load(f)
 
 app = Flask(__name__)
@@ -43,21 +43,31 @@ def print_info(varlist):
         l.append(k+" = "+str(v))
     return print(" | ".join(l))
 
-def get_ngrams(q):
+def get_ngrams(language, q):
     q = r.remove_whitespaces(q)
     ngrams = list(r.ngram_parser(q, regex))
     n = len(ngrams)
     if n==3:
         if language in language_support['3grams']:
             ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
-        else: n=1
-    if n==2:
+        else:
+            n=1
+            ngrams = list(r.ngrams(q, regex, n=1).keys())
+            res = []
+            [res.append(x) for x in ngrams if x not in res]
+            ngrams = res
+    elif n==2:
         if language in language_support['2grams']:
             ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
-        else: n=1
-    if n==1:
+        else:
+            n=1
+            ngrams = list(r.ngrams(q, regex, n=1).keys())
+            res = []
+            [res.append(x) for x in ngrams if x not in res]
+            ngrams = res
+    else:
         ngrams = list(r.ngrams(q, regex, n=1).keys())
-        res = [] 
+        res = []
         [res.append(x) for x in ngrams if x not in res]
         ngrams = res
     
@@ -116,7 +126,7 @@ def get_data(query):
     if metric is None:
         metric = 'rank'
         
-    ngrams, n = get_ngrams(query)
+    ngrams, n = get_ngrams(language, query)
     output = {'ngrams':ngrams, 'database':n, 'metric':metric, 'rt':rt, 'language':language, 'ngramdata':[],'errors':[]}
     
     print(f'ngrams :{ngrams}, n:{n}, metric:{metric}, rt:{rt}, language:{language}')
