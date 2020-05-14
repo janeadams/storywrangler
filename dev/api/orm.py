@@ -50,14 +50,24 @@ def get_ngrams(q):
     if n==3:
         if language in language_support['3grams']:
             ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
-        else: n=1
-    if n==2:
+        else:
+            n=1
+            ngrams = list(r.ngrams(q, regex, n=1).keys())
+            res = []
+            [res.append(x) for x in ngrams if x not in res]
+            ngrams = res
+    else if n==2:
         if language in language_support['2grams']:
             ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
-        else: n=1
-    if n==1:
+        else:
+            n=1
+            ngrams = list(r.ngrams(q, regex, n=1).keys())
+            res = []
+            [res.append(x) for x in ngrams if x not in res]
+            ngrams = res
+    else:
         ngrams = list(r.ngrams(q, regex, n=1).keys())
-        res = [] 
+        res = []
         [res.append(x) for x in ngrams if x not in res]
         ngrams = res
     
