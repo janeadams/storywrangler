@@ -43,7 +43,7 @@ def print_info(varlist):
         l.append(k+" = "+str(v))
     return print(" | ".join(l))
 
-def get_ngrams(q):
+def get_ngrams(language, q):
     q = r.remove_whitespaces(q)
     ngrams = list(r.ngram_parser(q, regex))
     n = len(ngrams)
@@ -126,7 +126,7 @@ def get_data(query):
     if metric is None:
         metric = 'rank'
         
-    ngrams, n = get_ngrams(query)
+    ngrams, n = get_ngrams(language, query)
     output = {'ngrams':ngrams, 'database':n, 'metric':metric, 'rt':rt, 'language':language, 'ngramdata':[],'errors':[]}
     
     print(f'ngrams :{ngrams}, n:{n}, metric:{metric}, rt:{rt}, language:{language}')
