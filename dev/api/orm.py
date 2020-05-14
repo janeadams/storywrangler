@@ -56,7 +56,7 @@ def get_ngrams(q):
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
-    else if n==2:
+    elif n==2:
         if language in language_support['2grams']:
             ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
         else:
