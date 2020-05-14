@@ -16,6 +16,7 @@ from flask_cors import CORS
 import dev.api.regexr as r
 import urllib
 import pickle
+import json
 import uuid
 
 
@@ -26,6 +27,9 @@ client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
 with open('dev/api/ngrams.bin', "rb") as f:
     regex = pickle.load(f)
+    
+with open('dev/api/language_support.json', 'r') as f:
+    language_support = json.load(f)
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -44,21 +48,25 @@ def get_ngrams(q):
     ngrams = list(r.ngram_parser(q, regex))
     n = len(ngrams)
     if n==3:
-        ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
-    elif n==2:
-        ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
-    else:
-        n = 1
+        if language in language_support['3grams']:
+            ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
+        else: n=1
+    if n==2:
+        if language in language_support['2grams']:
+            ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
+        else: n=1
+    if n==1:
         ngrams = list(r.ngrams(q, regex, n=1).keys())
         res = [] 
         [res.append(x) for x in ngrams if x not in res]
         ngrams = res
+    
     return ngrams, n
 
 
 
 def give_instructions():
-    return "Enter a URL containing a query</br>in the format <b>/api/</b><em>&lt;query&gt;</em><b>?lang=</b><em>&lt;en,es,ru,fr...&gt;</em><b>&metric=&lt;rank,counts,freq&gt;&rt=</b>&lt;true,false&gt;</br></br>e.g. <a href='https://storywrangling.org/api/happy new year?metric=freq&rt=false' target='_blank'>https://storywrangling.org/api/<b>happy new year</b>?metric=<b>freq</b>&rt=<b>false</b></a> to get all original tweets (no retweeets)</br>frequency data for the 3-gram <em>happy new year</em> from the ngrams database.</br></br>or try <a href='https://storywrangling.org/api/bonjour?lang=fr&metric=counts&rt=true' target='_blank'>https://storywrangling.org/api/<b>bonjour</b>?lang=<b>fr</b>&metric=<b>counts</b>&rt=<b>true</b></a> to get all count data </br>(including retweeets) for the 1-gram <em>bonjour</em> from the French ngrams database.</br></br>Also... emojis are supported!</br><a href='https://storywrangling.org/api/🐙' target='_blank'>https://storywrangling.org/api/🐙</a></br></br>If we can, we'll try to return the values for a full phrase; if we don't have data for the full phrase,</br>we'll break up your query into 1-grams and return data for each 1-gram.</br>Commas and other delimeters are parsed as words too. </br></br>For a full explanation of the regex used, consult our documentation,</br>which will be added <a href='https://gitlab.com/compstorylab/storywrangler'>here</a> pending paper publication on the ArXiv.</br></br>Don't forget to check out the UI at <a href='https://storywrangling.org' target='_blank'>https://storywrangling.org</a>!"
+    return "Enter a URL containing a query</br>in the format <b>/api/</b><em>&lt;query&gt;</em><b>?language=</b><em>&lt;en,es,ru,fr...&gt;</em><b>&metric=&lt;rank,counts,freq&gt;&rt=</b>&lt;true,false&gt;</br></br>e.g. <a href='https://storywrangling.org/api/happy new year?metric=freq&rt=false' target='_blank'>https://storywrangling.org/api/<b>happy new year</b>?metric=<b>freq</b>&rt=<b>false</b></a> to get all original tweets (no retweeets)</br>frequency data for the 3-gram <em>happy new year</em> from the ngrams database.</br></br>or try <a href='https://storywrangling.org/api/bonjour?language=fr&metric=counts&rt=true' target='_blank'>https://storywrangling.org/api/<b>bonjour</b>?language=<b>fr</b>&metric=<b>counts</b>&rt=<b>true</b></a> to get all count data </br>(including retweeets) for the 1-gram <em>bonjour</em> from the French ngrams database.</br></br>Also... emojis are supported!</br><a href='https://storywrangling.org/api/🐙' target='_blank'>https://storywrangling.org/api/🐙</a></br></br>If we can, we'll try to return the values for a full phrase; if we don't have data for the full phrase,</br>we'll break up your query into 1-grams and return data for each 1-gram.</br>Commas and other delimeters are parsed as words too. </br></br>For a full explanation of the regex used, consult our documentation,</br>which will be added <a href='https://gitlab.com/compstorylab/storywrangler'>here</a> pending paper publication on the ArXiv.</br></br>Don't forget to check out the UI at <a href='https://storywrangling.org' target='_blank'>https://storywrangling.org</a>!"
 
 
 
@@ -97,9 +105,8 @@ def get_data(query):
     else:
         src = str(request.args.get('src'))
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
-    # For now, we're just using english
     language = str(request.args.get('language'))
-    if language in ['es', 'ru', 'fr']:
+    if language in language_support['1grams']:
         language = language
     else:
         language = 'en'
