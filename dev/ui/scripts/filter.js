@@ -9,7 +9,6 @@ function setFilters() {
         console.log(`Checking box for ${params[p]} = ${p}`)
         d3.selectAll(`input[value =${params[p]}]`).property('checked', true)
     }
-
     d3.select("input[value ='rt']").property('checked', params['rt'])
 }
 
