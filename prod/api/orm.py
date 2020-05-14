@@ -25,10 +25,10 @@ username = os.getenv("USERNAME")
 # Connect to mongo using the credentials from .env file
 client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
-with open('dev/api/ngrams.bin', "rb") as f:
+with open('prod/api/ngrams.bin', "rb") as f:
     regex = pickle.load(f)
     
-with open('dev/api/language_support.json', 'r') as f:
+with open('prod/api/language_support.json', 'r') as f:
     language_support = json.load(f)
 
 app = Flask(__name__)
