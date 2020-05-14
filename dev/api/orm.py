@@ -16,6 +16,7 @@ from flask_cors import CORS
 import dev.api.regexr as r
 import urllib
 import pickle
+import json
 import uuid
 
 
@@ -26,6 +27,9 @@ client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
 with open('dev/api/ngrams.bin', "rb") as f:
     regex = pickle.load(f)
+    
+with open('language_support.json', 'r') as f:
+    language_support = json.load(f)
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -44,15 +48,19 @@ def get_ngrams(q):
     ngrams = list(r.ngram_parser(q, regex))
     n = len(ngrams)
     if n==3:
-        ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
-    elif n==2:
-        ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
-    else:
-        n = 1
+        if language in language_support['3grams']:
+            ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
+        else: n=1
+    if n==2:
+        if language in language_support['2grams']:
+            ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
+        else: n=1
+    if n==1:
         ngrams = list(r.ngrams(q, regex, n=1).keys())
         res = [] 
         [res.append(x) for x in ngrams if x not in res]
         ngrams = res
+    
     return ngrams, n
 
 
@@ -97,9 +105,8 @@ def get_data(query):
     else:
         src = str(request.args.get('src'))
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
-    # For now, we're just using english
     language = str(request.args.get('language'))
-    if language in ['es', 'ru', 'fr']:
+    if language in language_support['1grams']:
         language = language
     else:
         language = 'en'
