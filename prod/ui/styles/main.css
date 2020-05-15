@@ -10,8 +10,35 @@ h4 {
     color: #666;
 }
 
-.busy-cursor {
-    cursor: progress;
+.loadoverlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    z-index: 900;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.loader {
+    border: 30px solid #00B6CF;
+    border-top: 30px solid #8BC862;
+    border-left: 30px solid #F3B544;
+    border-bottom: 30px solid #9577B5;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    animation: spin 2s linear infinite;
+    z-index: 1000;
+    position: relative;
+    margin: 20vh auto;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 a {
@@ -213,7 +240,8 @@ footer img {
 
 
 
-@media screen and (max-width: 1000px) {
+@media (max-width: 1000px) {
+
     #logo {
         margin-left: auto;
         margin-right: auto;
@@ -251,7 +279,12 @@ footer img {
     }
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
+
+    .loader {
+        width: 70vw;
+        height: 70vw;
+    }
 
     #menu {
         float: none;

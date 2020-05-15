@@ -110,13 +110,14 @@ class Chart {
         const colorid = ngramData[ngram]['colorid']
         const uuid = ngramData[ngram]['uuid']
 
-        const line = d3.line()
+        const line = d3.line()//.defined(d => d[1]!==null)
             .x(d => this.xScale(d[0]))
             .y(d => this.yScale(d[1]))
 
         this.clipgroup.append('path')
             // use data stored in `this`
             .datum(ndata)
+            .filter(function(d) { return d[1]!==null })
             .attr('class',`line uuid-${uuid} dataline`)
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')

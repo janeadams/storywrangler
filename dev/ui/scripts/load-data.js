@@ -1,20 +1,39 @@
+function showloadingpanel(){
+    console.log('Showing loading panel...')
+    d3.selectAll('.loadoverlay,.loader').style("display","block")
+}
+
+function hideloadingpanel(){
+    console.log('Hiding loading panel...')
+    d3.selectAll('.loadoverlay,.loader').style("display","none")
+}
+
 function loadData(query, reload) {
-    console.log(`Loading data for ${query}. Reload = ${reload}`)
+
+    setTimeout(() => showloadingpanel(), 0)
+    console.log(`Loading data for ${query}. Force a reload? ${reload}`)
     if (reload===false) {
         if (Object.keys(ngramData).includes(query)) {
             console.log(`${query} is already in the ngram data`)
             return
         }
     }
-    if (reload===true) {
+    else {
         if (Object.keys(ngramData).includes(query)) {
-            delete ngramData[query]
+            removeNgram(query)
         }
     }
+    showloadingpanel()
     // Pull the JSON data
     let formatted_query = encodeURIComponent(query)
     //console.log(`Formatted query: ${formatted_query}`)
-    let url = encodeURI(`https://storywrangling.org/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
+    let currentURL = String(window.location.href)
+    let splitURL = currentURL.split("?")
+    let APIsource = "https://storywrangling.org"
+    if (splitURL[0].includes(":8051")){
+        APIsource = "http://hydra.uvm.edu:3000"
+    }
+    let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
     console.log(`Querying API URL:`)
     console.log(url)
     d3.json(url).then((data, error) => {
@@ -49,24 +68,29 @@ function loadData(query, reload) {
             let loadedData = data['ngramdata'][n]
             // Parse all the dates
             let allPairs = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
-            if (params['metric'] !== 'rank'){
-                // Remove zeroes from counts and frequency data sets
-                let nonZero = []
-                allPairs.forEach(pair => {
-                    if (pair[1] !== 0){
-                        nonZero.push(pair)
-                    }
-                })
-                ngramData[n]['data'] = Object.assign([], nonZero)
-            }
-            else {
-                ngramData[n]['data'] = allPairs
-            }
+            // Remove zeroes from counts and frequency data sets
+            let nonZero = []
+            let dataDates = []
+            allPairs.forEach(pair => {
+                if (pair[1] !== 0){
+                    nonZero.push(pair)
+                    dataDates.push(pair[0])
+                }
+            })
+            let newData = Object.assign([], nonZero)
+            let minDate = dateParser(loadedData['min_date'])
+            let maxDate = dateParser(loadedData['max_date'])
+            let fullDateRange = getDates(minDate, maxDate)
+            fullDateRange.forEach(date => {
+                if (dataDates.includes(date)){}
+                else {newData.push([date, null])}
+            })
+            ngramData[n]['data'] = newData
             // Get the unique identifier (for labeling objects in-browser)
             ngramData[n]['uuid'] = loadedData['uuid']
             // Find and format the x- and y-ranges of this data set
-            ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
-            ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
+            ngramData[n]['min_date'] = minDate
+            ngramData[n]['max_date'] = maxDate
             ngramData[n][`min_${params.metric}`] = loadedData[`min_${params.metric}`]
             ngramData[n][`max_${params.metric}`] = loadedData[`max_${params.metric}`]
             // Set the color identifier for this set, & cycle through
@@ -93,6 +117,7 @@ function loadData(query, reload) {
             updateURL()
         }
     })
+    setTimeout(() => hideloadingpanel(), 3000)
 }
 
 

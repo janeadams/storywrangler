@@ -1,6 +1,21 @@
 console.log("Loading setup.js")
 const dateParser = date => new Date(d3.timeParse(date))
 const dateFormatter = d3.timeFormat("%Y-%m-%d")
+Date.prototype.addDays = function(days) {
+    let date = new Date(this.valueOf())
+    date.setDate(date.getDate() + days)
+    return date;
+}
+
+function getDates(startDate, stopDate) {
+    let dateArray = []
+    let currentDate = startDate
+    while (currentDate <= stopDate) {
+        dateArray.push(new Date (currentDate))
+        currentDate = currentDate.addDays(1)
+    }
+    return dateArray;
+}
 
 // Today's date
 let today = new Date()

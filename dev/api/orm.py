@@ -19,7 +19,6 @@ import pickle
 import json
 import uuid
 
-
 password = os.getenv("PASSWORD")
 username = os.getenv("USERNAME")
 # Connect to mongo using the credentials from .env file
