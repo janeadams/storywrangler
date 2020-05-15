@@ -80,11 +80,12 @@ function loadData(query, reload) {
             let newData = Object.assign([], nonZero)
             let minDate = dateParser(loadedData['min_date'])
             let maxDate = dateParser(loadedData['max_date'])
+            /* // Add missing dates and set to value of null
             let fullDateRange = getDates(minDate, maxDate)
             fullDateRange.forEach(date => {
                 if (dataDates.includes(date)){}
                 else {newData.push([date, null])}
-            })
+            })*/
             ngramData[n]['data'] = newData
             // Get the unique identifier (for labeling objects in-browser)
             ngramData[n]['uuid'] = loadedData['uuid']
@@ -143,6 +144,7 @@ function removeNgram(n) {
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     redrawCharts()
     updateURL()
+    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 // When a word is submitted via inputClick...
@@ -196,4 +198,5 @@ function reloadAllData() {
     xmins = []
     xmaxes = []
     currentNgrams.forEach(n => loadData(n, true))
+    setTimeout(() => hideloadingpanel(), 1000)
 }

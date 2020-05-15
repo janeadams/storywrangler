@@ -104,7 +104,6 @@ class Chart {
     }
 
     addLine(ngram) {
-        this.resetAxes()
         //console.log(`Adding line for ${ngram} to ${this.plot.attr('class')}`)
         const ndata = ngramData[ngram]['data']
         const colorid = ngramData[ngram]['colorid']
@@ -117,11 +116,63 @@ class Chart {
         this.clipgroup.append('path')
             // use data stored in `this`
             .datum(ndata)
-            .filter(function(d) { return d[1]!==null })
+            //.filter(function(d) { return d[1]!==null })
             .attr('class',`line uuid-${uuid} dataline`)
             // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
+            .attr('stroke-opacity', 0.3)
             .attr('d',line)
+    }
+
+    addDots(ngram) {
+        //console.log(`Adding line for ${ngram} to ${this.plot.attr('class')}`)
+        const ndata = ngramData[ngram]['data']
+        const colorid = ngramData[ngram]['colorid']
+        const uuid = ngramData[ngram]['uuid']
+
+
+        // Define the div for the tooltip
+        let div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+
+        this.clipgroup.selectAll('.dot')
+            .data(ndata)
+            .attr('class',`uuid-${uuid} datadot`)
+            .enter().append("circle")
+            .attr('fill', colors.main[colorid])
+            .attr("r", 1)
+            .attr("cx", d => this.xScale(d[0]))
+            .attr("cy", d => this.yScale(d[1]))
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut)
+
+            // Create Event Handlers for mouse
+            function handleMouseOver(d) {
+                d3.select(this).style("r", 7).style("fill",colors.dark[colorid])
+                div.style('border-color', colors.main[colorid])
+                div.style('background-color', colors.light[colorid])
+                div.transition()
+                    .duration(200)
+                    .style("opacity", .9)
+                let formattedValue
+                if (params['metric']=='freq'){
+                    formattedValue = d3.format(",.0")(d[1])
+                }
+                else {
+                    formattedValue = d3.format(",")(d[1])
+                }
+                div.html(`<span style="font-weight:bold; color:${colors.dark[colorid]};">${ngram}</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}`)
+                    .style("left", (d3.event.pageX + 5) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            }
+            function handleMouseOut() {
+                d3.select(this).style("r", 1).style("fill",colors.main[colorid])
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            }
+
     }
 
     draw() {
@@ -158,7 +209,14 @@ class Chart {
         this.addAxes()
         this.addLabels()
 
-        Object.keys(ngramData).forEach(n => this.addLine(n))
+        this.resetAxes()
+
+        Object.keys(ngramData).forEach(n => {
+            this.addLine(n)
+        })
+        Object.keys(ngramData).forEach(n => {
+            this.addDots(n)
+        })
     }
 }
 

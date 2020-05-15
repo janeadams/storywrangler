@@ -1,4 +1,16 @@
 console.log("Loading setup.js")
+
+function sentenceCase (str) {
+    if ((str===null) || (str===''))
+        return false;
+    else
+        str = str.toString();
+
+    return str.replace(/\w\S*/g,
+        function(txt){return txt.charAt(0).toUpperCase() +
+            txt.substr(1).toLowerCase();});
+}
+
 const dateParser = date => new Date(d3.timeParse(date))
 const dateFormatter = d3.timeFormat("%Y-%m-%d")
 Date.prototype.addDays = function(days) {

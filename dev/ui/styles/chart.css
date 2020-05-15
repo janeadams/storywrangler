@@ -49,13 +49,19 @@
     pointer-events: all;
 }
 
-/* Style the dots by assigning a fill and stroke */
-.dot {
-    fill: #ffab00;
-    stroke: #fff;
+div.tooltip {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 7px;
+    font: 12px sans-serif;
+    color: #333;
+    background: #FFF;
+    border: 1px solid #999;
+    border-radius: 8px;
+    pointer-events: none;
 }
 
-.main circle {
-    fill: none;
-    stroke: steelblue;
+.tooltip .ngram  {
+    font-weight: bold;
 }
