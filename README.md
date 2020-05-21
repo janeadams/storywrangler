@@ -64,7 +64,7 @@ The UI takes several parameters, stored in the `params` object:
 |-----------|------------------------------------------------------------------|-----------------------------------------|
 | metric    | string for which measure of lexical fame to return<br>(default is `'rank'`)   | `'rank'`, `'freq'`                  |
 | language  | string for which language database to query<br>(default is English as `'en'`) | `'en'`,`'es'`,`'ru'`,`'fr'`                     |
-| rt        | boolean for whether to include retweets<br>(default is `false`)  | `true`,`false`                          |
+| rt        | boolean for whether to include retweets<br>(default is `true`)  | `true`,`false`                          |
 | scale       | string for visualization scale (linear or logarithmic)<br>(default is `'log'`)  | `'log'`,`'lin'`                              |
 | start       | The date to start the view range; default is one year ago today  | `Fri Jul 31 2009`|
 | end       | The date to start the view range; default is today  | `Thu Mar 28 2019`|

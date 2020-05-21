@@ -46,7 +46,7 @@ const suggestions = ["haha", "happy new year", "#throwbackthursday", "😊"]
 const defaultparams = {
     "language": "en",
     "metric": "rank",
-    "rt": false,
+    "rt": true,
     "scale": "log",
     "start": lastyeardate,
     "end": today
@@ -92,11 +92,17 @@ function setRanges() {
         xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
         console.log(`Setting xRange to ${xRange}`)
         // If the metric is freq, start at near-zero
-        if (params['metric'] === 'freq') {yRange[0] = 0.00000001}
+        if (params['metric'] === 'freq') {
+            yRange[0] = d3.min(ymins) * 0.8
+            // Set the max of the range to the max of all values. '* 1.2' pads the range a little
+            yRange[1] = d3.max(ymaxes) * 1.2
+        }
         // Otherwise start at 1
-        else {yRange[0] = 1}
-        // Set the max of the range to the max of all values. '* 1.2' pads the range a little
-        yRange[1] = d3.max(ymaxes) * 1.2
+        else {
+            yRange[0] = 1
+            yRange[1] = 1000000
+        }
+
         console.log(`Setting yRange to ${yRange}`)
     }
 }
