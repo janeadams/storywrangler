@@ -34,15 +34,7 @@
     <main>
         <!-- Search bar and filters -->
         <section class="controls">
-            <!-- Queries inputted -->
-            <ul id="ngramList"></ul>
             <!-- Search bar -->
-            <form autocomplete="off" id="queryForm" onSubmit="return querySubmission()">
-                <div class="autocomplete">
-                    <input name="query" type="text" id="queryInput" placeholder='Enter a query, like "haha", "happy new year", "#throwbackthursday", or "😊"' data-emoji="true" class="form-control">
-                    <input type="submit" value="What's the story?">
-                </div>
-            </form>
             <form id="filterForm" onChange="return filterSubmission()">
                 <section id="metricFilter">
                     <h4>Options</h4>
@@ -61,6 +53,18 @@
                     </ul>
                 </section>
             </form>
+            <form autocomplete="off" id="queryForm" onSubmit="return querySubmission()">
+                <div class="autocomplete">
+                    <input name="query" type="text" id="queryInput" placeholder='Enter a query' class="form-control">
+                    <input type="submit" value="Add term">
+                </div>
+            </form>
+
+            <!-- Queries inputted -->
+            <ul id="ngramList">
+                <li id="clearall" class="mgmt" onclick="clearAll()">X</li>
+                <li id="download" class="mgmt"><a target="_blank">DOWNLOAD</a></li>
+            </ul>
         </section>
 
         <!-- Data visualization area -->
@@ -68,7 +72,9 @@
             <div id="mainplot">
 
             </div>
+        <!--<p>A visualization of phrase popularity in 150 billion tweets. Read more <a href="about.html" target="_blank">here</a>.</p>-->
         </section>
+
     </main>
     <footer>
         <section id="thanks">

@@ -1,6 +1,7 @@
 #ngramList {
     display: inline-block;
-    width: 100%;
+    width: auto;
+    float: left;
     padding: 5px;
     padding-inline-start: 0 !important;
     margin-block-start: 0 !important;
@@ -9,36 +10,56 @@
     margin-inline-end: 0 !important;
 }
 
-#download {
-    padding: 10px 15px;
-    background-color: lightcoral;
-    border-radius: 3px;
-    border: 2px solid #FAC1BE;
-    color: white;
-    font-size: 1.4em;
-    float: right;
-    text-decoration: none;
-    margin-right: 5%;
-}
-
 #ngramList li {
     padding: 7px 10px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
     margin: 3px;
     display: inline-block;
-    color: #00B6CF;
-    background-color: #B5E2EA;
     border: 1px solid;
-    border-color: #0681A2;
     font-size: 1.2em;
     border-radius: 2px;
 }
 
-#ngramList li:hover {
-    background-color: #FAC1BE;
-    border: 2px dashed #EF3D25;
-    text-decoration: line-through;
-    color: #EF3D25;
+#ngramList .nitem:hover {
+    background-color: #FAC1BE !important;
+    border: 1px dashed #EF3D25 !important;
+    text-decoration: line-through !important;
+    color: #EF3D25 !important;
+    cursor: pointer !important;
+}
+
+#clearall, #download {
+    border: 1px solid;
     cursor: pointer;
+    font-size: 0.8em !important;
+    font-weight: bold;
+}
+
+.mgmt {
+    background-color: lightgray;
+    color: #666;
+    border-color: lightgray !important;
+}
+
+.mgmt a {
+    color: #666;
+}
+
+#clearall:hover {
+    background-color: lightcoral;
+    border-color: lightcoral !important;
+    color: darkred;
+}
+
+#download:hover {
+    background-color: #666;
+    border-color: #666 !important;
+}
+
+#download:hover a {
+    color: #FFF;
 }
 
 .controls {

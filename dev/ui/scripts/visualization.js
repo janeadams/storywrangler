@@ -186,7 +186,6 @@ class Chart {
         this.svg = d3.select(this.element).append('svg')
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.margin.top + this.height + this.margin.bottom)
-        d3.select(this.element).append('a').attr("id","download").text("Download this data!").attr("href", formatDataForDownload()).attr("target","_blank").attr("download","storywrangler_data.json")
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
@@ -237,6 +236,7 @@ function makeCharts(){
 function redrawCharts(){
     console.log("Redrawing charts...")
     setRanges()
+    mainChart.draw()
     mainChart.draw()
 }
 

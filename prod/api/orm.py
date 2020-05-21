@@ -19,7 +19,6 @@ import pickle
 import json
 import uuid
 
-
 password = os.getenv("PASSWORD")
 username = os.getenv("USERNAME")
 # Connect to mongo using the credentials from .env file
@@ -46,32 +45,33 @@ def print_info(varlist):
 def get_ngrams(language, q):
     q = r.remove_whitespaces(q)
     ngrams = list(r.ngram_parser(q, regex))
-    n = len(ngrams)
-    if n==3:
+    number = len(ngrams)
+    if number==3:
         if language in language_support['3grams']:
             ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
         else:
-            n=1
+            number=1
             ngrams = list(r.ngrams(q, regex, n=1).keys())
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
-    elif n==2:
+    elif number==2:
         if language in language_support['2grams']:
             ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
         else:
-            n=1
+            number=1
             ngrams = list(r.ngrams(q, regex, n=1).keys())
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
     else:
+        number=1
         ngrams = list(r.ngrams(q, regex, n=1).keys())
         res = []
         [res.append(x) for x in ngrams if x not in res]
         ngrams = res
     
-    return ngrams, n
+    return ngrams, number
 
 
 

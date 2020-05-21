@@ -113,8 +113,7 @@ header {
 }
 
 #menu a:hover {
-    font-weight: bold;
-    font-size: 1.3em;
+    text-decoration: underline;
 }
 
 .social {
@@ -131,11 +130,6 @@ header {
 .social img {
     width: 30px;
     height: 30px;
-}
-
-.social img:hover {
-    width: 35px;
-    height: 35px;
 }
 
 main {

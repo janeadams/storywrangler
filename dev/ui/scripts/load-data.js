@@ -10,8 +10,17 @@ function hideloadingpanel(){
 
 function loadData(query, reload) {
 
-    setTimeout(() => showloadingpanel(), 0)
+    showloadingpanel()
+
     console.log(`Loading data for ${query}. Force a reload? ${reload}`)
+
+    if (query==='"'){
+        console.log("Sorry, we don't support searches for the double quotation mark at this time")
+        //alert("Sorry, we don't support searches for the double quotation mark at this time")
+        return
+    }
+
+
     if (reload===false) {
         if (Object.keys(ngramData).includes(query)) {
             console.log(`${query} is already in the ngram data`)
@@ -25,7 +34,7 @@ function loadData(query, reload) {
     }
     showloadingpanel()
     // Pull the JSON data
-    let formatted_query = encodeURIComponent(query)
+    let formatted_query = encodeURIComponent(query.replace('"',''))
     //console.log(`Formatted query: ${formatted_query}`)
     let currentURL = String(window.location.href)
     let splitURL = currentURL.split("?")
@@ -45,22 +54,28 @@ function loadData(query, reload) {
         console.table(debug)
         let newNgrams = []
         data['ngrams'].forEach(n => {
-            // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
-            if (Object.keys(ngramData).includes(n)) {
-                if (reload===false){
-                    console.log(`${n} was already added to the ngram data`)
-                }
-                else {
-                    delete ngramData[n]
-                    newNgrams.push(n)
-                }
-            }
-            else if (data['ngramdata'][n] == null) {
-                console.log(`No data available for ${n}`)
-                alert(`Sorry! We couldn't find any ${data['metric']} data for ${n} in the ${data['language']} ${data['database']}grams database`)
+            if (n==='"'){
+                console.log("Sorry, we don't support searches for the double quotation mark at this time")
+                //alert("Sorry, we don't support searches for the double quotation mark at this time")
             }
             else {
-                newNgrams.push(n)
+                // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
+                if (Object.keys(ngramData).includes(n)) {
+                    if (reload===false){
+                        console.log(`${n} was already added to the ngram data`)
+                    }
+                    else {
+                        delete ngramData[n]
+                        newNgrams.push(n)
+                    }
+                }
+                else if (data['ngramdata'][n] == null) {
+                    console.log(`No data available for ${n}`)
+                    alert(`Sorry! We couldn't find any ${data['metric']} data for ${n} in the ${data['language']} ${data['database']}grams database`)
+                }
+                else {
+                    newNgrams.push(n)
+                }
             }
         })
         newNgrams.forEach(n => {
@@ -121,6 +136,16 @@ function loadData(query, reload) {
     setTimeout(() => hideloadingpanel(), 3000)
 }
 
+function setButtons(){
+    if (Ngrams.length < 1){
+        d3.selectAll(".mgmt").style("display","none")
+    }
+    else {
+        d3.select("#download").select('a').attr("href", formatDataForDownload()).attr("download","storywrangler_data.json")
+        d3.selectAll(".mgmt").style("display","inline-block")
+    }
+}
+
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
@@ -141,7 +166,9 @@ function removeNgram(n) {
     console.log(`Removed ${thisdata['max_'+params.metric]} from ymaxes`)
     // Delete the word from the list of ngram data
     delete ngramData[n]
+
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
+    setButtons()
     redrawCharts()
     updateURL()
     setTimeout(() => hideloadingpanel(), 1000)
@@ -155,7 +182,7 @@ function addNgram(n) {
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
         .text(n)
-        .attr("class", `uuid-${ndata['uuid']}`)
+        .attr("class", `uuid-${ndata['uuid']} nitem`)
         .style("color", colors.dark[ndata['colorid']])
         .style("border-color", colors.main[ndata['colorid']])
         .style("background-color", colors.light[ndata['colorid']])
@@ -163,6 +190,8 @@ function addNgram(n) {
             console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
+
+    setButtons()
 }
 
 
@@ -199,4 +228,8 @@ function reloadAllData() {
     xmaxes = []
     currentNgrams.forEach(n => loadData(n, true))
     setTimeout(() => hideloadingpanel(), 1000)
+}
+
+function clearAll(){
+    Ngrams.forEach(n => removeNgram(n))
 }

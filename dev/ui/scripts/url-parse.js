@@ -75,6 +75,7 @@ function getUrlParams() {
     })
 
     Ngrams.forEach(n => loadData(n, true))
+    setTimeout(() => hideloadingpanel(), 3000)
 }
 
 function updateURL() {
@@ -95,6 +96,7 @@ function updateURL() {
         Ngrams.forEach(n => encoded.push(encodeURIComponent(n)))
         paramlist.push("ngrams=" + encoded)
         Ngrams.forEach(n => loadData(n, false))
+        setTimeout(() => hideloadingpanel(), 3000)
     }
     for (let p of Object.keys(defaultparams)) {
             if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
@@ -126,4 +128,3 @@ function updateURL() {
         history.pushState([],'', newURL)
     }
 }
-
