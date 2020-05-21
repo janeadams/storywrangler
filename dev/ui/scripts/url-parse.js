@@ -44,6 +44,7 @@ function readUrlVars() {
                     } else {
                         // If the value isn't one of the allowed options, set to default value
                         console.log(`${value} is an invalid option for the ${key} parameter!`)
+                        vars[key] = defaultparams[key]
                     }
                 }
             }
