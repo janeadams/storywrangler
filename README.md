@@ -20,13 +20,13 @@ Note that API URLs should not contain quote characters.
 | Parameter | Description                                                      | Example Values                          |
 |-----------|------------------------------------------------------------------|-----------------------------------------|
 | query     | one or more ngrams to search<br>(goes immediately after `/api/`) | `#MeToo`,`does anyone else`,`😊` |
-| metric    | which measure of lexical fame to return<br>(default is `rank`)   | `rank`,`counts`,`freq`                  |
+| metric    | which measure of lexical fame to return<br>(default is `rank`)   | `rank`,`freq`                  |
 | language  | which language database to query<br>(default is English as `en`) | `en`,`es`,`ru`,`fr`                     |
 | rt        | boolean for whether to include retweets<br>(default is `false`)  | `true`,`false`                          |
 | src       | metadata for logging & debugging purposes<br>(default is `api`)  | `api`,`ui`                              |
 
-Here is an example query searching the Spanish ngrams database for the frequencies of ngrams related to Hurricane Maria, from all tweets, including retweets:
-`api/#4645boricuas,#hurricanemaria,🇵🇷?metric=freq&language=es&RT=true`
+Here is an [example query](https://storywrangling.org/api/%234645boricuas%20%23hurricanemaria%20%F0%9F%87%B5%F0%9F%87%B7%20hurac%C3%A1n?language=es&metric=freq&rt=true) searching the Spanish ngrams database for the frequencies of ngrams related to Hurricane Maria, from all tweets, including retweets:
+`/api/%234645boricuas%20%23hurricanemaria%20%F0%9F%87%B5%F0%9F%87%B7%20hurac%C3%A1n?language=es&metric=freq&rt=true`
 
 ### Accessing the API
 There are two versions of the API: production ('prod') and development ('dev'). 
@@ -49,25 +49,35 @@ The production UI is accessible for public non-commercial use at `https://storyw
 
 
 ### Parameters
+There are some default values specified in `setup.js`:
+
+| Variable | Description                                                      | Example Values                          |
+|-----------|------------------------------------------------------------------|-----------------------------------------|
+| defaultNgrams    | Ngrams to pre-load on page load when none are specified in the URL   | `["hahaha","one two three","#friday","🦠"]`                  |
+| suggestions  | Array of Ngrams to suggest in the query box (a new one is chosen at random on page load) | `["haha", "happy new year", "#throwbackthursday", "😊"]`                     |
+| colors        | an object containing color names and hex codes  | keys: `['names','main','dark','light']`    
+
+
 The UI takes several parameters, stored in the `params` object:
 
 | Parameter | Description                                                      | Example Values                          |
 |-----------|------------------------------------------------------------------|-----------------------------------------|
-| ngrams     | string list of ngrams to display (up to 10) | `'#MeToo'`,`'does anyone else'`,`'😊'` |
-| metric    | string for which measure of lexical fame to return<br>(default is `'rank'`)   | `'rank'`,`'counts'`,`'freq'`                  |
+| metric    | string for which measure of lexical fame to return<br>(default is `'rank'`)   | `'rank'`, `'freq'`                  |
 | language  | string for which language database to query<br>(default is English as `'en'`) | `'en'`,`'es'`,`'ru'`,`'fr'`                     |
 | rt        | boolean for whether to include retweets<br>(default is `false`)  | `true`,`false`                          |
 | scale       | string for visualization scale (linear or logarithmic)<br>(default is `'log'`)  | `'log'`,`'lin'`                              |
-| xrange       | list of dates of length 2, for data to query: `[<start date>, <end date>]`<br>(default is `[<June 31 2009>, <today>]`)  | `[Fri Jul 31 2009, Sat Mar 28 2020]`|
-| xviewrange       | list of dates of length 2, to view in the chart: `[<start date>, <end date>]`<br>(default is `[<one year ago today>, <today>]`)  | `[Thu Mar 28 2019, Sat Mar 28 2020]`|
-| sizing       | list of numbers of length 2 with width and height values for the chart  | `[800, 600]`                              |
+| start       | The date to start the view range; default is one year ago today  | `Fri Jul 31 2009`|
+| end       | The date to start the view range; default is today  | `Thu Mar 28 2019`|
+
+Ngrams are stored in a variable simply called `Ngrams` which is an array of string-type ngrams to display, e.g. `['#MeToo','does anyone else','😊']`.
+
 
 ### Accessing the UI
 
 There are two versions of the UI: production ('prod') and development ('dev'). 
 
 #### Production UI Public Access
-The production UI is served on Hydra at port `:8050` and is accessed online at `https://storywrangling.org/api/your api query`
+The production UI is served on Hydra at port `:8050` and is accessed online at [storywrangling.org](https://storywrangling.org/)
 
 #### Development UI UVM Internal Access
 The production UI is served on Hydra at port `:8051`. To access, you will need a UVM account and multi-factor authentication set up on your phone.
@@ -78,7 +88,7 @@ To access the development UI:
     
 ## Structure
 
-The production-ready API and UI are both shared with the web at `storywrangling.org` via Hydra ports `:3001` and `:8050`, respectively. The development versions of the API and UI are only accesible via UVM VPN (see "Accessing the API: Development API UVM Internal Access") via Hydra ports `:3000` and `:8051`, respectively.
+The production-ready API and UI are both shared with the web at [storywrangling.org](https://storywrangling.org/) via Hydra ports `:3001` and `:8050`, respectively. The development versions of the API and UI are only accesible via UVM VPN (see "Accessing the API: Development API UVM Internal Access") via Hydra ports `:3000` and `:8051`, respectively.
 
 ### API
 The API is built in Python, using PyMongo to access the MongoDB on Hydra. It is run on the server using Flask and UWSGI.

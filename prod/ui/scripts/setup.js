@@ -58,7 +58,7 @@ let params = {}
 // Limit options for certain parameters
 const paramoptions = {
     "language": ["en","es","ru","fr"],
-    "metric": ["rank", "counts", "freq"],
+    "metric": ["rank", "freq"], //["rank", "counts", "freq"],
     "scale": ["log", "lin"],
     "rt": [true,false]
 }

@@ -123,7 +123,7 @@ def get_data(query):
     rt = request.args.get('rt') == 'true'
     # Pull the metric from the URL params, e.g. 'rank','counts','freq'
     metric = request.args.get('metric')
-    if metric is None:
+    if metric != 'freq' :
         metric = 'rank'
         
     ngrams, n = get_ngrams(language, query)
