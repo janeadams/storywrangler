@@ -81,7 +81,7 @@
 }
 
 #queryForm input {
-    border: 1px solid #F3B544;
+    border: 1px solid transparent;
     border-radius: 2px;
     padding: 10px;
     font-size: 16px;
