@@ -313,4 +313,8 @@ footer img {
         height: auto;
         display: block;
     }
+    footer img {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
 }

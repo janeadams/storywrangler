@@ -1,6 +1,9 @@
+#ngramContainer {
+    width: 100%;
+}
+
 #ngramList {
     display: inline-block;
-    width: auto;
     float: left;
     padding: 5px;
     padding-inline-start: 0 !important;
