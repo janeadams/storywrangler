@@ -77,7 +77,11 @@
     display: inline-block;
     padding: 5px;
     float: left;
-    font-size: 0.8em;
+    font-size: 15px;
+}
+
+.controls li input {
+    margin: 5px;
 }
 
 #queryForm input {
@@ -103,6 +107,9 @@
     width: 25%;
     min-width: auto;
     float: right;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Helvetica", sans-serif;
 }
 
 #filterForm {
