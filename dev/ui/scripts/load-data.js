@@ -42,7 +42,6 @@ function loadData(query, reload) {
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
     console.log(`Querying API URL:`)
     console.log(url)
-    showloadingpanel()
     d3.json(url).then((data, error) => {
         showloadingpanel()
         //errors.append(data['errors'])
@@ -133,7 +132,6 @@ function loadData(query, reload) {
         }
         setTimeout(() => hideloadingpanel(), 3000)
     })
-    setTimeout(() => hideloadingpanel(), 3000)
 }
 
 function setButtons(){

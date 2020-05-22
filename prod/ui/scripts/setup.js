@@ -132,7 +132,6 @@ function deepFreeze(o) {
     return o
 }
 
-
 function setupPage() {
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
