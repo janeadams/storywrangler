@@ -80,15 +80,9 @@
     font-size: 0.8em;
 }
 
-
-.autocomplete {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
 #queryForm input {
-    border: 1px solid lightgray;
+    border: 1px solid #F3B544;
+    border-radius: 2px;
     padding: 10px;
     font-size: 16px;
     display: inline-block;

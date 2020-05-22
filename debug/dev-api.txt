@@ -876,3 +876,6 @@ searching the 3grams db for the red pill
 ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
 searching the 3grams db for the red pill
 [pid: 11436|app: 0|req: 277/277] 10.241.0.121 () {44 vars in 843 bytes} [Fri May 22 09:08:54 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 292 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 278/278] 10.241.0.121 () {44 vars in 843 bytes} [Fri May 22 09:10:08 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 290 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
