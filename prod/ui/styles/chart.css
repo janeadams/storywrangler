@@ -16,14 +16,19 @@
 .subplot {
     height: 300px;
 }
+
+.yaxis, .xaxis {
+    font-size: 15px;
+}
+
 .axislabel, .axislabel-large {
     fill: #666;
 }
 .axislabel-large {
-    font-size: 15px;
+    font-size: 20px;
 }
 .axislabel {
-    font-size: 10px;
+    font-size: 15px;
 }
 
 .hoverline {

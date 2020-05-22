@@ -10,8 +10,6 @@ function hideloadingpanel(){
 
 function loadData(query, reload) {
 
-    showloadingpanel()
-
     console.log(`Loading data for ${query}. Force a reload? ${reload}`)
 
     if (query==='"'){
@@ -32,7 +30,6 @@ function loadData(query, reload) {
             removeNgram(query)
         }
     }
-    showloadingpanel()
     // Pull the JSON data
     let formatted_query = encodeURIComponent(query.replace('"',''))
     //console.log(`Formatted query: ${formatted_query}`)
@@ -45,7 +42,9 @@ function loadData(query, reload) {
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
     console.log(`Querying API URL:`)
     console.log(url)
+    showloadingpanel()
     d3.json(url).then((data, error) => {
+        showloadingpanel()
         //errors.append(data['errors'])
         console.log(`Received API response:`)
         let debug = {}
@@ -132,6 +131,7 @@ function loadData(query, reload) {
             redrawCharts()
             updateURL()
         }
+        setTimeout(() => hideloadingpanel(), 3000)
     })
     setTimeout(() => hideloadingpanel(), 3000)
 }
@@ -149,6 +149,7 @@ function setButtons(){
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
+    setTimeout(() => showloadingpanel(), 1000)
     const thisdata = ngramData[n]
     let uuid = thisdata['uuid']
     //console.log(`removing all elements with uuid ${uuid}`)
@@ -186,7 +187,7 @@ function addNgram(n) {
         .style("color", colors.dark[ndata['colorid']])
         .style("border-color", colors.main[ndata['colorid']])
         .style("background-color", colors.light[ndata['colorid']])
-        .on("click", function (d, i) {
+        .on("click", function () {
             console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
@@ -196,6 +197,7 @@ function addNgram(n) {
 
 
 function formatDataForDownload(){
+    setTimeout(() => showloadingpanel(), 1000)
     let allData
     if(Object.keys(ngramData).length > 0) {
         let downloadData = {}
@@ -213,6 +215,7 @@ function formatDataForDownload(){
     else {
         allData = {'metadata': "Error! No data"}
     }
+    setTimeout(() => hideloadingpanel(), 1000)
     return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
 }
 
@@ -227,7 +230,6 @@ function reloadAllData() {
     xmins = []
     xmaxes = []
     currentNgrams.forEach(n => loadData(n, true))
-    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function clearAll(){

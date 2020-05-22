@@ -168,7 +168,10 @@ class Chart {
                 else {
                     formattedValue = d3.format(",")(d[1])
                 }
-                div.html(`<span style="font-weight:bold; color:${colors.dark[colorid]};">${ngram}</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}`)
+                let RTlabel
+                if (params['rt']===true) { RTlabel = '(Includes retweets)'}
+                else {RTlabel = '(Does not include retweets)'}
+                div.html(`<span style="font-weight:bold; color:${colors.dark[colorid]};">${ngram}</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
                     .style("left", (d3.event.pageX + 5) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
             }
@@ -184,7 +187,7 @@ class Chart {
     draw() {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: d3.min([0.2 * this.width, 100]) }
+        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: d3.min([0.3 * this.width, 150]) }
         this.createScales()
         // set up parent element and SVG
         this.element.innerHTML = ''

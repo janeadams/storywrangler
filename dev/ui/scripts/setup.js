@@ -93,14 +93,26 @@ function setRanges() {
         console.log(`Setting xRange to ${xRange}`)
         // If the metric is freq, start at near-zero
         if (params['metric'] === 'freq') {
-            yRange[0] = d3.min(ymins) * 0.8
-            // Set the max of the range to the max of all values. '* 1.2' pads the range a little
-            yRange[1] = d3.max(ymaxes) * 1.2
+
+            if (params['scale'] === 'log') {
+                yRange[0] = d3.max([d3.min(ymins), 0.00000001])
+                yRange[1] = 0.1
+            }
+            else {
+                yRange[0] = d3.min(ymins)
+                yRange[1] = d3.max(ymaxes)
+            }
+
         }
-        // Otherwise start at 1
+        // for Rank...
         else {
             yRange[0] = 1
-            yRange[1] = 1000000
+            if (params['scale'] === 'log') {
+                yRange[1] = d3.max([1000000, d3.max(ymaxes)])
+            }
+            else {
+                yRange[1] = d3.max(ymaxes)*1.2
+            }
         }
 
         console.log(`Setting yRange to ${yRange}`)
@@ -120,12 +132,9 @@ function deepFreeze(o) {
     return o
 }
 
-
 function setupPage() {
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     setFilters() // Check the correct boxes in the filter form according to the parameters
     makeCharts() // Make all the charts\
 }
-
-setTimeout(() => hideloadingpanel(), 0)

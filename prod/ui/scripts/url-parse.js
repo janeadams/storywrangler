@@ -56,13 +56,14 @@ function readUrlVars() {
 }
 // Get the parameters from the URL
 function getUrlParams() {
+    let newNgrams
     if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
-        let newNgrams = readUrlVars()["ngrams"] // Add the ngrams specified in the URL
-        newNgrams.forEach(n => Ngrams.push(n))
+        newNgrams = readUrlVars()["ngrams"] // Add the ngrams specified in the URL
     }
     else {
-        Ngrams = Object.assign([],defaultNgrams) // Set to default ngrams
+        newNgrams = Object.assign([],defaultNgrams) // Set to default ngrams
     }
+    newNgrams.forEach(n => loadData(n, true))
 
     Object.keys(defaultparams).forEach(p => { // For all parameters
         // If the parameter is in the URL
@@ -74,9 +75,6 @@ function getUrlParams() {
             console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
-
-    Ngrams.forEach(n => loadData(n, true))
-    setTimeout(() => hideloadingpanel(), 3000)
 }
 
 function updateURL() {
@@ -97,7 +95,6 @@ function updateURL() {
         Ngrams.forEach(n => encoded.push(encodeURIComponent(n)))
         paramlist.push("ngrams=" + encoded)
         Ngrams.forEach(n => loadData(n, false))
-        setTimeout(() => hideloadingpanel(), 3000)
     }
     for (let p of Object.keys(defaultparams)) {
             if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
