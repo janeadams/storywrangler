@@ -849,3 +849,30 @@ searching the 1grams db for when
 ngrams :['where'], n:1, metric:rank, rt:False, language:en
 searching the 1grams db for where
 [pid: 11436|app: 0|req: 268/268] 10.241.0.121 () {40 vars in 874 bytes} [Fri May 22 08:47:18 2020] GET /api/where?src=ui&language=undefined&metric=undefined&rt=undefined => generated 83009 bytes in 709 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 269/269] 10.241.0.121 () {40 vars in 790 bytes} [Fri May 22 08:58:18 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 240 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 270/270] 10.241.0.121 () {40 vars in 790 bytes} [Fri May 22 08:59:37 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 149 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 271/271] 10.241.0.121 () {40 vars in 790 bytes} [Fri May 22 09:00:53 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 143 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 272/272] 10.241.0.121 () {44 vars in 843 bytes} [Fri May 22 09:04:44 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 353 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 273/273] 10.241.0.121 () {44 vars in 843 bytes} [Fri May 22 09:05:52 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 142 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 274/274] 10.241.0.121 () {44 vars in 843 bytes} [Fri May 22 09:06:23 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 196 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 275/275] 10.241.0.121 () {44 vars in 843 bytes} [Fri May 22 09:07:04 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 154 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 276/276] 10.241.0.121 () {44 vars in 841 bytes} [Fri May 22 09:08:12 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 190 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)
+ngrams :['the red pill'], n:3, metric:rank, rt:False, language:en
+searching the 3grams db for the red pill
+[pid: 11436|app: 0|req: 277/277] 10.241.0.121 () {44 vars in 843 bytes} [Fri May 22 09:08:54 2020] GET /api/the%2520red%2520pill?src=ui&language=undefined&metric=undefined&rt=undefined => generated 19473 bytes in 292 msecs (HTTP/1.1 200) 4 headers in 144 bytes (1 switches on core 0)

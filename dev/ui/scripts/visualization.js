@@ -8,7 +8,7 @@ class Chart {
         const m = this.margin
         this.xScale = d3.scaleTime()
             .domain(xRange)
-            .range([0, this.width-m.left])
+            .range([0, this.width-m.left-10])
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
         if (params.metric === "rank") {
@@ -147,7 +147,7 @@ class Chart {
             .attr('class',`uuid-${uuid} datadot`)
             .enter().append("circle")
             .attr('fill', colors.main[colorid])
-            .attr("r", 1)
+            .attr("r", 2)
             .attr("cx", d => this.xScale(d[0]))
             .attr("cy", d => this.yScale(d[1]))
             .on("mouseover", handleMouseOver)
@@ -176,10 +176,12 @@ class Chart {
                     .style("top", (d3.event.pageY - 28) + "px");
             }
             function handleMouseOut() {
-                d3.select(this).style("r", 1).style("fill",colors.main[colorid])
+                d3.select(this).style("r", 2).style("fill",colors.main[colorid])
                 div.transition()
                     .duration(500)
                     .style("opacity", 0);
+                div.style("left", "0px")
+                    .style("top", "0px")
             }
 
     }

@@ -42,7 +42,7 @@
 /* Style the lines by removing the fill and applying a stroke */
 .line {
     fill: none;
-    stroke-width: 1px;
+    stroke-width: 2px;
 }
 
 .zoom {
@@ -65,6 +65,8 @@ div.tooltip {
     border: 1px solid #999;
     border-radius: 8px;
     pointer-events: none;
+    top: 0;
+    left: 0;
 }
 
 .tooltip .ngram  {
