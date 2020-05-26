@@ -152,6 +152,8 @@ def get_data(query):
                 output['errors'].append(f"Couldn't find data for {ngram}")
             else:
                 df = df.dropna(how='all')
+                df = df[df['rank'] < 1000000] # Drop entries below rank 1M
+                df = df[df['rank_noRT'] < 1000000]
                 df['time'] = [str(t)[:10] for t in df['time']]
                 df['time'] = [dt.datetime.strptime(t, '%Y-%m-%d').date() for t in df['time']]
                 df=df[df['time']>=(dt.date(2009,8,1))]

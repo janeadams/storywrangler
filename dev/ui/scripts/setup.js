@@ -136,5 +136,4 @@ function setupPage() {
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     setFilters() // Check the correct boxes in the filter form according to the parameters
-    makeCharts() // Make all the charts\
 }

@@ -1,13 +1,20 @@
 class Chart {
     constructor(opts){
         this.element = opts.element
+        this.isSubplot = this.element.classList.contains('subplot')
         this.draw()
     }
 
-    createScales() {
+    setScales() {
+        setRanges()
         const m = this.margin
         this.xScale = d3.scaleTime()
             .domain(xRange)
+            .range([0, this.width-m.left-10])
+        console.log('this.xScale')
+        console.log(this.xScale)
+        this.xScaleFocused = d3.scaleTime()
+            .domain([params['start'],params['end']])
             .range([0, this.width-m.left-10])
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         // Choose and set time scales (logarithmic or linear) for the main plot
@@ -15,9 +22,11 @@ class Chart {
             // When showing ranks, put rank #1 at the top
             if (params.scale === "log") {
                 this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.height-(m.top+m.bottom), 0])
+                this.yScaleMini = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.selectorPlotHeight, 0])
             }
             else {
                 this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.height-(m.top+m.bottom), 0])
+                this.yScaleMini = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.selectorPlotHeight, 0])
             }
         }
 
@@ -25,18 +34,22 @@ class Chart {
         else {
             if (params.scale === "log") {
                 this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.height - (m.top + m.bottom)])
+                this.yScaleMini = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.selectorPlotHeight])
             }
             else {
                 this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.height - (m.top + m.bottom)])
+                this.yScaleMini = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.selectorPlotHeight])
             }
         }
     }
 
     addAxes() {
-        const height = this.height
-        const m = this.margin
 
-        const xAxis = d3.axisBottom()
+        const xAxisFocused = d3.axisBottom()
+            .scale(this.xScaleFocused)
+            .ticks(12)
+
+        const xAxisAll = d3.axisBottom()
             .scale(this.xScale)
             .ticks(d3.timeYear)
 
@@ -44,18 +57,24 @@ class Chart {
             .scale(this.yScale)
             .ticks(5, "")
 
+        const yAxisMini = d3.axisLeft()
+            .scale(this.yScaleMini)
+            .ticks(2, "")
+
         if (params['metric']=='rank'){
             yAxis.tickFormat(d3.format(".00s"))
+            yAxisMini.tickFormat(d3.format(".00s"))
         }
         else {
             yAxis.tickFormat(d3.format("~e"))
+            yAxisMini.tickFormat(d3.format("~e"))
         }
 
         // Add X & Y Axes to main plot
         this.plot.append("g")
             .attr("class", "xaxis")
-            .attr("transform", `translate(0, ${height-(m.top+m.bottom)})`)
-            .call(xAxis)
+            .attr("transform", `translate(0, ${this.height-(this.margin.top+this.margin.bottom)})`)
+            .call(xAxisFocused)
             .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
@@ -65,13 +84,23 @@ class Chart {
         this.plot.append("g")
             .attr("class", "yaxis")
             .call(yAxis)
+
+        // Add X & Y Axes to focus controls
+        this.selectorPlot.append("g")
+            .attr("class", "xaxis-small")
+            .attr("transform", `translate(0, ${this.selectorPlotHeight})`)
+            .call(xAxisAll)
+
+        this.selectorPlot.append("g")
+            .attr("class", "yaxis-small")
+            .call(yAxisMini)
     }
 
     addLabels(){
-        // Label xAxis with Metric
+        // Label yAxis with Metric
         this.svg.append("text")
             .attr("text-anchor", "start")
-            .attr("y", (this.height-this.margin.top) / 2)
+            .attr("y", ((this.height-this.margin.bottom) / 2) )
             .attr("x", 10)
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
@@ -93,7 +122,7 @@ class Chart {
         this.svg.append("text")
             .attr("class","axislabel")
             .attr("text-anchor", "start")
-            .attr("y", this.height - this.margin.top)
+            .attr("y", this.height - this.margin.top - this.margin.bottom)
             .attr("x", 10)
             .attr("dy", "0.5em")
             .text("Lexical")
@@ -115,19 +144,27 @@ class Chart {
         const colorid = ngramData[ngram]['colorid']
         const uuid = ngramData[ngram]['uuid']
 
-        const line = d3.line()//.defined(d => d[1]!==null)
-            .x(d => this.xScale(d[0]))
+        const line = d3.line().defined(function (d) {return d[1] !== null})
+            .x(d => this.xScaleFocused(d[0]))
             .y(d => this.yScale(d[1]))
 
+        const focusline = d3.line().defined(function (d) {return d[1] !== null})
+            .x(d => this.xScale(d[0]))
+            .y(d => this.yScaleMini(d[1]))
+
         this.clipgroup.append('path')
-            // use data stored in `this`
-            .datum(ndata)
-            //.filter(function(d) { return d[1]!==null })
+            .datum(ndata.filter(line.defined()))
             .attr('class',`line uuid-${uuid} dataline`)
-            // set stroke to specified color, or default to red
             .attr('stroke', colors.main[colorid] || 'gray')
             .attr('stroke-opacity', 0.3)
             .attr('d',line)
+
+        this.selectorPlot.append('path')
+            .datum(ndata.filter(line.defined()))
+            .attr('class',`line uuid-${uuid} selectorline`)
+            .attr('stroke', colors.main[colorid])
+            .attr('stroke-opacity', 1)
+            .attr('d',focusline)
     }
 
     addDots(ngram) {
@@ -143,12 +180,12 @@ class Chart {
             .style("opacity", 0)
 
         this.clipgroup.selectAll('.dot')
-            .data(ndata)
+            .data(ndata.filter(d => (d[1] !== null)))
             .attr('class',`uuid-${uuid} datadot`)
             .enter().append("circle")
             .attr('fill', colors.main[colorid])
             .attr("r", 2)
-            .attr("cx", d => this.xScale(d[0]))
+            .attr("cx", d => this.xScaleFocused(d[0]))
             .attr("cy", d => this.yScale(d[1]))
             .on("mouseover", handleMouseOver)
             .on("mouseout", handleMouseOut)
@@ -186,17 +223,30 @@ class Chart {
 
     }
 
+    brushed(){
+        this.setScales()
+        this.resetAxes()
+        this.svg.selectAll('.line').remove()
+        this.svg.selectAll('circle').remove()
+        Object.keys(ngramData).forEach(n => {
+            this.addLine(n)
+            this.addDots(n)
+        })
+    }
+
     draw() {
+        showloadingpanel()
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: 0.1 * this.height, left: d3.min([0.3 * this.width, 150]) }
-        this.createScales()
+        this.selectorPlotHeight = 100
+        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: (0.2 * this.height) + this.selectorPlotHeight, left: d3.min([0.3 * this.width, 150]) }
+        this.setScales()
         // set up parent element and SVG
         this.element.innerHTML = ''
 
         this.svg = d3.select(this.element).append('svg')
         this.svg.attr('width', this.width)
-        this.svg.attr('height', this.margin.top + this.height + this.margin.bottom)
+        this.svg.attr('height', `${this.margin.top + this.height + this.margin.bottom}`)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
@@ -213,12 +263,62 @@ class Chart {
 
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
-            .attr('class','plot')
+            .attr('class','plot feature')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
+
+        console.table({
+            'this.width':this.width,
+            'this.height':this.height,
+            'this.margin.top':this.margin.top,
+            'this.margin.left':this.margin.left,
+            'this.margin.bottom':this.margin.bottom,
+            'this.margin.right':this.margin.right,
+            'this.selectorPlotHeight':this.selectorPlotHeight,
+            'this.xScale.domain()': this.xScale.domain(),
+            'this.xScaleFocused.domain()': this.xScaleFocused.domain(),
+            'this.yScale.range()': this.yScale.range(),
+            'this.yScaleMini.range()': this.yScaleMini.range(),
+            'this.element.classList': this.element.classList,
+            'is Subplot': this.isSubplot
+        })
+
+        this.svg.append('rect')
+            .attr("width", this.width)
+            .attr("height", this.selectorPlotHeight)
+            .attr('transform',`translate(${this.margin.left},${this.height-this.selectorPlotHeight})`)
+            .style("fill", "#EFEFEF")
+
+        let parent = this
+        const brush = d3.brushX()
+            .extent([[0, 0], [this.width-(this.margin.left), this.selectorPlotHeight]])
+            .on("brush", function(){
+                console.log("brushed!")
+                let s = d3.event.selection || xScaleFocused.range()
+                let newView = s.map(parent.xScale.invert, parent.xScale)
+                if (newView !== [params['start'],params['end']]){
+                    params['start'] = newView[0]
+                    params['end'] = newView[1]
+                    console.table({
+                        "params.start": dateFormatter(params['start']),
+                        "params.end":dateFormatter(params['end'])
+                    })
+                    parent.brushed()
+                }
+            })
+            //.on("end", this.extent([parent.xScale(params['start']),parent.xScale(params['end'])]))
+
+        this.selectorPlot = this.svg.append('g')
+            .attr("viewBox", [0, 0, this.width, this.selectorPlotHeight])
+            .attr('class','selectorPlot')
+            .attr("width", this.width)
+            .attr("height", this.selectorPlotHeight)
+            .attr('transform',`translate(${this.margin.left},${this.height-this.selectorPlotHeight})`)
+            .style("display", "block")
+            .call(brush)
+            //.call(brush.move, parent.xScaleFocused.range())
 
         this.addAxes()
         this.addLabels()
-
         this.resetAxes()
 
         Object.keys(ngramData).forEach(n => {
@@ -227,6 +327,7 @@ class Chart {
         Object.keys(ngramData).forEach(n => {
             this.addDots(n)
         })
+        setTimeout(() => hideloadingpanel(), 1000)
     }
 }
 
@@ -247,7 +348,7 @@ function makeCharts(){
 function redrawCharts(){
     console.log("Redrawing charts...")
     setRanges()
-    mainChart.draw()
+    makeCharts()
     mainChart.draw()
 }
 

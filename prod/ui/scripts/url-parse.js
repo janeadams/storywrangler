@@ -30,28 +30,28 @@ function readUrlVars() {
                     else {value = false}
                     // Set the parameter to the value from the URL
                     vars[key] = value
-                    console.log(`vars[${key}]:`)
-                    console.log(value)
+                    //console.log(`vars[${key}]:`)
+                    //console.log(value)
                 }
                 else {
                     if (paramoptions[key].includes(value)) {
                         // Accept the value from the url parameter
-                        console.log(`paramoptions for ${key} includes ${value}`)
+                        //console.log(`paramoptions for ${key} includes ${value}`)
                         // Set the parameter to the value from the URL
                         vars[key] = value
-                        console.log(`vars[${key}]:`)
-                        console.log(value)
+                        //console.log(`vars[${key}]:`)
+                        //console.log(value)
                     } else {
                         // If the value isn't one of the allowed options, set to default value
-                        console.log(`${value} is an invalid option for the ${key} parameter!`)
+                        //console.log(`${value} is an invalid option for the ${key} parameter!`)
                         vars[key] = defaultparams[key]
                     }
                 }
             }
         }
     })
-    console.log(`readURLvars() returns:`)
-    console.table(vars)
+    //console.log(`readURLvars() returns:`)
+    //console.table(vars)
     return vars
 }
 // Get the parameters from the URL
@@ -72,18 +72,18 @@ function getUrlParams() {
             console.log(`Changed params[${p}] to ${params[p]}`)
         } else { // If the parameter is not specified in the URL
             params[p] = defaultparams[p]
-            console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
+            //console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
 }
 
 function updateURL() {
     let currentURL = String(window.location.href)
-    console.log(`currentURL:`)
-    console.log(currentURL)
+    //console.log(`currentURL:`)
+    //console.log(currentURL)
     let splitURL = currentURL.split("?")
-    console.log(`splitURL:`)
-    console.log(splitURL)
+    //console.log(`splitURL:`)
+    //console.log(splitURL)
     let paramlist = []
     let isDifferent = false
     Ngrams.forEach(n => {
@@ -98,10 +98,10 @@ function updateURL() {
     }
     for (let p of Object.keys(defaultparams)) {
             if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
-                console.log(`params[${p}]:`)
-                console.log(params[p])
-                console.log(`defaultparams[${p}]:`)
-                console.log(defaultparams[p])
+                //console.log(`params[${p}]:`)
+                //console.log(params[p])
+                //console.log(`defaultparams[${p}]:`)
+                //console.log(defaultparams[p])
                 const dateVars = ['start', 'end']
                 if (dateVars.includes(p)) {
                     paramlist.push(p + "=" + dateFormatter(params[p]))
@@ -115,14 +115,14 @@ function updateURL() {
     }
     if (paramlist.length > 0){
         let newURL = String(splitURL[0]) + "?" + paramlist.join("&")
-        console.log("newURL:")
-        console.log(newURL)
+        //console.log("newURL:")
+        //console.log(newURL)
         history.pushState([],'', newURL)
     }
     else {
         let newURL = String(splitURL[0])
-        console.log("newURL:")
-        console.log(newURL)
+        //console.log("newURL:")
+        //console.log(newURL)
         history.pushState([],'', newURL)
     }
 }

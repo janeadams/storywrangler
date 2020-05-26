@@ -90,21 +90,23 @@ function loadData(query, reload) {
                     dataDates.push(pair[0])
                 }
             })
+            // Find and format the x- and y-ranges of this data set
+            ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
+            ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
+            // Add missing dates and set to value of null
+            let fullDateRange = getDates(ngramData[n]['min_date'], ngramData[n]['max_date'])
             let newData = Object.assign([], nonZero)
-            let minDate = dateParser(loadedData['min_date'])
-            let maxDate = dateParser(loadedData['max_date'])
-            /* // Add missing dates and set to value of null
-            let fullDateRange = getDates(minDate, maxDate)
             fullDateRange.forEach(date => {
-                if (dataDates.includes(date)){}
-                else {newData.push([date, null])}
-            })*/
+                if (dataDates.includes(date)){
+
+                }
+                else {
+                    newData.push([date, null])
+                }
+            })
             ngramData[n]['data'] = newData
             // Get the unique identifier (for labeling objects in-browser)
             ngramData[n]['uuid'] = loadedData['uuid']
-            // Find and format the x- and y-ranges of this data set
-            ngramData[n]['min_date'] = minDate
-            ngramData[n]['max_date'] = maxDate
             ngramData[n][`min_${params.metric}`] = loadedData[`min_${params.metric}`]
             ngramData[n][`max_${params.metric}`] = loadedData[`max_${params.metric}`]
             // Set the color identifier for this set, & cycle through
@@ -115,6 +117,7 @@ function loadData(query, reload) {
             xmaxes.push(ngramData[n]['max_date'])
             ymins.push(ngramData[n][`min_${params.metric}`])
             ymaxes.push(ngramData[n][`max_${params.metric}`])
+            setRanges()
 
         })
         let currentNgrams = Object.assign([], Ngrams)
@@ -219,6 +222,7 @@ function formatDataForDownload(){
 
 function reloadAllData() {
     console.log("Reloading all data...")
+    showloadingpanel()
     let currentNgrams = Object.assign([], Ngrams)
     clearCharts()
     Ngrams = []
@@ -228,6 +232,7 @@ function reloadAllData() {
     xmins = []
     xmaxes = []
     currentNgrams.forEach(n => loadData(n, true))
+    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function clearAll(){

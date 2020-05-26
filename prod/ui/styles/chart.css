@@ -10,11 +10,15 @@
 }
 
 #mainplot {
-    height: 400px;
+    height: 600px;
 }
 
 .subplot {
     height: 300px;
+}
+
+.yaxis-small, .xaxis-small {
+    font-size: 10px;
 }
 
 .yaxis, .xaxis {
@@ -35,14 +39,20 @@
     stroke-width: 3px;
 }
 
-.unfocus {
-    opacity: 0.3;
+.focusplot {
+    background-color: #999999;
 }
 
 /* Style the lines by removing the fill and applying a stroke */
-.line {
+.dataline {
     fill: none;
     stroke-width: 2px;
+}
+
+.selectorline {
+    fill: none;
+    stroke-width: 2px;
+    stroke-opacity: 0.5;
 }
 
 .zoom {
