@@ -129,6 +129,10 @@ li {
     color: darkgrey;
 }
 
+#filterForm ul {
+    margin: 0;
+}
+
 #filterForm h4 {
     padding: 2px 0;
     margin-block-start: 0;

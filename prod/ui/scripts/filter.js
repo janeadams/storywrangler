@@ -10,6 +10,19 @@ function setFilters() {
         d3.selectAll(`input[value =${params[p]}]`).property('checked', true)
     }
     d3.select("input[value ='rt']").property('checked', params['rt'])
+
+    Object.keys(languageCodes).forEach(language => {
+        let code = languageCodes[language]['db_code']
+        if (code === params['language']){
+            d3.select("#langFilter").select(`option[value=${code}]`).property('selected', true)
+        }
+        else {
+            d3.select("#langFilter").select(`option[value=${code}]`).property('selected', false)
+        }
+
+    })
+
+
 }
 
 function filterSubmission() {
@@ -24,6 +37,15 @@ function filterSubmission() {
             //console.log(`Changed params[${p}] to ${params[p]}`)
             isUpdated = true
             //console.log(`isUpdated = ${isUpdated}`)
+        }
+    }
+    let langChoice = d3.select("#langDropdown").property('value')
+    console.log(`langChoice: ${langChoice}`)
+    if (langChoice !== params['language']){
+        if (paramoptions['language'].includes(languageCodes[langChoice]['db_code'])){
+            params['language'] = languageCodes[langChoice]['db_code']
+            console.log(`Changed params['language'] to ${params['language']}`)
+            isUpdated = true
         }
     }
     let newRTparam = d3.select("input[value ='rt']").property('checked')

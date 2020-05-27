@@ -34,8 +34,7 @@ let today = new Date()
 // Extract year from today's date
 let thisyear = today.getFullYear()
 // Get one year ago
-let lastyeardate = new Date()
-lastyeardate.setFullYear(lastyeardate.getFullYear() - 1 );
+let lastyeardate = new Date().setFullYear(thisyear - 1);
 // January 1st, this year
 let thisfirst = new Date(thisyear, 0, 1)
 
@@ -48,7 +47,7 @@ const defaultparams = {
     "metric": "rank",
     "rt": true,
     "scale": "log",
-    "start": lastyeardate,
+    "start": new Date(2009, 8, 1), //lastyeardate,
     "end": today
 }
 
@@ -73,6 +72,7 @@ let mainChart
 let subplots = []
 let xRange = []
 let yRange = []
+let languageCodes = {}
 
 const colors = {
     'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
@@ -87,10 +87,10 @@ function colorMe(name, type='main') { return colors[type][colors["names"].indexO
 
 function setRanges() {
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
-        console.log("Setting ranges...")
+        //console.log("Setting ranges...")
         // Get the minimum and maximum values for all ngrams
         xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
-        console.log(`Setting xRange to ${xRange}`)
+        //console.log(`Setting xRange to ${xRange}`)
         // If the metric is freq, start at near-zero
         if (params['metric'] === 'freq') {
 
@@ -115,7 +115,7 @@ function setRanges() {
             }
         }
 
-        console.log(`Setting yRange to ${yRange}`)
+        //console.log(`Setting yRange to ${yRange}`)
     }
 }
 
@@ -133,6 +133,23 @@ function deepFreeze(o) {
 }
 
 function setupPage() {
+    d3.json('language_dropdown.json').then((data) => {
+        languageCodes = data
+        //console.log(data)
+        const codes = []
+        Object.keys(data).forEach(language => {
+            console.log(language)
+            codes.push(data[language]['db_code'])
+            if (data[language]['db_code']===params['language']){
+                console.log(`${data[language]['db_code']} = ${params['language']}; setting language to ${language}`)
+                d3.select("#langDropdown").append("option").text(language).attr("value",language).property('selected',true)
+            }
+            else {
+                d3.select("#langDropdown").append("option").text(language).attr("value",language).property('selected',false)
+            }
+        })
+        paramoptions['language'] = codes
+    })
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     setFilters() // Check the correct boxes in the filter form according to the parameters

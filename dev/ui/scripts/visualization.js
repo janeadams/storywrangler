@@ -11,8 +11,8 @@ class Chart {
         this.xScale = d3.scaleTime()
             .domain(xRange)
             .range([0, this.width-m.left-10])
-        console.log('this.xScale')
-        console.log(this.xScale)
+        //console.log('this.xScale')
+        //console.log(this.xScale)
         this.xScaleFocused = d3.scaleTime()
             .domain([params['start'],params['end']])
             .range([0, this.width-m.left-10])
@@ -144,23 +144,26 @@ class Chart {
         const colorid = ngramData[ngram]['colorid']
         const uuid = ngramData[ngram]['uuid']
 
-        const line = d3.line().defined(function (d) {return d[1] !== null})
+        const dataline = d3.line().defined(d => !isNaN(d[1]))
             .x(d => this.xScaleFocused(d[0]))
             .y(d => this.yScale(d[1]))
 
-        const focusline = d3.line().defined(function (d) {return d[1] !== null})
+        const focusline = d3.line().defined(d => !isNaN(d[1]))
             .x(d => this.xScale(d[0]))
             .y(d => this.yScaleMini(d[1]))
 
+        this.clipgroup.attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+
         this.clipgroup.append('path')
-            .datum(ndata.filter(line.defined()))
+            .datum(ndata)
             .attr('class',`line uuid-${uuid} dataline`)
-            .attr('stroke', colors.main[colorid] || 'gray')
+            .attr('stroke', colors.main[colorid])
             .attr('stroke-opacity', 0.3)
-            .attr('d',line)
+            .attr('d',dataline)
 
         this.selectorPlot.append('path')
-            .datum(ndata.filter(line.defined()))
+            .datum(ndata)
             .attr('class',`line uuid-${uuid} selectorline`)
             .attr('stroke', colors.main[colorid])
             .attr('stroke-opacity', 1)
@@ -180,7 +183,7 @@ class Chart {
             .style("opacity", 0)
 
         this.clipgroup.selectAll('.dot')
-            .data(ndata.filter(d => (d[1] !== null)))
+            .data(ndata.filter(d => !isNaN(d[1])))
             .attr('class',`uuid-${uuid} datadot`)
             .enter().append("circle")
             .attr('fill', colors.main[colorid])
@@ -266,7 +269,7 @@ class Chart {
             .attr('class','plot feature')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
-        console.table({
+        /*console.table({
             'this.width':this.width,
             'this.height':this.height,
             'this.margin.top':this.margin.top,
@@ -280,13 +283,7 @@ class Chart {
             'this.yScaleMini.range()': this.yScaleMini.range(),
             'this.element.classList': this.element.classList,
             'is Subplot': this.isSubplot
-        })
-
-        this.svg.append('rect')
-            .attr("width", this.width)
-            .attr("height", this.selectorPlotHeight)
-            .attr('transform',`translate(${this.margin.left},${this.height-this.selectorPlotHeight})`)
-            .style("fill", "#EFEFEF")
+        })*/
 
         let parent = this
         const brush = d3.brushX()
@@ -298,9 +295,10 @@ class Chart {
                 if (newView !== [params['start'],params['end']]){
                     params['start'] = newView[0]
                     params['end'] = newView[1]
+                    updateURL()
                     console.table({
-                        "params.start": dateFormatter(params['start']),
-                        "params.end":dateFormatter(params['end'])
+                        "params.start formatted": dateFormatter(params['start']),
+                        "params.end formatted": dateFormatter(params['end'])
                     })
                     parent.brushed()
                 }
@@ -332,7 +330,7 @@ class Chart {
 }
 
 function makeCharts(){
-    console.log("Making charts...")
+    //console.log("Making charts...")
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot')})
     /*Object.keys(ngramData).forEach(n => {
@@ -346,7 +344,7 @@ function makeCharts(){
 }
 
 function redrawCharts(){
-    console.log("Redrawing charts...")
+    //console.log("Redrawing charts...")
     setRanges()
     makeCharts()
     mainChart.draw()

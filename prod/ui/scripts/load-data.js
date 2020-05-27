@@ -1,10 +1,10 @@
 function showloadingpanel(){
-    console.log('Showing loading panel...')
+    //console.log('Showing loading panel...')
     d3.selectAll('.loadoverlay,.loader').style("display","block")
 }
 
 function hideloadingpanel(){
-    console.log('Hiding loading panel...')
+    //console.log('Hiding loading panel...')
     d3.selectAll('.loadoverlay,.loader').style("display","none")
 }
 
@@ -93,7 +93,7 @@ function loadData(query, reload) {
             // Find and format the x- and y-ranges of this data set
             ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
             ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
-            // Add missing dates and set to value of null
+            // Add missing dates and set to value to undefined
             let fullDateRange = getDates(ngramData[n]['min_date'], ngramData[n]['max_date'])
             let newData = Object.assign([], nonZero)
             fullDateRange.forEach(date => {
@@ -101,7 +101,7 @@ function loadData(query, reload) {
 
                 }
                 else {
-                    newData.push([date, null])
+                    newData.push([date, undefined])
                 }
             })
             ngramData[n]['data'] = newData

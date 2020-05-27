@@ -1,3 +1,5 @@
+const dateVars = ['start', 'end']
+
 function readUrlVars() {
     let vars = {};
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
@@ -9,9 +11,9 @@ function readUrlVars() {
         if (key==="ngrams") {
             // Create an array
             vars[key] = []
-            console.log(`Found ${value} for ${key}`)
+            //console.log(`Found ${value} for ${key}`)
             let values = value.split(",")
-            console.log(`Split ${value} into ${values}`)
+            //console.log(`Split ${value} into ${values}`)
             // Add the value to it
             values.forEach(v => {
                 if (Ngrams.includes(v)){`Ngrams already included ${v}`}
@@ -36,22 +38,27 @@ function readUrlVars() {
                 else {
                     if (paramoptions[key].includes(value)) {
                         // Accept the value from the url parameter
-                        //console.log(`paramoptions for ${key} includes ${value}`)
+                        console.log(`paramoptions for ${key} includes ${value}`)
                         // Set the parameter to the value from the URL
                         vars[key] = value
                         //console.log(`vars[${key}]:`)
                         //console.log(value)
                     } else {
                         // If the value isn't one of the allowed options, set to default value
-                        //console.log(`${value} is an invalid option for the ${key} parameter!`)
+                        console.log(`${value} is an invalid option for the ${key} parameter!`)
                         vars[key] = defaultparams[key]
                     }
+                }
+            }
+            else {
+                if (dateVars.includes(key)){ // If this is a start or end view range date
+                    vars[key] = dateParser(value)
                 }
             }
         }
     })
     //console.log(`readURLvars() returns:`)
-    //console.table(vars)
+    console.table(vars)
     return vars
 }
 // Get the parameters from the URL
@@ -72,7 +79,7 @@ function getUrlParams() {
             console.log(`Changed params[${p}] to ${params[p]}`)
         } else { // If the parameter is not specified in the URL
             params[p] = defaultparams[p]
-            //console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
+            console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
 }
@@ -102,7 +109,6 @@ function updateURL() {
                 //console.log(params[p])
                 //console.log(`defaultparams[${p}]:`)
                 //console.log(defaultparams[p])
-                const dateVars = ['start', 'end']
                 if (dateVars.includes(p)) {
                     paramlist.push(p + "=" + dateFormatter(params[p]))
                     console.log(`Added ${p}:${dateFormatter(params[p])} to paramlist. Paramlist:`)

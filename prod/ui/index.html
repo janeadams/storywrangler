@@ -38,16 +38,22 @@
             <form id="filterForm" onChange="return filterSubmission()">
                 <section id="metricFilter">
                     <ul>
-                        <li><input class="filter" type="radio" name="metric" value="rank">Rank</li>
-                        <li><input class="filter" type="radio" name="metric" value="freq">Frequency</li>
+                        <li><input class="filter" type="radio" name="metric" value="rank"><label for="rank">Rank</label></li>
+                        <li><input class="filter" type="radio" name="metric" value="freq"><label for="frequency">Frequency</label></li>
                         <!--<li><input class="filter" type="radio" name="metric" value="counts">Raw Count</li>-->
-                        <li><input class="filter" type="checkbox" name="options" value="rt">Include Retweets?</li>
+                        <li><input class="filter" type="checkbox" name="options" value="rt"><label for="retweets">Include Retweets?</label></li>
                     </ul>
                 </section>
                 <section id="scaleFilter">
                     <ul>
-                        <li><input class="filter" type="radio" name="scale" value="log">Logarithmic scale</li>
-                        <li><input class="filter" type="radio" name="scale" value="lin">Linear scale</li>
+                        <li><input class="filter" type="radio" name="scale" value="log"><label for="logarithmic">Logarithmic scale</label></li>
+                        <li><input class="filter" type="radio" name="scale" value="lin"><label for="linear">Linear scale</label></li>
+                    </ul>
+                </section>
+                <section id="langFilter">
+                    <ul>
+                        <li><label for="language">Language: <select name="languages" id="langDropdown">
+                        </select></label></li>
                     </ul>
                 </section>
             </form>
