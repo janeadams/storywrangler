@@ -1,7 +1,8 @@
 # Don't track content of these folders
 node_modules/
 debug/prod-*.txt
-*/api/logs/*
+prod/api/logs/
+dev/api/logs/
 .*
 ai/
 notes/

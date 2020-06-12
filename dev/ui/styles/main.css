@@ -146,6 +146,11 @@ main {
     padding: 0 5% 80px 5%;
 }
 
+.teaser {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .textblock p {
     line-height: 160%;
     font-size: 1.4em;

@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="styles/main.css">
     <link rel="stylesheet" type="text/css" href="styles/query.css">
     <link rel="stylesheet" type="text/css" href="styles/chart.css">
-    <link href="https://fonts.googleapis.com/css?family=Pangolin&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -34,7 +33,7 @@
         </div>
     </header>
     <main>
-        <div class="textblock teaser"><p>A visual comparison of phrase popularity in 150 billion tweets. Read more <a href="about.html" target="_blank">here</a>.</p></div>
+        <div class="textblock teaser"><p>Details of phrase popularity in 150 billion tweets, visualized. Read more <a href="about.html" target="_blank">here</a>.</p></div>
         <!-- Search bar and filters -->
         <section class="controls">
             <!-- Search bar -->
@@ -43,8 +42,6 @@
                     <ul>
                         <li><input class="filter" type="radio" name="metric" value="rank"><label for="rank">Rank</label></li>
                         <li><input class="filter" type="radio" name="metric" value="freq"><label for="frequency">Frequency</label></li>
-                        <!--<li><input class="filter" type="radio" name="metric" value="counts">Raw Count</li>-->
-                        <li><input class="filter" type="checkbox" name="options" value="rt"><label for="retweets">Include Retweets?</label></li>
                     </ul>
                 </section>
                 <section id="scaleFilter">
@@ -62,15 +59,8 @@
             </form>
             <form autocomplete="off" id="queryForm" onSubmit="return querySubmission()">
                     <input name="query" type="text" id="queryInput" placeholder='Enter a query' class="form-control">
-                    <input type="submit" value="ADD TERM">
+                    <input type="submit" value="SHOW DETAILS">
             </form>
-
-            <div id="ngramContainer"><!-- Queries inputted -->
-                <ul id="ngramList">
-                    <li id="clearall" class="mgmt" onclick="clearAll()">X</li>
-                    <li id="download" class="mgmt"><a target="_blank">DOWNLOAD</a></li>
-                </ul>
-            </div>
         </section>
 
         <!-- Data visualization area -->
@@ -78,6 +68,7 @@
             <div id="mainplot" class="main">
 
             </div>
+        <!--<p>A visualization of phrase popularity in 150 billion tweets. Read more <a href="about.html" target="_blank">here</a>.</p>-->
         </section>
 
     </main>
@@ -93,16 +84,16 @@
     <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.independent.js"></script>
-    <script type='text/javascript' src="scripts/compare/data.js"></script>
-    <script type='text/javascript' src="scripts/compare/download.js"></script>
+    <script type='text/javascript' src="scripts/details/data.js"></script>
+    <script type='text/javascript' src="scripts/details/download.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>
-    <script type='text/javascript' src="scripts/compare/url.js"></script>
+    <script type='text/javascript' src="scripts/details/url.js"></script>
     <script type='text/javascript' src="scripts/url-parse.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
-    <script type='text/javascript' src="scripts/compare/compare-viz.js"></script>
+    <script type='text/javascript' src="scripts/details/details-viz.js"></script>
     <script type='text/javascript' src="scripts/visualization.js"></script>
     <script type='text/javascript' src="scripts/main.js"></script>
-    <script type='text/javascript' src="scripts/compare/setup.js"></script>
+    <script type='text/javascript' src="scripts/details/setup.js"></script>
     <script type='text/javascript' src="scripts/filter.js"></script>
     <script type='text/javascript'>window.onload = setupPage</script>
     <!--<script type='text/javascript' src="scripts/autocomplete.js"></script>-->

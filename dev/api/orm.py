@@ -30,6 +30,8 @@ with open('dev/api/ngrams.bin', "rb") as f:
 with open('dev/api/language_support.json', 'r') as f:
     language_support = json.load(f)
 
+language_codes = pd.read_csv('dev/api/language_codes.csv')
+
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.config['JSON_SORT_KEYS'] = False
@@ -116,7 +118,7 @@ def get_data(query):
         src = str(request.args.get('src'))
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
     language = str(request.args.get('language'))
-    if language in language_support['1grams']:
+    if language in language_codes['db_code']:
         language = language
     else:
         language = 'en'
@@ -155,7 +157,7 @@ def get_data(query):
                 df = df[df['rank'] < 1000000] # Drop entries below rank 1M
                 df = df[df['rank_noRT'] < 1000000]
                 df['time'] = [str(t)[:10] for t in df['time']]
-                df['time'] = [dt.datetime.strptime(t, '%Y-%m-%d').date() for t in df['time']]
+                df['time'] = [dt.datetime.strptime(t, '%Y-%m-%d').date() + datetime.timedelta(days=1) for t in df['time']]
                 df=df[df['time']>=(dt.date(2009,8,1))]
                 df.sort_values(by='time',ascending=True,inplace=True)
                 df['time']=[t.strftime("%Y-%m-%d") for t in df['time']]

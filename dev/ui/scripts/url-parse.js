@@ -6,21 +6,15 @@ function readUrlVars() {
         console.log(`Read URL key = ${key} / value = ${value}`)
         // Parse arrays:
         value = value.replace("[", "").replace("/]", "")
-
         // If the parameter should be formatted as an array:
-        if (key==="ngrams") {
-            // Create an array
-            vars[key] = []
-            //console.log(`Found ${value} for ${key}`)
-            let values = value.split(",")
-            //console.log(`Split ${value} into ${values}`)
-            // Add the value to it
-            values.forEach(v => {
-                if (Ngrams.includes(v)){`Ngrams already included ${v}`}
-                else {vars[key].push(decodeURIComponent(v))}
-            })
+        if ((key==="ngrams") || (key==="ngram")) {
+            console.log("in the ngrams section of readUrlVars()")
+            console.table({'key':key,'value':value})
+            vars[key] = readUrlNgrams(value)
         }
         else {
+            console.log("NOT in the ngrams section of readUrlVars()")
+            console.table({'key':key,'value':value})
             // If the parameter has a specified set of options:
             if (Object.keys(paramoptions).includes(key)) {
                 //console.log("paramoptions includes ", key)
@@ -63,14 +57,8 @@ function readUrlVars() {
 }
 // Get the parameters from the URL
 function getUrlParams() {
-    let newNgrams
-    if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
-        newNgrams = readUrlVars()["ngrams"] // Add the ngrams specified in the URL
-    }
-    else {
-        newNgrams = Object.assign([],defaultNgrams) // Set to default ngrams
-    }
-    newNgrams.forEach(n => loadData(n, true))
+
+    getUrlNgrams()
 
     Object.keys(defaultparams).forEach(p => { // For all parameters
         // If the parameter is in the URL
@@ -82,6 +70,8 @@ function getUrlParams() {
             console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
+
+    initializeData()
 }
 
 function updateURL() {
@@ -92,32 +82,24 @@ function updateURL() {
     //console.log(`splitURL:`)
     //console.log(splitURL)
     let paramlist = []
-    let isDifferent = false
-    Ngrams.forEach(n => {
-        if (n in defaultNgrams){}
-        else {isDifferent = true}
-    })
-    if (isDifferent){
-        let encoded = []
-        Ngrams.forEach(n => encoded.push(encodeURIComponent(n)))
-        paramlist.push("ngrams=" + encoded)
-        Ngrams.forEach(n => loadData(n, false))
+    if (checkDifferent()){
+        paramlist.push(getUrlNgramParams())
     }
     for (let p of Object.keys(defaultparams)) {
-            if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
-                //console.log(`params[${p}]:`)
-                //console.log(params[p])
-                //console.log(`defaultparams[${p}]:`)
-                //console.log(defaultparams[p])
-                if (dateVars.includes(p)) {
-                    paramlist.push(p + "=" + dateFormatter(params[p]))
-                    console.log(`Added ${p}:${dateFormatter(params[p])} to paramlist. Paramlist:`)
-                } else {
-                    paramlist.push(p + "=" + params[p])
-                    //console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
-                }
-                console.log(paramlist)
+        if (params[p] !== defaultparams[p]) { // If the parameter doesn't match the defaults
+            //console.log(`params[${p}]:`)
+            //console.log(params[p])
+            //console.log(`defaultparams[${p}]:`)
+            //console.log(defaultparams[p])
+            if (dateVars.includes(p)) {
+                paramlist.push(p + "=" + dateFormatter(params[p]))
+                console.log(`Added ${p}:${dateFormatter(params[p])} to paramlist. Paramlist:`)
+            } else {
+                paramlist.push(p + "=" + params[p])
+                //console.log(`Added ${p}:${params[p]} to paramlist. Paramlist:`)
             }
+            console.log(paramlist)
+        }
     }
     if (paramlist.length > 0){
         let newURL = String(splitURL[0]) + "?" + paramlist.join("&")

@@ -112,24 +112,34 @@ class Chart {
             .attr("y", this.margin.top + 10)
             .attr("x", 10)
             .attr("dy", "0.5em")
-            .text("Lexical")
+            .text("Famous")
+            /*
             .append('svg:tspan')
             .attr('x', 10)
             .attr('dy', "1em")
-            .text("Fame")
+            .text("talked")
+            .append('svg:tspan')
+            .attr('x', 10)
+            .attr('dy', "1.2em")
+            .text("about")
+            */
 
 
         this.svg.append("text")
             .attr("class","axislabel")
             .attr("text-anchor", "start")
-            .attr("y", this.height - this.margin.top - this.margin.bottom)
+            .attr("y", this.height - this.margin.bottom)
             .attr("x", 10)
             .attr("dy", "0.5em")
-            .text("Lexical")
+            .text("Obscure")
+            /*.append('svg:tspan')
+            .attr('x', 10)
+            .attr('dy', "1.2em")
+            .text("talked")
             .append('svg:tspan')
             .attr('x', 10)
-            .attr('dy', "1em")
-            .text("Abyss")
+            .attr('dy', "1.2em")
+            .text("about")*/
     }
 
     resetAxes(){
@@ -138,11 +148,7 @@ class Chart {
         this.addAxes()
     }
 
-    addLine(ngram) {
-        //console.log(`Adding line for ${ngram} to ${this.plot.attr('class')}`)
-        const ndata = ngramData[ngram]['data']
-        const colorid = ngramData[ngram]['colorid']
-        const uuid = ngramData[ngram]['uuid']
+    addLine(ndata, colorid, uuid) {
 
         const dataline = d3.line().defined(d => !isNaN(d[1]))
             .x(d => this.xScaleFocused(d[0]))
@@ -170,12 +176,7 @@ class Chart {
             .attr('d',focusline)
     }
 
-    addDots(ngram) {
-        //console.log(`Adding line for ${ngram} to ${this.plot.attr('class')}`)
-        const ndata = ngramData[ngram]['data']
-        const colorid = ngramData[ngram]['colorid']
-        const uuid = ngramData[ngram]['uuid']
-
+    addDots(ngram, ndata, colorid, uuid, RTlabel) {
 
         // Define the div for the tooltip
         let div = d3.select("body").append("div")
@@ -184,8 +185,8 @@ class Chart {
 
         this.clipgroup.selectAll('.dot')
             .data(ndata.filter(d => !isNaN(d[1])))
-            .attr('class',`uuid-${uuid} datadot`)
             .enter().append("circle")
+            .attr('class',`uuid-${uuid} datadot`)
             .attr('fill', colors.main[colorid])
             .attr("r", 2)
             .attr("cx", d => this.xScaleFocused(d[0]))
@@ -208,9 +209,7 @@ class Chart {
                 else {
                     formattedValue = d3.format(",")(d[1])
                 }
-                let RTlabel
-                if (params['rt']===true) { RTlabel = '(Includes retweets)'}
-                else {RTlabel = '(Does not include retweets)'}
+
                 div.html(`<span style="font-weight:bold; color:${colors.dark[colorid]};">${ngram}</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
                     .style("left", (d3.event.pageX + 5) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
@@ -218,7 +217,7 @@ class Chart {
             function handleMouseOut() {
                 d3.select(this).style("r", 2).style("fill",colors.main[colorid])
                 div.transition()
-                    .duration(500)
+                    .duration(0)
                     .style("opacity", 0);
                 div.style("left", "0px")
                     .style("top", "0px")
@@ -231,10 +230,7 @@ class Chart {
         this.resetAxes()
         this.svg.selectAll('.line').remove()
         this.svg.selectAll('circle').remove()
-        Object.keys(ngramData).forEach(n => {
-            this.addLine(n)
-            this.addDots(n)
-        })
+        addGlyphs(this)
     }
 
     draw() {
@@ -269,22 +265,6 @@ class Chart {
             .attr('class','plot feature')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
-        /*console.table({
-            'this.width':this.width,
-            'this.height':this.height,
-            'this.margin.top':this.margin.top,
-            'this.margin.left':this.margin.left,
-            'this.margin.bottom':this.margin.bottom,
-            'this.margin.right':this.margin.right,
-            'this.selectorPlotHeight':this.selectorPlotHeight,
-            'this.xScale.domain()': this.xScale.domain(),
-            'this.xScaleFocused.domain()': this.xScaleFocused.domain(),
-            'this.yScale.range()': this.yScale.range(),
-            'this.yScaleMini.range()': this.yScaleMini.range(),
-            'this.element.classList': this.element.classList,
-            'is Subplot': this.isSubplot
-        })*/
-
         let parent = this
         const brush = d3.brushX()
             .extent([[0, 0], [this.width-(this.margin.left), this.selectorPlotHeight]])
@@ -318,26 +298,16 @@ class Chart {
         this.addAxes()
         this.addLabels()
         this.resetAxes()
+        addGlyphs(this)
 
-        Object.keys(ngramData).forEach(n => {
-            this.addLine(n)
-        })
-        Object.keys(ngramData).forEach(n => {
-            this.addDots(n)
-        })
         setTimeout(() => hideloadingpanel(), 1000)
     }
 }
 
 function makeCharts(){
-    //console.log("Making charts...")
+    console.log("Making charts...")
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot')})
-    /*Object.keys(ngramData).forEach(n => {
-        d3.select('#subplot-list').append('div').attr('class', `subplot ${ngramData[n]['uuid']}`)
-        const s = new Chart({element: document.querySelector('.subplot')})
-        s.draw()
-    })*/
     d3.select(window).on('resize', () => {
         mainChart.draw()
     })
@@ -346,13 +316,5 @@ function makeCharts(){
 function redrawCharts(){
     //console.log("Redrawing charts...")
     setRanges()
-    makeCharts()
     mainChart.draw()
-}
-
-function clearCharts(){
-    console.log("Clearing all charts...")
-    Ngrams.forEach(n => {
-        removeNgram(n)
-    })
 }
