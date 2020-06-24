@@ -13,16 +13,18 @@
 </head>
 
 <body>
-<div class="loadoverlay"><div class="loader"></div></div>
+    <div class="loadoverlay"><div class="loader"></div></div>
     <header>
         <a href="https://storywrangling.org">
-        <div id="logo">
-            <img src="img/storywrangler_small.svg" alt="Story Wrangler: stories from the Twitterverse. From the University of Vermont Complex Systems Center">
-            <p>from the University of Vermont Computational Story Lab</p>
-        </div>
+            <div id="logo">
+                <img src="img/storywrangler_small.svg" alt="Story Wrangler: stories from the Twitterverse. From the University of Vermont Complex Systems Center">
+                <p>from the University of Vermont Computational Story Lab</p>
+            </div>
         </a>
         <div id="navigation">
             <ul id="menu">
+                <li><a href="index.html">Compare</a></li>
+                <li><a href="details.html">Details</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
             <ul class="social">
@@ -32,6 +34,7 @@
         </div>
     </header>
     <main>
+        <div class="textblock teaser"><p>A visual comparison of phrase popularity in 150 billion tweets. Read more <a href="about.html" target="_blank">here</a>.</p></div>
         <!-- Search bar and filters -->
         <section class="controls">
             <!-- Search bar -->
@@ -75,7 +78,6 @@
             <div id="mainplot" class="main">
 
             </div>
-        <!--<p>A visualization of phrase popularity in 150 billion tweets. Read more <a href="about.html" target="_blank">here</a>.</p>-->
         </section>
 
     </main>
@@ -91,11 +93,16 @@
     <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.independent.js"></script>
+    <script type='text/javascript' src="scripts/compare/data.js"></script>
+    <script type='text/javascript' src="scripts/compare/download.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>
+    <script type='text/javascript' src="scripts/compare/url.js"></script>
     <script type='text/javascript' src="scripts/url-parse.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
+    <script type='text/javascript' src="scripts/compare/viz.js"></script>
     <script type='text/javascript' src="scripts/visualization.js"></script>
-    <script type='text/javascript' src="scripts/setup.js"></script>
+    <script type='text/javascript' src="scripts/main.js"></script>
+    <script type='text/javascript' src="scripts/compare/setup.js"></script>
     <script type='text/javascript' src="scripts/filter.js"></script>
     <script type='text/javascript'>window.onload = setupPage</script>
     <!--<script type='text/javascript' src="scripts/autocomplete.js"></script>-->

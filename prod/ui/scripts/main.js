@@ -1,4 +1,53 @@
-console.log("Loading setup.js")
+let params = {}
+let ngramData = {}
+
+let xmins = []
+let xmaxes = []
+let ymins = []
+let ymaxes = []
+let mainChart
+let xRange = []
+let yRange = []
+let languageCodes = {}
+
+const suggestions = ["haha", "happy new year", "#throwbackthursday", "😊"]
+
+// Limit options for certain parameters
+const paramoptions = {
+    "language": ["en","es","ru","fr"],
+    "metric": ["rank", "freq"], //["rank", "counts", "freq"],
+    "scale": ["log", "lin"]
+}
+
+// Today's date
+let today = new Date()
+// Extract year from today's date
+let thisyear = today.getFullYear()
+// Get one year ago
+let lastyeardate = new Date().setFullYear(thisyear - 1);
+// January 1st, this year
+let thisfirst = new Date(thisyear, 0, 1)
+
+// Set default options
+const defaultparams = {
+    "language": "en",
+    "metric": "rank",
+    "scale": "log",
+    //"start": new Date(2009, 8, 1), //lastyeardate,
+    "start": lastyeardate,
+    "end": today
+}
+
+const colors = {
+    'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
+    'main': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
+    'dark': ["#0681A2", "#649946", "#cf7b11", "#8D51A0", "#A01D21", "#252E6C", "#197352", "#931E59", "#562F2C", "#8B8633", "#A23522"],
+    'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
+}
+
+// Simple function for finding the fill, stroke, or tint by the color group name
+function colorMe(name, type='main') { return colors[type][colors["names"].indexOf(name)] }
+//console.log(colorMe("sky"))
 
 function sentenceCase (str) {
     if ((str===null) || (str===''))
@@ -29,61 +78,15 @@ function getDates(startDate, stopDate) {
     return dateArray;
 }
 
-// Today's date
-let today = new Date()
-// Extract year from today's date
-let thisyear = today.getFullYear()
-// Get one year ago
-let lastyeardate = new Date().setFullYear(thisyear - 1);
-// January 1st, this year
-let thisfirst = new Date(thisyear, 0, 1)
+const fullDateRange = getDates(new Date(2009,9,1), today)
 
-const defaultNgrams = ["hahaha","one two three","#friday","🦠"]
-const suggestions = ["haha", "happy new year", "#throwbackthursday", "😊"]
-
-// Set default options
-const defaultparams = {
-    "language": "en",
-    "metric": "rank",
-    "rt": true,
-    "scale": "log",
-    "start": new Date(2009, 8, 1), //lastyeardate,
-    "end": today
+function filterMax(data) {
+    if (params['metric'] === 'rank') {
+        return data.filter(d => d[1] < 1000000)
+    } else {
+        return data.filter(d => !isNaN(d[1]))
+    }
 }
-
-let Ngrams = []
-let params = {}
-
-// Limit options for certain parameters
-const paramoptions = {
-    "language": ["en","es","ru","fr"],
-    "metric": ["rank", "freq"], //["rank", "counts", "freq"],
-    "scale": ["log", "lin"],
-    "rt": [true,false]
-}
-
-let i = 0 // For counting which color to choose for the ngram
-let ngramData = {}
-let xmins = []
-let xmaxes = []
-let ymins = []
-let ymaxes = []
-let mainChart
-let subplots = []
-let xRange = []
-let yRange = []
-let languageCodes = {}
-
-const colors = {
-    'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
-    'main': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
-    'dark': ["#0681A2", "#649946", "#cf7b11", "#8D51A0", "#A01D21", "#252E6C", "#197352", "#931E59", "#562F2C", "#8B8633", "#A23522"],
-    'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
-}
-
-// Simple function for finding the fill, stroke, or tint by the color group name
-function colorMe(name, type='main') { return colors[type][colors["names"].indexOf(name)] }
-//console.log(colorMe("sky"))
 
 function setRanges() {
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
@@ -95,7 +98,7 @@ function setRanges() {
         if (params['metric'] === 'freq') {
 
             if (params['scale'] === 'log') {
-                yRange[0] = d3.max([d3.min(ymins), 0.00000001])
+                yRange[0] = d3.max([d3.min(ymins), 0.000000001])
                 yRange[1] = 0.1
             }
             else {
@@ -132,13 +135,12 @@ function deepFreeze(o) {
     return o
 }
 
-function setupPage() {
+function buildLanguageDropdown(){
     d3.json('language_dropdown.json').then((data) => {
         languageCodes = data
         //console.log(data)
         const codes = []
         Object.keys(data).forEach(language => {
-            console.log(language)
             codes.push(data[language]['db_code'])
             if (data[language]['db_code']===params['language']){
                 console.log(`${data[language]['db_code']} = ${params['language']}; setting language to ${language}`)
@@ -150,7 +152,23 @@ function setupPage() {
         })
         paramoptions['language'] = codes
     })
+}
+
+function setupPage() {
+    console.log(
+        "   _____ _                __          __                    _           \n" +
+        "  / ____| |               \\ \\        / /                   | |          \n" +
+        " | (___ | |_ ___  _ __ _   \\ \\  /\\  / / __ __ _ _ __   __ _| | ___ _ __ \n" +
+        "  \\___ \\| __/ _ \\| '__| | | \\ \\/  \\/ / '__/ _` | '_ \\ / _` | |/ _ \\ '__|\n" +
+        "  ____) | || (_) | |  | |_| |\\  /\\  /| | | (_| | | | | (_| | |  __/ |   \n" +
+        " |_____/ \\__\\___/|_|   \\__, | \\/  \\/ |_|  \\__,_|_| |_|\\__, |_|\\___|_|   \n" +
+        "                        __/ |                          __/ |            \n" +
+        "                       |___/                          |___/             \n\n" +
+        "UI & API by Jane Adams, Data Visualization Artist\nGet in touch on Twitter @artistjaneadams\n\n"
+    )
+    buildLanguageDropdown()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     setFilters() // Check the correct boxes in the filter form according to the parameters
+    makeCharts()
 }

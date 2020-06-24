@@ -8,233 +8,68 @@ function hideloadingpanel(){
     d3.selectAll('.loadoverlay,.loader').style("display","none")
 }
 
-function loadData(query, reload) {
-
-    console.log(`Loading data for ${query}. Force a reload? ${reload}`)
-
-    if (query==='"'){
-        console.log("Sorry, we don't support searches for the double quotation mark at this time")
-        //alert("Sorry, we don't support searches for the double quotation mark at this time")
-        return
-    }
-
-
-    if (reload===false) {
-        if (Object.keys(ngramData).includes(query)) {
-            console.log(`${query} is already in the ngram data`)
-            return
+function formatData(data){
+    let loadedData = data
+    let formattedData = {}
+    // Parse all the dates
+    let allPairs = loadedData['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
+    // Remove zeroes from counts and frequency data sets
+    let nonZero = []
+    let dataDates = []
+    allPairs.forEach(pair => {
+        if (pair[1] !== 0) {
+            nonZero.push(pair)
+            dataDates.push(dateFormatter(pair[0]))
         }
-    }
-    else {
-        if (Object.keys(ngramData).includes(query)) {
-            removeNgram(query)
-        }
-    }
-    // Pull the JSON data
-    let formatted_query = encodeURIComponent(query.replace('"',''))
-    //console.log(`Formatted query: ${formatted_query}`)
-    let currentURL = String(window.location.href)
-    let splitURL = currentURL.split("?")
-    let APIsource = "https://storywrangling.org"
-    if (splitURL[0].includes(":8051")){
-        APIsource = "http://hydra.uvm.edu:3000"
-    }
-    let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
-    console.log(`Querying API URL:`)
-    console.log(url)
-    d3.json(url).then((data, error) => {
-        showloadingpanel()
-        //errors.append(data['errors'])
-        console.log(`Received API response:`)
-        let debug = {}
-        let debugvals = ['ngrams','database','metric','rt','language','errors']
-        debugvals.forEach(v => (debug[v]=[data[v]]))
-        console.table(debug)
-        let newNgrams = []
-        data['ngrams'].forEach(n => {
-            if (n==='"'){
-                console.log("Sorry, we don't support searches for the double quotation mark at this time")
-                //alert("Sorry, we don't support searches for the double quotation mark at this time")
-            }
-            else {
-                // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
-                if (Object.keys(ngramData).includes(n)) {
-                    if (reload===false){
-                        console.log(`${n} was already added to the ngram data`)
-                    }
-                    else {
-                        delete ngramData[n]
-                        newNgrams.push(n)
-                    }
-                }
-                else if (data['ngramdata'][n] == null) {
-                    console.log(`No data available for ${n}`)
-                    alert(`Sorry! We couldn't find any ${data['metric']} data for ${n} in the ${data['language']} ${data['database']}grams database`)
-                }
-                else {
-                    newNgrams.push(n)
-                }
-            }
-        })
-        newNgrams.forEach(n => {
-            ngramData[n] = {}
-            let loadedData = data['ngramdata'][n]
-            // Parse all the dates
-            let allPairs = loadedData['data'].map(tuple => [dateParser(tuple[0]),tuple[1]])
-            // Remove zeroes from counts and frequency data sets
-            let nonZero = []
-            let dataDates = []
-            allPairs.forEach(pair => {
-                if (pair[1] !== 0){
-                    nonZero.push(pair)
-                    dataDates.push(pair[0])
-                }
-            })
-            // Find and format the x- and y-ranges of this data set
-            ngramData[n]['min_date'] = dateParser(loadedData['min_date'])
-            ngramData[n]['max_date'] = dateParser(loadedData['max_date'])
-            // Add missing dates and set to value to undefined
-            let fullDateRange = getDates(ngramData[n]['min_date'], ngramData[n]['max_date'])
-            let newData = Object.assign([], nonZero)
-            fullDateRange.forEach(date => {
-                if (dataDates.includes(date)){
-
-                }
-                else {
-                    newData.push([date, undefined])
-                }
-            })
-            ngramData[n]['data'] = newData
-            // Get the unique identifier (for labeling objects in-browser)
-            ngramData[n]['uuid'] = loadedData['uuid']
-            ngramData[n][`min_${params.metric}`] = loadedData[`min_${params.metric}`]
-            ngramData[n][`max_${params.metric}`] = loadedData[`max_${params.metric}`]
-            // Set the color identifier for this set, & cycle through
-            ngramData[n]['colorid']=i
-            i+=1
-            if (i > 10){i=0}
-            xmins.push(ngramData[n]['min_date'])
-            xmaxes.push(ngramData[n]['max_date'])
-            ymins.push(ngramData[n][`min_${params.metric}`])
-            ymaxes.push(ngramData[n][`max_${params.metric}`])
-            setRanges()
-
-        })
-        let currentNgrams = Object.assign([], Ngrams)
-        newNgrams.forEach(n => {
-            // If this ngram is already in the params ngrams list
-            if (currentNgrams.includes(n)){} // do nothing
-            else {
-                currentNgrams.push(n)
-                Ngrams = currentNgrams } // otherwise, add it
-            addNgram(n)
-        })
-        if (newNgrams.length > 0) { // If new ngrams have been added...
-            redrawCharts()
-            updateURL()
-        }
-        setTimeout(() => hideloadingpanel(), 3000)
     })
+    // Find and format the x- and y-ranges of this data set
+    formattedData['min_date'] = dateParser(loadedData['min_date'])
+    formattedData['max_date'] = dateParser(loadedData['max_date'])
+    // Add missing dates and set to value to undefined
+    let withNulls = Object.assign([], nonZero)
+    fullDateRange.forEach(date => {
+        if (dataDates.includes(dateFormatter(date))) {
+        } else {
+            if (params['metric']=='rank'){
+                withNulls.push([date, 1000000])
+            }
+            else {
+                withNulls.push([date, undefined])
+            }
+        }
+    })
+    let sorted = withNulls.sort(function(a, b) {
+        if (a[0] < b[0]) {
+            return -1;
+        }
+        if (a[0] > b[0]) {
+            return 1;
+        }
+        return 0
+    })
+    formattedData['data'] = sorted
+    // Get the unique identifier (for labeling objects in-browser)
+    formattedData['uuid'] = loadedData['uuid']
+    formattedData[`min_${params.metric}`] = loadedData[`min_${params.metric}`]
+    formattedData[`max_${params.metric}`] = loadedData[`max_${params.metric}`]
+    xmins.push(formattedData['min_date'])
+    xmaxes.push(formattedData['max_date'])
+    ymins.push(formattedData[`min_${params.metric}`])
+    ymaxes.push(formattedData[`max_${params.metric}`])
+    return formattedData
 }
 
-function setButtons(){
-    if (Ngrams.length < 1){
-        d3.selectAll(".mgmt").style("display","none")
-    }
-    else {
-        d3.select("#download").select('a').attr("href", formatDataForDownload()).attr("download","storywrangler_data.json")
-        d3.selectAll(".mgmt").style("display","inline-block")
-    }
-}
-
-
-// When the list item is clicked for a particular word...
-function removeNgram(n) {
-    setTimeout(() => showloadingpanel(), 1000)
-    const thisdata = ngramData[n]
-    let uuid = thisdata['uuid']
-    //console.log(`removing all elements with uuid ${uuid}`)
-    d3.selectAll('.uuid-'+uuid).remove()
-    // Filter the ngram list to include every ngram except this one
-    Ngrams = Ngrams.filter(ele => ele !== n)
-    // Remove these mins and maxes
-    xmins = xmins.filter(ele => ele !== thisdata['min_date'])
-    console.log(`Removed ${thisdata['min_date']} from xmins`)
-    xmaxes = xmaxes.filter(ele => ele !== thisdata['max_date'])
-    console.log(`Removed ${thisdata['max_date']} from xmaxes`)
-    ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
-    console.log(`Removed ${thisdata['min_'+params.metric]} from ymins`)
-    ymaxes = ymaxes.filter(ele => ele !== thisdata[`max_${params.metric}`])
-    console.log(`Removed ${thisdata['max_'+params.metric]} from ymaxes`)
-    // Delete the word from the list of ngram data
-    delete ngramData[n]
-
-    //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
-    setButtons()
-    redrawCharts()
-    updateURL()
-    setTimeout(() => hideloadingpanel(), 1000)
-}
-
-// When a word is submitted via inputClick...
-function addNgram(n) {
-
-    ndata = ngramData[n] // create a shortcut for accessing this specific ngram's data
-    console.log(`Added data for ${n} to data list; ngram data list length = ${Ngrams.length}`)
-    // Add the word as a list item so the user knows it's been added and can delete later
-    d3.select("#ngramList").append("li")
-        .text(n)
-        .attr("class", `uuid-${ndata['uuid']} nitem`)
-        .style("color", colors.dark[ndata['colorid']])
-        .style("border-color", colors.main[ndata['colorid']])
-        .style("background-color", colors.light[ndata['colorid']])
-        .on("click", function () {
-            console.log(`Clicked list item ${n}`)
-            removeNgram(n)
-        })
-
-    setButtons()
-}
-
-
-function formatDataForDownload(){
-    setTimeout(() => showloadingpanel(), 1000)
-    let allData
-    if(Object.keys(ngramData).length > 0) {
-        let downloadData = {}
-        Object.keys(ngramData).forEach(n => {
-            downloadData[n] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
-        })
-        let metaData = {}
-        metaData['ngrams'] = Ngrams
-        let metrics = ['metric','language','rt']
-        metrics.forEach(m => {
-            metaData[m] = params[m]
-        })
-        allData = {'metadata': metaData, 'data': downloadData}
-    }
-    else {
-        allData = {'metadata': "Error! No data"}
-    }
-    setTimeout(() => hideloadingpanel(), 1000)
-    return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))
-}
-
-function reloadAllData() {
-    console.log("Reloading all data...")
-    showloadingpanel()
-    let currentNgrams = Object.assign([], Ngrams)
-    clearCharts()
-    Ngrams = []
+function clearData(){
     ngramData = {}
     ymins = []
     ymaxes = []
     xmins = []
     xmaxes = []
-    currentNgrams.forEach(n => loadData(n, true))
-    setTimeout(() => hideloadingpanel(), 1000)
 }
 
-function clearAll(){
-    Ngrams.forEach(n => removeNgram(n))
+function resetPage(){
+    if (compare) {setButtons()}
+    //setRanges()
+    redrawCharts()
+    updateURL()
 }

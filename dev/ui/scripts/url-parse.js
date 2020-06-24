@@ -57,8 +57,7 @@ function readUrlVars() {
 }
 // Get the parameters from the URL
 function getUrlParams() {
-
-    getUrlNgrams()
+    console.log("Getting URL params")
 
     Object.keys(defaultparams).forEach(p => { // For all parameters
         // If the parameter is in the URL
@@ -70,7 +69,8 @@ function getUrlParams() {
             console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
-
+    translateDefaults()
+    getUrlNgrams()
     initializeData()
 }
 
@@ -82,6 +82,7 @@ function updateURL() {
     //console.log(`splitURL:`)
     //console.log(splitURL)
     let paramlist = []
+    translateDefaults()
     if (checkDifferent()){
         paramlist.push(getUrlNgramParams())
     }

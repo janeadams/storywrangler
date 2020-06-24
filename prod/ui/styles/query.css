@@ -104,7 +104,7 @@
 }
 
 #queryForm input[type=submit] {
-    background-color: #F3B544;
+    background-color: #666;
     color: #fff;
     cursor: pointer;
     width: 25%;
@@ -163,14 +163,26 @@ li {
 }
 
 @media screen and (max-width: 1000px) {
+    #queryForm input[type=text],
+    #queryForm input[type=submit] {
+        margin: 10px auto;
+    }
 
     #queryForm input[type=text],
     #queryForm input[type=submit],
     #filterForm section {
         width: 90%;
-        margin: 10px auto;
         float: none;
         box-sizing: unset;
+    }
+    #filterForm section {
+        margin: 0px auto;
+    }
+
+
+    .teaser {
+        padding-top: 0;
+        padding-bottom: 0;
     }
 }
 

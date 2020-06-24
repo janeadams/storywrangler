@@ -11,6 +11,9 @@ class Chart {
         this.xScale = d3.scaleTime()
             .domain(xRange)
             .range([0, this.width-m.left-10])
+        this.xScaleSelector = d3.scaleTime()
+            .domain(xRange)
+            .range([0, this.width])
         //console.log('this.xScale')
         //console.log(this.xScale)
         this.xScaleFocused = d3.scaleTime()
@@ -49,8 +52,8 @@ class Chart {
             .scale(this.xScaleFocused)
             .ticks(12)
 
-        const xAxisAll = d3.axisBottom()
-            .scale(this.xScale)
+        const xAxisSelector = d3.axisBottom()
+            .scale(this.xScaleSelector)
             .ticks(d3.timeYear)
 
         const yAxis = d3.axisLeft()
@@ -89,11 +92,11 @@ class Chart {
         this.selectorPlot.append("g")
             .attr("class", "xaxis-small")
             .attr("transform", `translate(0, ${this.selectorPlotHeight})`)
-            .call(xAxisAll)
+            .call(xAxisSelector)
 
-        this.selectorPlot.append("g")
+        /*this.selectorPlot.append("g")
             .attr("class", "yaxis-small")
-            .call(yAxisMini)
+            .call(yAxisMini)*/
     }
 
     addLabels(){
@@ -145,84 +148,9 @@ class Chart {
     resetAxes(){
         d3.select(this.element).selectAll(".xaxis").remove()
         d3.select(this.element).selectAll(".yaxis").remove()
+        d3.select(this.element).selectAll(".xaxis-small").remove()
+        d3.select(this.element).selectAll(".yaxis-small").remove()
         this.addAxes()
-    }
-
-    addLine(ndata, colorid, uuid) {
-
-        const dataline = d3.line().defined(d => !isNaN(d[1]))
-            .x(d => this.xScaleFocused(d[0]))
-            .y(d => this.yScale(d[1]))
-
-        const focusline = d3.line().defined(d => !isNaN(d[1]))
-            .x(d => this.xScale(d[0]))
-            .y(d => this.yScaleMini(d[1]))
-
-        this.clipgroup.attr("stroke-linejoin", "round")
-            .attr("stroke-linecap", "round")
-
-        this.clipgroup.append('path')
-            .datum(ndata)
-            .attr('class',`line uuid-${uuid} dataline`)
-            .attr('stroke', colors.main[colorid])
-            .attr('stroke-opacity', 0.3)
-            .attr('d',dataline)
-
-        this.selectorPlot.append('path')
-            .datum(ndata)
-            .attr('class',`line uuid-${uuid} selectorline`)
-            .attr('stroke', colors.main[colorid])
-            .attr('stroke-opacity', 1)
-            .attr('d',focusline)
-    }
-
-    addDots(ngram, ndata, colorid, uuid, RTlabel) {
-
-        // Define the div for the tooltip
-        let div = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0)
-
-        this.clipgroup.selectAll('.dot')
-            .data(ndata.filter(d => !isNaN(d[1])))
-            .enter().append("circle")
-            .attr('class',`uuid-${uuid} datadot`)
-            .attr('fill', colors.main[colorid])
-            .attr("r", 2)
-            .attr("cx", d => this.xScaleFocused(d[0]))
-            .attr("cy", d => this.yScale(d[1]))
-            .on("mouseover", handleMouseOver)
-            .on("mouseout", handleMouseOut)
-
-            // Create Event Handlers for mouse
-            function handleMouseOver(d) {
-                d3.select(this).style("r", 7).style("fill",colors.dark[colorid])
-                div.style('border-color', colors.main[colorid])
-                div.style('background-color', colors.light[colorid])
-                div.transition()
-                    .duration(200)
-                    .style("opacity", .9)
-                let formattedValue
-                if (params['metric']=='freq'){
-                    formattedValue = d3.format(",.0")(d[1])
-                }
-                else {
-                    formattedValue = d3.format(",")(d[1])
-                }
-
-                div.html(`<span style="font-weight:bold; color:${colors.dark[colorid]};">${ngram}</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
-                    .style("left", (d3.event.pageX + 5) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-            }
-            function handleMouseOut() {
-                d3.select(this).style("r", 2).style("fill",colors.main[colorid])
-                div.transition()
-                    .duration(0)
-                    .style("opacity", 0);
-                div.style("left", "0px")
-                    .style("top", "0px")
-            }
-
     }
 
     brushed(){
@@ -267,11 +195,11 @@ class Chart {
 
         let parent = this
         const brush = d3.brushX()
-            .extent([[0, 0], [this.width-(this.margin.left), this.selectorPlotHeight]])
+            .extent([[0, 0], [this.width, this.selectorPlotHeight]])
             .on("brush", function(){
                 console.log("brushed!")
-                let s = d3.event.selection || xScaleFocused.range()
-                let newView = s.map(parent.xScale.invert, parent.xScale)
+                let s = d3.event.selection || xScaleSelector.range()
+                let newView = s.map(parent.xScaleSelector.invert, parent.xScaleSelector)
                 if (newView !== [params['start'],params['end']]){
                     params['start'] = newView[0]
                     params['end'] = newView[1]
@@ -280,8 +208,8 @@ class Chart {
                         "params.start formatted": dateFormatter(params['start']),
                         "params.end formatted": dateFormatter(params['end'])
                     })
-                    parent.brushed()
                 }
+                parent.brushed()
             })
             //.on("end", this.extent([parent.xScale(params['start']),parent.xScale(params['end'])]))
 
@@ -290,10 +218,9 @@ class Chart {
             .attr('class','selectorPlot')
             .attr("width", this.width)
             .attr("height", this.selectorPlotHeight)
-            .attr('transform',`translate(${this.margin.left},${this.height-this.selectorPlotHeight})`)
+            .attr('transform',`translate(0,${this.height-this.selectorPlotHeight})`)
             .style("display", "block")
             .call(brush)
-            //.call(brush.move, parent.xScaleFocused.range())
 
         this.addAxes()
         this.addLabels()

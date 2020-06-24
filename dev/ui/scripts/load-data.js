@@ -19,23 +19,35 @@ function formatData(data){
     allPairs.forEach(pair => {
         if (pair[1] !== 0) {
             nonZero.push(pair)
-            dataDates.push(pair[0])
+            dataDates.push(dateFormatter(pair[0]))
         }
     })
     // Find and format the x- and y-ranges of this data set
     formattedData['min_date'] = dateParser(loadedData['min_date'])
     formattedData['max_date'] = dateParser(loadedData['max_date'])
     // Add missing dates and set to value to undefined
-    let fullDateRange = getDates(formattedData['min_date'], formattedData['max_date'])
     let withNulls = Object.assign([], nonZero)
     fullDateRange.forEach(date => {
-        if (dataDates.includes(date)) {
-
+        if (dataDates.includes(dateFormatter(date))) {
         } else {
-            withNulls.push([date, undefined])
+            if (params['metric']=='rank'){
+                withNulls.push([date, 1000000])
+            }
+            else {
+                withNulls.push([date, undefined])
+            }
         }
     })
-    formattedData['data'] = withNulls
+    let sorted = withNulls.sort(function(a, b) {
+        if (a[0] < b[0]) {
+            return -1;
+        }
+        if (a[0] > b[0]) {
+            return 1;
+        }
+        return 0
+    })
+    formattedData['data'] = sorted
     // Get the unique identifier (for labeling objects in-browser)
     formattedData['uuid'] = loadedData['uuid']
     formattedData[`min_${params.metric}`] = loadedData[`min_${params.metric}`]

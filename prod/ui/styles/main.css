@@ -146,9 +146,20 @@ main {
     padding: 0 5% 80px 5%;
 }
 
+.teaser {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.teaser p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
 .textblock p {
     line-height: 160%;
     font-size: 1.4em;
+    /*margin-block-start: 0;
+    margin-block-end: 0;*/
 }
 
 .textblock h1,h2,h3 {

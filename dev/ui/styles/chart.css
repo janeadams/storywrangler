@@ -6,7 +6,7 @@
 #mainplot,
 .subplot {
     width: 90%;
-    margin: 20px auto;
+    margin: 0 auto;
 }
 
 #mainplot {
@@ -46,13 +46,15 @@
 /* Style the lines by removing the fill and applying a stroke */
 .dataline {
     fill: none;
-    stroke-width: 2px;
+    stroke-width: 1px;
+    opacity: 1;
 }
 
 .missingline {
     fill: none;
-    stroke-width: 1px;
-    stroke-dasharray: 5;
+    stroke-width: 0.5px;
+    stroke-dasharray: 2;
+    stroke: #999999;
 }
 
 .selectorline {
@@ -66,8 +68,9 @@
 }
 
 .overlay {
-    fill: none;
+    fill: #EEE;
     pointer-events: all;
+    z-index: -999;
 }
 
 div.tooltip {
@@ -87,4 +90,18 @@ div.tooltip {
 
 .tooltip .ngram  {
     font-weight: bold;
+}
+
+.ngram-name {
+    fill: #00B6CF;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+@media (max-width: 1000px) {
+    #mainplot,
+    .subplot,
+    .controls {
+        margin: 0 auto;
+    }
 }

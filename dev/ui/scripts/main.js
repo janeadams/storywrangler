@@ -33,7 +33,8 @@ const defaultparams = {
     "language": "en",
     "metric": "rank",
     "scale": "log",
-    "start": new Date(2009, 8, 1), //lastyeardate,
+    //"start": new Date(2009, 8, 1), //lastyeardate,
+    "start": lastyeardate,
     "end": today
 }
 
@@ -77,6 +78,16 @@ function getDates(startDate, stopDate) {
     return dateArray;
 }
 
+const fullDateRange = getDates(new Date(2009,9,1), today)
+
+function filterMax(data) {
+    if (params['metric'] === 'rank') {
+        return data.filter(d => d[1] < 1000000)
+    } else {
+        return data.filter(d => !isNaN(d[1]))
+    }
+}
+
 function setRanges() {
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
         //console.log("Setting ranges...")
@@ -87,7 +98,7 @@ function setRanges() {
         if (params['metric'] === 'freq') {
 
             if (params['scale'] === 'log') {
-                yRange[0] = d3.max([d3.min(ymins), 0.00000001])
+                yRange[0] = d3.max([d3.min(ymins), 0.000000001])
                 yRange[1] = 0.1
             }
             else {
@@ -144,6 +155,17 @@ function buildLanguageDropdown(){
 }
 
 function setupPage() {
+    console.log(
+        "   _____ _                __          __                    _           \n" +
+        "  / ____| |               \\ \\        / /                   | |          \n" +
+        " | (___ | |_ ___  _ __ _   \\ \\  /\\  / / __ __ _ _ __   __ _| | ___ _ __ \n" +
+        "  \\___ \\| __/ _ \\| '__| | | \\ \\/  \\/ / '__/ _` | '_ \\ / _` | |/ _ \\ '__|\n" +
+        "  ____) | || (_) | |  | |_| |\\  /\\  /| | | (_| | | | | (_| | |  __/ |   \n" +
+        " |_____/ \\__\\___/|_|   \\__, | \\/  \\/ |_|  \\__,_|_| |_|\\__, |_|\\___|_|   \n" +
+        "                        __/ |                          __/ |            \n" +
+        "                       |___/                          |___/             \n\n" +
+        "UI & API by Jane Adams, Data Visualization Artist\nGet in touch on Twitter @artistjaneadams\n\n"
+    )
     buildLanguageDropdown()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
