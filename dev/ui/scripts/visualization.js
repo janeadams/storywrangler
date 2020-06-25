@@ -1,3 +1,12 @@
+let dotsize = 3
+function updateDotSize() {
+    if (viewport > 1000) {
+        dotsize = 5
+    }
+    else { dotsize = 3 }
+    console.log(dotsize)
+}
+
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -235,9 +244,6 @@ function makeCharts(){
     console.log("Making charts...")
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot')})
-    d3.select(window).on('resize', () => {
-        mainChart.draw()
-    })
 }
 
 function redrawCharts(){

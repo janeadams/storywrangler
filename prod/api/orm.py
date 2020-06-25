@@ -13,7 +13,7 @@ from flask import request, abort, jsonify
 import csv
 import uuid
 from flask_cors import CORS
-import dev.api.regexr as r
+import prod.api.regexr as r
 import urllib
 import pickle
 import json
@@ -30,7 +30,7 @@ with open('prod/api/ngrams.bin', "rb") as f:
 with open('prod/api/language_support.json', 'r') as f:
     language_support = json.load(f)
 
-language_codes = pd.read_csv('prod/api/language_codes.csv')
+language_codes = pd.read_csv('prod/api/popular_language_codes.csv')
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -88,13 +88,13 @@ def simple_response():
     pid = uuid.uuid4()
     src='root'
     ip = request.remote_addr
-    with open('dev/api/logs/querylog.csv','a') as fd:
+    with open('prod/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),None,src,0,None,None,str(ip),str(start)])
         fd.close()
     end = time.time()
     # responselog columns - ['pid','time','errors']
-    with open('dev/api/logs/responselog.csv','a') as fd:
+    with open('prod/api/logs/responselog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),float((end-start)*60),['No query; returned instructions']])
         fd.close()
@@ -118,7 +118,7 @@ def get_data(query):
         src = str(request.args.get('src'))
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
     language = str(request.args.get('language'))
-    if language in language_codes['db_code']:
+    if language in list(language_codes['db_code']):
         language = language
     else:
         language = 'en'
@@ -133,7 +133,7 @@ def get_data(query):
     
     print(f'ngrams :{ngrams}, n:{n}, metric:{metric}, rt:{rt}, language:{language}')
     
-    with open('dev/api/logs/querylog.csv','a') as fd:
+    with open('prod/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),str(query),str(src),int(n),str(language),metric,str(ip),'',str(start)])
         fd.close()

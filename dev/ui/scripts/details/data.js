@@ -10,7 +10,6 @@ function loadData(url) {
     console.log(url)
     d3.json(url).then((data, error) => {
         showloadingpanel()
-        //errors.append(data['errors'])
         console.log(`Received API response:`)
         let debug = {}
         let debugvals = ['ngrams', 'database', 'metric', 'rt', 'language', 'errors']
@@ -20,19 +19,23 @@ function loadData(url) {
         console.log(`returnedNgrams = ${returnedNgrams}`)
         console.log('data:')
         console.log(data)
-        if (returnedNgrams.length > 0) {
-            // just select the first one
-            Ngram = returnedNgrams[0]
-            console.log(`Ngram = ${Ngram}`)
-            let rt_state
-            if (data['rt']===true){
-                rt_state = 'w_rt'
+        if (data['errors'].length > 0){
+            console.log(`Sorry, we couldn't find any results for ${debug['ngrams']} in our ${params['language']} database`)
+        }
+        else {
+            if (returnedNgrams.length > 0) {
+                // just select the first one
+                Ngram = returnedNgrams[0]
+                console.log(`Ngram = ${Ngram}`)
+                let rt_state
+                if (data['rt'] === true) {
+                    rt_state = 'w_rt'
+                } else {
+                    rt_state = 'no_rt'
+                }
+                ngramData[rt_state] = formatData(data['ngramdata'][Ngram])
+                resetPage()
             }
-            else {
-                rt_state = 'no_rt'
-            }
-            ngramData[rt_state] = formatData(data['ngramdata'][Ngram])
-            resetPage()
         }
         setTimeout(() => hideloadingpanel(), 3000)
     })

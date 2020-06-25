@@ -14,14 +14,14 @@
 }
 
 #ngramList li {
-    padding: 7px 10px;
+    padding: 5px 10px;
     height: 30px;
     line-height: 30px;
     text-align: center;
     margin: 3px;
     display: inline-block;
     border: 2px solid;
-    font-size: 1.2em;
+    font-size: 25px;
     border-radius: 2px;
 }
 
@@ -80,7 +80,7 @@
     display: inline-block;
     padding: 5px;
     float: left;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .controls li input {
@@ -91,7 +91,7 @@
     border: 1px solid transparent;
     border-radius: 2px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 20px;
     display: inline-block;
     transition: width 0.5s;
     margin: 5px;
@@ -110,7 +110,6 @@
     width: 25%;
     min-width: auto;
     float: right;
-    font-size: 15px;
     font-weight: bold;
     font-family: "Helvetica", sans-serif;
 }
@@ -188,4 +187,14 @@ li {
 
 #langFilter {
     display: none;
+}
+
+@media (max-width: 1000px) {
+    #queryForm input, .controls li {
+         font-size: 15px;
+    }
+    #ngramList li {
+        height: 30px;
+        font-size: 20px;
+    }
 }

@@ -8,37 +8,21 @@ function hideloadingpanel(){
     d3.selectAll('.loadoverlay,.loader').style("display","none")
 }
 
-function formatData(data){
-    let loadedData = data
-    let formattedData = {}
-    // Parse all the dates
-    let allPairs = loadedData['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
-    // Remove zeroes from counts and frequency data sets
-    let nonZero = []
-    let dataDates = []
-    allPairs.forEach(pair => {
-        if (pair[1] !== 0) {
-            nonZero.push(pair)
-            dataDates.push(dateFormatter(pair[0]))
-        }
-    })
-    // Find and format the x- and y-ranges of this data set
-    formattedData['min_date'] = dateParser(loadedData['min_date'])
-    formattedData['max_date'] = dateParser(loadedData['max_date'])
-    // Add missing dates and set to value to undefined
-    let withNulls = Object.assign([], nonZero)
+function filterNull(data) {
+    return data.filter(d => !isNaN(d[1]))
+}
+
+function fillMissing(data, value){
+    let dates = []
+    data.forEach(pair => dates.push(dateFormatter(pair[0])))
+    let filled = Object.assign([], data)
     fullDateRange.forEach(date => {
-        if (dataDates.includes(dateFormatter(date))) {
+        if (dates.includes(dateFormatter(date))) {
         } else {
-            if (params['metric']=='rank'){
-                withNulls.push([date, 1000000])
-            }
-            else {
-                withNulls.push([date, undefined])
-            }
+            filled.push([date, value])
         }
     })
-    let sorted = withNulls.sort(function(a, b) {
+    let sorted = filled.sort(function(a, b) {
         if (a[0] < b[0]) {
             return -1;
         }
@@ -47,7 +31,46 @@ function formatData(data){
         }
         return 0
     })
-    formattedData['data'] = sorted
+    return sorted
+}
+
+function replaceValue(data,value,replacement){
+    let newData = []
+    data.forEach(pair => {
+        if(pair[1]===value){
+            newData.push([pair[0],replacement])
+        }
+        else {
+            newData.push(pair)
+        }
+    })
+    return newData
+}
+
+function formatData(data){
+    let loadedData = data
+    let formattedData = {}
+    // Parse all the dates
+    let allPairs = loadedData['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
+    // Remove zeroes from counts and frequency data sets
+    let nonZero = []
+    allPairs.forEach(pair => {
+        if (pair[1] !== 0) { // If the value isn't 0
+            if (isRank()){ // If we're measuring rank
+                if (pair[1]<1000000){ nonZero.push(pair) } // Add if less than the max rank threshold of 1M
+            }
+            else { // If we're measuring frequency
+                if (pair[1] > 0.00000001) { nonZero.push(pair) } // Add if greater than the min freq threshold of 1e-8
+            }
+        }
+    })
+    // Add missing dates and set to value to undefined
+    // if (isRank()){ formattedData['data'] = fillMissing(nonZero, 1000000) }
+    // else { formattedData['data'] = fillMissing(nonZero, undefined) }
+    formattedData['data'] = fillMissing(nonZero, undefined)
+    // Find and format the x- and y-ranges of this data set
+    formattedData['min_date'] = dateParser(loadedData['min_date'])
+    formattedData['max_date'] = dateParser(loadedData['max_date'])
     // Get the unique identifier (for labeling objects in-browser)
     formattedData['uuid'] = loadedData['uuid']
     formattedData[`min_${params.metric}`] = loadedData[`min_${params.metric}`]

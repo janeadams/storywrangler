@@ -30,7 +30,7 @@ with open('dev/api/ngrams.bin', "rb") as f:
 with open('dev/api/language_support.json', 'r') as f:
     language_support = json.load(f)
 
-language_codes = pd.read_csv('dev/api/language_codes.csv')
+language_codes = pd.read_csv('dev/api/popular_language_codes.csv')
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -118,7 +118,7 @@ def get_data(query):
         src = str(request.args.get('src'))
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
     language = str(request.args.get('language'))
-    if language in language_codes['db_code']:
+    if language in list(language_codes['db_code']):
         language = language
     else:
         language = 'en'

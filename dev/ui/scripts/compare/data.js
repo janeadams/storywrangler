@@ -8,28 +8,34 @@ function loadData(url) {
     console.log(url)
     d3.json(url).then((data, error) => {
         showloadingpanel()
-        //errors.append(data['errors'])
         console.log(`Received API response:`)
         let debug = {}
         let debugvals = ['ngrams', 'database', 'metric', 'rt', 'language', 'errors']
         debugvals.forEach(v => (debug[v] = [data[v]]))
         console.table(debug)
         console.log(data)
-        let newNgrams = findNew(data['ngrams'])
-        if (newNgrams.length > 0) {
-            newNgrams.forEach(n => {
-                if (Ngrams.length > 10){
-                    removeNgram(Ngrams[0])
-                }
-                ngramData[n] = formatData(data['ngramdata'][n])
-                i += 1
-                if (i > 10) {
-                    i = 0
-                }
-                ngramData[n]['colorid']=i
-                addNgram(n)
-                resetPage()
-            })
+        if (data['errors'].length > 0){
+            console.log(`Sorry, we couldn't find any results for ${debug['ngrams']} in our ${params['language']} database`)
+            try{Ngrams = Ngrams.filter(ele => ele !== debug['ngrams'])}
+            catch{}
+        }
+        else {
+            let newNgrams = findNew(data['ngrams'])
+            if (newNgrams.length > 0) {
+                newNgrams.forEach(n => {
+                    if (Ngrams.length > 10) {
+                        removeNgram(Ngrams[0])
+                    }
+                    ngramData[n] = formatData(data['ngramdata'][n])
+                    i += 1
+                    if (i > 10) {
+                        i = 0
+                    }
+                    ngramData[n]['colorid'] = i
+                    addNgram(n)
+                    resetPage()
+                })
+            }
         }
         setTimeout(() => hideloadingpanel(), 3000)
     })
@@ -99,23 +105,27 @@ function addNgram(n) {
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
     setTimeout(() => showloadingpanel(), 1000)
-    const thisdata = ngramData[n]
-    let uuid = thisdata['uuid']
-    console.log(`removing all elements with uuid ${uuid}`)
-    d3.selectAll('.uuid-'+uuid).remove()
     // Filter the ngram list to include every ngram except this one
     Ngrams = Ngrams.filter(ele => ele !== n)
-    // Remove these mins and maxes
-    xmins = xmins.filter(ele => ele !== thisdata['min_date'])
-    console.log(`Removed ${thisdata['min_date']} from xmins`)
-    xmaxes = xmaxes.filter(ele => ele !== thisdata['max_date'])
-    console.log(`Removed ${thisdata['max_date']} from xmaxes`)
-    ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
-    console.log(`Removed ${thisdata['min_'+params.metric]} from ymins`)
-    ymaxes = ymaxes.filter(ele => ele !== thisdata[`max_${params.metric}`])
-    console.log(`Removed ${thisdata['max_'+params.metric]} from ymaxes`)
-    // Delete the word from the list of ngram data
-    delete ngramData[n]
+    try {
+        const thisdata = ngramData[n]
+        let uuid = thisdata['uuid']
+        console.log(`removing all elements with uuid ${uuid}`)
+        d3.selectAll('.uuid-' + uuid).remove()
+
+        // Remove these mins and maxes
+        xmins = xmins.filter(ele => ele !== thisdata['min_date'])
+        console.log(`Removed ${thisdata['min_date']} from xmins`)
+        xmaxes = xmaxes.filter(ele => ele !== thisdata['max_date'])
+        console.log(`Removed ${thisdata['max_date']} from xmaxes`)
+        ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
+        console.log(`Removed ${thisdata['min_' + params.metric]} from ymins`)
+        ymaxes = ymaxes.filter(ele => ele !== thisdata[`max_${params.metric}`])
+        console.log(`Removed ${thisdata['max_' + params.metric]} from ymaxes`)
+        // Delete the word from the list of ngram data
+        delete ngramData[n]
+    }
+    catch{}
     updateURL()
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
     setTimeout(() => hideloadingpanel(), 1000)
@@ -132,7 +142,10 @@ function setButtons(){
 }
 
 function clearAll(){
-    Ngrams.forEach(n => removeNgram(n))
+    Ngrams.forEach(n => {
+        try{removeNgram(n)}
+        catch{}
+    })
     clearData()
 }
 

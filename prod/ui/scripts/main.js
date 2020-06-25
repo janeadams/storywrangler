@@ -9,12 +9,13 @@ let mainChart
 let xRange = []
 let yRange = []
 let languageCodes = {}
+let viewport = 1000
 
 const suggestions = ["haha", "happy new year", "#throwbackthursday", "😊"]
 
 // Limit options for certain parameters
 const paramoptions = {
-    "language": ["en","es","ru","fr"],
+    "language": ['af', 'sq', 'ar', 'an', 'hy', 'ast', 'az', 'eu', 'be', 'bn', 'bs', 'br', 'bg', 'ca', 'ceb', 'ckb', 'cbk', 'hr', 'cs', 'da', 'nl', 'en', 'eo', 'et', 'fi', 'fr', 'fy', 'gl', 'ka', 'de', 'el', 'gu', 'he', 'hi', 'hu', 'is', 'io', 'ilo', 'id', 'ia', 'ie', 'ga', 'it', 'kn', 'kk', 'ko', 'ku', 'la', 'lv', 'lt', 'jbo', 'lb', 'mk', 'mg', 'ml', 'mr', 'mzn', 'min', 'mn', 'ne', 'no', 'nn', 'oc', 'fa', 'pl', 'pt', 'ps', 'qu', 'ro', 'ru', 'nds', 'sr', 'sh', 'sd', 'si', 'sk', 'sl', 'azb', 'es', 'sw', 'sv', 'tl', 'ta', 'te', 'tr', 'uk', 'ur', 'uz', 'vi', 'war', 'cy', 'pnb'],
     "metric": ["rank", "freq"], //["rank", "counts", "freq"],
     "scale": ["log", "lin"]
 }
@@ -27,6 +28,7 @@ let thisyear = today.getFullYear()
 let lastyeardate = new Date().setFullYear(thisyear - 1);
 // January 1st, this year
 let thisfirst = new Date(thisyear, 0, 1)
+let firstDate = new Date(2009,9,1)
 
 // Set default options
 const defaultparams = {
@@ -68,6 +70,10 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
+function isRank(){
+    return (params['metric']==='rank')
+}
+
 function getDates(startDate, stopDate) {
     let dateArray = []
     let currentDate = startDate
@@ -78,15 +84,7 @@ function getDates(startDate, stopDate) {
     return dateArray;
 }
 
-const fullDateRange = getDates(new Date(2009,9,1), today)
-
-function filterMax(data) {
-    if (params['metric'] === 'rank') {
-        return data.filter(d => d[1] < 1000000)
-    } else {
-        return data.filter(d => !isNaN(d[1]))
-    }
-}
+const fullDateRange = getDates(firstDate, today)
 
 function setRanges() {
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
@@ -94,28 +92,21 @@ function setRanges() {
         // Get the minimum and maximum values for all ngrams
         xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
         //console.log(`Setting xRange to ${xRange}`)
-        // If the metric is freq, start at near-zero
         if (params['metric'] === 'freq') {
 
             if (params['scale'] === 'log') {
-                yRange[0] = d3.max([d3.min(ymins), 0.000000001])
+                yRange[0] = 0.000000001
                 yRange[1] = 0.1
             }
             else {
-                yRange[0] = d3.min(ymins)
+                yRange[0] = 0.000000001
                 yRange[1] = d3.max(ymaxes)
             }
 
         }
         // for Rank...
         else {
-            yRange[0] = 1
-            if (params['scale'] === 'log') {
-                yRange[1] = d3.max([1000000, d3.max(ymaxes)])
-            }
-            else {
-                yRange[1] = d3.max(ymaxes)*1.2
-            }
+            yRange = [1, 1000000]
         }
 
         //console.log(`Setting yRange to ${yRange}`)
@@ -151,6 +142,7 @@ function buildLanguageDropdown(){
             }
         })
         paramoptions['language'] = codes
+        console.log(codes.slice(99,))
     })
 }
 
@@ -166,9 +158,19 @@ function setupPage() {
         "                       |___/                          |___/             \n\n" +
         "UI & API by Jane Adams, Data Visualization Artist\nGet in touch on Twitter @artistjaneadams\n\n"
     )
+    viewport = window.innerWidth
+    updateDotSize()
+    console.log(`viewport: ${viewport}`)
     buildLanguageDropdown()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     setFilters() // Check the correct boxes in the filter form according to the parameters
     makeCharts()
 }
+
+d3.select(window).on('resize', () => {
+    viewport = window.innerWidth
+    console.log(`viewport: ${viewport}`)
+    updateDotSize()
+    mainChart.draw()
+})

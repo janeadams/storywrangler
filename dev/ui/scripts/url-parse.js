@@ -8,22 +8,19 @@ function readUrlVars() {
         value = value.replace("[", "").replace("/]", "")
         // If the parameter should be formatted as an array:
         if ((key==="ngrams") || (key==="ngram")) {
-            console.log("in the ngrams section of readUrlVars()")
-            console.table({'key':key,'value':value})
+            //console.table({'key':key,'value':value})
             vars[key] = readUrlNgrams(value)
         }
         else {
-            console.log("NOT in the ngrams section of readUrlVars()")
-            console.table({'key':key,'value':value})
+            //console.table({'key':key,'value':value})
             // If the parameter has a specified set of options:
             if (Object.keys(paramoptions).includes(key)) {
                 //console.log("paramoptions includes ", key)
-                console.log(`paramoptions[${key}]:`)
-                console.log(paramoptions[key])
+                //console.log(`paramoptions[${key}]:`)
+                //console.log(paramoptions[key])
                 // And the value returned is incldued in those options:
                 if (key === 'rt'){
-                    if (value === 'true'){value = true}
-                    else {value = false}
+                    value = value === 'true';
                     // Set the parameter to the value from the URL
                     vars[key] = value
                     //console.log(`vars[${key}]:`)
