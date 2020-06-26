@@ -34,10 +34,22 @@ function fillMissing(data, value){
     return sorted
 }
 
-function replaceValue(data,value,replacement){
+function replaceUndefined(data){
+    let replacedMissing
+    if (params['metric']==='rank'){replacedMissing = replaceValue(data,1000000) }
+    else {
+        if (params['scale']==='log') { replacedMissing = replaceValue(data, 0.00000001) }
+        else { replacedMissing = replaceValue(data, 0) }
+    }
+    return replacedMissing
+}
+
+
+
+function replaceValue(data,replacement){
     let newData = []
     data.forEach(pair => {
-        if(pair[1]===value){
+        if(pair[1]===undefined){
             newData.push([pair[0],replacement])
         }
         else {
@@ -56,7 +68,7 @@ function formatData(data){
     let nonZero = []
     allPairs.forEach(pair => {
         if (pair[1] !== 0) { // If the value isn't 0
-            if (isRank()){ // If we're measuring rank
+            if (params['metric']==='rank'){ // If we're measuring rank
                 if (pair[1]<1000000){ nonZero.push(pair) } // Add if less than the max rank threshold of 1M
             }
             else { // If we're measuring frequency
@@ -65,9 +77,12 @@ function formatData(data){
         }
     })
     // Add missing dates and set to value to undefined
-    // if (isRank()){ formattedData['data'] = fillMissing(nonZero, 1000000) }
+    // if (params['metric']==='rank'){ formattedData['data'] = fillMissing(nonZero, 1000000) }
     // else { formattedData['data'] = fillMissing(nonZero, undefined) }
     formattedData['data'] = fillMissing(nonZero, undefined)
+    if (params['metric']==='rank') {
+        formattedData['data_w-replacement'] = replaceUndefined(formattedData['data'])
+    }
     // Find and format the x- and y-ranges of this data set
     formattedData['min_date'] = dateParser(loadedData['min_date'])
     formattedData['max_date'] = dateParser(loadedData['max_date'])

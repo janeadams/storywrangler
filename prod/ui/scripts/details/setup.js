@@ -1,4 +1,4 @@
-console.log("Loading setup.js")
+//console.log("Loading setup.js")
 
 let Ngram
 let defaultNgram = "hahaha"

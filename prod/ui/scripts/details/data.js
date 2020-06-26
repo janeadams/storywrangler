@@ -1,32 +1,33 @@
 function sendQuery(formatted_query, APIsource){
     let urls = []
+    showloadingpanel()
     urls.push(encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=true`))
     urls.push(encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=false`))
     urls.forEach(url => loadData(url))
+    hideloadingpanel()
 }
 
 function loadData(url) {
-    console.log(`Querying API URL:`)
-    console.log(url)
+    //console.log(`Querying API URL:`)
+    //console.log(url)
     d3.json(url).then((data, error) => {
-        showloadingpanel()
-        console.log(`Received API response:`)
+        //console.log(`Received API response:`)
         let debug = {}
         let debugvals = ['ngrams', 'database', 'metric', 'rt', 'language', 'errors']
         debugvals.forEach(v => (debug[v] = [data[v]]))
-        console.table(debug)
+        //console.table(debug)
         let returnedNgrams = data['ngrams']
-        console.log(`returnedNgrams = ${returnedNgrams}`)
-        console.log('data:')
-        console.log(data)
+        //console.log(`returnedNgrams = ${returnedNgrams}`)
+        //console.log('data:')
+        //console.log(data)
         if (data['errors'].length > 0){
-            console.log(`Sorry, we couldn't find any results for ${debug['ngrams']} in our ${params['language']} database`)
+            //console.log(`Sorry, we couldn't find any results for ${debug['ngrams']} in our ${params['language']} database`)
         }
         else {
             if (returnedNgrams.length > 0) {
                 // just select the first one
                 Ngram = returnedNgrams[0]
-                console.log(`Ngram = ${Ngram}`)
+                //console.log(`Ngram = ${Ngram}`)
                 let rt_state
                 if (data['rt'] === true) {
                     rt_state = 'w_rt'
@@ -37,12 +38,11 @@ function loadData(url) {
                 resetPage()
             }
         }
-        setTimeout(() => hideloadingpanel(), 3000)
     })
 }
 
 function formatDataForDownload(button){
-    setTimeout(() => showloadingpanel(), 1000)
+    showloadingpanel()
     let allData
     if(Object.keys(ngramData).length > 0) {
         let downloadData = {}
@@ -56,7 +56,7 @@ function formatDataForDownload(button){
             metaData[m] = params[m]
         })
         allData = {'metadata': metaData, 'data': downloadData}
-        console.log(allData)
+        //console.log(allData)
     }
     else {
         allData = {'metadata': "Error! No data"}
@@ -64,7 +64,7 @@ function formatDataForDownload(button){
 
     button.setAttribute("href", ("data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))))
     button.setAttribute("download", "storywrangler_data.json")
-    setTimeout(() => hideloadingpanel(), 1000)
+    hideloadingpanel()
 }
 
 function clearAll(){
@@ -73,11 +73,11 @@ function clearAll(){
 }
 
 function reloadAllData() {
-    console.log("Reloading all data...")
+    //console.log("Reloading all data...")
     showloadingpanel()
     clearAll()
     initializeData()
-    setTimeout(() => hideloadingpanel(), 1000)
+    hideloadingpanel()
 }
 
 function initializeData(){

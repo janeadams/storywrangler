@@ -9,29 +9,28 @@ function addGlyphs(chart){
         }
         let ndata = ngramData[rt_state]['data']
         const dataline = d3.line().defined(d => !isNaN(d[1]))
-            .x(d => chart.xScaleFocused(d[0]))
+            .x(d => chart.xScale(d[0]))
             .y(d => chart.yScale(d[1]))
 
-        const selectorline = d3.line().defined(d => !isNaN(d[1]))
-            .x(d => chart.xScaleSelector(d[0]))
-            .y(d => chart.yScaleMini(d[1]))
+        const navline = d3.line().defined(d => !isNaN(d[1]))
+            .x(d => chart.xScaleNav(d[0]))
+            .y(d => chart.yScaleNav(d[1]))
 
         chart.clipgroup.attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
 
-        let replacedMissing
-        if (isRank()){ replacedMissing = replaceValue(ndata,undefined,1000000) }
-        else {
-            if (params['scale']==='log') { replacedMissing = replaceValue(ndata, undefined, 0.00000001) }
-            else { replacedMissing = replaceValue(ndata, undefined, 0) }
+        if (params['metric']==='rank') {
+            try {
+                let ndataReplaced = ngramData[rt_state]['data_w-replacement']
+                /* MISSING (DOTTED) LINE */
+                chart.clipgroup.append('path')
+                    .datum(ndataReplaced)
+                    .attr('class', `line ${rt_state} missingline`)
+                    .attr('stroke', lightColor)
+                    .attr('d', dataline)
+            }
+            catch{}
         }
-
-        /* MISSING (DOTTED) LINE */
-        chart.clipgroup.append('path')
-            .datum(replacedMissing)
-            .attr('class',`line ${rt_state} missingline`)
-            .attr('stroke', lightColor)
-            .attr('d',dataline)
 
         /* MAIN DATA LINE */
         chart.clipgroup.append('path')
@@ -41,11 +40,11 @@ function addGlyphs(chart){
             .attr('d',dataline)
 
         /* TIMELINE NAVIGATION LINE */
-        chart.selectorPlot.append('path')
+        chart.navPlot.append('path')
             .datum(filterNull(ndata))
-            .attr('class',`line ${rt_state} selectorline`)
+            .attr('class',`line ${rt_state} navline`)
             .attr('stroke', darkColor)
-            .attr('d',selectorline)
+            .attr('d',navline)
     })
     // ADD DOTS
     Object.keys(ngramData).forEach(rt_state => {
@@ -62,21 +61,26 @@ function addGlyphs(chart){
         }
         // Define the div for the tooltip
         let div = d3.select("body").append("div")
-            .attr("class", "tooltip")
+            .attr("class", `${rt_state} tooltip`)
             .style("opacity", 0)
         chart.clipgroup.selectAll('.dot')
             .data(filterNull(ndata))
-            .enter().append("circle")
+            .enter()
+            //.append('a').attr('target','_blank').attr('href', d => getTwitterURL(Ngram, d, (rt_state==='w_rt')))
+            .append("circle")
             .attr('class',`${rt_state} datadot`)
             .attr('fill', mainColor)
             .attr("r", dotsize)
-            .attr("cx", d => chart.xScaleFocused(d[0]))
+            .attr("cx", d => chart.xScale(d[0]))
             .attr("cy", d => chart.yScale(d[1]))
-            .on("mouseover", handleMouseOver)
-            .on("mouseout", handleMouseOut)
+            .on("mouseenter", drawTooltip)
+            .on("mouseleave", removeTooltip)
+            .on("click", d => {
+                window.open(getTwitterURL(Ngram, d, (rt_state==='w_rt')), '_blank')
+            })
 
         // Create Event Handlers for mouse
-        function handleMouseOver(d) {
+        function drawTooltip(d) {
             d3.select(this).style("r", dotsize+2).style("fill",darkColor)
             div.style('border-color', mainColor)
             div.style('background-color', lightColor)
@@ -84,18 +88,18 @@ function addGlyphs(chart){
                 .duration(200)
                 .style("opacity", .9)
             let formattedValue
-            if (params['metric']=='freq'){
-                formattedValue = d3.format(",.0")(d[1])
+            if (params['metric']==='rank'){
+                formattedValue = d3.format(",")(d[1])
             }
             else {
-                formattedValue = d3.format(",")(d[1])
+                formattedValue = d3.format(",.0")(d[1])
             }
 
             div.html(`<span style="font-weight:bold; font-family:sans-serif; color:${darkColor};" class="ngram">"${Ngram}"</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
                 .style("left", (d3.event.pageX + 5) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
         }
-        function handleMouseOut() {
+        function removeTooltip() {
             d3.select(this).style("r", dotsize).style("fill",mainColor)
             div.transition()
                 .duration(0)

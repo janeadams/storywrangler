@@ -70,10 +70,6 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-function isRank(){
-    return (params['metric']==='rank')
-}
-
 function getDates(startDate, stopDate) {
     let dateArray = []
     let currentDate = startDate
@@ -92,21 +88,17 @@ function setRanges() {
         // Get the minimum and maximum values for all ngrams
         xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
         //console.log(`Setting xRange to ${xRange}`)
-        if (params['metric'] === 'freq') {
-
-            if (params['scale'] === 'log') {
-                yRange[0] = 0.000000001
+        if (params['metric']==='rank'){
+            yRange = [1, 1000000]
+        }
+        else {
+            yRange[0] = 0.000000001
+            if (params['scale']==='log') {
                 yRange[1] = 0.1
             }
             else {
-                yRange[0] = 0.000000001
                 yRange[1] = d3.max(ymaxes)
             }
-
-        }
-        // for Rank...
-        else {
-            yRange = [1, 1000000]
         }
 
         //console.log(`Setting yRange to ${yRange}`)
@@ -134,7 +126,7 @@ function buildLanguageDropdown(){
         Object.keys(data).forEach(language => {
             codes.push(data[language]['db_code'])
             if (data[language]['db_code']===params['language']){
-                console.log(`${data[language]['db_code']} = ${params['language']}; setting language to ${language}`)
+                //console.log(`${data[language]['db_code']} = ${params['language']}; setting language to ${language}`)
                 d3.select("#langDropdown").append("option").text(language).attr("value",language).property('selected',true)
             }
             else {
@@ -142,16 +134,15 @@ function buildLanguageDropdown(){
             }
         })
         paramoptions['language'] = codes
-        console.log(codes.slice(99,))
     })
 }
 
 function downloadChart(){
     let mainChartSVG = d3.select('#mainplot').select('svg')
-    console.log('mainChartSVG.style("width"):')
-    console.log(mainChartSVG.style("width"))
-    console.log('mainChartSVG.style("height"):')
-    console.log(mainChartSVG.style("height"))
+    //console.log('mainChartSVG.style("width"):')
+    //console.log(mainChartSVG.style("width"))
+    //console.log('mainChartSVG.style("height"):')
+    //console.log(mainChartSVG.style("height"))
     let svgString = getSVGString(mainChartSVG.node());
     let svgWidth = parseFloat(mainChartSVG.style("width"))
     let svgHeight = parseFloat(mainChartSVG.style("height"))
@@ -171,11 +162,13 @@ function setupPage() {
         " |_____/ \\__\\___/|_|   \\__, | \\/  \\/ |_|  \\__,_|_| |_|\\__, |_|\\___|_|   \n" +
         "                        __/ |                          __/ |            \n" +
         "                       |___/                          |___/             \n\n" +
-        "UI & API by Jane Adams, Data Visualization Artist\nGet in touch on Twitter @artistjaneadams\n\n"
+        "by @compstorylab\n\n"+
+        "UI & API by Jane Adams, Data Visualization Artist\n"+
+        "Interested in the code? Get in touch on Twitter @artistjaneadams\n\n"
     )
     viewport = window.innerWidth
     updateDotSize()
-    console.log(`viewport: ${viewport}`)
+    //console.log(`viewport: ${viewport}`)
     buildLanguageDropdown()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
@@ -185,7 +178,7 @@ function setupPage() {
 
 d3.select(window).on('resize', () => {
     viewport = window.innerWidth
-    console.log(`viewport: ${viewport}`)
+    //console.log(`viewport: ${viewport}`)
     updateDotSize()
     mainChart.draw()
 })

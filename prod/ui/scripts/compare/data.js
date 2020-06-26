@@ -1,19 +1,20 @@
 function sendQuery(formatted_query, APIsource){
+    showloadingpanel()
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
-        loadData(url)
+    loadData(url)
+    hideloadingpanel()
 }
 
 function loadData(url) {
-    console.log(`Querying API URL:`)
-    console.log(url)
+    //console.log(`Querying API URL:`)
+    //console.log(url)
     d3.json(url).then((data, error) => {
-        showloadingpanel()
-        console.log(`Received API response:`)
+        //console.log(`Received API response:`)
         let debug = {}
         let debugvals = ['ngrams', 'database', 'metric', 'rt', 'language', 'errors']
         debugvals.forEach(v => (debug[v] = [data[v]]))
-        console.table(debug)
-        console.log(data)
+        //console.table(debug)
+        //console.log(data)
         if (data['errors'].length > 0){
             console.log(`Sorry, we couldn't find any results for ${debug['ngrams']} in our ${params['language']} database`)
             try{Ngrams = Ngrams.filter(ele => ele !== debug['ngrams'])}
@@ -37,12 +38,11 @@ function loadData(url) {
                 })
             }
         }
-        setTimeout(() => hideloadingpanel(), 3000)
     })
 }
 
 function reloadAllData() {
-    console.log("Reloading all data...")
+    //console.log("Reloading all data...")
     showloadingpanel()
     let datakeys = Object.keys(ngramData)
     datakeys.forEach(n => {
@@ -56,8 +56,8 @@ function reloadAllData() {
 
 function findNew(ngrams){
     let newNgrams = []
-    console.log("seeing if these are new:")
-    console.log(ngrams)
+    //console.log("seeing if these are new:")
+    //console.log(ngrams)
     ngrams.forEach(n => {
         if (n === '"') {
             console.log("Sorry, we don't support searches for the double quotation mark at this time")
@@ -72,21 +72,19 @@ function findNew(ngrams){
             }
         }
     })
-    console.log("new Ngrams:")
-    console.log(newNgrams)
+    //console.log("new Ngrams:")
+    //console.log(newNgrams)
     return newNgrams
 }
 
 // When a word is submitted via inputClick...
 function addNgram(n) {
-    console.log(`addNgrams() - Ngrams: ${Ngrams}`)
     let currentNgrams = Object.assign([], Ngrams)
     if (!currentNgrams.includes(n)) { // If this ngram isn't already in the params ngrams list
-        console.log(`addNgrams() - Adding ${n} to Ngrams`)
         currentNgrams.push(n)
         Ngrams = currentNgrams // add the ngram
-        console.log(`addNgrams() - Ngrams: ${Ngrams}`)
-        console.log(`Added data for ${n} to data list; ngram data list length = ${Ngrams.length}`)
+        //console.log(`Ngrams: ${Ngrams}`)
+        //console.log(`Added data for ${n} to data list; ngram data list length = ${Ngrams.length}`)
         setButtons()
     }
     // Add the word as a list item so the user knows it's been added and can delete later
@@ -97,9 +95,11 @@ function addNgram(n) {
         .style("border-color", colors.main[ngramData[n]['colorid']])
         .style("background-color", colors.light[ngramData[n]['colorid']])
         .on("click", function () {
-            console.log(`Clicked list item ${n}`)
+            //console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
+    console.log(`Added "${n}" to Ngrams:`)
+    console.log(Ngrams)
 }
 
 // When the list item is clicked for a particular word...
@@ -110,18 +110,18 @@ function removeNgram(n) {
     try {
         const thisdata = ngramData[n]
         let uuid = thisdata['uuid']
-        console.log(`removing all elements with uuid ${uuid}`)
+        //console.log(`removing all elements with uuid ${uuid}`)
         d3.selectAll('.uuid-' + uuid).remove()
 
         // Remove these mins and maxes
         xmins = xmins.filter(ele => ele !== thisdata['min_date'])
-        console.log(`Removed ${thisdata['min_date']} from xmins`)
+        //console.log(`Removed ${thisdata['min_date']} from xmins`)
         xmaxes = xmaxes.filter(ele => ele !== thisdata['max_date'])
-        console.log(`Removed ${thisdata['max_date']} from xmaxes`)
+        //console.log(`Removed ${thisdata['max_date']} from xmaxes`)
         ymins = ymins.filter(ele => ele !== thisdata[`min_${params.metric}`])
-        console.log(`Removed ${thisdata['min_' + params.metric]} from ymins`)
+        //console.log(`Removed ${thisdata['min_' + params.metric]} from ymins`)
         ymaxes = ymaxes.filter(ele => ele !== thisdata[`max_${params.metric}`])
-        console.log(`Removed ${thisdata['max_' + params.metric]} from ymaxes`)
+        //console.log(`Removed ${thisdata['max_' + params.metric]} from ymaxes`)
         // Delete the word from the list of ngram data
         delete ngramData[n]
     }
@@ -155,10 +155,10 @@ function formatDataForDownload(button){
             metaData[m] = params[m]
         })
         allData = {'metadata': metaData, 'data': downloadData}
-        console.log(allData)
+        //console.log(allData)
     }
     else {
-        allData = {'metadata': "Error! No data"}
+        allData = {'metadata': "Sorry! Something went wrong; we weren't able to return any data"}
     }
 
     button.setAttribute("href", ("data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))))

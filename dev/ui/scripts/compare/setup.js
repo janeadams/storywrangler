@@ -1,4 +1,4 @@
-console.log("Loading setup.js")
+//console.log("Loading setup.js")
 
 const compare = true
 defaultparams['rt']=true

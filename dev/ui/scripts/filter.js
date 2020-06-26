@@ -28,7 +28,7 @@ function filterSubmission() {
     let isUpdated = false
     // Check the boxes based on the parameters
     for (let p of ['metric', 'scale']){
-        console.log(`checking filter for parameter ${p}`)
+        //console.log(`checking filter for parameter ${p}`)
         // Get the selected language and metric, and update the parameters variable
         let newParam = d3.selectAll(`input[name = '${p}']:checked`).property('value')
         if (params[p] !== newParam) {
@@ -43,7 +43,7 @@ function filterSubmission() {
     if (langChoice !== params['language']){
         if (paramoptions['language'].includes(languageCodes[langChoice]['db_code'])){
             params['language'] = languageCodes[langChoice]['db_code']
-            console.log(`Changed params['language'] to ${params['language']}`)
+            //console.log(`Changed params['language'] to ${params['language']}`)
             translateDefaults()
             isUpdated = true
         }

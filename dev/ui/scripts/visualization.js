@@ -4,13 +4,13 @@ function updateDotSize() {
         dotsize = 5
     }
     else { dotsize = 3 }
-    console.log(dotsize)
+    //console.log(dotsize)
 }
 
 class Chart {
     constructor(opts){
         this.element = opts.element
-        this.isSubplot = this.element.classList.contains('subplot')
+        this.type = opts.type
         this.draw()
     }
 
@@ -18,39 +18,42 @@ class Chart {
         setRanges()
         const m = this.margin
         this.xScale = d3.scaleTime()
-            .domain(xRange)
-            .range([0, this.width-m.left-10])
-        this.xScaleSelector = d3.scaleTime()
-            .domain(xRange)
-            .range([0, this.width])
-        //console.log('this.xScale')
-        //console.log(this.xScale)
-        this.xScaleFocused = d3.scaleTime()
             .domain([params['start'],params['end']])
             .range([0, this.width-m.left-10])
+        //console.log('this.xScale')
+        //console.log(this.xScale)
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
+        this.xScaleNav = d3.scaleTime()
+            .domain(xRange)
+            .range([0, this.width])
         // Choose and set time scales (logarithmic or linear) for the main plot
-        if (params.metric === "rank") {
-            // When showing ranks, put rank #1 at the top
-            if (params.scale === "log") {
-                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.height-(m.top+m.bottom), 0])
-                this.yScaleMini = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.selectorPlotHeight, 0])
+        if (params['metric']==='rank') {
+            //console.log(`yRange: ${yRange}`)
+            if (params['scale']==='log') {
+                // When showing ranks, put rank #1 at the top
+                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.height - (m.top + m.bottom), 0])
+                //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([this.navPlotHeight, 0])
+                this.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.navPlotHeight, 0])
             }
             else {
-                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.height-(m.top+m.bottom), 0])
-                this.yScaleMini = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.selectorPlotHeight, 0])
+                // When showing ranks, put rank #1 at the top
+                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.height - (m.top + m.bottom), 0])
+                //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([this.navPlotHeight, 0])
+                this.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.navPlotHeight, 0])
             }
         }
 
         // When showing any other metric, put the highest number at the top and start at 0
         else {
-            if (params.scale === "log") {
+            if (params['scale']==='log') {
                 this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.height - (m.top + m.bottom)])
-                this.yScaleMini = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.selectorPlotHeight])
+                //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([0, this.navPlotHeight])
+                this.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.navPlotHeight])
             }
             else {
                 this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.height - (m.top + m.bottom)])
-                this.yScaleMini = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.selectorPlotHeight])
+                //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([0, this.navPlotHeight])
+                this.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.navPlotHeight])
             }
         }
     }
@@ -58,28 +61,28 @@ class Chart {
     addAxes() {
 
         const xAxisFocused = d3.axisBottom()
-            .scale(this.xScaleFocused)
+            .scale(this.xScale)
             .ticks(12)
 
-        const xAxisSelector = d3.axisBottom()
-            .scale(this.xScaleSelector)
+        const xAxisNav = d3.axisBottom()
+            .scale(this.xScaleNav)
             .ticks(d3.timeYear)
 
         const yAxis = d3.axisLeft()
             .scale(this.yScale)
             .ticks(5, "")
 
-        const yAxisMini = d3.axisLeft()
-            .scale(this.yScaleMini)
+        const yAxisNav = d3.axisLeft()
+            .scale(this.yScaleNav)
             .ticks(2, "")
 
-        if (params['metric']=='rank'){
+        if (params['metric']==='rank'){
             yAxis.tickFormat(d3.format(".00s"))
-            yAxisMini.tickFormat(d3.format(".00s"))
+            yAxisNav.tickFormat(d3.format(".00s"))
         }
         else {
             yAxis.tickFormat(d3.format("~e"))
-            yAxisMini.tickFormat(d3.format("~e"))
+            yAxisNav.tickFormat(d3.format("~e"))
         }
 
         // Add X & Y Axes to main plot
@@ -98,14 +101,14 @@ class Chart {
             .call(yAxis)
 
         // Add X & Y Axes to focus controls
-        this.selectorPlot.append("g")
-            .attr("class", "xaxis-small")
-            .attr("transform", `translate(0, ${this.selectorPlotHeight})`)
-            .call(xAxisSelector)
+        this.navPlot.append("g")
+            .attr("class", "xaxis-nav")
+            .attr("transform", `translate(0, ${this.navPlotHeight})`)
+            .call(xAxisNav)
 
-        /*this.selectorPlot.append("g")
-            .attr("class", "yaxis-small")
-            .call(yAxisMini)*/
+        /*this.navPlot.append("g")
+            .attr("class", "yaxis-nav")
+            .call(yAxisNav)*/
     }
 
     addLabels(){
@@ -127,17 +130,6 @@ class Chart {
             .attr("dy", "0.5em")
             .text("Famous")
             .attr("font-family","sans-serif")
-            /*
-            .append('svg:tspan')
-            .attr('x', 10)
-            .attr('dy', "1em")
-            .text("talked")
-            .append('svg:tspan')
-            .attr('x', 10)
-            .attr('dy', "1.2em")
-            .text("about")
-            */
-
 
         this.svg.append("text")
             .attr("class","axislabel")
@@ -147,21 +139,10 @@ class Chart {
             .attr("dy", "0.5em")
             .text("Obscure")
             .attr("font-family","sans-serif")
-            /*.append('svg:tspan')
-            .attr('x', 10)
-            .attr('dy', "1.2em")
-            .text("talked")
-            .append('svg:tspan')
-            .attr('x', 10)
-            .attr('dy', "1.2em")
-            .text("about")*/
     }
 
     resetAxes(){
-        d3.select(this.element).selectAll(".xaxis").remove()
-        d3.select(this.element).selectAll(".yaxis").remove()
-        d3.select(this.element).selectAll(".xaxis-small").remove()
-        d3.select(this.element).selectAll(".yaxis-small").remove()
+        d3.select(this.element).selectAll(".xaxis,.yaxis,.xaxis-nav,.yaxis-nav").remove()
         this.addAxes()
     }
 
@@ -174,11 +155,10 @@ class Chart {
     }
 
     draw() {
-        showloadingpanel()
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        this.selectorPlotHeight = 100
-        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: (0.2 * this.height) + this.selectorPlotHeight, left: d3.min([0.3 * this.width, 150]) }
+        this.navPlotHeight = 50
+        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: (0.2 * this.height) + this.navPlotHeight, left: d3.min([0.3 * this.width, 150]) }
         this.setScales()
         // set up parent element and SVG
         this.element.innerHTML = ''
@@ -207,11 +187,11 @@ class Chart {
 
         let parent = this
         const brush = d3.brushX()
-            .extent([[0, 0], [this.width, this.selectorPlotHeight]])
+            .extent([[0, 0], [this.width, this.navPlotHeight]])
             .on("brush", function(){
-                console.log("brushed!")
-                let s = d3.event.selection || xScaleSelector.range()
-                let newView = s.map(parent.xScaleSelector.invert, parent.xScaleSelector)
+                //console.log("brushed!")
+                let s = d3.event.selection || xScaleNav.range()
+                let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
                 if (newView !== [params['start'],params['end']]){
                     params['start'] = newView[0]
                     params['end'] = newView[1]
@@ -225,12 +205,12 @@ class Chart {
             })
             //.on("end", this.extent([parent.xScale(params['start']),parent.xScale(params['end'])]))
 
-        this.selectorPlot = this.svg.append('g')
-            .attr("viewBox", [0, 0, this.width, this.selectorPlotHeight+20])
-            .attr('class','selectorPlot')
+        this.navPlot = this.svg.append('g')
+            .attr("viewBox", [0, 0, this.width, this.navPlotHeight+20])
+            .attr('class','navPlot')
             .attr("width", this.width)
-            .attr("height", this.selectorPlotHeight)
-            .attr('transform',`translate(0,${this.height-(this.selectorPlotHeight+20)})`)
+            .attr("height", this.navPlotHeight)
+            .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
             .style("display", "block")
             .call(brush)
 
@@ -238,18 +218,21 @@ class Chart {
         this.addLabels()
         this.resetAxes()
         addGlyphs(this)
-        setTimeout(() => hideloadingpanel(), 1000)
     }
 }
 
 function makeCharts(){
-    console.log("Making charts...")
+    //console.log("Making charts...")
+    showloadingpanel()
     setRanges()
-    mainChart = new Chart({element: document.querySelector('#mainplot')})
+    mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
+    hideloadingpanel()
 }
 
 function redrawCharts(){
     //console.log("Redrawing charts...")
+    showloadingpanel()
     setRanges()
     mainChart.draw()
+    hideloadingpanel()
 }

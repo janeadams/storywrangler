@@ -1,5 +1,5 @@
 function getUrlNgrams() {
-    console.log("Getting URL ngrams")
+    //console.log("Getting URL ngrams")
     let newNgrams
     if (window.location.href.indexOf('ngrams') > -1) { // If ngrams are specified in the URL
         newNgrams = readUrlVars()["ngrams"] // Add the ngrams specified in the URL
@@ -26,12 +26,11 @@ function readUrlNgrams(value){
 
 function checkDifferent(){
     let isDifferent = false
-    console.log("checkDifferent: Ngrams")
-    console.log(Ngrams)
+    //console.log(Ngrams)
     Ngrams.forEach(n => {
         if (defaultNgrams.includes(n)){}
         else {
-            console.log(`${n} is not in ${defaultNgrams}`)
+            //console.log(`${n} is not in ${defaultNgrams}`)
             isDifferent = true
         }
     })
@@ -50,24 +49,24 @@ function translateDefaults(){
     let newDefaults = ['hahaha', 'one two three', '#friday']
     if (params['language']==='es'){
         newDefaults = ['jajaja', 'uno dos tres', '#viernes']
-        console.log(`newDefaults: ${newDefaults}`)
+        //console.log(`newDefaults: ${newDefaults}`)
         if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
-            console.log(`Ngrams are default`)
+            //console.log(`Ngrams are default`)
             Ngrams = Object.assign([], newDefaults)
-            console.log(`Ngrams are now ${Ngrams}`)
+            //console.log(`Ngrams are now ${Ngrams}`)
         }
         defaultNgrams = Object.assign([], newDefaults)
-        console.log(`defaultNgrams are now ${defaultNgrams}`)
+        //console.log(`defaultNgrams are now ${defaultNgrams}`)
     }
     else {
         newDefaults = ['hahaha', 'one two three', '#friday']
-        console.log(`newDefaults: ${newDefaults}`)
+        //console.log(`newDefaults: ${newDefaults}`)
         if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
-            console.log(`Ngrams are default`)
+            //console.log(`Ngrams are default`)
             Ngrams = Object.assign([], newDefaults)
-            console.log(`Ngrams are now ${Ngrams}`)
+            //console.log(`Ngrams are now ${Ngrams}`)
         }
         defaultNgrams = Object.assign([], newDefaults)
-        console.log(`defaultNgrams are now ${defaultNgrams}`)
+        //console.log(`defaultNgrams are now ${defaultNgrams}`)
     }
 }

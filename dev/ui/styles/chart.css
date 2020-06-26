@@ -17,7 +17,7 @@
     height: 300px;
 }
 
-.yaxis-small, .xaxis-small {
+.yaxis-nav, .xaxis-nav {
     font-size: 15px;
 }
 
@@ -53,7 +53,7 @@
     stroke-opacity: 0.5;
 }
 
-.selectorline {
+.navline {
     fill: none;
     stroke-width: 2px;
     stroke-opacity: 0.5;
@@ -104,7 +104,7 @@ div.tooltip {
     .controls {
         margin: 0 auto;
     }
-    .yaxis-small, .xaxis-small {
+    .yaxis-nav, .xaxis-nav {
         font-size: 10px;
     }
     .yaxis, .xaxis {

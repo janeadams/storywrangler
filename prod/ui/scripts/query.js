@@ -2,7 +2,7 @@
 function querySubmission(event) {
     query = d3.select("#queryInput").property("value")
     if (query === '') {
-        console.log("Nothing entered in the search box")
+        //console.log("Nothing entered in the search box")
     } else {
         parseQuery(query, false)}
     // Clear the search box
@@ -13,10 +13,10 @@ function querySubmission(event) {
 
 function parseQuery(query, reload){
 
-    console.log(`Loading data for ${query}. Force a reload? ${reload}`)
+    //console.log(`Loading data for ${query}. Force a reload? ${reload}`)
 
     if (query==='"'){
-        console.log("Sorry, we don't support searches for the double quotation mark at this time")
+        //console.log("Sorry, we don't support searches for the double quotation mark at this time")
         //alert("Sorry, we don't support searches for the double quotation mark at this time")
         return
     }
@@ -36,4 +36,23 @@ function parseQuery(query, reload){
         APIsource = "http://hydra.uvm.edu:3000"
     }
     sendQuery(formatted_query, APIsource)
+}
+
+function getTwitterURL(ngram, data, rt){
+    if (ngram[0]==="#"){
+        if (rt) {
+            return `https://twitter.com/search?q=(${ngram.replace("#", "%23")})%20until%3A${dateFormatter(data[0].addDays(1))}%20since%3A${dateFormatter(data[0].addDays(-1))}&src=typed_query`
+        }
+        else {
+            return `https://twitter.com/search?q=(${ngram.replace("#","%23")})%20until%3A${dateFormatter(data[0].addDays(1))}%20since%3A${dateFormatter(data[0].addDays(-1))}%20-filter%3Areplies&src=typed_query`
+        }
+    }
+    else {
+        if (rt) {
+            return `https://twitter.com/search?q=${ngram}%20until%3A${dateFormatter(data[0].addDays(1))}%20since%3A${dateFormatter(data[0].addDays(-1))}&src=typed_query`
+        }
+        else {
+            return `https://twitter.com/search?q=${ngram}%20until%3A${dateFormatter(data[0].addDays(1))}%20since%3A${dateFormatter(data[0].addDays(-1))}%20-filter%3Areplies&src=typed_query`
+        }
+    }
 }
