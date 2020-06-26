@@ -68,16 +68,17 @@
             <div id="ngramContainer"><!-- Queries inputted -->
                 <ul id="ngramList">
                     <li id="clearall" class="mgmt" onclick="clearAll()">X</li>
-                    <li id="download" class="mgmt"><a target="_blank">DOWNLOAD</a></li>
                 </ul>
             </div>
         </section>
 
         <!-- Data visualization area -->
         <section id="dataviz">
-            <div id="mainplot" class="main">
-
-            </div>
+            <div id="mainplot" class="main"></div>
+        </section>
+        <section id="downloadButtons">
+            <a class="button" id="downloadChart" onclick="downloadChart()">Download Charts</a>
+            <a class="button" id="downloadData" onclick="formatDataForDownload(this)" target="_blank">Download Data</a>
         </section>
 
     </main>
@@ -93,14 +94,16 @@
     <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.2/d3-annotation.independent.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
     <script type='text/javascript' src="scripts/compare/data.js"></script>
-    <script type='text/javascript' src="scripts/compare/download.js"></script>
     <script type='text/javascript' src="scripts/load-data.js"></script>
     <script type='text/javascript' src="scripts/compare/url.js"></script>
     <script type='text/javascript' src="scripts/url-parse.js"></script>
     <script type='text/javascript' src="scripts/query.js"></script>
     <script type='text/javascript' src="scripts/compare/viz.js"></script>
     <script type='text/javascript' src="scripts/visualization.js"></script>
+    <script type='text/javascript' src="scripts/image-export.js"></script>
     <script type='text/javascript' src="scripts/main.js"></script>
     <script type='text/javascript' src="scripts/compare/setup.js"></script>
     <script type='text/javascript' src="scripts/filter.js"></script>

@@ -117,6 +117,7 @@ class Chart {
             .attr("dy", "1em")
             .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
             .attr("class","axislabel-large")
+            .attr("font-family","sans-serif")
 
         this.svg.append("text")
             .attr("class","axislabel")
@@ -125,6 +126,7 @@ class Chart {
             .attr("x", 10)
             .attr("dy", "0.5em")
             .text("Famous")
+            .attr("font-family","sans-serif")
             /*
             .append('svg:tspan')
             .attr('x', 10)
@@ -144,6 +146,7 @@ class Chart {
             .attr("x", 10)
             .attr("dy", "0.5em")
             .text("Obscure")
+            .attr("font-family","sans-serif")
             /*.append('svg:tspan')
             .attr('x', 10)
             .attr('dy', "1.2em")
@@ -180,9 +183,9 @@ class Chart {
         // set up parent element and SVG
         this.element.innerHTML = ''
 
-        this.svg = d3.select(this.element).append('svg')
+        this.svg = d3.select(this.element).append('svg').style("background-color","white")
         this.svg.attr('width', this.width)
-        this.svg.attr('height', `${this.margin.top + this.height + this.margin.bottom}`)
+        this.svg.attr('height', this.height)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
@@ -223,11 +226,11 @@ class Chart {
             //.on("end", this.extent([parent.xScale(params['start']),parent.xScale(params['end'])]))
 
         this.selectorPlot = this.svg.append('g')
-            .attr("viewBox", [0, 0, this.width, this.selectorPlotHeight])
+            .attr("viewBox", [0, 0, this.width, this.selectorPlotHeight+20])
             .attr('class','selectorPlot')
             .attr("width", this.width)
             .attr("height", this.selectorPlotHeight)
-            .attr('transform',`translate(0,${this.height-this.selectorPlotHeight})`)
+            .attr('transform',`translate(0,${this.height-(this.selectorPlotHeight+20)})`)
             .style("display", "block")
             .call(brush)
 
@@ -235,7 +238,6 @@ class Chart {
         this.addLabels()
         this.resetAxes()
         addGlyphs(this)
-
         setTimeout(() => hideloadingpanel(), 1000)
     }
 }

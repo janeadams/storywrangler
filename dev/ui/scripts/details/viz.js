@@ -91,7 +91,7 @@ function addGlyphs(chart){
                 formattedValue = d3.format(",")(d[1])
             }
 
-            div.html(`<span style="font-weight:bold; color:${darkColor};" class="ngram">"${Ngram}"</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
+            div.html(`<span style="font-weight:bold; font-family:sans-serif; color:${darkColor};" class="ngram">"${Ngram}"</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
                 .style("left", (d3.event.pageX + 5) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
         }

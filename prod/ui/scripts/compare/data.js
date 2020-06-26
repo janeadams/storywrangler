@@ -133,12 +133,37 @@ function removeNgram(n) {
 
 function setButtons(){
     if (Ngrams.length < 1){
-        d3.selectAll(".mgmt").style("display","none")
+        d3.selectAll(".button").style("display","none")
     }
     else {
-        d3.select("#download").select('a').attr("href", formatDataForDownload()).attr("download","storywrangler_data.json")
-        d3.selectAll(".mgmt").style("display","inline-block")
+        d3.selectAll(".button").style("display","inline-block")
     }
+}
+
+function formatDataForDownload(button){
+    setTimeout(() => showloadingpanel(), 1000)
+    let allData
+    if(Object.keys(ngramData).length > 0) {
+        let downloadData = {}
+        Object.keys(ngramData).forEach(n => {
+            downloadData[n] = ngramData[n]['data'].map(tuple => [dateParser(tuple[0]), tuple[1]])
+        })
+        let metaData = {}
+        metaData['ngrams'] = Ngrams
+        let metrics = ['metric','language','rt']
+        metrics.forEach(m => {
+            metaData[m] = params[m]
+        })
+        allData = {'metadata': metaData, 'data': downloadData}
+        console.log(allData)
+    }
+    else {
+        allData = {'metadata': "Error! No data"}
+    }
+
+    button.setAttribute("href", ("data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))))
+    button.setAttribute("download", "storywrangler_data.json")
+    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function clearAll(){

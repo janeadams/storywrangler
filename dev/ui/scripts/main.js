@@ -146,6 +146,21 @@ function buildLanguageDropdown(){
     })
 }
 
+function downloadChart(){
+    let mainChartSVG = d3.select('#mainplot').select('svg')
+    console.log('mainChartSVG.style("width"):')
+    console.log(mainChartSVG.style("width"))
+    console.log('mainChartSVG.style("height"):')
+    console.log(mainChartSVG.style("height"))
+    let svgString = getSVGString(mainChartSVG.node());
+    let svgWidth = parseFloat(mainChartSVG.style("width"))
+    let svgHeight = parseFloat(mainChartSVG.style("height"))
+    svgString2Image( svgString, svgWidth*2, svgHeight*2, 'jpg', save ); // passes Blob and filesize String to the callback
+    function save( dataBlob, filesize ){
+        saveAs( dataBlob, 'storywrangler_chart.jpg' ); // FileSaver.js function
+    }
+}
+
 function setupPage() {
     console.log(
         "   _____ _                __          __                    _           \n" +

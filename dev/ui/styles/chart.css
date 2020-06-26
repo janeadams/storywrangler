@@ -88,12 +88,14 @@ div.tooltip {
 .tooltip .ngram  {
     font-weight: bold;
     font-size: 20px;
+    font-family: sans-serif;
 }
 
 .ngram-name {
     fill: #00B6CF;
     font-weight: bold;
     font-size: 1.5em;
+    font-family: sans-serif;
 }
 
 @media (max-width: 1000px) {
