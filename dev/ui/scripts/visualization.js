@@ -7,143 +7,138 @@ function updateDotSize() {
     //console.log(dotsize)
 }
 
+function setScales(chart){
+    setRanges()
+    const m = chart.margin
+    chart.xScale = d3.scaleTime()
+        .domain([params['start'],params['end']])
+        .range([0, this.width-m.left-10])
+    //console.log('this.xScale')
+    //console.log(this.xScale)
+    //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
+    chart.xScaleNav = d3.scaleTime()
+        .domain(xRange)
+        .range([0, this.width])
+    // Choose and set time scales (logarithmic or linear) for the main plot
+    if (params['metric']==='rank') {
+        //console.log(`yRange: ${yRange}`)
+        if (params['scale']==='log') {
+            // When showing ranks, put rank #1 at the top
+            chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
+            chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
+        }
+        else {
+            // When showing ranks, put rank #1 at the top
+            chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
+            chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
+        }
+    }
+
+    // When showing any other metric, put the highest number at the top and start at 0
+    else {
+        if (params['scale']==='log') {
+            chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
+            chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
+        }
+        else {
+            chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
+            chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
+        }
+    }
+}
+
+function addAxes(chart) {
+
+    const xAxisFocused = d3.axisBottom()
+        .scale(chart.xScale)
+        .ticks(12)
+
+    const xAxisNav = d3.axisBottom()
+        .scale(chart.xScaleNav)
+        .ticks(d3.timeYear)
+
+    const yAxis = d3.axisLeft()
+        .scale(chart.yScale)
+        .ticks(5, "")
+
+    const yAxisNav = d3.axisLeft()
+        .scale(chart.yScaleNav)
+        .ticks(2, "")
+
+    if (params['metric'] === 'rank') {
+        yAxis.tickFormat(d3.format(".00s"))
+        yAxisNav.tickFormat(d3.format(".00s"))
+    } else {
+        yAxis.tickFormat(d3.format("~e"))
+        yAxisNav.tickFormat(d3.format("~e"))
+    }
+
+    // Add X & Y Axes to main plot
+    chart.plot.append("g")
+        .attr("class", "xaxis")
+        .attr("transform", `translate(0, ${chart.height - (chart.margin.top + chart.margin.bottom)})`)
+        .call(xAxisFocused)
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-45)")
+
+    chart.plot.append("g")
+        .attr("class", "yaxis")
+        .call(yAxis)
+
+    // Add X & Y Axes to focus controls
+    chart.navPlot.append("g")
+        .attr("class", "xaxis-nav")
+        .attr("transform", `translate(0, ${chart.navPlotHeight})`)
+        .call(xAxisNav)
+
+    /*chart.navPlot.append("g")
+        .attr("class", "yaxis-nav")
+        .call(yAxisNav)*/
+}
+
+function addLabels(chart){
+    // Label yAxis with Metric
+    chart.svg.append("text")
+        .attr("text-anchor", "start")
+        .attr("y", ((chart.height-chart.margin.bottom) / 2) )
+        .attr("x", 10)
+        .attr("dy", "1em")
+        .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
+        .attr("class","axislabel-large")
+        .attr("font-family","sans-serif")
+
+    chart.svg.append("text")
+        .attr("class","axislabel")
+        .attr("text-anchor", "start")
+        .attr("y", chart.margin.top + 10)
+        .attr("x", 10)
+        .attr("dy", "0.5em")
+        .text("Famous")
+        .attr("font-family","sans-serif")
+
+    chart.svg.append("text")
+        .attr("class","axislabel")
+        .attr("text-anchor", "start")
+        .attr("y", chart.height - chart.margin.bottom)
+        .attr("x", 10)
+        .attr("dy", "0.5em")
+        .text("Obscure")
+        .attr("font-family","sans-serif")
+}
+
+function resetAxes(chart){
+    d3.select(chart.element).selectAll(".xaxis,.yaxis,.xaxis-nav,.yaxis-nav").remove()
+    chart.addAxes()
+}
+
 class Chart {
     constructor(opts){
         this.element = opts.element
         this.type = opts.type
         this.draw()
-    }
-
-    setScales() {
-        setRanges()
-        const m = this.margin
-        this.xScale = d3.scaleTime()
-            .domain([params['start'],params['end']])
-            .range([0, this.width-m.left-10])
-        //console.log('this.xScale')
-        //console.log(this.xScale)
-        //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
-        this.xScaleNav = d3.scaleTime()
-            .domain(xRange)
-            .range([0, this.width])
-        // Choose and set time scales (logarithmic or linear) for the main plot
-        if (params['metric']==='rank') {
-            //console.log(`yRange: ${yRange}`)
-            if (params['scale']==='log') {
-                // When showing ranks, put rank #1 at the top
-                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.height - (m.top + m.bottom), 0])
-                //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([this.navPlotHeight, 0])
-                this.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.navPlotHeight, 0])
-            }
-            else {
-                // When showing ranks, put rank #1 at the top
-                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.height - (m.top + m.bottom), 0])
-                //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([this.navPlotHeight, 0])
-                this.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.navPlotHeight, 0])
-            }
-        }
-
-        // When showing any other metric, put the highest number at the top and start at 0
-        else {
-            if (params['scale']==='log') {
-                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.height - (m.top + m.bottom)])
-                //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([0, this.navPlotHeight])
-                this.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.navPlotHeight])
-            }
-            else {
-                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.height - (m.top + m.bottom)])
-                //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([0, this.navPlotHeight])
-                this.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.navPlotHeight])
-            }
-        }
-    }
-
-    addAxes() {
-
-        const xAxisFocused = d3.axisBottom()
-            .scale(this.xScale)
-            .ticks(12)
-
-        const xAxisNav = d3.axisBottom()
-            .scale(this.xScaleNav)
-            .ticks(d3.timeYear)
-
-        const yAxis = d3.axisLeft()
-            .scale(this.yScale)
-            .ticks(5, "")
-
-        const yAxisNav = d3.axisLeft()
-            .scale(this.yScaleNav)
-            .ticks(2, "")
-
-        if (params['metric']==='rank'){
-            yAxis.tickFormat(d3.format(".00s"))
-            yAxisNav.tickFormat(d3.format(".00s"))
-        }
-        else {
-            yAxis.tickFormat(d3.format("~e"))
-            yAxisNav.tickFormat(d3.format("~e"))
-        }
-
-        // Add X & Y Axes to main plot
-        this.plot.append("g")
-            .attr("class", "xaxis")
-            .attr("transform", `translate(0, ${this.height-(this.margin.top+this.margin.bottom)})`)
-            .call(xAxisFocused)
-            .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-45)")
-
-        this.plot.append("g")
-            .attr("class", "yaxis")
-            .call(yAxis)
-
-        // Add X & Y Axes to focus controls
-        this.navPlot.append("g")
-            .attr("class", "xaxis-nav")
-            .attr("transform", `translate(0, ${this.navPlotHeight})`)
-            .call(xAxisNav)
-
-        /*this.navPlot.append("g")
-            .attr("class", "yaxis-nav")
-            .call(yAxisNav)*/
-    }
-
-    addLabels(){
-        // Label yAxis with Metric
-        this.svg.append("text")
-            .attr("text-anchor", "start")
-            .attr("y", ((this.height-this.margin.bottom) / 2) )
-            .attr("x", 10)
-            .attr("dy", "1em")
-            .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
-            .attr("class","axislabel-large")
-            .attr("font-family","sans-serif")
-
-        this.svg.append("text")
-            .attr("class","axislabel")
-            .attr("text-anchor", "start")
-            .attr("y", this.margin.top + 10)
-            .attr("x", 10)
-            .attr("dy", "0.5em")
-            .text("Famous")
-            .attr("font-family","sans-serif")
-
-        this.svg.append("text")
-            .attr("class","axislabel")
-            .attr("text-anchor", "start")
-            .attr("y", this.height - this.margin.bottom)
-            .attr("x", 10)
-            .attr("dy", "0.5em")
-            .text("Obscure")
-            .attr("font-family","sans-serif")
-    }
-
-    resetAxes(){
-        d3.select(this.element).selectAll(".xaxis,.yaxis,.xaxis-nav,.yaxis-nav").remove()
-        this.addAxes()
     }
 
     brushed(){
@@ -159,7 +154,7 @@ class Chart {
         this.height = this.element.offsetHeight
         this.navPlotHeight = 50
         this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: (0.2 * this.height) + this.navPlotHeight, left: d3.min([0.3 * this.width, 150]) }
-        this.setScales()
+        setScales(this)
         // set up parent element and SVG
         this.element.innerHTML = ''
 
@@ -214,9 +209,9 @@ class Chart {
             .style("display", "block")
             .call(brush)
 
-        this.addAxes()
-        this.addLabels()
-        this.resetAxes()
+        addAxes(this)
+        addLabels(this)
+        resetAxes(this)
         addGlyphs(this)
     }
 }
