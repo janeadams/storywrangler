@@ -256,6 +256,9 @@ function addDots(chart, dataKey){
             .attr("class", `uuid-${uuid} tooltip`)
             .style('border-color', colorSet[1])
             .style('background-color', colorSet[0])
+            .style("opacity", 0)
+            .transition()
+            .duration(200)
             .style("opacity", .9)
             .html(`<span style="font-weight:bold; color:${colorSet[2]};" class="ngram">"${ngram}"</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
             .style("left", (d3.event.pageX + 5) + "px")
@@ -264,7 +267,9 @@ function addDots(chart, dataKey){
     }
     function removeTooltip() {
         d3.select(this).style("r", dotsize).style("fill",colorSet[1])
-        d3.select("body").selectAll(".tooltip").remove()
+        d3.select("body").selectAll(".tooltip").transition()
+            .duration(200)
+            .style("opacity", 0).remove()
     }
 }
 
