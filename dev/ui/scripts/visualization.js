@@ -3,7 +3,7 @@ let marginPad = 0.1
 function adaptVisualScale() {
     if (viewport > 1000) {
         dotsize = 5
-        marginPad = 0.3
+        marginPad = 0.2
     }
     else {
         dotsize = 3
