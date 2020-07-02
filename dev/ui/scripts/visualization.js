@@ -224,11 +224,6 @@ function addDots(chart, dataKey){
         uuid = dataKey
     }
 
-    // Define the div for the tooltip
-    let div = d3.select("body").append("div")
-        .attr("class", `uuid-${uuid} tooltip`)
-        .style("opacity", 0)
-
     // DRAW DOTS //
     chart.clipgroup.selectAll('.dot')
         .data(filterNull(ndata))
@@ -248,11 +243,7 @@ function addDots(chart, dataKey){
     // Create Event Handlers for mouse
     function drawTooltip(d) {
         d3.select(this).style("r", dotsize+2).style("fill",colorSet[1])
-        div.style('border-color', colorSet[1])
-        div.style('background-color', colorSet[0])
-        div.transition()
-            .duration(200)
-            .style("opacity", .9)
+
         let formattedValue
         if (params['metric']==='rank'){
             formattedValue = d3.format(",")(d[1])
@@ -261,17 +252,26 @@ function addDots(chart, dataKey){
             formattedValue = d3.format(",.0")(d[1])
         }
 
-        div.html(`<span style="font-weight:bold; color:${colorSet[2]};" class="ngram">"${ngram}"</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
+        d3.select("body").append("div")
+            .attr("class", `uuid-${uuid} tooltip`)
+            .style("opacity", 0)
+            .style('border-color', colorSet[1])
+            .style('background-color', colorSet[0])
+            .transition()
+            .duration(200)
+            .style("opacity", .9)
+            .html(`<span style="font-weight:bold; color:${colorSet[2]};" class="ngram">"${ngram}"</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
             .style("left", (d3.event.pageX + 5) + "px")
-            .style("top", (d3.event.pageY - 28) + "px");
+            .style("top", (d3.event.pageY - 28) + "px")
+
     }
     function removeTooltip() {
-        d3.select(this).style("r", dotsize).style("fill",colors.main[colorid])
-        div.transition()
-            .duration(0)
-            .style("opacity", 0);
-        div.style("left", "0px")
-            .style("top", "0px")
+        d3.select(this).style("r", dotsize).style("fill",colorSet[1])
+        d3.select("body").selectAll(".tooltip")
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
+            .remove()
     }
 }
 
