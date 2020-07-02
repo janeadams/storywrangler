@@ -139,6 +139,8 @@ function addLabels(chart){
 
 function addLines(chart,dataKey){
 
+    console.log(`adding lines for ${dataKey}`)
+
     const ndata = ngramData[dataKey]['data']
     const ndataReplaced = ngramData[dataKey]['data_w-replacement']
 
@@ -197,6 +199,9 @@ function addLines(chart,dataKey){
 }
 
 function addDots(chart, dataKey){
+
+    console.log(`adding dots for ${dataKey}`)
+
     const ndata = ngramData[dataKey]['data']
 
     let ngram, colorSet, uuid, RTlabel
