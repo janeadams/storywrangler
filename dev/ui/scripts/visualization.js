@@ -7,6 +7,7 @@ function updateDotSize() {
     //console.log(dotsize)
 }
 
+let newView
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -17,43 +18,46 @@ class Chart {
     setScales() {
         setRanges()
         const m = this.margin
+        let width = this.width
+        let height = this.height
+        let navPlotHeight = this.navPlotHeight
         this.xScale = d3.scaleTime()
             .domain([params['start'],params['end']])
-            .range([0, this.width-m.left-10])
+            .range([0, width-m.left-10])
         //console.log('this.xScale')
         //console.log(this.xScale)
         //console.log(`set xScale.domain to ${this.xScale.domain()} and range to ${this.xScale.range()}`)
         this.xScaleNav = d3.scaleTime()
             .domain(xRange)
-            .range([0, this.width])
+            .range([0, width])
         // Choose and set time scales (logarithmic or linear) for the main plot
         if (params['metric']==='rank') {
             //console.log(`yRange: ${yRange}`)
             if (params['scale']==='log') {
                 // When showing ranks, put rank #1 at the top
-                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.height - (m.top + m.bottom), 0])
+                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([height - (m.top + m.bottom), 0])
                 //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([this.navPlotHeight, 0])
-                this.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([this.navPlotHeight, 0])
+                this.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([navPlotHeight, 0])
             }
             else {
                 // When showing ranks, put rank #1 at the top
-                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.height - (m.top + m.bottom), 0])
+                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([height - (m.top + m.bottom), 0])
                 //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([this.navPlotHeight, 0])
-                this.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([this.navPlotHeight, 0])
+                this.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([navPlotHeight, 0])
             }
         }
 
         // When showing any other metric, put the highest number at the top and start at 0
         else {
             if (params['scale']==='log') {
-                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.height - (m.top + m.bottom)])
+                this.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, height - (m.top + m.bottom)])
                 //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([0, this.navPlotHeight])
-                this.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, this.navPlotHeight])
+                this.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, navPlotHeight])
             }
             else {
-                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.height - (m.top + m.bottom)])
+                this.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, height - (m.top + m.bottom)])
                 //this.yScaleNav = d3.scaleLog().domain([d3.max(ymaxes), d3.min(ymins)]).nice().range([0, this.navPlotHeight])
-                this.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, this.navPlotHeight])
+                this.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, navPlotHeight])
             }
         }
     }
@@ -189,21 +193,23 @@ class Chart {
         const brush = d3.brushX()
             .extent([[0, 0], [this.width, this.navPlotHeight]])
             .on("brush", function(){
-                //console.log("brushed!")
-                let s = d3.event.selection || xScaleNav.range()
-                let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
-                if (newView !== [params['start'],params['end']]){
-                    params['start'] = newView[0]
-                    params['end'] = newView[1]
-                    updateURL()
-                    console.table({
-                        "params.start formatted": dateFormatter(params['start']),
-                        "params.end formatted": dateFormatter(params['end'])
-                    })
-                }
+                let s = d3.event.selection
+                newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
+                console.log(`newView: ${newView}`)
+                params['start'] = newView[0]
+                params['end'] = newView[1]
+                updateURL()
+                console.table({
+                    "params.start formatted": dateFormatter(params['start']),
+                    "params.end formatted": dateFormatter(params['end'])
+                })
                 parent.brushed()
             })
-            //.on("end", this.extent([parent.xScale(params['start']),parent.xScale(params['end'])]))
+
+
+
+        const defaultSelection = [this.xScaleNav(lastyeardate),this.xScaleNav(mostrecent)]
+        console.log(`defaultSelection: ${defaultSelection}`)
 
         this.navPlot = this.svg.append('g')
             .attr("viewBox", [0, 0, this.width, this.navPlotHeight+20])
@@ -213,6 +219,7 @@ class Chart {
             .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
             .style("display", "block")
             .call(brush)
+            //.call(brush.move,[this.xScaleNav(params['start']),this.xScaleNav(params['end'])])
 
         this.addAxes()
         this.addLabels()

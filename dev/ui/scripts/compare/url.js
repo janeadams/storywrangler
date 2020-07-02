@@ -46,9 +46,10 @@ function getUrlNgramParams(){
 }
 
 function translateDefaults(){
-    let newDefaults = ['hahaha', 'one two three', '#friday']
-    if (params['language']==='es'){
-        newDefaults = ['jajaja', 'uno dos tres', '#viernes']
+    let newDefaults = ['hahaha', 'one two three', '#friday',"🦠"]
+    const defaultDict = {'es':['buenas noches','#viernes','jajaja','🇵🇷'],'fr':['Emmanuel Macron','#vendredi','héhéhé','🎄'],'hy':['սիրում եմ քեզ','#armenia','Հայաստանի','🇦🇲'], 'tr':['Tayyip Erdoğan','#cuma','hahaha','🇹🇷'] }
+    if (Object.keys(defaultDict).includes(params['language'])){
+        newDefaults = defaultDict[params['language']]
         //console.log(`newDefaults: ${newDefaults}`)
         if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
             //console.log(`Ngrams are default`)
@@ -59,7 +60,7 @@ function translateDefaults(){
         //console.log(`defaultNgrams are now ${defaultNgrams}`)
     }
     else {
-        newDefaults = ['hahaha', 'one two three', '#friday']
+        newDefaults = ['hahaha', 'one two three', '#friday',"🦠"]
         //console.log(`newDefaults: ${newDefaults}`)
         if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
             //console.log(`Ngrams are default`)

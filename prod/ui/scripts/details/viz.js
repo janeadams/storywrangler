@@ -61,7 +61,7 @@ function addGlyphs(chart){
         }
         // Define the div for the tooltip
         let div = d3.select("body").append("div")
-            .attr("class", "tooltip")
+            .attr("class", `${rt_state} tooltip`)
             .style("opacity", 0)
         chart.clipgroup.selectAll('.dot')
             .data(filterNull(ndata))

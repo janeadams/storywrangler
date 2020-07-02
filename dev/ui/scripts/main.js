@@ -20,14 +20,23 @@ const paramoptions = {
     "scale": ["log", "lin"]
 }
 
+const dateParser = date => new Date(d3.timeParse(date))
+const dateFormatter = d3.timeFormat("%Y-%m-%d")
+Date.prototype.addDays = function(days) {
+    let date = new Date(this.valueOf())
+    date.setDate(date.getDate() + days)
+    return date;
+}
+
 // Today's date
 let today = new Date()
+let mostrecent = dateParser(new Date(today)).addDays(-2)
 // Extract year from today's date
 let thisyear = today.getFullYear()
 // Get one year ago
-let lastyeardate = new Date().setFullYear(thisyear - 1);
+let lastyeardate = dateParser(dateFormatter(new Date().setFullYear(thisyear - 1)))
 // January 1st, this year
-let thisfirst = new Date(thisyear, 0, 1)
+let thisfirst = new Date(thisyear, 1, 1)
 let firstDate = new Date(2009,9,1)
 
 // Set default options
@@ -35,7 +44,6 @@ const defaultparams = {
     "language": "en",
     "metric": "rank",
     "scale": "log",
-    //"start": new Date(2009, 8, 1), //lastyeardate,
     "start": lastyeardate,
     "end": today
 }
@@ -62,14 +70,6 @@ function sentenceCase (str) {
             txt.substr(1).toLowerCase();});
 }
 
-const dateParser = date => new Date(d3.timeParse(date))
-const dateFormatter = d3.timeFormat("%Y-%m-%d")
-Date.prototype.addDays = function(days) {
-    let date = new Date(this.valueOf())
-    date.setDate(date.getDate() + days)
-    return date;
-}
-
 function getDates(startDate, stopDate) {
     let dateArray = []
     let currentDate = startDate
@@ -80,7 +80,7 @@ function getDates(startDate, stopDate) {
     return dateArray;
 }
 
-const fullDateRange = getDates(firstDate, today)
+const fullDateRange = getDates(firstDate, mostrecent)
 
 function setRanges() {
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
@@ -166,6 +166,8 @@ function setupPage() {
         "UI & API by Jane Adams, Data Visualization Artist\n"+
         "Interested in the code? Get in touch on Twitter @artistjaneadams\n\n"
     )
+    params['start']=defaultparams['start']
+    params['end']=defaultparams['end']
     viewport = window.innerWidth
     updateDotSize()
     //console.log(`viewport: ${viewport}`)

@@ -98,8 +98,8 @@ function addNgram(n) {
             //console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
-    console.log(`Added "${n}" to Ngrams:`)
-    console.log(Ngrams)
+    //console.log(`Added "${n}" to Ngrams:`)
+    //console.log(Ngrams)
 }
 
 // When the list item is clicked for a particular word...

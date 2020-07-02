@@ -57,6 +57,7 @@ function addGlyphs(chart){
         let div = d3.select("body").append("div")
             .attr("class", `uuid-${uuid} tooltip`)
             .style("opacity", 0)
+            .on("mouseover", d3.selectAll(".tooltip").style("opacity", 0))
 
         // DRAW DOTS //
         chart.clipgroup.selectAll('.dot')
@@ -69,8 +70,8 @@ function addGlyphs(chart){
             .attr("r", dotsize)
             .attr("cx", d => chart.xScale(d[0]))
             .attr("cy", d => chart.yScale(d[1]))
-            .on("mouseenter", drawTooltip)
-            .on("mouseleave", removeTooltip)
+            .on("mouseover", drawTooltip)
+            .on("mouseout", removeTooltip)
             .on("click", d => {
                 window.open(getTwitterURL(ngram, d, params['rt']), '_blank')
             })
