@@ -280,7 +280,7 @@ class Chart {
         addGlyphs(this)
     }
 
-    draw() {
+    setup() {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
         this.navPlotHeight = 50
