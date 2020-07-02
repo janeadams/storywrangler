@@ -169,7 +169,7 @@ function setupPage() {
     params['start']=defaultparams['start']
     params['end']=defaultparams['end']
     viewport = window.innerWidth
-    updateDotSize()
+    adaptVisualScale()
     //console.log(`viewport: ${viewport}`)
     buildLanguageDropdown()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
