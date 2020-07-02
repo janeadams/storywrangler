@@ -132,6 +132,139 @@ function addLabels(chart){
         .attr("font-family","sans-serif")
 }
 
+function addLines(chart,dataKey){
+
+    const ndata = ngramData[dataKey]['data']
+    const ndataReplaced = ngramData[dataKey]['data_w-replacement']
+
+    let colorSet, uuid
+
+    if (compare){
+        colorSet = [colors.light[ngramData[dataKey]['colorid']], colors.main[ngramData[dataKey]['colorid']], colors.dark[ngramData[dataKey]['colorid']]]
+        uuid = ngramData[dataKey]['uuid']
+    }
+    else {
+        if (dataKey === 'w_rt'){
+            colorSet = ['lightgrey','gray','darkgray']
+        }
+        else {
+            colorSet = [colors.light[0], colors.main[0], colors.dark[0]]
+        }
+        uuid = dataKey
+    }
+
+    const dataline = d3.line().defined(d => !isNaN(d[1]))
+        .x(d => chart.xScale(d[0]))
+        .y(d => chart.yScale(d[1]))
+
+    const navline = d3.line().defined(d => !isNaN(d[1]))
+        .x(d => chart.xScaleNav(d[0]))
+        .y(d => chart.yScaleNav(d[1]))
+
+    chart.clipgroup.attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+
+    if (params['metric']==='rank') {
+        try{
+            /* MISSING (DOTTED) LINE */
+            chart.clipgroup.append('path')
+                .datum(ndataReplaced)
+                .attr('class', `line uuid-${uuid} missingline`)
+                .attr('stroke', colorSet[0])
+                .attr('d', dataline)
+        }
+        catch{}
+    }
+    /* MAIN DATA LINE */
+    chart.clipgroup.append('path')
+        .datum(ndata)
+        .attr('class',`line uuid-${uuid} dataline`)
+        .attr('stroke', colorSet[0])
+        .attr('d',dataline)
+
+    /* TIMELINE NAVIGATION LINE */
+    chart.navPlot.append('path')
+        .datum(ndata)
+        .attr('class',`line uuid-${uuid} navline`)
+        .attr('stroke', colorSet[1])
+        .attr('d',navline)
+
+}
+
+function addDots(chart, dataKey){
+    const ndata = ngramData[dataKey]['data']
+
+    let ngram, colorSet, uuid, RTlabel
+
+    if (compare){
+        ngram = dataKey
+        colorSet = [colors.light[ngramData[dataKey]['colorid']], colors.main[ngramData[dataKey]['colorid']], colors.dark[ngramData[dataKey]['colorid']]]
+        uuid = ngramData[dataKey]['uuid']
+        if (params['rt']) { RTlabel = '(Includes retweets)'}
+        else {RTlabel = '(Does not include retweets)'}
+    }
+    else {
+        ngram = Ngram
+        if (dataKey === 'w_rt'){
+            colorSet = ['lightgrey','gray','darkgray']
+        }
+        else {
+            colorSet = [colors.light[0], colors.main[0], colors.dark[0]]
+        }
+        uuid = dataKey
+    }
+
+    // Define the div for the tooltip
+    let div = d3.select("body").append("div")
+        .attr("class", `uuid-${uuid} tooltip`)
+        .style("opacity", 0)
+
+    // DRAW DOTS //
+    chart.clipgroup.selectAll('.dot')
+        .data(filterNull(ndata))
+        .enter()
+        .append("circle")
+        .attr('class',`uuid-${uuid} datadot`)
+        .attr('fill', colorSet[1])
+        .attr("r", dotsize)
+        .attr("cx", d => chart.xScale(d[0]))
+        .attr("cy", d => chart.yScale(d[1]))
+        .on("mouseenter", drawTooltip)
+        .on("mouseleave", removeTooltip)
+        .on("click", d => {
+            window.open(getTwitterURL(ngram, d, params['rt']), '_blank')
+        })
+
+    // Create Event Handlers for mouse
+    function drawTooltip(d) {
+        d3.select(this).style("r", dotsize+2).style("fill",colorSet[1])
+        div.style('border-color', colorSet[1])
+        div.style('background-color', colorSet[0])
+        div.transition()
+            .duration(200)
+            .style("opacity", .9)
+        let formattedValue
+        if (params['metric']==='rank'){
+            formattedValue = d3.format(",")(d[1])
+        }
+        else {
+            formattedValue = d3.format(",.0")(d[1])
+        }
+
+        div.html(`<span style="font-weight:bold; color:${colorSet[2]};" class="ngram">"${ngram}"</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
+            .style("left", (d3.event.pageX + 5) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+    }
+    function removeTooltip() {
+        d3.select(this).style("r", dotsize).style("fill",colors.main[colorid])
+        div.transition()
+            .duration(0)
+            .style("opacity", 0);
+        div.style("left", "0px")
+            .style("top", "0px")
+    }
+}
+
 class Chart {
     constructor(opts){
         this.element = opts.element
