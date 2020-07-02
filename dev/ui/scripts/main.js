@@ -180,7 +180,6 @@ function setupPage() {
 
 d3.select(window).on('resize', () => {
     viewport = window.innerWidth
-    //console.log(`viewport: ${viewport}`)
     adaptVisualScale()
     mainChart.draw()
 })
