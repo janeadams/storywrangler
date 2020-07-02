@@ -252,12 +252,13 @@ function addDots(chart, dataKey){
             formattedValue = d3.format(",.0")(d[1])
         }
 
-        d3.select("body").append("div")
+        let tooltip = d3.select("body").append("div")
             .attr("class", `uuid-${uuid} tooltip`)
             .style("opacity", 0)
             .style('border-color', colorSet[1])
             .style('background-color', colorSet[0])
-            .transition()
+
+        tooltip.transition()
             .duration(200)
             .style("opacity", .9)
             .html(`<span style="font-weight:bold; color:${colorSet[2]};" class="ngram">"${ngram}"</span><br/><span style="font-weight:bold;">Date:</span> ${dateFormatter(d[0])}<br/><span style="font-weight:bold;">${sentenceCase(params['metric'])}:</span> ${formattedValue}<br/><span style="font-style:italic;">${RTlabel}</span>`)
