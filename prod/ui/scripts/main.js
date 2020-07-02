@@ -20,6 +20,14 @@ const paramoptions = {
     "scale": ["log", "lin"]
 }
 
+const dateParser = date => new Date(d3.timeParse(date))
+const dateFormatter = d3.timeFormat("%Y-%m-%d")
+Date.prototype.addDays = function(days) {
+    let date = new Date(this.valueOf())
+    date.setDate(date.getDate() + days)
+    return date;
+}
+
 // Today's date
 let today = new Date()
 // Extract year from today's date
@@ -62,14 +70,6 @@ function sentenceCase (str) {
             txt.substr(1).toLowerCase();});
 }
 
-const dateParser = date => new Date(d3.timeParse(date))
-const dateFormatter = d3.timeFormat("%Y-%m-%d")
-Date.prototype.addDays = function(days) {
-    let date = new Date(this.valueOf())
-    date.setDate(date.getDate() + days)
-    return date;
-}
-
 function getDates(startDate, stopDate) {
     let dateArray = []
     let currentDate = startDate
@@ -80,7 +80,7 @@ function getDates(startDate, stopDate) {
     return dateArray;
 }
 
-const fullDateRange = getDates(firstDate, today)
+const fullDateRange = getDates(firstDate, dateParser(today).addDays(-2))
 
 function setRanges() {
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...

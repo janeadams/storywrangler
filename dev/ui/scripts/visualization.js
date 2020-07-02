@@ -320,21 +320,23 @@ class Chart {
         const brush = d3.brushX()
             .extent([[0, 0], [this.width, this.navPlotHeight]])
             .on("brush", function(){
-                //console.log("brushed!")
-                let s = d3.event.selection || xScaleNav.range()
-                let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
-                if (newView !== [params['start'],params['end']]){
-                    params['start'] = newView[0]
-                    params['end'] = newView[1]
-                    updateURL()
-                    console.table({
-                        "params.start formatted": dateFormatter(params['start']),
-                        "params.end formatted": dateFormatter(params['end'])
-                    })
-                }
+                let s = d3.event.selection
+                newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
+                console.log(`newView: ${newView}`)
+                params['start'] = newView[0]
+                params['end'] = newView[1]
+                updateURL()
+                console.table({
+                    "params.start formatted": dateFormatter(params['start']),
+                    "params.end formatted": dateFormatter(params['end'])
+                })
                 parent.brushed()
             })
-            //.on("end", this.extent([parent.xScale(params['start']),parent.xScale(params['end'])]))
+
+
+
+        const defaultSelection = [this.xScaleNav(lastyeardate),this.xScaleNav(mostrecent)]
+        console.log(`defaultSelection: ${defaultSelection}`)
 
         this.navPlot = this.svg.append('g')
             .attr("viewBox", [0, 0, this.width, this.navPlotHeight+20])
@@ -344,6 +346,7 @@ class Chart {
             .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
             .style("display", "block")
             .call(brush)
+            //.call(brush.move,[this.xScaleNav(params['start']),this.xScaleNav(params['end'])])
 
         this.draw()
     }
