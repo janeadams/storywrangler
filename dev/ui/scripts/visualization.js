@@ -136,7 +136,7 @@ class Chart {
     constructor(opts){
         this.element = opts.element
         this.type = opts.type
-        this.draw()
+        this.setup()
     }
 
     brushed(){
@@ -207,12 +207,10 @@ class Chart {
             .style("display", "block")
             .call(brush)
 
-        addAxes(this)
-        addLabels(this)
-        addGlyphs(this)
+        this.draw()
     }
 
-    redraw() {
+    draw() {
         setScales(this)
         addAxes(this)
         addLabels(this)
@@ -232,6 +230,6 @@ function redrawCharts(){
     //console.log("Redrawing charts...")
     showloadingpanel()
     setRanges()
-    mainChart.redraw()
+    mainChart.draw()
     hideloadingpanel()
 }
