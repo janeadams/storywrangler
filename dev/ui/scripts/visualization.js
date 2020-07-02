@@ -1,13 +1,10 @@
 let dotsize = 3
-let marginPad = 0.1
 function adaptVisualScale() {
     if (viewport > 1000) {
         dotsize = 5
-        marginPad = 0.2
     }
     else {
         dotsize = 3
-        marginPad = 0.1
     }
     //console.log(dotsize)
 }
@@ -287,7 +284,7 @@ class Chart {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
         this.navPlotHeight = 50
-        this.margin = { top: marginPad * this.height, right: marginPad * this.width, bottom: (marginPad * 2 * this.height) + this.navPlotHeight, left: d3.min([marginPad * 3 * this.width, 150]) }
+        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: (0.1 * 2 * this.height) + this.navPlotHeight, left: d3.min([0.1 * 3 * this.width, 150]) }
         setScales(this)
         // set up parent element and SVG
         this.element.innerHTML = ''
