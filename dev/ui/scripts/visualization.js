@@ -264,9 +264,7 @@ function addDots(chart, dataKey){
     }
     function removeTooltip() {
         d3.select(this).style("r", dotsize).style("fill",colorSet[1])
-        d3.select("body").selectAll(".tooltip").transition()
-            .duration(200)
-            .style("opacity", 0).remove()
+        d3.select("body").selectAll(".tooltip").remove()
     }
 }
 
