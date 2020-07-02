@@ -73,6 +73,9 @@ function addAxes(chart) {
         yAxisNav.tickFormat(d3.format("~e"))
     }
 
+    // Remove any existing axes, just in case
+    d3.select(chart.element).selectAll(".xaxis,.yaxis,.xaxis-nav,.yaxis-nav").remove()
+
     // Add X & Y Axes to main plot
     chart.plot.append("g")
         .attr("class", "xaxis")
@@ -127,11 +130,6 @@ function addLabels(chart){
         .attr("dy", "0.5em")
         .text("Obscure")
         .attr("font-family","sans-serif")
-}
-
-function resetAxes(chart){
-    d3.select(chart.element).selectAll(".xaxis,.yaxis,.xaxis-nav,.yaxis-nav").remove()
-    chart.addAxes()
 }
 
 class Chart {
@@ -211,7 +209,13 @@ class Chart {
 
         addAxes(this)
         addLabels(this)
-        resetAxes(this)
+        addGlyphs(this)
+    }
+
+    redraw() {
+        setScales(this)
+        addAxes(this)
+        addLabels(this)
         addGlyphs(this)
     }
 }
@@ -228,6 +232,6 @@ function redrawCharts(){
     //console.log("Redrawing charts...")
     showloadingpanel()
     setRanges()
-    mainChart.draw()
+    mainChart.redraw()
     hideloadingpanel()
 }
