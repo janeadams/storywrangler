@@ -359,6 +359,11 @@ function makeCharts(){
     showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
+    if (compare){
+        Object.keys(ngramData).forEach(ngram => {
+            subPlots[ngram] = new Chart({element: document.querySelector('#subplots'), type: 'subplot'})
+        })
+    }
     hideloadingpanel()
 }
 
