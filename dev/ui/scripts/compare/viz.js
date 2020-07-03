@@ -12,6 +12,5 @@ function addGlyphs(chart){
     }
     else {
         addLines(chart, chart.ngram)
-        addDots(chart, chart.ngram)
     }
 }

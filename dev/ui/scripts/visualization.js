@@ -195,20 +195,24 @@ function addLines(chart,dataKey){
         }
         catch{}
     }
+
     /* MAIN DATA LINE */
-    chart.clipgroup.append('path')
+    let vizDataline = chart.clipgroup.append('path')
         .datum(ndata)
         .attr('class',`line uuid-${uuid} dataline`)
-        .attr('stroke', colorSet[0])
         .attr('d',dataline)
 
     if (chart.type==='main') {
+        vizDataline.attr('stroke', colorSet[0])
         /* TIMELINE NAVIGATION LINE */
         chart.navPlot.append('path')
             .datum(ndata)
             .attr('class', `line uuid-${uuid} navline`)
             .attr('stroke', colorSet[1])
             .attr('d', navline)
+    }
+    else {
+        vizDataline.attr('stroke', colorSet[1])
     }
 }
 
