@@ -269,17 +269,19 @@ function addDots(chart, dataKey){
 }
 
 function updateAll(){
-    const allPlots = []
-    allPlots.push(mainChart)
-    (Object.values(subPlots)).forEach(sub => allPlots.push(sub))
-    console.log('allPlots:')
-    console.log(allPlots)
-    allPlots.forEach(chart => {
+    mainChart(chart => {
         setScales(chart)
         addAxes(chart)
         chart.svg.selectAll('.line').remove()
         chart.svg.selectAll('circle').remove()
-        addGlyphs(this)
+        addGlyphs(chart)
+    })
+    subPlots.forEach(chart => {
+        setScales(chart)
+        addAxes(chart)
+        chart.svg.selectAll('.line').remove()
+        chart.svg.selectAll('circle').remove()
+        addGlyphs(chart)
     })
 }
 
