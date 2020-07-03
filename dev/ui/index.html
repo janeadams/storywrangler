@@ -75,11 +75,11 @@
         <!-- Data visualization area -->
         <section id="dataviz">
             <div id="mainplot"></div>
+            <div id="downloadButtons">
+                <a class="button" id="downloadChart" onclick="downloadChart()">Download Chart</a>
+                <a class="button" id="downloadData" onclick="formatDataForDownload(this)" target="_blank">Download Data</a>
+            </div>
             <div id="subplots"></div>
-        </section>
-        <section id="downloadButtons">
-            <a class="button" id="downloadChart" onclick="downloadChart()">Download Chart</a>
-            <a class="button" id="downloadData" onclick="formatDataForDownload(this)" target="_blank">Download Data</a>
         </section>
 
     </main>
