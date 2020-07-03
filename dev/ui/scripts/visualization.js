@@ -271,17 +271,16 @@ function addDots(chart, dataKey){
 function updateAll(){
     const allPlots = new Array
     //allPlots.push(mainChart)
-    (Object.values(subPlot)).forEach(sub => allPlots.push(sub)).then([
-        console.log('allPlots:')
-        console.log(allPlots)
-        allPlots.forEach(chart => {
-            setScales(chart)
-            addAxes(chart)
-            chart.svg.selectAll('.line').remove()
-            chart.svg.selectAll('circle').remove()
-            addGlyphs(this)
-        })]
-    )
+    (Object.values(subPlot)).forEach(sub => allPlots.push(sub))
+    console.log('allPlots:')
+    console.log(allPlots)
+    allPlots.forEach(chart => {
+        setScales(chart)
+        addAxes(chart)
+        chart.svg.selectAll('.line').remove()
+        chart.svg.selectAll('circle').remove()
+        addGlyphs(this)
+    })
 }
 
 class Chart {
