@@ -269,7 +269,8 @@ function addDots(chart, dataKey){
 }
 
 function updateAll(){
-    let allPlots = [mainChart]
+    let allPlots = []
+    //allPlots.push(mainChart)
     (Object.values(subPlot)).forEach(sub => allPlots.push(sub))
     console.log('allPlots:')
     console.log(allPlots)
