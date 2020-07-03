@@ -286,17 +286,17 @@ class Chart {
         addGlyphs(this)
     }
 
-    zoomed(chart) {
-        //if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+    zoomed() {
+        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
         let t = d3.event.transform;
         console.log('Zoomed. Event transform:')
         console.log(t)
-        console.log('chart:')
-        console.log(chart)
-        chart.xScale.domain(t.rescaleX(chart.xScale).domain());
-        chart.plot.select(".line").attr("d", line);
-        chart.resetAxes()
-        chart.navPlot.select(".brush").call(brush.move, chart.xScale.range().map(t.invertX, t))
+        console.log('this:')
+        console.log(this)
+        this.xScale.domain(t.rescaleX(this.xScale).domain());
+        this.plot.select(".line").attr("d", line);
+        this.resetAxes()
+        this.navPlot.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t))
     }
 
     setup() {
@@ -332,7 +332,7 @@ class Chart {
             .scaleExtent([1, Infinity])
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", this.zoomed(parent))
+            .on("zoom", parent.zoomed())
 
         this.svg.append("rect")
             .attr("class", "zoom")
