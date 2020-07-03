@@ -63,6 +63,7 @@
     cursor: move;
     fill: none;
     pointer-events: all;
+    border: 2px solid red;
 }
 
 .overlay {
