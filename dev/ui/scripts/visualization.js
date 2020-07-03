@@ -316,7 +316,7 @@ class Chart {
             .extent([[0, 0], [this.width, this.navPlotHeight]])
             .on("brush", function(){
                 let s = d3.event.selection
-                newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
+                let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
                 console.log(`newView: ${newView}`)
                 params['start'] = newView[0]
                 params['end'] = newView[1]
@@ -359,11 +359,13 @@ function makeCharts(){
     showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
-    /*if (compare){
+    if (compare){
         Object.keys(ngramData).forEach(ngram => {
-            subPlots[ngram] = new Chart({element: document.querySelector('#subplots'), type: 'subplot'})
+            let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
+            d3.select('#subplots').append(div).attr("class", `subplot subplotClass`)
+            subPlot[ngram] = new Chart({element: document.querySelector(`.${subplotClass}`), type: 'subplot'})
         })
-    }*/
+    }
     hideloadingpanel()
 }
 
