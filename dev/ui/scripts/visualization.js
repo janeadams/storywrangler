@@ -107,33 +107,47 @@ function addAxes(chart) {
 }
 
 function addLabels(chart){
-    // Label yAxis with Metric
-    chart.svg.append("text")
-        .attr("text-anchor", "start")
-        .attr("y", ((chart.height-chart.margin.bottom) / 2) )
-        .attr("x", 10)
-        .attr("dy", "1em")
-        .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
-        .attr("class","axislabel-large")
-        .attr("font-family","sans-serif")
 
-    chart.svg.append("text")
-        .attr("class","axislabel")
-        .attr("text-anchor", "start")
-        .attr("y", chart.margin.top + 10)
-        .attr("x", 10)
-        .attr("dy", "0.5em")
-        .text("Famous")
-        .attr("font-family","sans-serif")
+    if (chart.type === 'main') {
+        // Label yAxis with Metric
+        chart.svg.append("text")
+            .attr("text-anchor", "start")
+            .attr("y", ((chart.height - chart.margin.bottom) / 2))
+            .attr("x", 10)
+            .attr("dy", "1em")
+            .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
+            .attr("class", "axislabel-large")
+            .attr("font-family", "sans-serif")
 
-    chart.svg.append("text")
-        .attr("class","axislabel")
-        .attr("text-anchor", "start")
-        .attr("y", chart.height - chart.margin.bottom)
-        .attr("x", 10)
-        .attr("dy", "0.5em")
-        .text("Obscure")
-        .attr("font-family","sans-serif")
+        chart.svg.append("text")
+            .attr("class", "axislabel")
+            .attr("text-anchor", "start")
+            .attr("y", chart.margin.top + 10)
+            .attr("x", 10)
+            .attr("dy", "0.5em")
+            .text("Famous")
+            .attr("font-family", "sans-serif")
+
+        chart.svg.append("text")
+            .attr("class", "axislabel")
+            .attr("text-anchor", "start")
+            .attr("y", chart.height - chart.margin.bottom)
+            .attr("x", 10)
+            .attr("dy", "0.5em")
+            .text("Obscure")
+            .attr("font-family", "sans-serif")
+    }
+    else {
+        chart.svg.append("text")
+            .attr("text-anchor", "start")
+            .attr("y", ((chart.height - chart.margin.bottom) / 2))
+            .attr("x", 10)
+            .attr("dy", "1em")
+            .text(`"${chart.ngram}"`)
+            .attr("class", "axislabel-large")
+            .attr("font-family", "sans-serif")
+            .style("color", `colors.main${ngramData[chart.ngram]['colorid']}`)
+    }
 }
 
 function addLines(chart,dataKey){
