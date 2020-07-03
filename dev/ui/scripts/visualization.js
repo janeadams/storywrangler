@@ -360,14 +360,18 @@ function makeCharts(){
     showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
-    if (compare){
+    if (Ngrams){
         Object.keys(ngramData).forEach(ngram => {
-            let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
-            d3.select('#subplots').append(div).attr("class", `subplot subplotClass`)
-            subPlot[ngram] = new Chart({element: document.querySelector(`.${subplotClass}`), type: 'subplot'})
+            subPlot[ngram].draw()
         })
     }
     hideloadingpanel()
+}
+
+function addSuplot(ngram){
+    let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
+    d3.select('#subplots').append(div).attr("class", `subplot subplotClass`)
+    subPlot[ngram] = new Chart({element: document.querySelector(`.${subplotClass}`), type: 'subplot'})
 }
 
 function redrawCharts(){
@@ -375,5 +379,10 @@ function redrawCharts(){
     showloadingpanel()
     setRanges()
     mainChart.draw()
+    if (compare){
+        Object.keys(ngramData).forEach(ngram => {
+            subPlot[ngram].draw()
+        })
+    }
     hideloadingpanel()
 }
