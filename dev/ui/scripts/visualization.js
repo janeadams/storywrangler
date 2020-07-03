@@ -93,7 +93,7 @@ function addAxes(chart) {
         .attr("class", "yaxis")
         .call(yAxis)
 
-    if (this.type==='main') {
+    if (chart.type==='main') {
         // Add X & Y Axes to focus controls
         chart.navPlot.append("g")
             .attr("class", "xaxis-nav")
@@ -188,7 +188,7 @@ function addLines(chart,dataKey){
         .attr('stroke', colorSet[0])
         .attr('d',dataline)
 
-    if (this.type==='main') {
+    if (chart.type==='main') {
         /* TIMELINE NAVIGATION LINE */
         chart.navPlot.append('path')
             .datum(ndata)
@@ -287,7 +287,7 @@ class Chart {
     }
 
     setup() {
-        console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
+        //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
         this.navPlotHeight = 50
