@@ -371,7 +371,7 @@ class Chart {
             .attr("class", "zoom")
             .attr("width", this.width)
             .attr("height", this.height)
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
             .call(zoom)
 
         this.draw()
