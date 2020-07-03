@@ -291,6 +291,8 @@ class Chart {
         let t = d3.event.transform;
         console.log('Zoomed. Event transform:')
         console.log(t)
+        console.log('this:')
+        console.log(this)
         this.xScale.domain(t.rescaleX(this.xScale).domain());
         this.plot.select(".line").attr("d", line);
         this.resetAxes()
