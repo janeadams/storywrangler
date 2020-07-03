@@ -448,7 +448,7 @@ function makeCharts(){
     showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
-    if (Ngrams){
+    if (compare && Ngrams){
         Object.keys(ngramData).forEach(ngram => {
             addSuplot(ngram)
         })
@@ -469,7 +469,7 @@ function redrawCharts(){
     showloadingpanel()
     setRanges()
     mainChart.draw()
-    if (compare){
+    if (compare && Ngrams){
         (Object.keys(ngramData)).forEach(ngram => {
             try {subPlots[ngram].draw()}
             catch {console.log(`Error re-drawing subplot for ${ngram}`)}
