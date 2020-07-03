@@ -98,6 +98,7 @@ function addNgram(n) {
             //console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
+    addSuplot(n)
     //console.log(`Added "${n}" to Ngrams:`)
     //console.log(Ngrams)
 }
@@ -112,7 +113,6 @@ function removeNgram(n) {
         let uuid = thisdata['uuid']
         //console.log(`removing all elements with uuid ${uuid}`)
         d3.selectAll('.uuid-' + uuid).remove()
-
         // Remove these mins and maxes
         xmins = xmins.filter(ele => ele !== thisdata['min_date'])
         //console.log(`Removed ${thisdata['min_date']} from xmins`)
