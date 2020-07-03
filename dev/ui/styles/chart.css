@@ -61,14 +61,15 @@
 
 .zoom {
     cursor: move;
-    fill: none;
+    fill: red;
+    opacity: 0.1;
     pointer-events: all;
     border: 2px solid red;
 }
 
 .overlay {
     /*fill: #EEE;*/
-    border: 1px solid #666666;
+    /*border: 1px solid #666666;*/
     pointer-events: all;
     z-index: -999;
 }
