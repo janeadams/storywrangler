@@ -188,13 +188,14 @@ function addLines(chart,dataKey){
         .attr('stroke', colorSet[0])
         .attr('d',dataline)
 
-    /* TIMELINE NAVIGATION LINE */
-    chart.navPlot.append('path')
-        .datum(ndata)
-        .attr('class',`line uuid-${uuid} navline`)
-        .attr('stroke', colorSet[1])
-        .attr('d',navline)
-
+    if (this.type==='main') {
+        /* TIMELINE NAVIGATION LINE */
+        chart.navPlot.append('path')
+            .datum(ndata)
+            .attr('class', `line uuid-${uuid} navline`)
+            .attr('stroke', colorSet[1])
+            .attr('d', navline)
+    }
 }
 
 function addDots(chart, dataKey){
