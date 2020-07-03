@@ -304,6 +304,7 @@ class Chart {
         this.navPlotHeight = 50
         this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: (0.1 * 2 * this.height) + this.navPlotHeight, left: d3.min([0.1 * 3 * this.width, 150]) }
         setScales(this)
+        let parent = this
         // set up parent element and SVG
         this.element.innerHTML = ''
 
@@ -325,12 +326,24 @@ class Chart {
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
+        const zoom = d3.zoom()
+            .scaleExtent([1, Infinity])
+            .translateExtent([[0, 0], [this.width, this.height]])
+            .extent([[0, 0], [this.width, this.height]])
+            .on("zoom", parent.zoomed)
+
+        this.svg.append("rect")
+            .attr("class", "zoom")
+            .attr("width", this.width - (this.margin.right))
+            .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
+            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
+            .call(zoom)
+
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot feature')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
-        let parent = this
         if (this.type==='main') {
             const brush = d3.brushX()
                 .extent([[0, 0], [this.width, this.navPlotHeight]])
@@ -361,18 +374,6 @@ class Chart {
                 .call(brush)
                 //.call(brush.move,[this.xScaleNav(params['start']),this.xScaleNav(params['end'])])
         }
-        const zoom = d3.zoom()
-            .scaleExtent([1, Infinity])
-            .translateExtent([[0, 0], [this.width, this.height]])
-            .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", parent.zoomed)
-
-        this.svg.append("rect")
-            .attr("class", "zoom")
-            .attr("width", this.width - (this.margin.right))
-            .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
-            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
-            .call(zoom)
 
         this.draw()
     }
