@@ -78,7 +78,7 @@ function setScales(chart){
 
 function addAxes(chart) {
 
-    const xAxisFocused = d3.axisBottom()
+    const xAxis = d3.axisBottom()
         .scale(chart.xScale)
         .ticks(12)
 
@@ -109,7 +109,7 @@ function addAxes(chart) {
     chart.plot.append("g")
         .attr("class", "xaxis")
         .attr("transform", `translate(0, ${chart.height - (chart.margin.top + chart.margin.bottom)})`)
-        .call(xAxisFocused)
+        .call(xAxis)
         .selectAll("text")
         .style("text-anchor", "end")
         .attr("dx", "-.8em")
@@ -130,6 +130,9 @@ function addAxes(chart) {
         /*chart.navPlot.append("g")
             .attr("class", "yaxis-nav")
             .call(yAxisNav)*/
+    }
+    else {
+        yAxis.ticks(2,"")
     }
 }
 
@@ -173,7 +176,7 @@ function addLabels(chart){
             .text(`"${chart.ngram}"`)
             .attr("class", "axislabel-large")
             .attr("font-family", "sans-serif")
-            .style("color", `colors.main${ngramData[chart.ngram]['colorid']}`)
+            .style("fill", `colors.main${ngramData[chart.ngram]['colorid']}`)
     }
 }
 
@@ -182,7 +185,6 @@ function addLines(chart,dataKey){
     //console.log(`adding lines for ${dataKey}`)
 
     const ndata = ngramData[dataKey]['data']
-    const ndataReplaced = ngramData[dataKey]['data_w-replacement']
 
     let colorSet, uuid
 
@@ -211,18 +213,6 @@ function addLines(chart,dataKey){
     chart.clipgroup.attr("stroke-linejoin", "round")
         .attr("stroke-linecap", "round")
 
-    if (params['metric']==='rank') {
-        try{
-            /* MISSING (DOTTED) LINE */
-            chart.clipgroup.append('path')
-                .datum(ndataReplaced)
-                .attr('class', `line uuid-${uuid} missingline`)
-                .attr('stroke', colorSet[0])
-                .attr('d', dataline)
-        }
-        catch{}
-    }
-
     /* MAIN DATA LINE */
     let vizDataline = chart.clipgroup.append('path')
         .datum(ndata)
@@ -230,6 +220,19 @@ function addLines(chart,dataKey){
         .attr('d',dataline)
 
     if (chart.type==='main') {
+        if (params['metric']==='rank') {
+            try{
+                const ndataReplaced = ngramData[dataKey]['data_w-replacement']
+                /* MISSING (DOTTED) LINE */
+                chart.clipgroup.append('path')
+                    .datum(ndataReplaced)
+                    .attr('class', `line uuid-${uuid} missingline`)
+                    .attr('stroke', colorSet[0])
+                    .attr('d', dataline)
+            }
+            catch{}
+        }
+        /* DRAW MAIN DATA LINE */
         vizDataline.attr('stroke', colorSet[0])
         /* TIMELINE NAVIGATION LINE */
         chart.navPlot.append('path')
