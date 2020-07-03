@@ -286,7 +286,7 @@ class Chart {
         addGlyphs(this)
     }
 
-    zoomed() {
+    /*zoomed() {
         if (d3.event) {
             if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
             let t = d3.event.transform;
@@ -299,7 +299,7 @@ class Chart {
             this.resetAxes()
             this.navPlot.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t))
         }
-    }
+    }*/
 
     setup() {
         //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
@@ -330,7 +330,7 @@ class Chart {
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
-        const zoom = d3.zoom()
+        /*const zoom = d3.zoom()
             .scaleExtent([1, Infinity])
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
@@ -341,7 +341,7 @@ class Chart {
             .attr("width", this.width - (this.margin.right))
             .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
             .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
-            .call(zoom)
+            .call(zoom)*/
 
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
