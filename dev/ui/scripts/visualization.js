@@ -268,23 +268,6 @@ function addDots(chart, dataKey){
     }
 }
 
-function updateAll(){
-    mainChart(chart => {
-        setScales(chart)
-        addAxes(chart)
-        chart.svg.selectAll('.line').remove()
-        chart.svg.selectAll('circle').remove()
-        addGlyphs(chart)
-    })
-    subPlots.forEach(chart => {
-        setScales(chart)
-        addAxes(chart)
-        chart.svg.selectAll('.line').remove()
-        chart.svg.selectAll('circle').remove()
-        addGlyphs(chart)
-    })
-}
-
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -296,7 +279,11 @@ class Chart {
     }
 
     brushed(){
-        updateAll()
+        setScales(this)
+        addAxes(this)
+        this.svg.selectAll('.line').remove()
+        this.svg.selectAll('circle').remove()
+        addGlyphs(this)
     }
 
     setup() {
