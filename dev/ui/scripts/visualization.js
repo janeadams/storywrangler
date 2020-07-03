@@ -389,8 +389,9 @@ function redrawCharts(){
     setRanges()
     mainChart.draw()
     if (compare){
-        Object.keys(ngramData).forEach(ngram => {
-            subPlot[ngram].draw()
+        (Object.keys(ngramData)).forEach(ngram => {
+            try {subPlot[ngram].draw()}
+            catch {console.log(`Error re-drawing subplot for ${ngram}`)}
         })
     }
     hideloadingpanel()
