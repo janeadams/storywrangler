@@ -287,7 +287,7 @@ class Chart {
     }
 
     zoomed() {
-        if (d3.event.sourceEvent && d3.event.sourceEvent.type) {
+        if (d3.event) {
             if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
             let t = d3.event.transform;
             console.log('Zoomed. Event transform:')
