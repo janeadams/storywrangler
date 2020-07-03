@@ -367,7 +367,7 @@ class Chart {
             .extent([[0, 0], [this.width, this.height]])
             .on("zoom", parent.zoomed)
 
-        this.append("rect")
+        this.svg.append("rect")
             .attr("class", "zoom")
             .attr("width", this.width)
             .attr("height", this.height)
