@@ -269,6 +269,9 @@ class Chart {
     constructor(opts){
         this.element = opts.element
         this.type = opts.type
+        if (this.type==='subplot'){
+            this.ngram = opts.ngram
+        }
         this.setup()
     }
 
@@ -314,36 +317,36 @@ class Chart {
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
         let parent = this
-        const brush = d3.brushX()
-            .extent([[0, 0], [this.width, this.navPlotHeight]])
-            .on("brush", function(){
-                let s = d3.event.selection
-                let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
-                console.log(`newView: ${newView}`)
-                params['start'] = newView[0]
-                params['end'] = newView[1]
-                updateURL()
-                console.table({
-                    "params.start formatted": dateFormatter(params['start']),
-                    "params.end formatted": dateFormatter(params['end'])
+        if (this.type==='main') {
+            const brush = d3.brushX()
+                .extent([[0, 0], [this.width, this.navPlotHeight]])
+                .on("brush", function () {
+                    let s = d3.event.selection
+                    let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
+                    console.log(`newView: ${newView}`)
+                    params['start'] = newView[0]
+                    params['end'] = newView[1]
+                    updateURL()
+                    console.table({
+                        "params.start formatted": dateFormatter(params['start']),
+                        "params.end formatted": dateFormatter(params['end'])
+                    })
+                    parent.brushed()
                 })
-                parent.brushed()
-            })
 
+            const defaultSelection = [this.xScaleNav(lastyeardate),this.xScaleNav(mostrecent)]
+            console.log(`defaultSelection: ${defaultSelection}`)
 
-
-        const defaultSelection = [this.xScaleNav(lastyeardate),this.xScaleNav(mostrecent)]
-        console.log(`defaultSelection: ${defaultSelection}`)
-
-        this.navPlot = this.svg.append('g')
-            .attr("viewBox", [0, 0, this.width, this.navPlotHeight+20])
-            .attr('class','navPlot')
-            .attr("width", this.width)
-            .attr("height", this.navPlotHeight)
-            .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
-            .style("display", "block")
-            .call(brush)
-            //.call(brush.move,[this.xScaleNav(params['start']),this.xScaleNav(params['end'])])
+            this.navPlot = this.svg.append('g')
+                .attr("viewBox", [0, 0, this.width, this.navPlotHeight+20])
+                .attr('class','navPlot')
+                .attr("width", this.width)
+                .attr("height", this.navPlotHeight)
+                .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
+                .style("display", "block")
+                .call(brush)
+                //.call(brush.move,[this.xScaleNav(params['start']),this.xScaleNav(params['end'])])
+        }
 
         this.draw()
     }
@@ -374,7 +377,7 @@ function addSuplot(ngram){
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
     d3.select('#subplots').append('div').attr("class", `subplot ${subplotClass}`)
     console.log(`subplotClass = ${subplotClass}`)
-    subPlot[ngram] = new Chart({element: subplotSection.querySelector(`.${subplotClass}`), type: 'subplot'})
+    subPlot[ngram] = new Chart({element: subplotSection.querySelector(`.${subplotClass}`), type: 'subplot', ngram: `${ngram}`})
 }
 
 function redrawCharts(){
