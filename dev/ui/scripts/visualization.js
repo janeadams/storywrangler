@@ -371,7 +371,7 @@ function makeCharts(){
 
 function addSuplot(ngram){
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
-    d3.select('#subplots').append('div').attr("class", `subplot subplotClass`)
+    d3.select('#subplots').append('div').attr("class", `subplot ${subplotClass}`)
     console.log(`subplotClass = ${subplotClass}`)
     subPlot[ngram] = new Chart({element: document.querySelector(`#subplots.${subplotClass}`), type: 'subplot'})
 }
