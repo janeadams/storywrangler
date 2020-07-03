@@ -86,13 +86,18 @@ function addAxes(chart) {
         .scale(chart.xScaleNav)
         .ticks(d3.timeYear)
 
-    const yAxis = d3.axisLeft()
-        .scale(chart.yScale)
-        .ticks(5, "")
+    const yAxis = d3.axisLeft().scale(chart.yScale)
+
+    if (chart.type==='main') {
+        yAxis.ticks(5, "")
+    }
+    else {
+        yAxis.ticks(2, "")
+    }
 
     const yAxisNav = d3.axisLeft()
-        .scale(chart.yScaleNav)
-        .ticks(2, "")
+            .scale(chart.yScaleNav)
+            .ticks(2, "")
 
     if (params['metric'] === 'rank') {
         yAxis.tickFormat(d3.format(".00s"))
@@ -130,9 +135,6 @@ function addAxes(chart) {
         /*chart.navPlot.append("g")
             .attr("class", "yaxis-nav")
             .call(yAxisNav)*/
-    }
-    else {
-        yAxis.ticks(2,"")
     }
 }
 
