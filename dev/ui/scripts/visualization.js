@@ -213,12 +213,6 @@ function addLines(chart,dataKey){
     chart.clipgroup.attr("stroke-linejoin", "round")
         .attr("stroke-linecap", "round")
 
-    /* MAIN DATA LINE */
-    let vizDataline = chart.clipgroup.append('path')
-        .datum(ndata)
-        .attr('class',`line uuid-${uuid} dataline`)
-        .attr('d',dataline)
-
     if (chart.type==='main') {
         if (params['metric']==='rank') {
             try{
@@ -233,7 +227,11 @@ function addLines(chart,dataKey){
             catch{}
         }
         /* DRAW MAIN DATA LINE */
-        vizDataline.attr('stroke', colorSet[0])
+        chart.clipgroup.append('path')
+            .datum(ndata)
+            .attr('class',`line uuid-${uuid} dataline`)
+            .attr('d',dataline)
+            .attr('stroke', colorSet[0])
         /* TIMELINE NAVIGATION LINE */
         chart.navPlot.append('path')
             .datum(ndata)
@@ -242,7 +240,12 @@ function addLines(chart,dataKey){
             .attr('d', navline)
     }
     else {
-        vizDataline.attr('stroke', colorSet[1])
+        /* DRAW MAIN DATA LINE */
+        chart.clipgroup.append('path')
+            .datum(ndata)
+            .attr('class',`line uuid-${uuid} sparkline`)
+            .attr('d',dataline)
+            .attr('stroke', colorSet[1])
     }
 }
 

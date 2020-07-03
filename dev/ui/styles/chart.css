@@ -46,8 +46,10 @@
     opacity: 1;
 }
 
-.subplot.dataline {
+.sparkline {
+    fill: none;
     stroke-width: 2px;
+    opacity: 1;
 }
 
 .missingline {
