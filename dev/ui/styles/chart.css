@@ -46,6 +46,10 @@
     opacity: 1;
 }
 
+.subplot.dataline {
+    stroke-width: 2px;
+}
+
 .missingline {
     fill: none;
     stroke-width: 3px;
