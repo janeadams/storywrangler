@@ -287,17 +287,18 @@ class Chart {
     }
 
     zoomed() {
-        console.log('Zoomed. Event transform:')
-        /*if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
-        let t = d3.event.transform;
-        console.log('Zoomed. Event transform:')
-        console.log(t)
-        console.log('this:')
-        console.log(this)
-        this.xScale.domain(t.rescaleX(this.xScale).domain());
-        this.plot.select(".line").attr("d", line);
-        this.resetAxes()
-        this.navPlot.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t))*/
+        if (d3.event.sourceEvent && d3.event.sourceEvent.type) {
+            if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+            let t = d3.event.transform;
+            console.log('Zoomed. Event transform:')
+            console.log(t)
+            console.log('this:')
+            console.log(this)
+            this.xScale.domain(t.rescaleX(this.xScale).domain());
+            this.plot.select(".line").attr("d", line);
+            this.resetAxes()
+            this.navPlot.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t))
+        }
     }
 
     setup() {
