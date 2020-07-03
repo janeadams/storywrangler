@@ -369,9 +369,9 @@ class Chart {
 
         this.svg.append("rect")
             .attr("class", "zoom")
-            .attr("width", this.width)
-            .attr("height", this.height)
-            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
+            .attr("width", this.width - (this.margin.left + this.margin.right))
+            .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
+            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
             .call(zoom)
 
         this.draw()
