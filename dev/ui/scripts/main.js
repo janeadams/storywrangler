@@ -6,6 +6,7 @@ let xmaxes = []
 let ymins = []
 let ymaxes = []
 let mainChart
+let subPlots = {}
 let xRange = []
 let yRange = []
 let languageCodes = {}

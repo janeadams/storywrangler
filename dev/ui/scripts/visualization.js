@@ -391,7 +391,7 @@ function addSuplot(ngram){
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
     d3.select('#subplots').append('div').attr("class", `subplot ${subplotClass}`)
     console.log(`subplotClass = ${subplotClass}`)
-    subPlot[ngram] = new Chart({element: subplotSection.querySelector(`.${subplotClass}`), type: 'subplot', ngram: `${ngram}`})
+    subPlots[ngram] = new Chart({element: subplotSection.querySelector(`.${subplotClass}`), type: 'subplot', ngram: `${ngram}`})
 }
 
 function redrawCharts(){
@@ -401,7 +401,7 @@ function redrawCharts(){
     mainChart.draw()
     if (compare){
         (Object.keys(ngramData)).forEach(ngram => {
-            try {subPlot[ngram].draw()}
+            try {subPlots[ngram].draw()}
             catch {console.log(`Error re-drawing subplot for ${ngram}`)}
         })
     }
