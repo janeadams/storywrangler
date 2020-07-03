@@ -362,7 +362,7 @@ function makeCharts(){
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
     if (Ngrams){
         Object.keys(ngramData).forEach(ngram => {
-            subPlot[ngram].draw()
+            addSuplot(ngram)
         })
     }
     hideloadingpanel()
