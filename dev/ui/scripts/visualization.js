@@ -381,7 +381,7 @@ function redrawCharts(){
     mainChart.draw()
     if (compare){
         Object.keys(ngramData).forEach(ngram => {
-            subPlot[ngram].draw()
+            addSuplot(ngram)
         })
     }
     hideloadingpanel()
