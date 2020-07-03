@@ -279,8 +279,8 @@ class Chart {
     }
 
     brushed(){
-        this.setScales()
-        this.resetAxes()
+        setScales(this)
+        addAxes(this)
         this.svg.selectAll('.line').remove()
         this.svg.selectAll('circle').remove()
         addGlyphs(this)
