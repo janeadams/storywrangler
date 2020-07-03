@@ -93,15 +93,17 @@ function addAxes(chart) {
         .attr("class", "yaxis")
         .call(yAxis)
 
-    // Add X & Y Axes to focus controls
-    chart.navPlot.append("g")
-        .attr("class", "xaxis-nav")
-        .attr("transform", `translate(0, ${chart.navPlotHeight})`)
-        .call(xAxisNav)
+    if (this.type==='main') {
+        // Add X & Y Axes to focus controls
+        chart.navPlot.append("g")
+            .attr("class", "xaxis-nav")
+            .attr("transform", `translate(0, ${chart.navPlotHeight})`)
+            .call(xAxisNav)
 
-    /*chart.navPlot.append("g")
-        .attr("class", "yaxis-nav")
-        .call(yAxisNav)*/
+        /*chart.navPlot.append("g")
+            .attr("class", "yaxis-nav")
+            .call(yAxisNav)*/
+    }
 }
 
 function addLabels(chart){
