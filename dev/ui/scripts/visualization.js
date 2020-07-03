@@ -268,6 +268,18 @@ function addDots(chart, dataKey){
     }
 }
 
+function updateAll(){
+    let allPlots = [mainChart]
+    allPlots.push(Object.values(subPlot))
+    allPlots.forEach(chart => {
+        setScales(chart)
+        addAxes(chart)
+        chart.svg.selectAll('.line').remove()
+        chart.svg.selectAll('circle').remove()
+        addGlyphs(this)
+    })
+}
+
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -279,11 +291,7 @@ class Chart {
     }
 
     brushed(){
-        setScales(this)
-        addAxes(this)
-        this.svg.selectAll('.line').remove()
-        this.svg.selectAll('circle').remove()
-        addGlyphs(this)
+        updateAll()
     }
 
     setup() {
