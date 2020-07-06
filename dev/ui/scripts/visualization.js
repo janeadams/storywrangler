@@ -472,7 +472,7 @@ function addSuplot(ngram){
     let subplotSection = document.querySelector("#subplots");
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
     console.log(`subplotClass = ${subplotClass}`)
-    d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`).append('div').attr("class", "subplot-details").html(`${ngram}`).style("color", `colors.main${ngramData[ngram]['colorid']}`)
+    d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`).append('div').attr("class", "subplot-details").style("color", `${colors.main[ngramData[ngram]['colorid']]}`).html(`<h4>${ngram}</h4>`)
     let container = subplotSection.querySelector(`.subplot-container.${subplotClass}`)
     d3.select(`.subplot-container.${subplotClass}`).append('div').attr("class", "subplot-chart")
     subPlots[ngram] = new Chart({element: container.querySelector(".subplot-chart"), type: 'subplot', ngram: `${ngram}`})
