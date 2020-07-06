@@ -6,6 +6,7 @@ function adaptVisualScale() {
     else {
         dotsize = 3
     }
+    redrawCharts()
     //console.log(dotsize)
 }
 
