@@ -12,9 +12,20 @@
 #mainplot {
     height: 600px;
 }
-
-.subplot {
+/* subplot-container contains subplot-details (left) and subplot-chart (right) */
+.subplot-container {
     height: 300px;
+}
+.subplot-details {
+    width: 30%;
+    padding: 5%;
+    float: left;
+    display: inline-block;
+}
+.subplot-chart {
+    width: 60%;
+    float: left;
+    display: inline-block;
 }
 
 .yaxis-nav, .xaxis-nav {
@@ -110,8 +121,12 @@ div.tooltip {
 
 @media (max-width: 1000px) {
     #mainplot,
-    .subplot,
+    .subplot-container,
     .controls {
+        margin: 0 auto;
+    }
+    .subplot-details, .subplot-chart {
+        width: 100%;
         margin: 0 auto;
     }
     .yaxis-nav, .xaxis-nav {

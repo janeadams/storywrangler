@@ -170,6 +170,7 @@ function addLabels(chart){
             .attr("font-family", "sans-serif")
     }
     else {
+        /*
         chart.svg.append("text")
             .attr("text-anchor", "start")
             .attr("y", ((chart.height - chart.margin.bottom) / 2))
@@ -179,6 +180,7 @@ function addLabels(chart){
             .attr("class", "axislabel-large")
             .attr("font-family", "sans-serif")
             .style("fill", `colors.main${ngramData[chart.ngram]['colorid']}`)
+         */
     }
 }
 
@@ -459,9 +461,11 @@ function makeCharts(){
 function addSuplot(ngram){
     let subplotSection = document.querySelector("#subplots");
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
-    d3.select('#subplots').append('div').attr("class", `subplot ${subplotClass}`)
     console.log(`subplotClass = ${subplotClass}`)
-    subPlots[ngram] = new Chart({element: subplotSection.querySelector(`.${subplotClass}`), type: 'subplot', ngram: `${ngram}`})
+    d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`).append('div').attr("class", "subplot-details").innerHTML(`${ngram}`).style("color", `colors.main${ngramData[ngram]['colorid']}`)
+    let container = subplotSection.querySelector(`.${subplotClass}`)
+    d3.select(`subplot-container.${subplotClass}`).append('div').attr("class", "subplot-chart")
+    subPlots[ngram] = new Chart({element: container.querySelector("subplot-chart"), type: 'subplot', ngram: `${ngram}`})
 }
 
 function redrawCharts(){
