@@ -182,4 +182,11 @@ function setupPage() {
 d3.select(window).on('resize', () => {
     viewport = window.innerWidth
     adaptVisualScale()
+    mainChart.draw()
+    if (compare && Ngrams){
+        (Object.keys(ngramData)).forEach(ngram => {
+            try {subPlots[ngram].draw()}
+            catch {console.log(`Error re-drawing subplot for ${ngram}`)}
+        })
+    }
 })
