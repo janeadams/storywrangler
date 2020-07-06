@@ -360,23 +360,17 @@ class Chart {
         //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
+        this.navPlotHeight = 50
+        this.margin = {
+            top: 0.1 * this.height,
+            right: 0.1 * this.width,
+            bottom: (0.2 * this.height) + this.navPlotHeight
+        }
         if (this.type==='main') {
-            this.navPlotHeight = 50
-            this.margin = {
-                top: 0.1 * this.height,
-                right: 0.1 * this.width,
-                bottom: (0.2 * this.height) + this.navPlotHeight,
-                left: d3.min([0.3 * this.width, 150])
-            }
+            this.margin.left = d3.min([0.3 * this.width, 150])
         }
         else {
-            this.navPlotHeight = 0
-            this.margin = {
-                top: 0.1 * this.height,
-                right: 0.1 * this.width,
-                bottom: (0.1 * this.height),
-                left: d3.min([0.1 * this.width, 150])
-            }
+            this.margin.left = 0.1 * this.width
         }
         setScales(this)
         let parent = this
