@@ -122,13 +122,8 @@ div.tooltip {
 }
 
 @media (max-width: 1000px) {
-    #mainplot,
-    .subplot-container,
-    .controls {
-        margin: 0 auto;
-    }
     .subplot-details, .subplot-chart {
-        width: 100%;
+        width: 90%;
         margin: 0 auto;
     }
     .yaxis-nav, .xaxis-nav {
