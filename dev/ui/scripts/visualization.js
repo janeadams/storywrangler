@@ -25,9 +25,9 @@ function setScales(chart){
             .domain(xRange)
             .range([0, chart.width - m.left])
     }
-    console.log('chart.xScale')
-    console.log(chart.xScale)
-    console.log(`set xScale.domain to ${chart.xScale.domain()} and range to ${chart.xScale.range()}`)
+    //console.log('chart.xScale')
+    //console.log(chart.xScale)
+    //console.log(`set xScale.domain to ${chart.xScale.domain()} and range to ${chart.xScale.range()}`)
 
     // Choose and set time scales (logarithmic or linear) for the main plot
     if (params['metric']==='rank') {
@@ -170,6 +170,7 @@ function addLabels(chart){
             .attr("font-family", "sans-serif")
     }
     else {
+        /*
         chart.svg.append("text")
             .attr("text-anchor", "start")
             .attr("y", ((chart.height - chart.margin.bottom) / 2))
@@ -179,6 +180,7 @@ function addLabels(chart){
             .attr("class", "axislabel-large")
             .attr("font-family", "sans-serif")
             .style("fill", `colors.main${ngramData[chart.ngram]['colorid']}`)
+         */
     }
 }
 
@@ -355,11 +357,23 @@ class Chart {
     }*/
 
     setup() {
-        //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
+        console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
+        console.log(`this.width = ${this.width}, this.height = ${this.height}`)
         this.navPlotHeight = 50
-        this.margin = { top: 0.1 * this.height, right: 0.1 * this.width, bottom: (0.1 * 2 * this.height) + this.navPlotHeight, left: d3.min([0.1 * 3 * this.width, 150]) }
+        this.margin = {
+            top: 0.1 * this.height,
+            bottom: (0.2 * this.height) + this.navPlotHeight
+        }
+        if (this.type==='main') {
+            this.margin.right = 0.1 * this.width
+            this.margin.left = d3.min([0.3 * this.width, 150])
+        }
+        else {
+            this.margin.right = 0
+            this.margin.left = 0.1 * this.width
+        }
         setScales(this)
         let parent = this
         // set up parent element and SVG
@@ -459,9 +473,12 @@ function makeCharts(){
 function addSuplot(ngram){
     let subplotSection = document.querySelector("#subplots");
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
-    d3.select('#subplots').append('div').attr("class", `subplot ${subplotClass}`)
     console.log(`subplotClass = ${subplotClass}`)
-    subPlots[ngram] = new Chart({element: subplotSection.querySelector(`.${subplotClass}`), type: 'subplot', ngram: `${ngram}`})
+    console.log(colors.main[ngramData[ngram]['colorid']])
+    d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`).append('div').attr("class", "subplot-details").html(`<h3 style="color:${colors.main[ngramData[ngram]['colorid']]}">"${ngram}"</h3>`)
+    let container = subplotSection.querySelector(`.subplot-container.${subplotClass}`)
+    d3.select(`.subplot-container.${subplotClass}`).append('div').attr("class", "subplot-chart")
+    subPlots[ngram] = new Chart({element: container.querySelector(".subplot-chart"), type: 'subplot', ngram: `${ngram}`})
 }
 
 function redrawCharts(){

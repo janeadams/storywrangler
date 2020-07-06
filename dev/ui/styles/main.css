@@ -192,6 +192,10 @@ main {
     padding: 0 20px 20px 0;
 }
 
+.subplot-details h3 {
+    margin-top: 10px;
+}
+
 #related-work li {
     list-style: circle;
     margin-left: 20px;

@@ -3,18 +3,31 @@
     display: inline-block;
 }
 
-#mainplot,
-.subplot {
+#mainplot {
     width: 90%;
     margin: 0 auto;
-}
-
-#mainplot {
     height: 600px;
 }
-
-.subplot {
+/* subplot-container contains subplot-details (left) and subplot-chart (right) */
+.subplot-container {
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+    background-color: #FAC1BE;
+}
+.subplot-details {
+    width: 20%;
+    padding: 0 5%;
+    float: left;
+    display: inline-block;
+    background-color: aquamarine;
+}
+.subplot-chart {
     height: 300px;
+    width: 70%;
+    float: left;
+    display: inline-block;
+    background-color: #F3B544;
 }
 
 .yaxis-nav, .xaxis-nav {
@@ -109,9 +122,8 @@ div.tooltip {
 }
 
 @media (max-width: 1000px) {
-    #mainplot,
-    .subplot,
-    .controls {
+    .subplot-details, .subplot-chart {
+        width: 90%;
         margin: 0 auto;
     }
     .yaxis-nav, .xaxis-nav {
