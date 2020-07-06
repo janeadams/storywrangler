@@ -14,7 +14,7 @@
 }
 /* subplot-container contains subplot-details (left) and subplot-chart (right) */
 .subplot-container {
-    height: 300px;
+    height: auto;
 }
 .subplot-details {
     width: 30%;
@@ -23,6 +23,7 @@
     display: inline-block;
 }
 .subplot-chart {
+    height: 300px;
     width: 60%;
     float: left;
     display: inline-block;
