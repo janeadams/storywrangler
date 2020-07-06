@@ -3,8 +3,7 @@
     display: inline-block;
 }
 
-#mainplot,
-.subplot {
+#mainplot, .subplot-container {
     width: 90%;
     margin: 0 auto;
 }
