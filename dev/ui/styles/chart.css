@@ -3,22 +3,21 @@
     display: inline-block;
 }
 
-#mainplot, .subplot-container {
+#mainplot {
     width: 90%;
     margin: 0 auto;
-}
-
-#mainplot {
     height: 600px;
 }
 /* subplot-container contains subplot-details (left) and subplot-chart (right) */
 .subplot-container {
+    width: 100%;
+    margin: 0 auto;
     height: auto;
     background-color: #FAC1BE;
 }
 .subplot-details {
-    width: 30%;
-    padding: 5%;
+    width: 20%;
+    padding: 0 5%;
     float: left;
     display: inline-block;
     background-color: aquamarine;
