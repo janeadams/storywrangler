@@ -357,9 +357,10 @@ class Chart {
     }*/
 
     setup() {
-        //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
+        console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
+        console.log(`this.width = ${this.width}, this.height = ${this.height}`)
         this.navPlotHeight = 50
         this.margin = {
             top: 0.1 * this.height,
