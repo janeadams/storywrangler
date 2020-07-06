@@ -15,18 +15,21 @@
 /* subplot-container contains subplot-details (left) and subplot-chart (right) */
 .subplot-container {
     height: auto;
+    background-color: #FAC1BE;
 }
 .subplot-details {
     width: 30%;
     padding: 5%;
     float: left;
     display: inline-block;
+    background-color: aquamarine;
 }
 .subplot-chart {
     height: 300px;
     width: 60%;
     float: left;
     display: inline-block;
+    background-color: #F3B544;
 }
 
 .yaxis-nav, .xaxis-nav {
