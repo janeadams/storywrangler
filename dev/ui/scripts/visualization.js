@@ -363,14 +363,15 @@ class Chart {
         this.navPlotHeight = 50
         this.margin = {
             top: 0.1 * this.height,
-            right: 0.1 * this.width,
             bottom: (0.2 * this.height) + this.navPlotHeight
         }
         if (this.type==='main') {
+            this.margin.right = 0.1 * this.width
             this.margin.left = d3.min([0.3 * this.width, 150])
         }
         else {
-            this.margin.left = 0.1 * this.width
+            this.margin.right = 0
+            this.margin.left = 0
         }
         setScales(this)
         let parent = this
