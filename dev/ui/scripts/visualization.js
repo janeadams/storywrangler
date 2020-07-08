@@ -220,7 +220,7 @@ function addLines(chart,dataKey){
     if (chart.type==='main') {
         if (params['metric']==='rank') {
             try{
-                const ndataReplaced = ngramData[dataKey]['data_w-replacement']
+                const ndataReplaced = replaceUndefined(ngramData[dataKey]['data'])
                 /* MISSING (DOTTED) LINE */
                 chart.clipgroup.append('path')
                     .datum(ndataReplaced)

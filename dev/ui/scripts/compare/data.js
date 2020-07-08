@@ -34,12 +34,12 @@ function loadData(url) {
                     if (i > 5) {
                         i = 0
                     }
-                    if (deletedColor !== 0) {
-                        ngramData[n]['colorid'] = deletedColor
-                        deletedColor = 0
+                    if (deletedColor !== 0) { // If an ngram was recently deleted
+                        ngramData[n]['colorid'] = deletedColor // Use the color of that recently deleted ngram
+                        deletedColor = 0 // And set the deleted color back to 0
                     }
                     else {
-                        ngramData[n]['colorid'] = i
+                        ngramData[n]['colorid'] = i // Otherwise, just use the next color in the sequence
                     }
 
                     addNgram(n)

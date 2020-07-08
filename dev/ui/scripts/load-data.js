@@ -36,10 +36,9 @@ function fillMissing(data, value){
 
 function replaceUndefined(data){
     let replacedMissing
-    if (params['metric']==='rank'){replacedMissing = replaceValue(data,1000000) }
+    if (params['metric']==='rank'){replacedMissing = replaceValue(data,d3.max(ymaxes)*1.2) }
     else {
-        if (params['scale']==='log') { replacedMissing = replaceValue(data, 0.00000001) }
-        else { replacedMissing = replaceValue(data, 0) }
+        replacedMissing = replaceValue(data, d3.min(d3.min(ymins)*0.8), 0.00000001)
     }
     return replacedMissing
 }
@@ -80,9 +79,6 @@ function formatData(data){
     // if (params['metric']==='rank'){ formattedData['data'] = fillMissing(nonZero, 1000000) }
     // else { formattedData['data'] = fillMissing(nonZero, undefined) }
     formattedData['data'] = fillMissing(nonZero, undefined)
-    if (params['metric']==='rank') {
-        formattedData['data_w-replacement'] = replaceUndefined(formattedData['data'])
-    }
     // Find and format the x- and y-ranges of this data set
     formattedData['min_date'] = dateParser(loadedData['min_date'])
     formattedData['max_date'] = dateParser(loadedData['max_date'])
