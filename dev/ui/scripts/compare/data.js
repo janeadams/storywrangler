@@ -39,7 +39,7 @@ function loadData(url) {
                         let prevNgram = Ngrams.slice(-1)[0]
                         prevColor = ngramData[prevNgram]['colorid']
                     }
-                    if ( (deletedColor !== 0) && (deletedColor !== prevColor)) { // If an ngram was recently deleted
+                    if ( deletedColor !== prevColor) { // If an ngram was recently deleted
                         ngramData[n]['colorid'] = deletedColor // Use the color of that recently deleted ngram
                         deletedColor = 0 // And set the deleted color back to 0
                     }
