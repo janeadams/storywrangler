@@ -25,12 +25,12 @@ function loadData(url) {
             let newNgrams = findNew(data['ngrams'])
             if (newNgrams.length > 0) {
                 newNgrams.forEach(n => {
-                    if (Ngrams.length > 10) {
+                    if (Ngrams.length > 6) {
                         removeNgram(Ngrams[0])
                     }
                     ngramData[n] = formatData(data['ngramdata'][n])
                     i += 1
-                    if (i > 6) {
+                    if (i > 5) {
                         i = 0
                     }
                     ngramData[n]['colorid'] = i
