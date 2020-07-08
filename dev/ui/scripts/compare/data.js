@@ -1,4 +1,5 @@
 let i = 0 // For counting which color to choose for the ngram
+let deletedColor = i
 function sendQuery(formatted_query, APIsource){
     showloadingpanel()
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
@@ -33,7 +34,14 @@ function loadData(url) {
                     if (i > 5) {
                         i = 0
                     }
-                    ngramData[n]['colorid'] = i
+                    if (deletedColor !== 0) {
+                        ngramData[n]['colorid'] = deletedColor
+                        deletedColor = 0
+                    }
+                    else {
+                        ngramData[n]['colorid'] = i
+                    }
+
                     addNgram(n)
                     resetPage()
                 })
@@ -112,6 +120,7 @@ function removeNgram(n) {
     try {
         const thisdata = ngramData[n]
         let uuid = thisdata['uuid']
+        deletedColor = thisdata['colorid']
         //console.log(`removing all elements with uuid ${uuid}`)
         d3.selectAll('.uuid-' + uuid).remove()
         // Remove these mins and maxes
