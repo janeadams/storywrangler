@@ -25,7 +25,7 @@ function loadData(url) {
             let newNgrams = findNew(data['ngrams'])
             if (newNgrams.length > 0) {
                 newNgrams.forEach(n => {
-                    if (Ngrams.length > 6) {
+                    if (Ngrams.length > 5) {
                         removeNgram(Ngrams[0])
                     }
                     ngramData[n] = formatData(data['ngramdata'][n])
