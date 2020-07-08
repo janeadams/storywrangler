@@ -1,10 +1,10 @@
-let dotsize = 1
+let dotsize = 2
 function adaptVisualScale() {
     if (viewport > 1000) {
         dotsize = 3
     }
     else {
-        dotsize = 1
+        dotsize = 2
     }
     //console.log(dotsize)
 }
