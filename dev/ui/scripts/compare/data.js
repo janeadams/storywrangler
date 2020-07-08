@@ -1,3 +1,4 @@
+let i = 0 // For counting which color to choose for the ngram
 function sendQuery(formatted_query, APIsource){
     showloadingpanel()
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
@@ -29,7 +30,7 @@ function loadData(url) {
                     }
                     ngramData[n] = formatData(data['ngramdata'][n])
                     i += 1
-                    if (i > 10) {
+                    if (i > 6) {
                         i = 0
                     }
                     ngramData[n]['colorid'] = i

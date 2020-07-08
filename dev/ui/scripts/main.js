@@ -50,10 +50,10 @@ const defaultparams = {
 }
 
 const colors = {
-    'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
-    'main': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
-    'dark': ["#0681A2", "#649946", "#cf7b11", "#8D51A0", "#A01D21", "#252E6C", "#197352", "#931E59", "#562F2C", "#8B8633", "#A23522"],
-    'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
+    'names': ["blue", "cyan", "green", "yellow", "pink", "purple"],
+    'main': ["#4477AA", "#66CCEE", "#228833", "#CCBB43", "#ED6677", "#AB3278"],
+    'dark': ["#215680", "#287B89", "#286C3A", "#938431", "#CE324D", "#891F60"],
+    'light': ["#A2C4DD", "#B8E4F0", "#9BD3A0", "#EFE2A3", "#EFA5B1", "#DB95C4"]
 }
 
 // Simple function for finding the fill, stroke, or tint by the color group name
