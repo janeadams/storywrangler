@@ -88,21 +88,16 @@ function setRanges() {
         //console.log("Setting ranges...")
         // Get the minimum and maximum values for all ngrams
         xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
-        //console.log(`Setting xRange to ${xRange}`)
+        console.log(`Setting xRange to ${xRange}`)
         if (params['metric']==='rank'){
             yRange = [1, d3.max(ymaxes)*1.2]
         }
         else {
             yRange[0] = d3.min(d3.min(ymins)*0.8, 0.00000001)
-            if (params['scale']==='log') {
-                yRange[1] = 0.1
-            }
-            else {
-                yRange[1] = d3.max(ymaxes)
-            }
+            yRange[1] = d3.max(ymaxes)*1.2
         }
 
-        //console.log(`Setting yRange to ${yRange}`)
+        console.log(`Setting yRange to ${yRange}`)
     }
 }
 
