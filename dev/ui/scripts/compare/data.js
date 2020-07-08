@@ -49,7 +49,7 @@ function loadData(url) {
                         }
                         ngramData[n]['colorid'] = i // Otherwise, just use the next color in the sequence
                     }
-
+                    console.log(`Setting colorid for ${n} to ${ngramData[n]['colorid']}`)
                     addNgram(n)
                     resetPage()
                 })
