@@ -40,6 +40,7 @@ function loadData(url) {
                         prevColor = ngramData[prevNgram]['colorid']
                     }
                     if ( (deletedColor !== null) && (deletedColor !== prevColor)) { // If an ngram was recently deleted
+                        console.log(`deletecColor = ${deletedColor}`)
                         ngramData[n]['colorid'] = deletedColor // Use the color of that recently deleted ngram
                         deletedColor = null // And set the deleted color back to null
                     }
