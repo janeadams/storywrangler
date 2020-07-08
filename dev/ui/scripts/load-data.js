@@ -36,9 +36,9 @@ function fillMissing(data, value){
 
 function replaceUndefined(data){
     let replacedMissing
-    if (params['metric']==='rank'){replacedMissing = replaceValue(data,d3.min(d3.max(ymaxes)*1.2, 1000000)) }
+    if (params['metric']==='rank'){replacedMissing = replaceValue(data,d3.min([d3.max(ymaxes)*1.2, 1000000])) }
     else {
-        replacedMissing = replaceValue(data, d3.min(d3.min(ymins)*0.8, 0.00000001))
+        replacedMissing = replaceValue(data, d3.min([d3.min(ymins)*0.8, 0.00000001]))
     }
     return replacedMissing
 }

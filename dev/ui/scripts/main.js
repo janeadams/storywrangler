@@ -90,10 +90,10 @@ function setRanges() {
         xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
         console.log(`Setting xRange to ${xRange}`)
         if (params['metric']==='rank'){
-            yRange = [1, d3.min(d3.max(ymaxes)*1.2, 1000000)]
+            yRange = [1, d3.min([d3.max(ymaxes)*1.2, 1000000])]
         }
         else {
-            yRange[0] = d3.min(d3.min(ymins)*0.8, 0.00000001)
+            yRange[0] = d3.min([d3.min(ymins)*0.8, 0.00000001])
             yRange[1] = d3.max(ymaxes)*1.2
         }
 
