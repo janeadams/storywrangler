@@ -1,5 +1,5 @@
 let i = 0 // For counting which color to choose for the ngram
-let deletedColor = i
+let deletedColor = null
 function sendQuery(formatted_query, APIsource){
     showloadingpanel()
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
@@ -34,14 +34,14 @@ function loadData(url) {
                     if (i > 5) {
                         i = 0
                     }
-                    let prevColor = 0
+                    let prevColor = -1
                     if (Ngrams.length > 0){
                         let prevNgram = Ngrams.slice(-1)[0]
                         prevColor = ngramData[prevNgram]['colorid']
                     }
-                    if ( deletedColor !== prevColor) { // If an ngram was recently deleted
+                    if ( (deletedColor !== null) && (deletedColor !== prevColor)) { // If an ngram was recently deleted
                         ngramData[n]['colorid'] = deletedColor // Use the color of that recently deleted ngram
-                        deletedColor = 0 // And set the deleted color back to 0
+                        deletedColor = null // And set the deleted color back to null
                     }
                     else {
                         if (i === prevColor){
