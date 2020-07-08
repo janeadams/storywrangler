@@ -89,7 +89,12 @@ function addAxes(chart) {
     const yAxis = d3.axisLeft().scale(chart.yScale)
 
     if (chart.type==='main') {
-        yAxis.ticks(5, "")
+        if (params['scale'] === 'log') {
+            yAxis.ticks(5, "")
+        }
+        else {
+            yAxis.ticks(3, "")
+        }
     }
     else {
         yAxis.ticks(2, "")
