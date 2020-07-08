@@ -93,7 +93,7 @@ function addAxes(chart) {
             yAxis.ticks(5, "")
         }
         else {
-            yAxis.ticks(3, "")
+            yAxis.ticks(2, "")
         }
     }
     else {
