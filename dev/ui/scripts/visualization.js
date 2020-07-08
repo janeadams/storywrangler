@@ -358,6 +358,9 @@ class Chart {
 
     setup() {
         console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
+        // Clear existing chart if it's persisting
+        d3.select(this.element).html("")
+        // Set sizing
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
         console.log(`this.width = ${this.width}, this.height = ${this.height}`)
@@ -485,10 +488,10 @@ function redrawCharts(){
     //console.log("Redrawing charts...")
     showloadingpanel()
     setRanges()
-    mainChart.draw()
+    mainChart.setup()
     if (compare && Ngrams){
         (Object.keys(ngramData)).forEach(ngram => {
-            try {subPlots[ngram].draw()}
+            try {subPlots[ngram].setup()}
             catch {console.log(`Error re-drawing subplot for ${ngram}`)}
         })
     }
