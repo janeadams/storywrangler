@@ -281,7 +281,7 @@ function addDots(chart, dataKey){
     else {
         ngram = Ngram
         if (dataKey === 'w_rt'){
-            colorSet = ['lightgrey','gray','darkgray']
+            colorSet = ['#999999','#666666','#333333']
             RTlabel = '(Includes retweets)'
         }
         else {
