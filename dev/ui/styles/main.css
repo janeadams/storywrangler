@@ -35,7 +35,7 @@ h4 {
     color: #555555;
     padding: 40px;
     margin: 20vh auto;
-    width: 500px;
+    width: 400px;
     max-width: 90%;
     height: auto;
     z-index: 1000;
@@ -45,6 +45,7 @@ h4 {
 .alert p {
     font-size: 20px;
     line-height: 140%;
+    text-align: center;
 }
 
 .loader {
