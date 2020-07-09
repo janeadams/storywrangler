@@ -488,9 +488,19 @@ function addSuplot(ngram){
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
     console.log(`subplotClass = ${subplotClass}`)
     console.log(colors.main[ngramData[ngram]['colorid']])
+    let min = ngramData[ngram][`min_${params['metric']}`]
+    let max = ngramData[ngram][`max_${params['metric']}`]
+    let parsed_min = `${min}`
+    let parsed_max = `${max}`
+    if (params['metric']==='freq'){ // Round out the digits of the min/max values for frequency
+        parsed_min = `${parseFloat(precise(min,8))}`
+        parsed_max = `${parseFloat(precise(max,8))}`
+    }
     d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`)
         .append('div').attr("class", "subplot-details")
-        .html(`<h3 style="color:${colors.main[ngramData[ngram]['colorid']]}">"${ngram}"</h3><p>Min ${sentenceCase(params['metric'])}: ${ngramData[ngram][`min_${params['metric']}`]}</p><p>Max ${sentenceCase(params['metric'])}: ${ngramData[ngram][`max_${params['metric']}`]}</p>`)
+        .html(`<h3 style="color:${colors.main[ngramData[ngram]['colorid']]}">"${ngram}"</h3>
+                <p>Min ${sentenceCase(params['metric'])}: ${parsed_min}</p>
+                <p>Max ${sentenceCase(params['metric'])}: ${parsed_max}</p>`)
     let container = subplotSection.querySelector(`.subplot-container.${subplotClass}`)
     d3.select(`.subplot-container.${subplotClass}`).append('div').attr("class", "subplot-chart")
     subPlots[ngram] = new Chart({element: container.querySelector(".subplot-chart"), type: 'subplot', ngram: `${ngram}`})

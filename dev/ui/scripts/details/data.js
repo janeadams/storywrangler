@@ -21,7 +21,9 @@ function loadData(url) {
         //console.log('data:')
         //console.log(data)
         if (data['errors'].length > 0){
-            //console.log(`Sorry, we couldn't find any results for ${debug['ngrams']} in our ${params['language']} database`)
+            let alertMsg = `Sorry! ${data['errors']} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
+            console.log(alertMsg)
+            showAlert(alertMsg)
         }
         else {
             if (returnedNgrams.length > 0) {
@@ -59,7 +61,7 @@ function formatDataForDownload(button){
         //console.log(allData)
     }
     else {
-        allData = {'metadata': "Error! No data"}
+        allData = {'metadata': "Sorry! Something went wrong; we weren't able to return any data. Our servers may be overloaded at this time."}
     }
 
     button.setAttribute("href", ("data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))))
