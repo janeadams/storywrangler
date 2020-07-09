@@ -1,25 +1,4 @@
-function showloadingpanel(){
-    //console.log('Showing loading panel...')
-    d3.select('body').append('div').attr('class','pageOverlay')
-    d3.select('.pageOverlay').append('div').attr('class','loader')
-}
 
-function hideloadingpanel(){
-    //console.log('Hiding loading panel...')
-    d3.selectAll('.pageOverlay,.loader').remove()
-}
-
-function showAlert(msg){
-    console.log('Showing alert message')
-    //hideAlert()
-    d3.select('body').append('div').attr('class','pageOverlay')
-    d3.select('.pageOverlay').append('div').attr('class','alert')
-    //d3.select('.alert').html('<p>'+msg+'</p>')
-}
-
-function hideAlert(){
-    d3.selectAll('.pageOverlay,.alert').remove()
-}
 
 function filterNull(data) {
     return data.filter(d => !isNaN(d[1]))
