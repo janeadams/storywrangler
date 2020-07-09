@@ -71,6 +71,27 @@ function sentenceCase (str) {
             txt.substr(1).toLowerCase();});
 }
 
+function getSignificantDigitCount(n) {
+    n = Math.abs(String(n).replace(".", "")); //remove decimal and make positive
+    if (n === 0) return 0;
+    while (n !== 0 && n % 10 === 0) n /= 10; //kill the 0s at the end of n
+    return Math.floor(Math.log(n) / Math.log(10)) + 1; //get number of digits
+}
+
+function precise(x,s) {
+    return Number.parseFloat(x).toPrecision(s);
+}
+
+function roundUpToSig(max){
+    let up = 1.2 * max
+    return precise(up,getSignificantDigitCount(max))
+}
+
+function roundDownToSig(min){
+    let down = 0.8 * min
+    return precise(down,getSignificantDigitCount(min))
+}
+
 function getDates(startDate, stopDate) {
     let dateArray = []
     let currentDate = startDate
@@ -90,11 +111,11 @@ function setRanges() {
         xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
         console.log(`Setting xRange to ${xRange}`)
         if (params['metric']==='rank'){
-            yRange = [1, d3.min([d3.max(ymaxes)*1.2, 1000000])]
+            yRange = [1, d3.min([roundUpToSig(d3.max(ymaxes)), 1000000])]
         }
         else {
-            yRange[0] = d3.min(ymins)*0.8
-            yRange[1] = d3.max(ymaxes)*1.2
+            yRange[0] = roundDownToSig(d3.min(ymins))
+            yRange[1] = roundUpToSig(d3.max(ymaxes))
         }
 
         console.log(`Setting yRange to ${yRange}`)

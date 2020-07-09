@@ -39,7 +39,12 @@ function setScales(chart){
                 chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
             }
             else {
-                chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], ngramData[chart.ngram][`min_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
+                if (params['metric']==='rank') {
+                    chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], 1]).nice().range([chart.height - (m.top + m.bottom), 0])
+                }
+                else {
+                    chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], ngramData[chart.ngram][`min_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
+                }
             }
         }
         else {
