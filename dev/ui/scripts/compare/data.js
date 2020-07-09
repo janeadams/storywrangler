@@ -31,7 +31,7 @@ function loadData(url) {
             debug['ngrams'].forEach(searched => {
                 if (searched in foundNgrams){ console.log(`Found ${searched}`)}
                 else {
-                    notFound.push(searched)
+                    notFound = notFound.push(searched)
                     try{Ngrams = Ngrams.filter(ele => ele !== searched)}
                     catch{}
                 }
