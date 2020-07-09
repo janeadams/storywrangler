@@ -224,7 +224,7 @@ function showAlert(msg){
     //hideAlert()
     d3.select('.alertOverlay').attr('class','alertOverlay shown')
         .classed('hidden',false)
-        .append('div').attr('class','alert').html('<p>'+msg+'</p>')//.on('click',hideAlert())
+        .append('div').attr('class','alert').html('<p>'+msg+'</p>')
 }
 
 function hideAlert(){
@@ -232,3 +232,6 @@ function hideAlert(){
         .classed('shown',false)
     d3.selectAll('.alert').remove()
 }
+
+d3.select('.loadingOverlay').on('click',hideloadingpanel())
+d3.select('.alertOverlay').on('click',hideAlert())
