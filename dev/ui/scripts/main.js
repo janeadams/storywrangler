@@ -205,7 +205,8 @@ d3.select(window).on('resize', () => {
 
 function showloadingpanel(){
     //console.log('Showing loading panel...')
-    d3.select('.pageOverlay').style({ 'display': 'block' }).append('div').attr('class','loader')
+    d3.select('.pageOverlay').style({ 'display': 'block' })
+    d3.select('.pageOverlay').append('div').attr('class','loader')
 }
 
 function hideloadingpanel(){
@@ -217,7 +218,8 @@ function hideloadingpanel(){
 function showAlert(msg){
     console.log('Showing alert message')
     //hideAlert()
-    d3.select('.pageOverlay').style({ 'display': 'block' }).append('div').attr('class','alert').html('<p>'+msg+'</p>')
+    d3.select('.pageOverlay').style({ 'display': 'block' })
+    d3.select('.pageOverlay').append('div').attr('class','alert').html('<p>'+msg+'</p>')
 }
 
 function hideAlert(){
