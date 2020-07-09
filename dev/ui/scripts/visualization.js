@@ -367,13 +367,13 @@ class Chart {
     }*/
 
     setup() {
-        console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
+        //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
         // Clear existing chart if it's persisting
         d3.select(this.element).html("")
         // Set sizing
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        console.log(`this.width = ${this.width}, this.height = ${this.height}`)
+        //console.log(`this.width = ${this.width}, this.height = ${this.height}`)
         this.navPlotHeight = 50
         this.margin = {
             top: 0.1 * this.height,
@@ -486,8 +486,8 @@ function makeCharts(){
 function addSuplot(ngram){
     let subplotSection = document.querySelector("#subplots");
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
-    console.log(`subplotClass = ${subplotClass}`)
-    console.log(colors.main[ngramData[ngram]['colorid']])
+    //console.log(`subplotClass = ${subplotClass}`)
+    //console.log(colors.main[ngramData[ngram]['colorid']])
     let min = ngramData[ngram][`min_${params['metric']}`]
     let max = ngramData[ngram][`max_${params['metric']}`]
     let parsed_min = `${min}`
