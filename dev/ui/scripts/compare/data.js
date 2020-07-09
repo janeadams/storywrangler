@@ -1,5 +1,12 @@
-let i = 0 // For counting which color to choose for the ngram
-let deletedColor = null
+let availableColors = [0,1,2,3,4,5]
+
+function removeColor(n){
+    const index = availableColors.indexOf(n);
+    if (index > -1) {
+        availableColors.splice(index, 1);
+    }
+}
+
 function sendQuery(formatted_query, APIsource){
     showloadingpanel()
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
@@ -30,26 +37,8 @@ function loadData(url) {
                         removeNgram(Ngrams[0])
                     }
                     ngramData[n] = formatData(data['ngramdata'][n])
-                    i += 1
-                    if (i > 5) {
-                        i = 0
-                    }
-                    let prevColor = -1
-                    if ((Object.keys(ngramData)).length > 0){
-                        let prevNgram = (Object.keys(ngramData)).slice(-1)[0]
-                        prevColor = ngramData[prevNgram]['colorid']
-                    }
-                    if ( (deletedColor !== null) && (deletedColor !== prevColor)) { // If an ngram was recently deleted
-                        console.log(`deletecColor = ${deletedColor}`)
-                        ngramData[n]['colorid'] = deletedColor // Use the color of that recently deleted ngram
-                        deletedColor = null // And set the deleted color back to null
-                    }
-                    else {
-                        if (i === prevColor){
-                            i += 1
-                        }
-                        ngramData[n]['colorid'] = i // Otherwise, just use the next color in the sequence
-                    }
+                    ngramData[n]['colorid'] = availableColors[0]
+                    removeColor(availableColors[0])
                     console.log(`Setting colorid for ${n} to ${ngramData[n]['colorid']}`)
                     addNgram(n)
                     resetPage()
@@ -129,7 +118,7 @@ function removeNgram(n) {
     try {
         const thisdata = ngramData[n]
         let uuid = thisdata['uuid']
-        deletedColor = thisdata['colorid']
+        availableColors.push(thisdata['colorid'])
         //console.log(`removing all elements with uuid ${uuid}`)
         d3.selectAll('.uuid-' + uuid).remove()
         // Remove these mins and maxes
