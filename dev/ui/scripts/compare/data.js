@@ -26,7 +26,7 @@ function loadData(url) {
         //console.table(debug)
         //console.log(data)
         if (data['errors'].length > 0){
-            let alertMsg = `Sorry, we couldn't find any results for ${debug['ngrams']} in our ${codeLookup[params['language']]} database`
+            let alertMsg = `Sorry, we couldn't find any results for "${debug['ngrams']}" in our ${codeLookup[params['language']]} database`
             console.log(alertMsg)
             showAlert(alertMsg)
             try{Ngrams = Ngrams.filter(ele => ele !== debug['ngrams'])}
