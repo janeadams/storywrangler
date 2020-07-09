@@ -502,8 +502,8 @@ function addSuplot(ngram){
         parsed_max = `about 1 in ${parseFloat(precise(1/max, 3)).toLocaleString()}`
     }
     else {
-        parsed_min = min.toLocaleString()
-        parsed_max = max.toLocaleString()
+        parsed_min = max.toLocaleString() // NOTE: For rank, we've reversed min and max here
+        parsed_max = min.toLocaleString()
     }
 
     d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`)
