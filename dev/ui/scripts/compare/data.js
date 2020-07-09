@@ -31,7 +31,7 @@ function loadData(url) {
             data['ngrams'].forEach(searched => {
                 console.log("data['ngrams']")
                 console.log(data['ngrams'])
-                if (searched in foundNgrams){ console.log(`Found ${searched}`)}
+                if (foundNgrams.includes(searched)){ console.log(`Found ${searched}`)}
                 else {
                     notFound.push(searched)
                     try{Ngrams = Ngrams.filter(ele => ele !== searched)}
