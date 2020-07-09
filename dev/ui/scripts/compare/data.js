@@ -138,7 +138,7 @@ function addNgram(n) {
             removeNgram(n)
         })
     addSuplot(n)
-    document.getElementById("details-link").setAttribute("href", `https://storywrangling.org/details.html?ngram=${n}`)
+    document.getElementById("details-link").setAttribute("href", `details.html?ngram=${n}`)
     //console.log(`Added "${n}" to Ngrams:`)
     //console.log(Ngrams)
 }
