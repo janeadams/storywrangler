@@ -30,9 +30,9 @@ function loadData(url) {
         console.log(foundNgrams)
         if (data['errors'].length > 0){
             let notFound = []
+            console.log("data['ngrams']")
+            console.log(data['ngrams'])
             data['ngrams'].forEach(searched => {
-                console.log("data['ngrams']")
-                console.log(data['ngrams'])
                 if (foundNgrams.includes(searched)){ console.log(`Found ${searched}`)}
                 else {
                     notFound.push(searched)
@@ -45,7 +45,7 @@ function loadData(url) {
             let alertMsg = `Sorry! ${data['errors']}`
             if (notFound.length > 1){
                 let stringMissing = `<strong>${notFound[0]}</strong>`
-                notFound.slice(1,(notFound.length-1)).forEach(missing => {
+                notFound.slice(0,(notFound.length-1)).forEach(missing => {
                     stringMissing = `${stringMissing} or <strong>${missing}</strong>`
                 })
                 alertMsg = `Sorry! We couldn't find ${stringMissing} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that these phrases are used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
