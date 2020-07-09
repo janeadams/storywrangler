@@ -1,11 +1,20 @@
 function showloadingpanel(){
     //console.log('Showing loading panel...')
-    d3.selectAll('.loadoverlay,.loader').style("display","block")
+    d3.selectAll('.overlay,.loader').style("display","block")
 }
 
 function hideloadingpanel(){
     //console.log('Hiding loading panel...')
-    d3.selectAll('.loadoverlay,.loader').style("display","none")
+    d3.selectAll('.overlay,.loader').style("display","none")
+}
+
+function showAlert(msg){
+    d3.selectAll('.overlay,.alert').style("display","block")
+    d3.selectAll(`.alert`).html(`<p>${msg}</p>`).onclick(hideAlert())
+}
+
+function hideAlert(){
+    d3.selectAll('.overlay,.alert').style("display","none")
 }
 
 function filterNull(data) {

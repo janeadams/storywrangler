@@ -10,7 +10,7 @@ h4 {
     color: #666;
 }
 
-.loadoverlay {
+.overlay {
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.6);
@@ -19,6 +19,14 @@ h4 {
     top: 0;
     left: 0;
     display: none;
+}
+
+.alert {
+    border: 2px solid #999999;
+    background-color: #FFF;
+    color: #555555;
+    padding: 40px;
+    margin: 20vh auto;
 }
 
 .loader {
