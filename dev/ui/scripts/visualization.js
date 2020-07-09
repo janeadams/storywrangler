@@ -500,6 +500,11 @@ function addSuplot(ngram){
         parsed_min = `about 1 in ${parseFloat(precise(1/min, 3)).toLocaleString()}`
         parsed_max = `about 1 in ${parseFloat(precise(1/max, 3)).toLocaleString()}`
     }
+    else {
+        parsed_min = min.toLocaleString()
+        parsed_max = max.toLocaleString()
+    }
+
     d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`)
         .append('div').attr("class", "subplot-details")
         .html(`<h3 style="color:${colors.main[ngramData[ngram]['colorid']]}">"${ngram}"</h3>
