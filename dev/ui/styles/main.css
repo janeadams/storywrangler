@@ -31,8 +31,7 @@ h4 {
     width: 200px;
     height: 100px;
     z-index: 1000;
-    position: relative;
-    display: none;
+    position: fixed;
 }
 
 .loader {
