@@ -227,25 +227,26 @@ function addLines(chart,dataKey){
     chart.clipgroup.attr("stroke-linejoin", "round")
         .attr("stroke-linecap", "round")
 
-    if (chart.type==='main') {
-        if (params['metric']==='rank') {
-            try{
-                const ndataReplaced = replaceUndefined(ngramData[dataKey]['data'])
-                /* MISSING (DOTTED) LINE */
-                chart.clipgroup.append('path')
-                    .datum(ndataReplaced)
-                    .attr('class', `line uuid-${uuid} missingline`)
-                    .attr('stroke', colorSet[0])
-                    .attr('d', dataline)
-            }
-            catch{}
+    if (params['metric']==='rank') {
+        try{
+            const ndataReplaced = replaceUndefined(ngramData[dataKey]['data'])
+            /* MISSING (DOTTED) LINE */
+            chart.clipgroup.append('path')
+                .datum(ndataReplaced)
+                .attr('class', `line uuid-${uuid} missingline`)
+                .attr('stroke', colorSet[0])
+                .attr('d', dataline)
         }
-        /* DRAW MAIN DATA LINE */
-        chart.clipgroup.append('path')
-            .datum(ndata)
-            .attr('class',`line uuid-${uuid} dataline`)
-            .attr('d',dataline)
-            .attr('stroke', colorSet[0])
+        catch{}
+    }
+    /* DRAW MAIN DATA LINE */
+    chart.clipgroup.append('path')
+        .datum(ndata)
+        .attr('class',`line uuid-${uuid} dataline`)
+        .attr('d',dataline)
+        .attr('stroke', colorSet[0])
+
+    if (chart.type==='main') {
         /* TIMELINE NAVIGATION LINE */
         chart.navPlot.append('path')
             .datum(ndata)
@@ -253,14 +254,14 @@ function addLines(chart,dataKey){
             .attr('stroke', colorSet[1])
             .attr('d', navline)
     }
-    else {
-        /* DRAW MAIN DATA LINE */
+    /*else {
+        // DRAW MAIN DATA LINE
         chart.clipgroup.append('path')
             .datum(ndata)
             .attr('class',`line uuid-${uuid} sparkline`)
             .attr('d',dataline)
             .attr('stroke', colorSet[1])
-    }
+    }*/
 }
 
 function addDots(chart, dataKey){
