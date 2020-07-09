@@ -35,8 +35,9 @@ h4 {
     color: #555555;
     padding: 40px;
     margin: 20vh auto;
-    width: 200px;
-    height: 100px;
+    width: 500px;
+    max-width: 90%;
+    height: auto;
     z-index: 1000;
     position: relative;
 }
