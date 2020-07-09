@@ -10,6 +10,14 @@ h4 {
     color: #666;
 }
 
+.hidden {
+    display: none;
+}
+
+.shown {
+    display: block;
+}
+
 .pageOverlay {
     width: 100%;
     height: 100%;
