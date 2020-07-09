@@ -5,7 +5,7 @@ function showloadingpanel(){
 
 function hideloadingpanel(){
     //console.log('Hiding loading panel...')
-    d3.selectAll('.overlay,.loader').style("display","none")
+    //d3.selectAll('.overlay,.loader').style("display","none")
 }
 
 function showAlert(msg){
