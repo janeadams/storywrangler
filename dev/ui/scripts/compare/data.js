@@ -25,14 +25,20 @@ function loadData(url) {
         debugvals.forEach(v => (debug[v] = [data[v]]))
         //console.table(debug)
         //console.log(data)
+        let foundNgrams = Object(data['ngramdata']).keys
         if (data['errors'].length > 0){
-            let alertMsg = `Sorry! We couldn't find any results for <strong>"${debug['ngrams']}"</strong> in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
+            let alertMsg = `Sorry! ${data['errors']} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
             console.log(alertMsg)
             showAlert(alertMsg)
-            try{Ngrams = Ngrams.filter(ele => ele !== debug['ngrams'])}
-            catch{}
+            debug['ngrams'].forEach(searched => {
+                if (searched in foundNgrams){ console.log(`Found ${searched}`)}
+                else {
+                    try{Ngrams = Ngrams.filter(ele => ele !== searched)}
+                    catch{}
+                }
+            })
         }
-        else {
+        if (foundNgrams.length > 0){
             let newNgrams = findNew(data['ngrams'])
             if (newNgrams.length > 0) {
                 newNgrams.forEach(n => {
