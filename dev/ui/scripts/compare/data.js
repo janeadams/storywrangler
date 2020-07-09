@@ -29,7 +29,6 @@ function loadData(url) {
             let alertMsg = `Sorry, we couldn't find any results for ${debug['ngrams']} in our ${codeLookup[params['language']]} database`
             console.log(alertMsg)
             showAlert(alertMsg)
-            showAlert('no')
             try{Ngrams = Ngrams.filter(ele => ele !== debug['ngrams'])}
             catch{}
         }

@@ -217,7 +217,7 @@ function hideloadingpanel(){
 function showAlert(msg){
     console.log('Showing alert message')
     //hideAlert()
-    return d3.select('body').append('div').attr('class','pageOverlay').append('div').attr('class','alert').html('<p>'+msg+'</p>')
+    d3.select('body').append('div').attr('class','pageOverlay').append('div').attr('class','alert')//.html('<p>'+msg+'</p>')
 }
 
 function hideAlert(){
