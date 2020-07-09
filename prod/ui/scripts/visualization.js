@@ -302,7 +302,9 @@ function addDots(chart, dataKey){
         .attr("cx", d => chart.xScale(d[0]))
         .attr("cy", d => chart.yScale(d[1]))
         .on("mouseenter", drawTooltip)
+        .on("touchstart", drawTooltip)
         .on("mouseleave", removeTooltip)
+        .on("touchend", removeTooltip)
         .on("click", d => {
             window.open(getTwitterURL(ngram, d, params['rt']), '_blank')
         })
