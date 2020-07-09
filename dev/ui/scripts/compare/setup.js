@@ -5,4 +5,4 @@ defaultparams['rt']=true
 paramoptions['rt']=[true,false]
 
 let Ngrams = []
-let defaultNgrams = ["hahaha","one two three","#friday","🦠"]
+let defaultNgrams = ["hahaha","Black Lives Matter","#MeToo","🦠"]
