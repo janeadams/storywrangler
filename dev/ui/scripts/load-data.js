@@ -1,6 +1,6 @@
 function showloadingpanel(){
     //console.log('Showing loading panel...')
-    d3.select('body').append('div').attr('class','pageOverlay')
+    d3.select('body').append('div').attr('class','pageOverlay').on('click',hideloadingpanel())
     d3.select('.pageOverlay').append('div').attr('class','loader')
 }
 
@@ -12,7 +12,7 @@ function hideloadingpanel(){
 function showAlert(msg){
     console.log('Showing alert message')
     //hideAlert()
-    d3.select('body').append('div').attr('class','pageOverlay')
+    d3.select('body').append('div').attr('class','pageOverlay').on('click',hideAlert())
     d3.select('.pageOverlay').append('div').attr('class','alert').html(`<p>${msg}</p>`)
 }
 
