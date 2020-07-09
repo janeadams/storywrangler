@@ -210,17 +210,17 @@ function showloadingpanel(){
 
 function hideloadingpanel(){
     //console.log('Hiding loading panel...')
-    d3.select('.pageOverlay').style('display','none')
+    d3.select('.pageOverlay').style('opacity','0')
     d3.selectAll('.loader').remove()
 }
 
 function showAlert(msg){
     console.log('Showing alert message')
     //hideAlert()
-    d3.select('.pageOverlay').style('display','block').append('div').attr('class','alert').html('<p>'+msg+'</p>')
+    d3.select('.pageOverlay').style('opacity','1').append('div').attr('class','alert').html('<p>'+msg+'</p>')
 }
 
 function hideAlert(){
-    d3.select('.pageOverlay').attr('display','none')
+    d3.select('.pageOverlay').style('opacity','0')
     d3.selectAll('.alert').remove()
 }
