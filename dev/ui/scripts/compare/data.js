@@ -27,16 +27,28 @@ function loadData(url) {
         //console.log(data)
         let foundNgrams = Object.keys(data['ngramdata'])
         if (data['errors'].length > 0){
-            let alertMsg = `Sorry! ${data['errors']} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
-            console.log(alertMsg)
-            showAlert(alertMsg)
+            let notFound = []
             debug['ngrams'].forEach(searched => {
                 if (searched in foundNgrams){ console.log(`Found ${searched}`)}
                 else {
+                    notFound.push(searched)
                     try{Ngrams = Ngrams.filter(ele => ele !== searched)}
                     catch{}
                 }
             })
+            let alertMsg = `Sorry! ${data['errors']}`
+            if (notFound.length > 1){
+                let stringMissing = `<strong>${notFound[0]}</strong>`
+                notFound.slice(1,(notFound.length-1)).forEach(missing => {
+                    stringMissing = `${stringMissing} or <strong>${missing}</strong>`
+                })
+                alertMsg = `Sorry! We couldn't find ${stringMissing} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that these phrases are used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
+            }
+            else {
+                alertMsg = `Sorry! We couldn't find <strong>${notFound}</strong> in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that these phrases are used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
+            }
+            console.log(alertMsg)
+            showAlert(alertMsg)
         }
         if (foundNgrams.length > 0){
             let newNgrams = findNew(data['ngrams'])
@@ -46,6 +58,7 @@ function loadData(url) {
                         removeNgram(Ngrams[0])
                     }
                     ngramData[n] = formatData(data['ngramdata'][n])
+                    ngramData[n]['grams']=debug['database']
                     ngramData[n]['colorid'] = availableColors[0]
                     removeColor(availableColors[0])
                     console.log(`Setting colorid for ${n} to ${ngramData[n]['colorid']}`)
