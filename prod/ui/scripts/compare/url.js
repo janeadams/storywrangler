@@ -46,7 +46,7 @@ function getUrlNgramParams(){
 }
 
 function translateDefaults(){
-    let newDefaults = ["hahaha","Black Lives Matter","#MeToo","🦠"]
+    let newDefaults = ["🦠","hahaha","Black Lives Matter","#MeToo"]
     const defaultDict = {'es':['buenas noches','#viernes','jajaja','🇵🇷'],'fr':['Emmanuel Macron','#vendredi','héhéhé','🎄'],'hy':['սիրում եմ քեզ','#armenia','Հայաստանի','🇦🇲'], 'tr':['Tayyip Erdoğan','#cuma','hahaha','🇹🇷'] }
     if (Object.keys(defaultDict).includes(params['language'])){
         newDefaults = defaultDict[params['language']]
@@ -60,7 +60,7 @@ function translateDefaults(){
         //console.log(`defaultNgrams are now ${defaultNgrams}`)
     }
     else {
-        newDefaults = ["hahaha","Black Lives Matter","#MeToo","🦠"]
+        newDefaults = ["🦠","hahaha","Black Lives Matter","#MeToo"]
         //console.log(`newDefaults: ${newDefaults}`)
         if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
             //console.log(`Ngrams are default`)
