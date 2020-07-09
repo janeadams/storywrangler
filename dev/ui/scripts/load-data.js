@@ -10,7 +10,7 @@ function hideloadingpanel(){
 
 function showAlert(msg){
     d3.selectAll('.overlay,.alert').style("display","block")
-    d3.selectAll(`.alert`).html(`<p>${msg}</p>`).on("click",hideAlert())
+    d3.selectAll(`.alert`).html(`<p>${msg}</p>`).style("display","block")
 }
 
 function hideAlert(){
