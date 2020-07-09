@@ -1,19 +1,16 @@
 function addGlyphs(chart){
+    d3.selectAll('.ngram-name').remove()
     // Add lines
-    Object.keys(ngramData).forEach(rt_state => {
-        addLines(chart,rt_state)
-    })
+    addLines(chart,'w_rt')
+    addLines(chart,'no_rt')
     // ADD DOTS
-    Object.keys(ngramData).forEach(rt_state => {
-        addDots(chart,rt_state)
-    })
-    if (Ngram) {
-        chart.svg.append("text")
-            .attr("text-anchor", "start")
-            .attr("y", chart.margin.top)
-            .attr("x", chart.margin.left+20)
-            .attr("dy", "0.5em")
-            .text(`"${Ngram}"`)
-            .attr("class","ngram-name")
-    }
+    addDots(chart,'w_rt')
+    addDots(chart,'no_rt')
+    chart.svg.append("text")
+        .attr("text-anchor", "start")
+        .attr("y", chart.margin.top)
+        .attr("x", chart.margin.left+20)
+        .attr("dy", "0.5em")
+        .text(`"${Ngram}"`)
+        .attr("class","ngram-name")
 }
