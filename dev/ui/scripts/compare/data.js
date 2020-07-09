@@ -145,7 +145,7 @@ function addNgram(n) {
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
-    setTimeout(() => showloadingpanel(), 1000)
+    showloadingpanel()
     // Filter the ngram list to include every ngram except this one
     Ngrams = Ngrams.filter(ele => ele !== n)
     try {
@@ -169,7 +169,7 @@ function removeNgram(n) {
     catch{}
     updateURL()
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
-    setTimeout(() => hideloadingpanel(), 1000)
+    hideloadingpanel()
 }
 
 function setButtons(){

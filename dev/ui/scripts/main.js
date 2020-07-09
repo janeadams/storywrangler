@@ -209,7 +209,7 @@ function showloadingpanel(){
     //console.log('Showing loading panel...')
     d3.select('.loadingOverlay').attr('class','loadingOverlay shown')
         .classed('hidden',false)
-    d3.select('.loadingOverlay').append('div').attr('class','loader')//.on('click',hideloadingpanel())
+    d3.select('.loadingOverlay').append('div').attr('class','loader')
 }
 
 function hideloadingpanel(){
