@@ -25,7 +25,7 @@ function loadData(url) {
         debugvals.forEach(v => (debug[v] = [data[v]]))
         //console.table(debug)
         //console.log(data)
-        let foundNgrams = Object(data['ngramdata']).keys
+        let foundNgrams = Object(data['ngramdata']).keys()
         if (data['errors'].length > 0){
             let alertMsg = `Sorry! ${data['errors']} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
             console.log(alertMsg)
