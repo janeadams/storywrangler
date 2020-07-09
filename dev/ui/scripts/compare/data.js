@@ -33,7 +33,7 @@ function loadData(url) {
                 console.log(data['ngrams'])
                 if (searched in foundNgrams){ console.log(`Found ${searched}`)}
                 else {
-                    notFound = notFound.push(searched)
+                    notFound.push(searched)
                     try{Ngrams = Ngrams.filter(ele => ele !== searched)}
                     catch{}
                 }
