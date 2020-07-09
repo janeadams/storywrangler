@@ -47,7 +47,6 @@ h4 {
     z-index: 1000;
     position: relative;
     margin: 20vh auto;
-    display: none;
 }
 
 @keyframes spin {
