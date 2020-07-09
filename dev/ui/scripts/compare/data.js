@@ -17,8 +17,8 @@ function sendQuery(formatted_query, APIsource){
 function loadData(url) {
     //console.log(`Querying API URL:`)
     //console.log(url)
+    showloadingpanel()
     d3.json(url).then((data, error) => {
-        showloadingpanel()
         //console.log(`Received API response:`)
         let debug = {}
         let debugvals = ['ngrams', 'database', 'metric', 'rt', 'language', 'errors']
@@ -63,7 +63,6 @@ function reloadAllData() {
     })
     clearData()
     initializeData()
-    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function findNew(ngrams){
@@ -189,6 +188,7 @@ function clearAll(){
 
 function initializeData(){
     Ngrams.forEach(n => parseQuery(n,true))
+    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function alreadyExists(query){

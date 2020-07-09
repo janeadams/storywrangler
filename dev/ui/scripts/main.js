@@ -221,6 +221,6 @@ function showAlert(msg){
 }
 
 function hideAlert(){
-    d3.select('.pageOverlay').style('display','none')
+    d3.select('.pageOverlay').attr('display','none')
     d3.selectAll('.alert').remove()
 }
