@@ -38,7 +38,7 @@ function loadData(url) {
                 }
                 ngramData[rt_state] = formatData(data['ngramdata'][Ngram])
                 resetPage()
-                Document.getElementById("compare-link").setAttribute("href", `https://storywrangling.org/index.html?ngrams=${Ngram}`)
+                document.getElementById("compare-link").setAttribute("href", `https://storywrangling.org/index.html?ngrams=${Ngram}`)
             }
         }
     })
