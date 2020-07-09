@@ -95,7 +95,7 @@ function addAxes(chart) {
 
     if (chart.type==='main') {
         if (params['scale'] === 'log') {
-            yAxis.ticks(5, "")
+            yAxis.ticks(3, "")
         }
         else {
             yAxis.ticks(2, "")
