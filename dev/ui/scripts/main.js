@@ -205,28 +205,28 @@ d3.select(window).on('resize', () => {
 
 function showloadingpanel(){
     //console.log('Showing loading panel...')
-    d3.select('.pageOverlay').classed('hidden',false)
-    d3.select('.pageOverlay').classed('shown',true)
-    d3.select('.pageOverlay').append('div').attr('class','loader')
+    d3.select('.loadingOverlay').classed('hidden',false)
+    d3.select('.loadingOverlay').classed('shown',true)
+    d3.select('.loadingOverlay').append('div').attr('class','loader')
 }
 
 function hideloadingpanel(){
     //console.log('Hiding loading panel...')
-    d3.select('.pageOverlay').classed('shown',false)
-    d3.select('.pageOverlay').classed('hidden',true)
+    d3.select('.loadingOverlay').classed('shown',false)
+    d3.select('.loadingOverlay').classed('hidden',true)
     d3.selectAll('.loader').remove()
 }
 
 function showAlert(msg){
     console.log('Showing alert message')
     //hideAlert()
-    d3.select('.pageOverlay').classed('hidden',false)
-    d3.select('.pageOverlay').classed('shown',true)
-    d3.select('.pageOverlay').append('div').attr('class','alert').html('<p>'+msg+'</p>')
+    d3.select('.alertOverlay').classed('hidden',false)
+    d3.select('.alertOverlay').classed('shown',true)
+    d3.select('.alertOverlay').append('div').attr('class','alert').html('<p>'+msg+'</p>')
 }
 
 function hideAlert(){
-    d3.select('.pageOverlay').classed('shown',false)
-    d3.select('.pageOverlay').classed('hidden',true)
+    d3.select('.alertOverlay').classed('shown',false)
+    d3.select('.alertOverlay').classed('hidden',true)
     d3.selectAll('.alert').remove()
 }
