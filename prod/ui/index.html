@@ -21,8 +21,7 @@
     <link href="https://fonts.googleapis.com/css?family=Pangolin&display=swap" rel="stylesheet">
 </head>
 
-<body>
-    <div class="loadoverlay"><div class="loader"></div></div>
+<body><div class="loadingOverlay" onclick="hideloadingpanel()"></div><div class="alertOverlay" onclick="hideAlert()"></div>
     <header>
         <a href="https://storywrangling.org">
             <div id="logo">
@@ -32,8 +31,8 @@
         </a>
         <div id="navigation">
             <ul id="menu">
-                <li><a href="index.html">Compare</a></li>
-                <li><a href="details.html">Details</a></li>
+                <li><a id="compare-link" href="index.html"><strong>Compare</strong></a></li>
+                <li><a id="details-link" href="details.html">Details</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
             <ul class="social">
@@ -83,11 +82,12 @@
 
         <!-- Data visualization area -->
         <section id="dataviz">
-            <div id="mainplot" class="main"></div>
-        </section>
-        <section id="downloadButtons">
-            <a class="button" id="downloadChart" onclick="downloadChart()">Download Chart</a>
-            <a class="button" id="downloadData" onclick="formatDataForDownload(this)" target="_blank">Download Data</a>
+            <div id="mainplot"></div>
+            <div id="downloadButtons">
+                <a class="button" id="downloadChart" onclick="downloadChart()">Download Chart</a>
+                <a class="button" id="downloadData" onclick="formatDataForDownload(this)" target="_blank">Download Data</a>
+            </div>
+            <div id="subplots"></div>
         </section>
 
     </main>

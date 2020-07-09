@@ -3,18 +3,29 @@
     display: inline-block;
 }
 
-#mainplot,
-.subplot {
+#mainplot {
     width: 90%;
     margin: 0 auto;
-}
-
-#mainplot {
     height: 600px;
 }
-
-.subplot {
+/* subplot-container contains subplot-details (left) and subplot-chart (right) */
+.subplot-container {
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+    display: inline-block;
+}
+.subplot-details {
+    width: 20%;
+    padding: 0 5%;
+    float: left;
+    display: inline-block;
+}
+.subplot-chart {
     height: 300px;
+    width: 70%;
+    float: left;
+    display: inline-block;
 }
 
 .yaxis-nav, .xaxis-nav {
@@ -46,6 +57,12 @@
     opacity: 1;
 }
 
+.sparkline {
+    fill: none;
+    stroke-width: 2px;
+    opacity: 1;
+}
+
 .missingline {
     fill: none;
     stroke-width: 3px;
@@ -61,11 +78,15 @@
 
 .zoom {
     cursor: move;
+    fill: red;
+    opacity: 0.1;
+    pointer-events: all;
+    border: 2px solid red;
 }
 
 .overlay {
     /*fill: #EEE;*/
-    border: 1px solid #666666;
+    /*border: 1px solid #666666;*/
     pointer-events: all;
     z-index: -999;
 }
@@ -92,16 +113,15 @@ div.tooltip {
 }
 
 .ngram-name {
-    fill: #00B6CF;
+    fill: #4477AA;
     font-weight: bold;
     font-size: 1.5em;
     font-family: sans-serif;
 }
 
 @media (max-width: 1000px) {
-    #mainplot,
-    .subplot,
-    .controls {
+    .subplot-details, .subplot-chart {
+        width: 90%;
         margin: 0 auto;
     }
     .yaxis-nav, .xaxis-nav {

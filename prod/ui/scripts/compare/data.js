@@ -1,3 +1,12 @@
+let availableColors = [0,1,2,3,4,5]
+
+function removeColor(n){
+    const index = availableColors.indexOf(n);
+    if (index > -1) {
+        availableColors.splice(index, 1);
+    }
+}
+
 function sendQuery(formatted_query, APIsource){
     showloadingpanel()
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
@@ -8,6 +17,7 @@ function sendQuery(formatted_query, APIsource){
 function loadData(url) {
     //console.log(`Querying API URL:`)
     //console.log(url)
+    showloadingpanel()
     d3.json(url).then((data, error) => {
         //console.log(`Received API response:`)
         let debug = {}
@@ -15,35 +25,64 @@ function loadData(url) {
         debugvals.forEach(v => (debug[v] = [data[v]]))
         //console.table(debug)
         //console.log(data)
+        let foundNgrams = Object.keys(data['ngramdata'])
+        console.log("foundNgrams")
+        console.log(foundNgrams)
         if (data['errors'].length > 0){
-            console.log(`Sorry, we couldn't find any results for ${debug['ngrams']} in our ${params['language']} database`)
-            try{Ngrams = Ngrams.filter(ele => ele !== debug['ngrams'])}
-            catch{}
+            let notFound = []
+            console.log("data['ngrams']")
+            console.log(data['ngrams'])
+            data['ngrams'].forEach(searched => {
+                if (foundNgrams.includes(searched)){ console.log(`Found ${searched}`)}
+                else {
+                    notFound.push(searched)
+                    try{Ngrams = Ngrams.filter(ele => ele !== searched)}
+                    catch{}
+                }
+            })
+            console.log('notFound')
+            console.log(notFound)
+            let alertMsg = `Sorry! ${data['errors']}`
+            if (notFound.length > 1){
+                let stringMissing = `<strong>${notFound[0]}</strong>`
+                notFound.slice(0,(notFound.length-1)).forEach(missing => {
+                    stringMissing = `${stringMissing} or <strong>${missing}</strong>`
+                })
+                alertMsg = `Sorry! We couldn't find ${stringMissing} in our ${codeLookup[params['language']]} Twitter phrase database. It's possible that these phrases are used on Twitter, but never reached our database's minimum rank of 1-millionth most-used-phrase.`
+            }
+            else {
+                alertMsg = `Sorry! We couldn't find <strong>${notFound}</strong> in our ${codeLookup[params['language']]} Twitter phrase database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1-millionth most-used-phrase.`
+            }
+            console.log(alertMsg)
+            showAlert(alertMsg)
         }
-        else {
-            let newNgrams = findNew(data['ngrams'])
+        console.log('foundNgrams')
+        console.log(foundNgrams)
+        if (foundNgrams.length > 0){
+            let newNgrams = findNew(foundNgrams)
             if (newNgrams.length > 0) {
                 newNgrams.forEach(n => {
-                    if (Ngrams.length > 10) {
+                    if (Ngrams.length > 5) {
                         removeNgram(Ngrams[0])
                     }
                     ngramData[n] = formatData(data['ngramdata'][n])
-                    i += 1
-                    if (i > 10) {
-                        i = 0
-                    }
-                    ngramData[n]['colorid'] = i
+                    ngramData[n]['grams']=data['database']
+                    ngramData[n]['colorid'] = availableColors[0]
+                    removeColor(availableColors[0])
+                    console.log(`Setting colorid for ${n} to ${ngramData[n]['colorid']}`)
                     addNgram(n)
                     resetPage()
                 })
             }
         }
+        hideloadingpanel()
     })
 }
 
 function reloadAllData() {
     //console.log("Reloading all data...")
     showloadingpanel()
+    availableColors = [0,1,2,3,4,5]
     let datakeys = Object.keys(ngramData)
     datakeys.forEach(n => {
         let uuid = ngramData[n]['uuid']
@@ -51,7 +90,6 @@ function reloadAllData() {
     })
     clearData()
     initializeData()
-    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function findNew(ngrams){
@@ -60,8 +98,9 @@ function findNew(ngrams){
     //console.log(ngrams)
     ngrams.forEach(n => {
         if (n === '"') {
-            console.log("Sorry, we don't support searches for the double quotation mark at this time")
-            //alert("Sorry, we don't support searches for the double quotation mark at this time")
+            let alertMsg = `Sorry! We don't support searches for the double quotation mark at this time`
+            console.log(alertMsg)
+            showAlert(alertMsg)
         } else {
             // If the new ngram is not already in our ngram data: parse the data, draw charts, etc.
             if (Object.keys(ngramData).includes(n)) {
@@ -98,21 +137,23 @@ function addNgram(n) {
             //console.log(`Clicked list item ${n}`)
             removeNgram(n)
         })
-    console.log(`Added "${n}" to Ngrams:`)
-    console.log(Ngrams)
+    addSuplot(n)
+    document.getElementById("details-link").setAttribute("href", `details.html?ngram=${n}`)
+    //console.log(`Added "${n}" to Ngrams:`)
+    //console.log(Ngrams)
 }
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
-    setTimeout(() => showloadingpanel(), 1000)
+    showloadingpanel()
     // Filter the ngram list to include every ngram except this one
     Ngrams = Ngrams.filter(ele => ele !== n)
     try {
         const thisdata = ngramData[n]
         let uuid = thisdata['uuid']
+        availableColors.push(thisdata['colorid'])
         //console.log(`removing all elements with uuid ${uuid}`)
         d3.selectAll('.uuid-' + uuid).remove()
-
         // Remove these mins and maxes
         xmins = xmins.filter(ele => ele !== thisdata['min_date'])
         //console.log(`Removed ${thisdata['min_date']} from xmins`)
@@ -128,7 +169,7 @@ function removeNgram(n) {
     catch{}
     updateURL()
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
-    setTimeout(() => hideloadingpanel(), 1000)
+    hideloadingpanel()
 }
 
 function setButtons(){
@@ -158,7 +199,7 @@ function formatDataForDownload(button){
         //console.log(allData)
     }
     else {
-        allData = {'metadata': "Sorry! Something went wrong; we weren't able to return any data"}
+        allData = {'metadata': "Sorry! Something went wrong; we weren't able to return any data. Our servers may be overloaded at this time."}
     }
 
     button.setAttribute("href", ("data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))))
@@ -176,6 +217,7 @@ function clearAll(){
 
 function initializeData(){
     Ngrams.forEach(n => parseQuery(n,true))
+    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function alreadyExists(query){
