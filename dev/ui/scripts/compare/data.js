@@ -29,6 +29,8 @@ function loadData(url) {
         if (data['errors'].length > 0){
             let notFound = []
             debug['ngrams'].forEach(searched => {
+                console.log("debug['ngrams']")
+                console.log(debug['ngrams'])
                 if (searched in foundNgrams){ console.log(`Found ${searched}`)}
                 else {
                     notFound = notFound.push(searched)
@@ -36,6 +38,8 @@ function loadData(url) {
                     catch{}
                 }
             })
+            console.log('notFound')
+            console.log(notFound)
             let alertMsg = `Sorry! ${data['errors']}`
             if (notFound.length > 1){
                 let stringMissing = `<strong>${notFound[0]}</strong>`
