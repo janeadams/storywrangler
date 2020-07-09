@@ -28,9 +28,9 @@ function loadData(url) {
         let foundNgrams = Object.keys(data['ngramdata'])
         if (data['errors'].length > 0){
             let notFound = []
-            debug['ngrams'].forEach(searched => {
-                console.log("debug['ngrams']")
-                console.log(debug['ngrams'])
+            data['ngrams'].forEach(searched => {
+                console.log("data['ngrams']")
+                console.log(data['ngrams'])
                 if (searched in foundNgrams){ console.log(`Found ${searched}`)}
                 else {
                     notFound = notFound.push(searched)
