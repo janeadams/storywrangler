@@ -395,7 +395,7 @@ class Chart {
         this.svg = d3.select(this.element).append('svg').style("background-color","white")
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.height)
-        console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
+        //console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
