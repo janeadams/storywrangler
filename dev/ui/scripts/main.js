@@ -45,7 +45,7 @@ const defaultparams = {
     "language": "en",
     "metric": "rank",
     "scale": "log",
-    "start": lastyeardate,
+    "start": firstDate,
     "end": today
 }
 
