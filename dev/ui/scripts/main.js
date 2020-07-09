@@ -10,6 +10,7 @@ let subPlots = {}
 let xRange = []
 let yRange = []
 let languageCodes = {}
+let codeLookup = {}
 let viewport = 1000
 
 const suggestions = ["haha", "happy new year", "#throwbackthursday", "😊"]
@@ -142,6 +143,7 @@ function buildLanguageDropdown(){
         const codes = []
         Object.keys(data).forEach(language => {
             codes.push(data[language]['db_code'])
+            codeLookup[data[language]['db_code']]=language
             if (data[language]['db_code']===params['language']){
                 //console.log(`${data[language]['db_code']} = ${params['language']}; setting language to ${language}`)
                 d3.select("#langDropdown").append("option").text(language).attr("value",language).property('selected',true)
