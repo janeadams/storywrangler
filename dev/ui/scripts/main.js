@@ -84,12 +84,12 @@ function precise(x,s) {
 
 function roundUpToSig(max){
     let up = 1.2 * max
-    return precise(up,getSignificantDigitCount(max))
+    return parseFloat(precise(up,getSignificantDigitCount(max)))
 }
 
 function roundDownToSig(min){
     let down = 0.8 * min
-    return precise(down,getSignificantDigitCount(min))
+    return parseFloat(precise(down,getSignificantDigitCount(min)))
 }
 
 function getDates(startDate, stopDate) {
