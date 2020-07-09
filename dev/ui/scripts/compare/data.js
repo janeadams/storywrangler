@@ -53,6 +53,7 @@ function loadData(url) {
 function reloadAllData() {
     //console.log("Reloading all data...")
     showloadingpanel()
+    availableColors = [0,1,2,3,4,5]
     let datakeys = Object.keys(ngramData)
     datakeys.forEach(n => {
         let uuid = ngramData[n]['uuid']
