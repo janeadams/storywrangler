@@ -13,7 +13,8 @@ function showAlert(msg){
     console.log('Showing alert message')
     //hideAlert()
     d3.select('body').append('div').attr('class','pageOverlay').on('click',hideAlert())
-    d3.select('.pageOverlay').append('div').attr('class','alert').html('<p>'+msg+'</p>')
+    d3.select('.pageOverlay').append('div').attr('class','alert')
+    d3.select('.alert').html('<p>'+msg+'</p>')
 }
 
 function hideAlert(){
