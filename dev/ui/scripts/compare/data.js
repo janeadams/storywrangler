@@ -62,7 +62,7 @@ function loadData(url) {
                         removeNgram(Ngrams[0])
                     }
                     ngramData[n] = formatData(data['ngramdata'][n])
-                    ngramData[n]['grams']=debug['database']
+                    ngramData[n]['grams']=data['database']
                     ngramData[n]['colorid'] = availableColors[0]
                     removeColor(availableColors[0])
                     console.log(`Setting colorid for ${n} to ${ngramData[n]['colorid']}`)
