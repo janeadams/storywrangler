@@ -494,9 +494,9 @@ function addSuplot(ngram){
     let parsed_max = `${max}`
     if (params['metric']==='freq'){ // Round out the digits of the min/max values for frequency
         //parsed_min = `~${parseFloat(precise(min,3))}`
-        parsed_min = `1 in ${1/min}`
+        parsed_min = `1 in ~${parseFloat(precise(1/min, 3))}`
         //parsed_max = `~${parseFloat(precise(max,3))}`
-        parsed_max = `1 in ${1/max}`
+        parsed_max = `1 in ~${parseFloat(precise(1/max, 3))}`
     }
     d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`)
         .append('div').attr("class", "subplot-details")
