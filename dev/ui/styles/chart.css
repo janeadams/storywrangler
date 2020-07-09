@@ -13,21 +13,19 @@
     width: 90%;
     margin: 0 auto;
     height: auto;
-    background-color: #FAC1BE;
+    display: inline-block;
 }
 .subplot-details {
     width: 20%;
     padding: 0 5%;
     float: left;
     display: inline-block;
-    background-color: aquamarine;
 }
 .subplot-chart {
     height: 300px;
     width: 70%;
     float: left;
     display: inline-block;
-    background-color: #F3B544;
 }
 
 .yaxis-nav, .xaxis-nav {
