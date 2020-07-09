@@ -11,7 +11,7 @@ function hideloadingpanel(){
 }
 
 function showAlert(msg){
-    hideAlert()
+    //hideAlert()
     d3.select('body').append('div').attr('class','overlay').append('div').attr('class','alert').html(`<p>${msg}</p>`)
 }
 
