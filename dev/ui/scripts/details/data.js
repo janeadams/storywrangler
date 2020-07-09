@@ -1,8 +1,8 @@
 function sendQuery(formatted_query, APIsource){
     let urls = []
     showloadingpanel()
-    urls.push(encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=true`))
     urls.push(encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=false`))
+    urls.push(encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=true`))
     urls.forEach(url => loadData(url))
     hideloadingpanel()
 }
