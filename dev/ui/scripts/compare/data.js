@@ -48,10 +48,10 @@ function loadData(url) {
                 notFound.slice(0,(notFound.length-1)).forEach(missing => {
                     stringMissing = `${stringMissing} or <strong>${missing}</strong>`
                 })
-                alertMsg = `Sorry! We couldn't find ${stringMissing} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that these phrases are used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
+                alertMsg = `Sorry! We couldn't find ${stringMissing} in our ${codeLookup[params['language']]} Twitter phrase database. It's possible that these phrases are used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
             }
             else {
-                alertMsg = `Sorry! We couldn't find <strong>${notFound}</strong> in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that these phrases are used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
+                alertMsg = `Sorry! We couldn't find <strong>${notFound}</strong> in our ${codeLookup[params['language']]} Twitter phrase database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
             }
             console.log(alertMsg)
             showAlert(alertMsg)
