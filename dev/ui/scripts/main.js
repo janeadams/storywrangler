@@ -232,6 +232,3 @@ function hideAlert(){
         .classed('shown',false)
     d3.selectAll('.alert').remove()
 }
-
-d3.select('.loadingOverlay').on('click',hideloadingpanel())
-d3.select('.alertOverlay').on('click',hideAlert())
