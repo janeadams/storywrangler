@@ -41,6 +41,11 @@ h4 {
     position: relative;
 }
 
+.alert p {
+    font-size: 20px;
+    line-height: 140%;
+}
+
 .loader {
     border: 30px solid #00B6CF;
     border-top: 30px solid #8BC862;
