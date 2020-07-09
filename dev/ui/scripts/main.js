@@ -214,12 +214,10 @@ function hideloadingpanel(){
     d3.selectAll('.pageOverlay,.loader').remove()
 }
 
-function showAlert(){
+function showAlert(msg){
     console.log('Showing alert message')
     //hideAlert()
-    d3.select('body').append('div').attr('class','pageOverlay')
-    d3.select('.pageOverlay').append('div').attr('class','alert')
-    //d3.select('.alert').html('<p>'+msg+'</p>')
+    return d3.select('body').append('div').attr('class','pageOverlay').append('div').attr('class','alert').html('<p>'+msg+'</p>')
 }
 
 function hideAlert(){
