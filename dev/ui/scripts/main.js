@@ -172,6 +172,8 @@ function downloadChart(){
 }
 
 function setupPage() {
+    hideloadingpanel()
+    hideAlert()
     console.log(
         "   _____ _                __          __                    _           \n" +
         "  / ____| |               \\ \\        / /                   | |          \n" +
