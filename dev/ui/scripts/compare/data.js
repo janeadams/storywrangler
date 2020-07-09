@@ -26,7 +26,7 @@ function loadData(url) {
         //console.table(debug)
         //console.log(data)
         if (data['errors'].length > 0){
-            let alertMsg = `Sorry! We couldn't find any results for <strong>"${debug['ngrams']}"</strong> in our ${codeLookup[params['language']]} database`
+            let alertMsg = `Sorry! We couldn't find any results for <strong>"${debug['ngrams']}"</strong> in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that this phrase is used, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
             console.log(alertMsg)
             showAlert(alertMsg)
             try{Ngrams = Ngrams.filter(ele => ele !== debug['ngrams'])}
