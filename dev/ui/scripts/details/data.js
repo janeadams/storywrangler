@@ -21,7 +21,7 @@ function loadData(url) {
         //console.log('data:')
         //console.log(data)
         if (data['errors'].length > 0){
-            let alertMsg = `Sorry! ${data['errors']} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1 millionth most-used-phrase.`
+            let alertMsg = `Sorry! ${data['errors']} in our ${codeLookup[params['language']]} phrase Twitter database. It's possible that this phrase is used on Twitter, but never reached our database's minimum rank of 1-millionth most-used-phrase.`
             console.log(alertMsg)
             showAlert(alertMsg)
         }
