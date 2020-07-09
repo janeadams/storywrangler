@@ -227,18 +227,14 @@ function addLines(chart,dataKey){
     chart.clipgroup.attr("stroke-linejoin", "round")
         .attr("stroke-linecap", "round")
 
-    if (params['metric']==='rank') {
-        try{
-            const ndataReplaced = replaceUndefined(ngramData[dataKey]['data'])
-            /* MISSING (DOTTED) LINE */
-            chart.clipgroup.append('path')
-                .datum(ndataReplaced)
-                .attr('class', `line uuid-${uuid} missingline`)
-                .attr('stroke', colorSet[0])
-                .attr('d', dataline)
-        }
-        catch{}
-    }
+    const ndataReplaced = replaceUndefined(ngramData[dataKey]['data'])
+    /* MISSING (DOTTED) LINE */
+    chart.clipgroup.append('path')
+        .datum(ndataReplaced)
+        .attr('class', `line uuid-${uuid} missingline`)
+        .attr('stroke', colorSet[0])
+        .attr('d', dataline)
+
     /* DRAW MAIN DATA LINE */
     chart.clipgroup.append('path')
         .datum(ndata)
