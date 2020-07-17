@@ -496,7 +496,7 @@ class Chart {
         console.log("defaultparams.end:")
         console.log(defaultparams['end'])
         console.log('this.xScaleNav')
-        console.log(this.xScaleNav())
+        console.log(this.xScaleNav(200))
         console.log("this.xScaleNav(defaultparams['start']):")
         console.log(this.xScaleNav(defaultparams['start']))
         //const defaultSelection = [this.xScaleNav(defaultparams['start']),this.xScaleNav(defaultparams['end'])]
