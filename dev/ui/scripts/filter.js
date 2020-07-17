@@ -66,10 +66,10 @@ function triggerUpdates(){
     showloadingpanel(update(hideloadingpanel()))
 }
 
-function update(callback){
+function update(hide){
     setFilters()
     updateURL()
     reloadAllData()
     redrawCharts()
-    callback()
+    hide()
 }
