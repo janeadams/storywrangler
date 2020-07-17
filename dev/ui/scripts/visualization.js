@@ -355,12 +355,19 @@ class Chart {
             console.log(`this xScale = ${this.xScale}`)
             this.svg.property("value", d3.event.selection.map(this.xScale.invert, this.xScale))
             this.svg.dispatch("input");
+            this.rescaleChart()
         }
+
         //setScales(this)
         //addAxes(this)
         //this.svg.selectAll('.line').remove()
         //this.svg.selectAll('circle').remove()
         //addGlyphs(this)
+    }
+
+    rescaleChart(){
+        this.xScale = d3.event.transform.rescaleX(xScale)
+        this.plot.call(this.xAxis)
     }
 
     /*zoomed() {
