@@ -356,6 +356,10 @@ class Chart {
             console.log(`this.xScale.domain = ${this.xScale.domain}`)
             this.xAxisGroup.call(d3.axisBottom().scale(this.xScale))
             console.log(this.xAxisGroup)
+            const dataline = d3.line().defined(d => !isNaN(d[1]))
+                .x(d => this.xScale(d[0]))
+                .y(d => this.yScale(d[1]))
+            this.clipgroup.selectAll('.dataline, .missingline').attr('d',dataline)
         }
 
         //setScales(this)
