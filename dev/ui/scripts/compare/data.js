@@ -8,16 +8,13 @@ function removeColor(n){
 }
 
 function sendQuery(formatted_query, APIsource){
-    showloadingpanel()
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
     loadData(url)
-    hideloadingpanel()
 }
 
 function loadData(url) {
     //console.log(`Querying API URL:`)
     //console.log(url)
-    showloadingpanel()
     d3.json(url).then((data, error) => {
         //console.log(`Received API response:`)
         let debug = {}
@@ -143,7 +140,6 @@ function addNgram(n) {
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
-    showloadingpanel()
     // Filter the ngram list to include every ngram except this one
     Ngrams = Ngrams.filter(ele => ele !== n)
     try {
@@ -180,7 +176,6 @@ function setButtons(){
 }
 
 function formatDataForDownload(button){
-    //setTimeout(() => showloadingpanel(), 1000)
     let allData
     if(Object.keys(ngramData).length > 0) {
         let downloadData = {}
