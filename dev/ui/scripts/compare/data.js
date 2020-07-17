@@ -82,7 +82,6 @@ function reloadAllData() {
         d3.selectAll(`.uuid-${uuid}`).remove()
     })
     clearData()
-    showloadingpanel(initializeData())
 }
 
 function findNew(ngrams){

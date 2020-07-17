@@ -205,12 +205,11 @@ d3.select(window).on('resize', () => {
     redrawCharts()
 })
 
-function showloadingpanel(callback){
+function showloadingpanel(){
     //console.log('Showing loading panel...')
     d3.select('.loadingOverlay').attr('class','loadingOverlay shown')
         .classed('hidden',false)
     d3.select('.loadingOverlay').append('div').attr('class','loader')
-    callback()
 }
 
 function hideloadingpanel(){
