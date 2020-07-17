@@ -492,7 +492,6 @@ class Chart {
 
 function makeCharts(){
     //console.log("Making charts...")
-    showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
     //mainChart.navPlot.call(mainChart.brush.move,[mainChart.xScaleNav(params['start']),mainChart.xScaleNav(params['end'])])
@@ -501,7 +500,6 @@ function makeCharts(){
             addSuplot(ngram)
         })
     }
-    hideloadingpanel()
 }
 
 function addSuplot(ngram){
@@ -538,7 +536,6 @@ function addSuplot(ngram){
 
 function redrawCharts(){
     //console.log("Redrawing charts...")
-    showloadingpanel()
     setRanges()
     mainChart.setup()
     if (compare && Ngrams){
@@ -547,5 +544,4 @@ function redrawCharts(){
             catch {console.log(`Error re-drawing subplot for ${ngram}`)}
         })
     }
-    hideloadingpanel()
 }
