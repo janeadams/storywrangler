@@ -337,6 +337,11 @@ function addDots(chart, dataKey){
     }
 }
 
+function rescaleChart(chart){
+    chart.xScale = d3.event.transform.rescaleX(chart.xScale)
+    chart.plot.call(chart.xAxis)
+}
+
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -355,7 +360,7 @@ class Chart {
             console.log(`this xScale = ${this.xScale}`)
             this.svg.property("value", d3.event.selection.map(this.xScale.invert, this.xScale))
             this.svg.dispatch("input");
-            this.rescaleChart()
+            rescaleChart(this)
         }
 
         //setScales(this)
@@ -363,12 +368,6 @@ class Chart {
         //this.svg.selectAll('.line').remove()
         //this.svg.selectAll('circle').remove()
         //addGlyphs(this)
-    }
-
-    rescaleChart(){
-        this.xScale = d3.event.transform.rescaleX(this.xScale)
-
-        this.plot.call(this.xAxis)
     }
 
     /*zoomed() {
