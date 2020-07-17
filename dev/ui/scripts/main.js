@@ -65,7 +65,7 @@ function sentenceCase (str) {
     if ((str===null) || (str===''))
         return false;
     else
-        str = str.toString();
+        str = str.toString().replace('freq','frequency')
 
     return str.replace(/\w\S*/g,
         function(txt){return txt.charAt(0).toUpperCase() +
