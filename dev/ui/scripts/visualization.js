@@ -337,10 +337,6 @@ function addDots(chart, dataKey){
     }
 }
 
-function rescaleChart(chart){
-    chart.plot.call(chart.xAxis)
-}
-
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -356,7 +352,7 @@ class Chart {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
             this.xScale = [params['start'], params['end']]
-            rescaleChart(this)
+            this.plot.call(d3.axisBottom().scale(this.xScale))
         }
 
         //setScales(this)
