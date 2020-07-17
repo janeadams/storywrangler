@@ -338,6 +338,15 @@ function addDots(chart, dataKey){
     }
 }
 
+function updateChart(chart){
+    chart.xScale.domain([params['start'], params['end']])
+    chart.xAxisGroup.call(d3.axisBottom().scale(chart.xScale))
+    const dataline = d3.line().defined(d => !isNaN(d[1]))
+        .x(d => chart.xScale(d[0]))
+        .y(d => chart.yScale(d[1]))
+    chart.clipgroup.selectAll('.dataline, .missingline').attr('d',dataline)
+}
+
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -350,16 +359,7 @@ class Chart {
 
     brushed(){
         if (d3.event.selection) {
-            console.log('brushed! event selection:')
-            console.log(d3.event.selection)
-            this.xScale.domain([params['start'], params['end']])
-            console.log(`this.xScale.domain = ${this.xScale.domain}`)
-            this.xAxisGroup.call(d3.axisBottom().scale(this.xScale))
-            console.log(this.xAxisGroup)
-            const dataline = d3.line().defined(d => !isNaN(d[1]))
-                .x(d => this.xScale(d[0]))
-                .y(d => this.yScale(d[1]))
-            this.clipgroup.selectAll('.dataline, .missingline').attr('d',dataline)
+            updateChart(this)
         }
 
         //setScales(this)
