@@ -535,7 +535,7 @@ function addSuplot(ngram){
 }
 
 function redrawCharts(){
-    //console.log("Redrawing charts...")
+    console.log("Redrawing charts...")
     setRanges()
     mainChart.setup()
     if (compare && Ngrams){
