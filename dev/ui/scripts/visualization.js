@@ -350,6 +350,7 @@ function updateChart(chart){
     chart.clipgroup.selectAll('circle')
         .transition().duration(500)
         .attr("cx", d => chart.xScale(d[0]))
+    chart.navPlot.call(chart.brush.move, [chart.xScaleNav(params['start']), chart.xScaleNav(params['end'])])
 }
 
 class Chart {
