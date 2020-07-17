@@ -362,12 +362,6 @@ class Chart {
         if (d3.event.selection) {
             updateChart(this)
         }
-
-        //setScales(this)
-        //addAxes(this)
-        //this.svg.selectAll('.line').remove()
-        //this.svg.selectAll('circle').remove()
-        //addGlyphs(this)
     }
 
     /*zoomed() {
@@ -475,7 +469,7 @@ class Chart {
                 .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
                 .style("display", "block")
                 .call(brush)
-                //.call(brush.move,[this.xScaleNav(params['start']),this.xScaleNav(params['end'])])
+                .call(brush.move,[parent.xScaleNav(params['start']),parent.xScaleNav(params['end'])])
         }
 
         this.draw()
