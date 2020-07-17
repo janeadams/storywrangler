@@ -352,7 +352,7 @@ class Chart {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
             console.log(`this xScale = ${this.xScale}`)
-            this.svg.property("value", d3.event.selection.map(this.xScale.invert, x).map(d3.utcDay.round));
+            this.svg.property("value", d3.event.selection.map(this.xScale.invert, this.xScale).map(d3.utcDay.round));
             this.svg.dispatch("input");
         }
         //setScales(this)
