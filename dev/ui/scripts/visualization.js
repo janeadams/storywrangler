@@ -414,7 +414,7 @@ class Chart {
                 params['start']=defaultparams['start']
                 params['end']=defaultparams['end']
                 updateChart(parent)
-                this.navPlot.call(this.brush.move, [this.xScaleNav(params['start']), this.xScaleNav(params['end'])])
+                parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
             })
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.height)
