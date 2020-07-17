@@ -346,7 +346,6 @@ function updateChart(chart){
         .y(d => chart.yScale(d[1]))
     chart.clipgroup.selectAll('.dataline, .missingline, .sparkline').attr('d',dataline)
     chart.clipgroup.selectAll('circle').attr("cx", d => chart.xScale(d[0]))
-        .attr("cy", d => chart.yScale(d[1]))
 }
 
 class Chart {
