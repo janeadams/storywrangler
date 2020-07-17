@@ -366,7 +366,7 @@ class Chart {
     }
 
     rescaleChart(){
-        this.xScale = d3.event.transform.rescaleX(xScale)
+        this.xScale = d3.event.transform.rescaleX(this.xScale)
         this.plot.call(this.xAxis)
     }
 
