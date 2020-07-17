@@ -66,10 +66,9 @@ function triggerUpdates(){
     showloadingpanel(update.bind(hideloadingpanel()))
 }
 
-function update(hide){
+function update(){
     setFilters()
     updateURL()
     reloadAllData()
     redrawCharts()
-    hide()
 }
