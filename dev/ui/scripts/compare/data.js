@@ -74,7 +74,6 @@ function loadData(url) {
 }
 
 function reloadAllData() {
-    showloadingpanel()
     console.log("Reloading all data...")
     availableColors = [0,1,2,3,4,5]
     let datakeys = Object.keys(ngramData)
@@ -206,10 +205,8 @@ function clearAll(){
     clearData()
 }
 
-function initializeData(callback=hideloadingpanel()){
+function initializeData(){
     Ngrams.forEach(n => parseQuery(n,true))
-    callback()
-    //setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function alreadyExists(query){
