@@ -73,8 +73,8 @@ function getUrlParams() {
 
 function updateURL() {
     let currentURL = String(window.location.href)
-    //console.log(`currentURL:`)
-    //console.log(currentURL)
+    console.log(`currentURL:`)
+    console.log(currentURL)
     let splitURL = currentURL.split("?")
     //console.log(`splitURL:`)
     //console.log(splitURL)

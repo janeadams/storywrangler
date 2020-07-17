@@ -20,8 +20,7 @@
     <link rel="stylesheet" type="text/css" href="styles/chart.css">
 </head>
 
-<body>
-    <div class="loadoverlay"><div class="loader"></div></div>
+<body><div class="loadingOverlay" onclick="hideloadingpanel()"></div><div class="alertOverlay" onclick="hideAlert()"></div>
     <header>
         <a href="https://storywrangling.org">
             <div id="logo">
@@ -31,8 +30,8 @@
         </a>
         <div id="navigation">
             <ul id="menu">
-                <li><a href="index.html">Compare</a></li>
-                <li><a href="details.html">Details</a></li>
+                <li><a id="compare-link" href="index.html">Compare</a></li>
+                <li><a id="details-link" href="details.html"><strong>Details</strong></a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
             <ul class="social">

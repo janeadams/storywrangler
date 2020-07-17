@@ -6,9 +6,11 @@ let xmaxes = []
 let ymins = []
 let ymaxes = []
 let mainChart
+let subPlots = {}
 let xRange = []
 let yRange = []
 let languageCodes = {}
+let codeLookup = {}
 let viewport = 1000
 
 const suggestions = ["haha", "happy new year", "#throwbackthursday", "😊"]
@@ -30,12 +32,13 @@ Date.prototype.addDays = function(days) {
 
 // Today's date
 let today = new Date()
+let mostrecent = dateParser(new Date(today)).addDays(-2)
 // Extract year from today's date
 let thisyear = today.getFullYear()
 // Get one year ago
-let lastyeardate = new Date().setFullYear(thisyear - 1);
+let lastyeardate = dateParser(dateFormatter(new Date().setFullYear(thisyear - 1)))
 // January 1st, this year
-let thisfirst = new Date(thisyear, 0, 1)
+let thisfirst = new Date(thisyear, 1, 1)
 let firstDate = new Date(2009,9,1)
 
 // Set default options
@@ -43,16 +46,15 @@ const defaultparams = {
     "language": "en",
     "metric": "rank",
     "scale": "log",
-    //"start": new Date(2009, 8, 1), //lastyeardate,
-    "start": lastyeardate,
+    "start": firstDate,
     "end": today
 }
 
 const colors = {
-    'names': ["sky", "sage", "gold", "iris", "poppy", "lake", "sea", "rose", "shroom", "sun", "monarch"],
-    'main': ["#00B6CF", "#8BC862", "#F3B544", "#9577B5", "#EF3D25", "#3D59A8", "#3BA585", "#C73275", "#805752", "#D5D126", "#EE612F"],
-    'dark': ["#0681A2", "#649946", "#cf7b11", "#8D51A0", "#A01D21", "#252E6C", "#197352", "#931E59", "#562F2C", "#8B8633", "#A23522"],
-    'light': ["#B5E2EA", "#C8E099", "#FCD69A", "#DAC9E3", "#FAC1BE", "#C0CFEB", "#B9E1D3", "#F6B0CF", "#E1C4C2", "#F8F4A9", "#F9C0AF"]
+    'names': ["blue", "cyan", "green", "yellow", "pink", "purple"],
+    'main': ["#4477AA", "#66CCEE", "#228833", "#CCBB43", "#ED6677", "#AB3278"],
+    'dark': ["#215680", "#287B89", "#286C3A", "#938431", "#CE324D", "#891F60"],
+    'light': ["#A2C4DD", "#B8E4F0", "#9BD3A0", "#EFE2A3", "#EFA5B1", "#DB95C4"]
 }
 
 // Simple function for finding the fill, stroke, or tint by the color group name
@@ -63,11 +65,32 @@ function sentenceCase (str) {
     if ((str===null) || (str===''))
         return false;
     else
-        str = str.toString();
+        str = str.toString().replace('freq','frequency')
 
     return str.replace(/\w\S*/g,
         function(txt){return txt.charAt(0).toUpperCase() +
             txt.substr(1).toLowerCase();});
+}
+
+function getSignificantDigitCount(n) {
+    n = Math.abs(String(n).replace(".", "")); //remove decimal and make positive
+    if (n === 0) return 0;
+    while (n !== 0 && n % 10 === 0) n /= 10; //kill the 0s at the end of n
+    return Math.floor(Math.log(n) / Math.log(10)) + 1; //get number of digits
+}
+
+function precise(x,s) {
+    return Number.parseFloat(x).toPrecision(s);
+}
+
+function roundUpToSig(max){
+    let up = 1.2 * max
+    return parseFloat(precise(up,getSignificantDigitCount(max)))
+}
+
+function roundDownToSig(min){
+    let down = 0.8 * min
+    return parseFloat(precise(down,getSignificantDigitCount(min)))
 }
 
 function getDates(startDate, stopDate) {
@@ -80,7 +103,7 @@ function getDates(startDate, stopDate) {
     return dateArray;
 }
 
-const fullDateRange = getDates(firstDate, dateParser(today).addDays(-2))
+const fullDateRange = getDates(firstDate, mostrecent)
 
 function setRanges() {
     if (Object.keys(ngramData).length > 0 ){ // If there is ngram data...
@@ -89,16 +112,11 @@ function setRanges() {
         xRange = Object.assign([], [d3.min(xmins), d3.max(xmaxes)])
         //console.log(`Setting xRange to ${xRange}`)
         if (params['metric']==='rank'){
-            yRange = [1, 1000000]
+            yRange = [1, d3.min([roundUpToSig(d3.max(ymaxes)), 1000000])]
         }
         else {
-            yRange[0] = 0.000000001
-            if (params['scale']==='log') {
-                yRange[1] = 0.1
-            }
-            else {
-                yRange[1] = d3.max(ymaxes)
-            }
+            yRange[0] = roundDownToSig(d3.min(ymins))
+            yRange[1] = roundUpToSig(d3.max(ymaxes))
         }
 
         //console.log(`Setting yRange to ${yRange}`)
@@ -125,6 +143,7 @@ function buildLanguageDropdown(){
         const codes = []
         Object.keys(data).forEach(language => {
             codes.push(data[language]['db_code'])
+            codeLookup[data[language]['db_code']]=language
             if (data[language]['db_code']===params['language']){
                 //console.log(`${data[language]['db_code']} = ${params['language']}; setting language to ${language}`)
                 d3.select("#langDropdown").append("option").text(language).attr("value",language).property('selected',true)
@@ -153,6 +172,8 @@ function downloadChart(){
 }
 
 function setupPage() {
+    hideloadingpanel()
+    hideAlert()
     console.log(
         "   _____ _                __          __                    _           \n" +
         "  / ____| |               \\ \\        / /                   | |          \n" +
@@ -166,9 +187,11 @@ function setupPage() {
         "UI & API by Jane Adams, Data Visualization Artist\n"+
         "Interested in the code? Get in touch on Twitter @artistjaneadams\n\n"
     )
+    params['start']=defaultparams['start']
+    params['end']=defaultparams['end']
     viewport = window.innerWidth
-    updateDotSize()
-    //console.log(`viewport: ${viewport}`)
+    adaptVisualScale()
+    console.log(`viewport: ${viewport}`)
     buildLanguageDropdown()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
@@ -178,7 +201,42 @@ function setupPage() {
 
 d3.select(window).on('resize', () => {
     viewport = window.innerWidth
-    //console.log(`viewport: ${viewport}`)
-    updateDotSize()
-    mainChart.draw()
+    adaptVisualScale()
+    redrawCharts()
 })
+
+function showloadingpanel(){
+    //console.log('Showing loading panel...')
+    d3.select('.loadingOverlay').attr('class','loadingOverlay shown')
+        .classed('hidden',false)
+    d3.select('.loadingOverlay').append('div').attr('class','loader')
+}
+
+function hideloadingpanel(){
+    //console.log('Hiding loading panel...')
+    d3.select('.loadingOverlay').attr('class','loadingOverlay hidden')
+        .classed('shown',false)
+    d3.selectAll('.loader').remove()
+}
+
+document.addEventListener('loadstart', function() {
+    showloadingpanel()
+})
+document.addEventListener('load', function() {
+    hideloadingpanel()
+})
+
+function showAlert(msg){
+    console.log('Showing alert message')
+    d3.selectAll('.alert').remove()
+    //hideAlert()
+    d3.select('.alertOverlay').attr('class','alertOverlay shown')
+        .classed('hidden',false)
+        .append('div').attr('class','alert').html('<p>'+msg+'</p>')
+}
+
+function hideAlert(){
+    d3.select('.alertOverlay').attr('class','alertOverlay hidden')
+        .classed('shown',false)
+    d3.selectAll('.alert').remove()
+}

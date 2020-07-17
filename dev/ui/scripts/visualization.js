@@ -1,10 +1,10 @@
-let dotsize = 3
+let dotsize = 2
 function adaptVisualScale() {
     if (viewport > 1000) {
-        dotsize = 5
+        dotsize = 3
     }
     else {
-        dotsize = 3
+        dotsize = 2
     }
     //console.log(dotsize)
 }
@@ -39,7 +39,12 @@ function setScales(chart){
                 chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
             }
             else {
-                chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], ngramData[chart.ngram][`min_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
+                if (params['metric']==='rank') {
+                    chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], 1]).nice().range([chart.height - (m.top + m.bottom), 0])
+                }
+                else {
+                    chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], ngramData[chart.ngram][`min_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
+                }
             }
         }
         else {
@@ -89,7 +94,12 @@ function addAxes(chart) {
     const yAxis = d3.axisLeft().scale(chart.yScale)
 
     if (chart.type==='main') {
-        yAxis.ticks(5, "")
+        if (params['scale'] === 'log') {
+            yAxis.ticks(3, "")
+        }
+        else {
+            yAxis.ticks(2, "")
+        }
     }
     else {
         yAxis.ticks(2, "")
@@ -111,17 +121,18 @@ function addAxes(chart) {
     d3.select(chart.element).selectAll(".xaxis,.yaxis,.xaxis-nav,.yaxis-nav").remove()
 
     // Add X & Y Axes to main plot
-    chart.plot.append("g")
+    chart.xAxisGroup = chart.plot.append("g")
         .attr("class", "xaxis")
         .attr("transform", `translate(0, ${chart.height - (chart.margin.top + chart.margin.bottom)})`)
-        .call(xAxis)
+
+    chart.xAxisGroup.call(xAxis)
         .selectAll("text")
         .style("text-anchor", "end")
         .attr("dx", "-.8em")
         .attr("dy", ".15em")
         .attr("transform", "rotate(-45)")
 
-    chart.plot.append("g")
+    chart.yAxisGroup = chart.plot.append("g")
         .attr("class", "yaxis")
         .call(yAxis)
 
@@ -220,7 +231,7 @@ function addLines(chart,dataKey){
     if (chart.type==='main') {
         if (params['metric']==='rank') {
             try{
-                const ndataReplaced = ngramData[dataKey]['data_w-replacement']
+                const ndataReplaced = replaceUndefined(ngramData[dataKey]['data'])
                 /* MISSING (DOTTED) LINE */
                 chart.clipgroup.append('path')
                     .datum(ndataReplaced)
@@ -271,10 +282,12 @@ function addDots(chart, dataKey){
     else {
         ngram = Ngram
         if (dataKey === 'w_rt'){
-            colorSet = ['lightgrey','gray','darkgray']
+            colorSet = ['#999999','#666666','#333333']
+            RTlabel = '(Includes retweets)'
         }
         else {
             colorSet = [colors.light[0], colors.main[0], colors.dark[0]]
+            RTlabel = '(Does not include retweets)'
         }
         uuid = dataKey
     }
@@ -290,7 +303,9 @@ function addDots(chart, dataKey){
         .attr("cx", d => chart.xScale(d[0]))
         .attr("cy", d => chart.yScale(d[1]))
         .on("mouseenter", drawTooltip)
+        .on("touchstart", drawTooltip)
         .on("mouseleave", removeTooltip)
+        .on("touchend", removeTooltip)
         .on("click", d => {
             window.open(getTwitterURL(ngram, d, params['rt']), '_blank')
         })
@@ -323,6 +338,20 @@ function addDots(chart, dataKey){
     }
 }
 
+function updateChart(chart){
+    chart.xScale.domain([params['start'], params['end']])
+    chart.xAxisGroup.call(d3.axisBottom().scale(chart.xScale))
+    const dataline = d3.line().defined(d => !isNaN(d[1]))
+        .x(d => chart.xScale(d[0]))
+        .y(d => chart.yScale(d[1]))
+    chart.clipgroup.selectAll('.dataline, .missingline, .sparkline')
+        .transition().duration(500)
+        .attr('d',dataline)
+    chart.clipgroup.selectAll('circle')
+        .transition().duration(500)
+        .attr("cx", d => chart.xScale(d[0]))
+}
+
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -334,11 +363,9 @@ class Chart {
     }
 
     brushed(){
-        setScales(this)
-        addAxes(this)
-        this.svg.selectAll('.line').remove()
-        this.svg.selectAll('circle').remove()
-        addGlyphs(this)
+        if (d3.event.selection) {
+            updateChart(this)
+        }
     }
 
     /*zoomed() {
@@ -357,10 +384,13 @@ class Chart {
     }*/
 
     setup() {
-        console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
+        //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
+        // Clear existing chart if it's persisting
+        d3.select(this.element).html("")
+        // Set sizing
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        console.log(`this.width = ${this.width}, this.height = ${this.height}`)
+        //console.log(`this.width = ${this.width}, this.height = ${this.height}`)
         this.navPlotHeight = 50
         this.margin = {
             top: 0.1 * this.height,
@@ -380,9 +410,15 @@ class Chart {
         this.element.innerHTML = ''
 
         this.svg = d3.select(this.element).append('svg').style("background-color","white")
+            .on("dblclick",function() {
+                params['start']=defaultparams['start']
+                params['end']=defaultparams['end']
+                updateChart(parent)
+                parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
+            })
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.height)
-        console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
+        //console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
             .attr("id", "clip")
@@ -415,10 +451,11 @@ class Chart {
             .attr('class','plot feature')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
+
         if (this.type==='main') {
-            const brush = d3.brushX()
+            this.brush = d3.brushX()
                 .extent([[0, 0], [this.width, this.navPlotHeight]])
-                .on("brush", function () {
+                .on("end", function () {
                     let s = d3.event.selection
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
                     console.log(`newView: ${newView}`)
@@ -432,9 +469,6 @@ class Chart {
                     parent.brushed()
                 })
 
-            const defaultSelection = [this.xScaleNav(lastyeardate),this.xScaleNav(mostrecent)]
-            console.log(`defaultSelection: ${defaultSelection}`)
-
             this.navPlot = this.svg.append('g')
                 .attr("viewBox", [0, 0, this.width, this.navPlotHeight+20])
                 .attr('class','navPlot')
@@ -442,8 +476,7 @@ class Chart {
                 .attr("height", this.navPlotHeight)
                 .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
                 .style("display", "block")
-                .call(brush)
-                //.call(brush.move,[this.xScaleNav(params['start']),this.xScaleNav(params['end'])])
+                .call(this.brush)
         }
 
         this.draw()
@@ -459,38 +492,56 @@ class Chart {
 
 function makeCharts(){
     //console.log("Making charts...")
-    showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
+    //mainChart.navPlot.call(mainChart.brush.move,[mainChart.xScaleNav(params['start']),mainChart.xScaleNav(params['end'])])
     if (compare && Ngrams){
         Object.keys(ngramData).forEach(ngram => {
             addSuplot(ngram)
         })
     }
-    hideloadingpanel()
 }
 
 function addSuplot(ngram){
     let subplotSection = document.querySelector("#subplots");
     let subplotClass = `uuid-${ngramData[ngram]['uuid']}`
-    console.log(`subplotClass = ${subplotClass}`)
-    console.log(colors.main[ngramData[ngram]['colorid']])
-    d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`).append('div').attr("class", "subplot-details").html(`<h3 style="color:${colors.main[ngramData[ngram]['colorid']]}">"${ngram}"</h3>`)
+    let colorid = ngramData[ngram]['colorid']
+    //console.log(`subplotClass = ${subplotClass}`)
+    //console.log(colors.main[ngramData[ngram]['colorid']])
+    let min = ngramData[ngram][`min_${params['metric']}`]
+    let max = ngramData[ngram][`max_${params['metric']}`]
+    let parsed_min = `${min}`
+    let parsed_max = `${max}`
+    if (params['metric']==='freq'){ // Round out the digits of the min/max values for frequency
+        //parsed_min = `~${parseFloat(precise(min,3))}`
+        //parsed_max = `~${parseFloat(precise(max,3))}`
+        parsed_min = `about 1 in ${parseFloat(precise(1/min, 3)).toLocaleString()}`
+        parsed_max = `about 1 in ${parseFloat(precise(1/max, 3)).toLocaleString()}`
+    }
+    else {
+        parsed_min = max.toLocaleString() // NOTE: For rank, we've reversed min and max here
+        parsed_max = min.toLocaleString()
+    }
+
+    d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`)
+        .append('div').attr("class", "subplot-details")
+        .html(`<h3 style="color:${colors.dark[colorid]}">"${ngram}"</h3>
+                <p><strong>Lowest ${sentenceCase(params['metric'])}:</strong> ${parsed_min}</p>
+                <p><strong>Highest ${sentenceCase(params['metric'])}:</strong> ${parsed_max}</p>
+                <a href='details.html?ngram=${ngram}' style="color:${colors.main[colorid]}">Show details &gt;</a>`)
     let container = subplotSection.querySelector(`.subplot-container.${subplotClass}`)
     d3.select(`.subplot-container.${subplotClass}`).append('div').attr("class", "subplot-chart")
     subPlots[ngram] = new Chart({element: container.querySelector(".subplot-chart"), type: 'subplot', ngram: `${ngram}`})
 }
 
 function redrawCharts(){
-    //console.log("Redrawing charts...")
-    showloadingpanel()
+    console.log("Redrawing charts...")
     setRanges()
-    mainChart.draw()
+    mainChart.setup()
     if (compare && Ngrams){
         (Object.keys(ngramData)).forEach(ngram => {
-            try {subPlots[ngram].draw()}
+            try {subPlots[ngram].setup()}
             catch {console.log(`Error re-drawing subplot for ${ngram}`)}
         })
     }
-    hideloadingpanel()
 }
