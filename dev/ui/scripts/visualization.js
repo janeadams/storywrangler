@@ -477,6 +477,7 @@ class Chart {
                 .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
                 .style("display", "block")
                 .call(this.brush)
+                .call(this.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
         }
 
         this.draw()
