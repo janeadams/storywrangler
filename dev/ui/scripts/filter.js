@@ -70,5 +70,5 @@ function update(){
     setFilters()
     updateURL()
     reloadAllData()
-    redrawCharts().bind(hideloadingpanel()
+    redrawCharts().bind(hideloadingpanel())
 }
