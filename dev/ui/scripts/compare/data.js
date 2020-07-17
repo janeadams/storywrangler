@@ -180,7 +180,7 @@ function setButtons(){
 }
 
 function formatDataForDownload(button){
-    setTimeout(() => showloadingpanel(), 1000)
+    //setTimeout(() => showloadingpanel(), 1000)
     let allData
     if(Object.keys(ngramData).length > 0) {
         let downloadData = {}
@@ -202,7 +202,7 @@ function formatDataForDownload(button){
 
     button.setAttribute("href", ("data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))))
     button.setAttribute("download", "storywrangler_data.json")
-    setTimeout(() => hideloadingpanel(), 1000)
+    //setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function clearAll(){
@@ -215,7 +215,7 @@ function clearAll(){
 
 function initializeData(){
     Ngrams.forEach(n => parseQuery(n,true))
-    setTimeout(() => hideloadingpanel(), 1000)
+    //setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function alreadyExists(query){
