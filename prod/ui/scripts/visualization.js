@@ -121,17 +121,18 @@ function addAxes(chart) {
     d3.select(chart.element).selectAll(".xaxis,.yaxis,.xaxis-nav,.yaxis-nav").remove()
 
     // Add X & Y Axes to main plot
-    chart.plot.append("g")
+    chart.xAxisGroup = chart.plot.append("g")
         .attr("class", "xaxis")
         .attr("transform", `translate(0, ${chart.height - (chart.margin.top + chart.margin.bottom)})`)
-        .call(xAxis)
+
+    chart.xAxisGroup.call(xAxis)
         .selectAll("text")
         .style("text-anchor", "end")
         .attr("dx", "-.8em")
         .attr("dy", ".15em")
         .attr("transform", "rotate(-45)")
 
-    chart.plot.append("g")
+    chart.yAxisGroup = chart.plot.append("g")
         .attr("class", "yaxis")
         .call(yAxis)
 
@@ -337,6 +338,16 @@ function addDots(chart, dataKey){
     }
 }
 
+function updateChart(chart){
+    chart.xScale.domain([params['start'], params['end']])
+    chart.xAxisGroup.call(d3.axisBottom().scale(chart.xScale))
+    const dataline = d3.line().defined(d => !isNaN(d[1]))
+        .x(d => chart.xScale(d[0]))
+        .y(d => chart.yScale(d[1]))
+    chart.clipgroup.selectAll('.dataline, .missingline, .sparkline').attr('d',dataline)
+    chart.clipgroup.selectAll('circle').attr("cx", d => chart.xScale(d[0]))
+}
+
 class Chart {
     constructor(opts){
         this.element = opts.element
@@ -348,11 +359,15 @@ class Chart {
     }
 
     brushed(){
-        setScales(this)
-        addAxes(this)
-        this.svg.selectAll('.line').remove()
-        this.svg.selectAll('circle').remove()
-        addGlyphs(this)
+        if (d3.event.selection) {
+            updateChart(this)
+        }
+
+        //setScales(this)
+        //addAxes(this)
+        //this.svg.selectAll('.line').remove()
+        //this.svg.selectAll('circle').remove()
+        //addGlyphs(this)
     }
 
     /*zoomed() {
@@ -511,8 +526,8 @@ function addSuplot(ngram){
     d3.select('#subplots').append('div').attr("class", `subplot-container ${subplotClass}`)
         .append('div').attr("class", "subplot-details")
         .html(`<h3 style="color:${colors.dark[colorid]}">"${ngram}"</h3>
-                <p><strong>Min ${sentenceCase(params['metric'])}:</strong> ${parsed_min}</p>
-                <p><strong>Max ${sentenceCase(params['metric'])}:</strong> ${parsed_max}</p>
+                <p><strong>Lowest ${sentenceCase(params['metric'])}:</strong> ${parsed_min}</p>
+                <p><strong>Highest ${sentenceCase(params['metric'])}:</strong> ${parsed_max}</p>
                 <a href='details.html?ngram=${ngram}' style="color:${colors.main[colorid]}">Show details &gt;</a>`)
     let container = subplotSection.querySelector(`.subplot-container.${subplotClass}`)
     d3.select(`.subplot-container.${subplotClass}`).append('div').attr("class", "subplot-chart")
