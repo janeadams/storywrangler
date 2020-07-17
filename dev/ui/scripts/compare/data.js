@@ -9,7 +9,7 @@ function removeColor(n){
 
 function sendQuery(formatted_query, APIsource){
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
-    loadData(url)
+    loadData(url).bind(hideloadingpanel())
 }
 
 function loadData(url) {
@@ -70,7 +70,6 @@ function loadData(url) {
                 })
             }
         }
-        hideloadingpanel()
     })
 }
 
@@ -162,7 +161,6 @@ function removeNgram(n) {
     catch{}
     updateURL()
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
-    hideloadingpanel()
 }
 
 function setButtons(){
@@ -208,7 +206,7 @@ function clearAll(){
 }
 
 function initializeData(){
-    Ngrams.forEach(n => parseQuery(n,true).bind(hideloadingpanel()))
+    Ngrams.forEach(n => parseQuery(n,true))
     //setTimeout(() => hideloadingpanel(), 1000)
 }
 
