@@ -352,6 +352,7 @@ class Chart {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
             this.xScale.domain([params['start'], params['end']])
+            console.log(`this.xScale.domain = ${this.xScale.domain}`)
             this.xAxisGroup.call(d3.axisBottom().scale(this.xScale)).ticks(12).selectAll("text")
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
