@@ -348,11 +348,18 @@ class Chart {
     }
 
     brushed(){
-        setScales(this)
-        addAxes(this)
-        this.svg.selectAll('.line').remove()
-        this.svg.selectAll('circle').remove()
-        addGlyphs(this)
+        if (d3.event.selection) {
+            console.log('brushed! event selection:')
+            console.log(d3.event.selection)
+            console.log(`this xScale = ${this.xScale}`)
+            this.svg.property("value", d3.event.selection.map(this.xScale.invert, x).map(d3.utcDay.round));
+            this.svg.dispatch("input");
+        }
+        //setScales(this)
+        //addAxes(this)
+        //this.svg.selectAll('.line').remove()
+        //this.svg.selectAll('circle').remove()
+        //addGlyphs(this)
     }
 
     /*zoomed() {
