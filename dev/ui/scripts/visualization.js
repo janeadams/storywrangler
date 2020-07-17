@@ -469,7 +469,6 @@ class Chart {
                 .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
                 .style("display", "block")
                 .call(brush)
-                .call(brush.move,[parent.xScaleNav(params['start']),parent.xScaleNav(params['end'])])
         }
 
         this.draw()
@@ -488,6 +487,7 @@ function makeCharts(){
     showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
+    mainChart.navPlot.call(brush.move,[mainChart.xScaleNav(params['start']),mainChart.xScaleNav(params['end'])])
     if (compare && Ngrams){
         Object.keys(ngramData).forEach(ngram => {
             addSuplot(ngram)
