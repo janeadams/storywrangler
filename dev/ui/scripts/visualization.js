@@ -410,6 +410,11 @@ class Chart {
         this.element.innerHTML = ''
 
         this.svg = d3.select(this.element).append('svg').style("background-color","white")
+            .on("dblclick",function() {
+                params['start']=defaultparams['start']
+                params['end']=defaultparams['end']
+                updateChart(this)
+            })
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.height)
         //console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
@@ -444,11 +449,6 @@ class Chart {
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot feature')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
-            .on("dblclick",function() {
-                params['start']=defaultparams['start']
-                params['end']=defaultparams['end']
-                updateChart(this)
-            })
 
 
         if (this.type==='main') {
@@ -486,8 +486,16 @@ class Chart {
         addAxes(this)
         addLabels(this)
         addGlyphs(this)
-        console.log("in draw():")
+        console.log("in draw(), this:")
         console.log(this)
+        console.log("defaultparams.start:")
+        console.log(defaultparams['start'])
+        console.log("defaultparams.end:")
+        console.log(defaultparams['end'])
+        console.log('this.xScaleNav')
+        console.log(this.xScaleNav())
+        console.log("this.xScaleNav(defaultparams['start']):")
+        console.log(this.xScaleNav(defaultparams['start']))
         //const defaultSelection = [this.xScaleNav(defaultparams['start']),this.xScaleNav(defaultparams['end'])]
         //console.log(`defaultSelection: ${defaultSelection}`)
     }
