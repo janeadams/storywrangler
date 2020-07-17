@@ -121,7 +121,7 @@ function addAxes(chart) {
     d3.select(chart.element).selectAll(".xaxis,.yaxis,.xaxis-nav,.yaxis-nav").remove()
 
     // Add X & Y Axes to main plot
-    chart.plot.append("g")
+    chart.xAxisGroup = chart.plot.append("g")
         .attr("class", "xaxis")
         .attr("transform", `translate(0, ${chart.height - (chart.margin.top + chart.margin.bottom)})`)
         .call(xAxis)
@@ -131,7 +131,7 @@ function addAxes(chart) {
         .attr("dy", ".15em")
         .attr("transform", "rotate(-45)")
 
-    chart.plot.append("g")
+    chart.yAxisGroup = chart.plot.append("g")
         .attr("class", "yaxis")
         .call(yAxis)
 
@@ -352,7 +352,7 @@ class Chart {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
             this.xScale.domain([params['start'], params['end']])
-            this.plot.call(d3.axisBottom().scale(this.xScale))
+            this.xAxisGroup.call(d3.axisBottom().scale(this.xScale))
         }
 
         //setScales(this)
