@@ -444,6 +444,12 @@ class Chart {
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot feature')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
+            .on("dblclick",function() {
+                params['start']=defaultparams['start']
+                params['end']=defaultparams['end']
+                updateChart(this)
+            })
+
 
         if (this.type==='main') {
             this.brush = d3.brushX()
@@ -461,9 +467,6 @@ class Chart {
                     })
                     parent.brushed()
                 })
-
-            const defaultSelection = [this.xScaleNav(lastyeardate),this.xScaleNav(mostrecent)]
-            console.log(`defaultSelection: ${defaultSelection}`)
 
             this.navPlot = this.svg.append('g')
                 .attr("viewBox", [0, 0, this.width, this.navPlotHeight+20])
@@ -483,6 +486,8 @@ class Chart {
         addAxes(this)
         addLabels(this)
         addGlyphs(this)
+        const defaultSelection = [this.xScaleNav(defaultparams['start']),this.xScaleNav(defaultparams['end'])]
+        console.log(`defaultSelection: ${defaultSelection}`)
     }
 }
 
