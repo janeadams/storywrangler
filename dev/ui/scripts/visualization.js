@@ -350,7 +350,6 @@ function updateChart(chart){
     chart.clipgroup.selectAll('circle')
         .transition().duration(500)
         .attr("cx", d => chart.xScale(d[0]))
-    chart.navPlot.call(chart.brush.move, [chart.xScaleNav(params['start']), chart.xScaleNav(params['end'])])
 }
 
 class Chart {
@@ -415,6 +414,7 @@ class Chart {
                 params['start']=defaultparams['start']
                 params['end']=defaultparams['end']
                 updateChart(parent)
+                this.navPlot.call(this.brush.move, [this.xScaleNav(params['start']), this.xScaleNav(params['end'])])
             })
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.height)
