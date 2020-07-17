@@ -205,7 +205,7 @@ function clearAll(){
     clearData()
 }
 
-function initializeData(callback){
+function initializeData(callback = hideloadingpanel()){
     Ngrams.forEach(n => parseQuery(n,true))
     callback()
     //setTimeout(() => hideloadingpanel(), 1000)
