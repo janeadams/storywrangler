@@ -124,7 +124,8 @@ function addAxes(chart) {
     chart.xAxisGroup = chart.plot.append("g")
         .attr("class", "xaxis")
         .attr("transform", `translate(0, ${chart.height - (chart.margin.top + chart.margin.bottom)})`)
-        .call(xAxis)
+
+    chart.xAxisGroup.call(xAxis)
         .selectAll("text")
         .style("text-anchor", "end")
         .attr("dx", "-.8em")
@@ -352,7 +353,7 @@ class Chart {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
             this.xScale.domain([params['start'], params['end']])
-            console.log(`this.xScale.domain = ${this.xScale.domain[0]}`)
+            console.log(`this.xScale.domain = ${this.xScale.domain}`)
             this.xAxisGroup.call(d3.axisBottom().scale(this.xScale))
             console.log(this.xAxisGroup)
         }
