@@ -56,8 +56,6 @@ function loadData(url) {
             console.log(alertMsg)
             showAlert(alertMsg)
         }
-        console.log('foundNgrams')
-        console.log(foundNgrams)
         if (foundNgrams.length > 0){
             let newNgrams = findNew(foundNgrams)
             if (newNgrams.length > 0) {
