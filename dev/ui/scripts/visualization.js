@@ -477,7 +477,6 @@ class Chart {
                 .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
                 .style("display", "block")
                 .call(this.brush)
-                .call(this.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
         }
 
         this.draw()
@@ -489,8 +488,7 @@ class Chart {
         addLabels(this)
         addGlyphs(this)
         try {
-            const defaultSelection = [this.xScaleNav(defaultparams['start']), this.xScaleNav(defaultparams['end'])]
-            console.log(`defaultSelection: ${defaultSelection}`)
+            this.navPlot.call(this.brush.move, [this.xScaleNav(params['start']), this.xScaleNav(params['end'])])
         }
         catch {
 
