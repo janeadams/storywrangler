@@ -413,7 +413,7 @@ class Chart {
             .on("dblclick",function() {
                 params['start']=defaultparams['start']
                 params['end']=defaultparams['end']
-                updateChart(this)
+                updateChart(parent)
             })
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.height)
