@@ -338,9 +338,6 @@ function addDots(chart, dataKey){
 }
 
 function rescaleChart(chart){
-    console.log('chart.xScale')
-    console.log(chart.xScale)
-    chart.xScale = d3.event.selection.rescaleX(chart.xScale)
     chart.plot.call(chart.xAxis)
 }
 
@@ -358,10 +355,7 @@ class Chart {
         if (d3.event.selection) {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
-            console.log(this)
-            console.log(`this xScale = ${this.xScale}`)
-            this.svg.property("value", d3.event.selection.map(this.xScale.invert, this.xScale))
-            this.svg.dispatch("input");
+            this.xScale = [params['start'], params['end']]
             rescaleChart(this)
         }
 
