@@ -442,7 +442,7 @@ class Chart {
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
         if (this.type==='main') {
-            const brush = d3.brushX()
+            this.brush = d3.brushX()
                 .extent([[0, 0], [this.width, this.navPlotHeight]])
                 .on("brush", function () {
                     let s = d3.event.selection
@@ -468,7 +468,7 @@ class Chart {
                 .attr("height", this.navPlotHeight)
                 .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
                 .style("display", "block")
-                .call(brush)
+                .call(this.brush)
         }
 
         this.draw()
@@ -487,7 +487,7 @@ function makeCharts(){
     showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
-    mainChart.navPlot.call(brush.move,[mainChart.xScaleNav(params['start']),mainChart.xScaleNav(params['end'])])
+    mainChart.navPlot.call(mainChart.brush.move,[mainChart.xScaleNav(params['start']),mainChart.xScaleNav(params['end'])])
     if (compare && Ngrams){
         Object.keys(ngramData).forEach(ngram => {
             addSuplot(ngram)
