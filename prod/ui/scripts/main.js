@@ -219,6 +219,13 @@ function hideloadingpanel(){
     d3.selectAll('.loader').remove()
 }
 
+document.addEventListener('loadstart', function() {
+    showloadingpanel()
+})
+document.addEventListener('load', function() {
+    hideloadingpanel()
+})
+
 function showAlert(msg){
     console.log('Showing alert message')
     d3.selectAll('.alert').remove()

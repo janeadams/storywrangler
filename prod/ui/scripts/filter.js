@@ -1,5 +1,5 @@
 function setFilters() {
-
+    console.log('Setting Filters')
     // Check the boxes based on the parameters
     for (let p of ['metric', 'scale']) {
         //console.log(`Clearing all checkboxes for ${p} filter`)

@@ -344,8 +344,12 @@ function updateChart(chart){
     const dataline = d3.line().defined(d => !isNaN(d[1]))
         .x(d => chart.xScale(d[0]))
         .y(d => chart.yScale(d[1]))
-    chart.clipgroup.selectAll('.dataline, .missingline, .sparkline').attr('d',dataline)
-    chart.clipgroup.selectAll('circle').attr("cx", d => chart.xScale(d[0]))
+    chart.clipgroup.selectAll('.dataline, .missingline, .sparkline')
+        .transition().duration(500)
+        .attr('d',dataline)
+    chart.clipgroup.selectAll('circle')
+        .transition().duration(500)
+        .attr("cx", d => chart.xScale(d[0]))
 }
 
 class Chart {
@@ -362,12 +366,6 @@ class Chart {
         if (d3.event.selection) {
             updateChart(this)
         }
-
-        //setScales(this)
-        //addAxes(this)
-        //this.svg.selectAll('.line').remove()
-        //this.svg.selectAll('circle').remove()
-        //addGlyphs(this)
     }
 
     /*zoomed() {
@@ -412,6 +410,12 @@ class Chart {
         this.element.innerHTML = ''
 
         this.svg = d3.select(this.element).append('svg').style("background-color","white")
+            .on("dblclick",function() {
+                params['start']=defaultparams['start']
+                params['end']=defaultparams['end']
+                updateChart(parent)
+                parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
+            })
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.height)
         //console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
@@ -447,10 +451,11 @@ class Chart {
             .attr('class','plot feature')
             .attr('height',`${this.height - (this.margin.top + this.margin.bottom)}`)
 
+
         if (this.type==='main') {
-            const brush = d3.brushX()
+            this.brush = d3.brushX()
                 .extent([[0, 0], [this.width, this.navPlotHeight]])
-                .on("brush", function () {
+                .on("end", function () {
                     let s = d3.event.selection
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
                     console.log(`newView: ${newView}`)
@@ -464,9 +469,6 @@ class Chart {
                     parent.brushed()
                 })
 
-            const defaultSelection = [this.xScaleNav(lastyeardate),this.xScaleNav(mostrecent)]
-            console.log(`defaultSelection: ${defaultSelection}`)
-
             this.navPlot = this.svg.append('g')
                 .attr("viewBox", [0, 0, this.width, this.navPlotHeight+20])
                 .attr('class','navPlot')
@@ -474,8 +476,7 @@ class Chart {
                 .attr("height", this.navPlotHeight)
                 .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
                 .style("display", "block")
-                .call(brush)
-                //.call(brush.move,[this.xScaleNav(params['start']),this.xScaleNav(params['end'])])
+                .call(this.brush)
         }
 
         this.draw()
@@ -491,15 +492,14 @@ class Chart {
 
 function makeCharts(){
     //console.log("Making charts...")
-    showloadingpanel()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
+    //mainChart.navPlot.call(mainChart.brush.move,[mainChart.xScaleNav(params['start']),mainChart.xScaleNav(params['end'])])
     if (compare && Ngrams){
         Object.keys(ngramData).forEach(ngram => {
             addSuplot(ngram)
         })
     }
-    hideloadingpanel()
 }
 
 function addSuplot(ngram){
@@ -535,8 +535,7 @@ function addSuplot(ngram){
 }
 
 function redrawCharts(){
-    //console.log("Redrawing charts...")
-    showloadingpanel()
+    console.log("Redrawing charts...")
     setRanges()
     mainChart.setup()
     if (compare && Ngrams){
@@ -545,5 +544,4 @@ function redrawCharts(){
             catch {console.log(`Error re-drawing subplot for ${ngram}`)}
         })
     }
-    hideloadingpanel()
 }

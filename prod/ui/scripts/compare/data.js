@@ -8,16 +8,13 @@ function removeColor(n){
 }
 
 function sendQuery(formatted_query, APIsource){
-    showloadingpanel()
     let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
     loadData(url)
-    hideloadingpanel()
 }
 
 function loadData(url) {
     //console.log(`Querying API URL:`)
     //console.log(url)
-    showloadingpanel()
     d3.json(url).then((data, error) => {
         //console.log(`Received API response:`)
         let debug = {}
@@ -56,8 +53,6 @@ function loadData(url) {
             console.log(alertMsg)
             showAlert(alertMsg)
         }
-        console.log('foundNgrams')
-        console.log(foundNgrams)
         if (foundNgrams.length > 0){
             let newNgrams = findNew(foundNgrams)
             if (newNgrams.length > 0) {
@@ -75,13 +70,11 @@ function loadData(url) {
                 })
             }
         }
-        hideloadingpanel()
     })
 }
 
 function reloadAllData() {
-    //console.log("Reloading all data...")
-    showloadingpanel()
+    console.log("Reloading all data...")
     availableColors = [0,1,2,3,4,5]
     let datakeys = Object.keys(ngramData)
     datakeys.forEach(n => {
@@ -145,7 +138,6 @@ function addNgram(n) {
 
 // When the list item is clicked for a particular word...
 function removeNgram(n) {
-    showloadingpanel()
     // Filter the ngram list to include every ngram except this one
     Ngrams = Ngrams.filter(ele => ele !== n)
     try {
@@ -169,7 +161,6 @@ function removeNgram(n) {
     catch{}
     updateURL()
     //console.log(`removed ${n} from ngramData; length = ${Object.keys(ngramData).length} and remaining ngrams are ${Object.keys(ngramData)}`)
-    hideloadingpanel()
 }
 
 function setButtons(){
@@ -182,7 +173,6 @@ function setButtons(){
 }
 
 function formatDataForDownload(button){
-    setTimeout(() => showloadingpanel(), 1000)
     let allData
     if(Object.keys(ngramData).length > 0) {
         let downloadData = {}
@@ -204,7 +194,7 @@ function formatDataForDownload(button){
 
     button.setAttribute("href", ("data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData))))
     button.setAttribute("download", "storywrangler_data.json")
-    setTimeout(() => hideloadingpanel(), 1000)
+    //setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function clearAll(){
@@ -217,7 +207,6 @@ function clearAll(){
 
 function initializeData(){
     Ngrams.forEach(n => parseQuery(n,true))
-    setTimeout(() => hideloadingpanel(), 1000)
 }
 
 function alreadyExists(query){
