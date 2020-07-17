@@ -352,9 +352,9 @@ class Chart {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
             this.xScale.domain([params['start'], params['end']])
-            console.log(`this.xScale.domain = ${this.xScale.domain}`)
+            console.log(`this.xScale.domain = ${this.xScale.domain[0]}`)
             this.xAxisGroup.call(d3.axisBottom().scale(this.xScale))
-
+            console.log(this.xAxisGroup)
         }
 
         //setScales(this)
