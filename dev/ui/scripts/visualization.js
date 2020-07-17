@@ -487,12 +487,6 @@ class Chart {
         addAxes(this)
         addLabels(this)
         addGlyphs(this)
-        try {
-            this.navPlot.call(this.brush.move, [this.xScaleNav(dateParser(params['start'])), this.xScaleNav(dateParser(params['end']))])
-        }
-        catch {
-
-        }
     }
 }
 
