@@ -340,7 +340,7 @@ function addDots(chart, dataKey){
 function rescaleChart(chart){
     console.log('chart.xScale')
     console.log(chart.xScale)
-    chart.xScale = d3.event.transform.rescaleX(chart.xScale)
+    chart.xScale = d3.event.selection.rescaleX(chart.xScale)
     chart.plot.call(chart.xAxis)
 }
 
