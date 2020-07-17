@@ -74,6 +74,7 @@ function loadData(url) {
 }
 
 function reloadAllData() {
+    showloadingpanel()
     console.log("Reloading all data...")
     availableColors = [0,1,2,3,4,5]
     let datakeys = Object.keys(ngramData)
@@ -82,7 +83,7 @@ function reloadAllData() {
         d3.selectAll(`.uuid-${uuid}`).remove()
     })
     clearData()
-    showloadingpanel(initializeData().bind(hideloadingpanel()))
+    initializeData()
 }
 
 function findNew(ngrams){
@@ -205,7 +206,7 @@ function clearAll(){
     clearData()
 }
 
-function initializeData(callback = hideloadingpanel()){
+function initializeData(callback=hideloadingpanel()){
     Ngrams.forEach(n => parseQuery(n,true))
     callback()
     //setTimeout(() => hideloadingpanel(), 1000)
