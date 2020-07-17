@@ -63,12 +63,12 @@ function filterSubmission() {
 
 function triggerUpdates(){
     console.log(`There was an update to the parameters`)
-    showloadingpanel(update.bind(hideloadingpanel()))
+    showloadingpanel(update)
 }
 
 function update(){
     setFilters()
     updateURL()
     reloadAllData()
-    redrawCharts()
+    redrawCharts().bind(hideloadingpanel()
 }
