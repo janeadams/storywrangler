@@ -490,6 +490,9 @@ class Chart {
             const defaultSelection = [this.xScaleNav(defaultparams['start']), this.xScaleNav(defaultparams['end'])]
             console.log(`defaultSelection: ${defaultSelection}`)
         }
+        catch {
+
+        }
     }
 }
 
