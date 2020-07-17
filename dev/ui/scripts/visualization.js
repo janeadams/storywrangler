@@ -344,7 +344,7 @@ function updateChart(chart){
     const dataline = d3.line().defined(d => !isNaN(d[1]))
         .x(d => chart.xScale(d[0]))
         .y(d => chart.yScale(d[1]))
-    chart.clipgroup.selectAll('.dataline, .missingline .sparkline').attr('d',dataline)
+    chart.clipgroup.selectAll('.dataline, .missingline, .sparkline').attr('d',dataline)
     chart.dots.attr("cx", d => chart.xScale(d[0]))
         .attr("cy", d => chart.yScale(d[1]))
 }
