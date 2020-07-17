@@ -345,10 +345,10 @@ function updateChart(chart){
         .x(d => chart.xScale(d[0]))
         .y(d => chart.yScale(d[1]))
     chart.clipgroup.selectAll('.dataline, .missingline, .sparkline')
-        .transition().duration(500)
+        .transition()//.duration(500)
         .attr('d',dataline)
     chart.clipgroup.selectAll('circle')
-        .transition().duration(500)
+        .transition()//.duration(500)
         .attr("cx", d => chart.xScale(d[0]))
 }
 
