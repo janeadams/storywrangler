@@ -444,7 +444,7 @@ class Chart {
         if (this.type==='main') {
             this.brush = d3.brushX()
                 .extent([[0, 0], [this.width, this.navPlotHeight]])
-                .on("brush", function () {
+                .on("end", function () {
                     let s = d3.event.selection
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
                     console.log(`newView: ${newView}`)
