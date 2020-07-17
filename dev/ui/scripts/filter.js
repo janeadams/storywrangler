@@ -69,6 +69,6 @@ function triggerUpdates(){
 function update(){
     setFilters()
     updateURL()
-    reloadAllData()
-    redrawCharts().bind(hideloadingpanel())
+    reloadAllData().bind(hideloadingpanel())
+    redrawCharts()
 }
