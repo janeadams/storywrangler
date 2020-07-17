@@ -82,7 +82,7 @@ function reloadAllData() {
         d3.selectAll(`.uuid-${uuid}`).remove()
     })
     clearData()
-    initializeData()
+    showloadingpanel(initializeData().bind(hideloadingpanel()))
 }
 
 function findNew(ngrams){
@@ -205,8 +205,9 @@ function clearAll(){
     clearData()
 }
 
-function initializeData(){
+function initializeData(callback){
     Ngrams.forEach(n => parseQuery(n,true))
+    callback()
     //setTimeout(() => hideloadingpanel(), 1000)
 }
 
