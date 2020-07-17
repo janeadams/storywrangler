@@ -486,8 +486,10 @@ class Chart {
         addAxes(this)
         addLabels(this)
         addGlyphs(this)
-        const defaultSelection = [this.xScaleNav(defaultparams['start']),this.xScaleNav(defaultparams['end'])]
-        console.log(`defaultSelection: ${defaultSelection}`)
+        console.log("in draw():")
+        console.log(this)
+        //const defaultSelection = [this.xScaleNav(defaultparams['start']),this.xScaleNav(defaultparams['end'])]
+        //console.log(`defaultSelection: ${defaultSelection}`)
     }
 }
 
