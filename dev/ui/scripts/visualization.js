@@ -351,6 +351,7 @@ class Chart {
         if (d3.event.selection) {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
+            console.log(this)
             console.log(`this xScale = ${this.xScale}`)
             this.svg.property("value", d3.event.selection.map(this.xScale.invert, this.xScale).map(d3.utcDay.round));
             this.svg.dispatch("input");
