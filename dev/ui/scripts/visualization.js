@@ -351,7 +351,7 @@ class Chart {
         if (d3.event.selection) {
             console.log('brushed! event selection:')
             console.log(d3.event.selection)
-            this.xScale = [params['start'], params['end']]
+            this.xScale.domain([params['start'], params['end']])
             this.plot.call(d3.axisBottom().scale(this.xScale))
         }
 
