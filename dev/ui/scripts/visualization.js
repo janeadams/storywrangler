@@ -293,7 +293,7 @@ function addDots(chart, dataKey){
     }
 
     // DRAW DOTS //
-    chart.clipgroup.selectAll('.dot')
+    chart.dots = chart.clipgroup.selectAll('.dot')
         .data(filterNull(ndata))
         .enter()
         .append("circle")
@@ -344,7 +344,9 @@ function updateChart(chart){
     const dataline = d3.line().defined(d => !isNaN(d[1]))
         .x(d => chart.xScale(d[0]))
         .y(d => chart.yScale(d[1]))
-    chart.clipgroup.selectAll('.dataline, .missingline').attr('d',dataline)
+    chart.clipgroup.selectAll('.dataline, .missingline .sparkline').attr('d',dataline)
+    chart.dots.attr("cx", d => chart.xScale(d[0]))
+        .attr("cy", d => chart.yScale(d[1]))
 }
 
 class Chart {
