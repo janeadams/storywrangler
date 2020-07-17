@@ -486,21 +486,8 @@ class Chart {
         addAxes(this)
         addLabels(this)
         addGlyphs(this)
-        this.xScaleNav = d3.scaleTime()
-            .domain(xRange)
-            .range([0, this.width])
-        console.log("in draw(), this:")
-        console.log(this)
-        console.log("defaultparams.start:")
-        console.log(defaultparams['start'])
-        console.log("defaultparams.end:")
-        console.log(defaultparams['end'])
-        console.log('this.xScaleNav')
-        console.log(this.xScaleNav(200))
-        console.log("this.xScaleNav(defaultparams['start']):")
-        console.log(this.xScaleNav(defaultparams['start']))
-        //const defaultSelection = [this.xScaleNav(defaultparams['start']),this.xScaleNav(defaultparams['end'])]
-        //console.log(`defaultSelection: ${defaultSelection}`)
+        const defaultSelection = [this.xScaleNav(defaultparams['start']),this.xScaleNav(defaultparams['end'])]
+        console.log(`defaultSelection: ${defaultSelection}`)
     }
 }
 
