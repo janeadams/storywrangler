@@ -344,8 +344,12 @@ function updateChart(chart){
     const dataline = d3.line().defined(d => !isNaN(d[1]))
         .x(d => chart.xScale(d[0]))
         .y(d => chart.yScale(d[1]))
-    chart.clipgroup.selectAll('.dataline, .missingline, .sparkline').attr('d',dataline)
-    chart.clipgroup.selectAll('circle').attr("cx", d => chart.xScale(d[0]))
+    chart.clipgroup.selectAll('.dataline, .missingline, .sparkline')
+        .transition().duration(1000)
+        .attr('d',dataline)
+    chart.clipgroup.selectAll('circle')
+        .transition().duration(1000)
+        .attr("cx", d => chart.xScale(d[0]))
 }
 
 class Chart {
