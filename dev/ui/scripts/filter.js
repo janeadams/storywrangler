@@ -63,13 +63,13 @@ function filterSubmission() {
 
 function triggerUpdates(){
     console.log(`There was an update to the parameters`)
-
-    function update(callback){
-        setFilters()
-        updateURL()
-        reloadAllData()
-        redrawCharts()
-        callback()
-    }
     showloadingpanel(update(hideloadingpanel()))
+}
+
+function update(callback){
+    setFilters()
+    updateURL()
+    reloadAllData()
+    redrawCharts()
+    callback()
 }
