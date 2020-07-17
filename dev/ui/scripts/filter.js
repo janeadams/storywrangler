@@ -63,7 +63,7 @@ function filterSubmission() {
 
 function triggerUpdates(){
     console.log(`There was an update to the parameters`)
-    showloadingpanel(update(hideloadingpanel()))
+    showloadingpanel(update.bind(hideloadingpanel()))
 }
 
 function update(hide){
