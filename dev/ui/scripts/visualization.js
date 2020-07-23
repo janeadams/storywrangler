@@ -341,7 +341,11 @@ function addDots(chart, dataKey){
 
 function updateChart(chart){
     chart.xScale.domain([params['start'], params['end']])
-    chart.xAxisGroup.call(d3.axisBottom().scale(chart.xScale))
+    chart.xAxisGroup.call(d3.axisBottom().scale(chart.xScale)).selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-45)")
     const dataline = d3.line().defined(d => !isNaN(d[1]))
         .x(d => chart.xScale(d[0]))
         .y(d => chart.yScale(d[1]))
