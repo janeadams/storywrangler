@@ -11,5 +11,4 @@ let defaultDict = {}
 d3.json('language_defaults.json').then((data) => {
     defaultDict = data
     console.log(defaultDict)
-    translateDefaults()
 })
