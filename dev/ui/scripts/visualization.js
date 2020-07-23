@@ -86,7 +86,13 @@ function addAxes(chart) {
 
     const xAxis = d3.axisBottom()
         .scale(chart.xScale)
-        .ticks(12)
+
+    if (chart.type==='main') {
+        xAxis.ticks(12)
+    }
+    else {
+        xAxis.ticks(5)
+    }
 
     const xAxisNav = d3.axisBottom()
         .scale(chart.xScaleNav)
