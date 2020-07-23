@@ -145,7 +145,7 @@ div.tooltip {
     }
 }
 
-@media (max-width: 1000px){
+@media (max-width: 600px){
     .subplot-container {
         width: 100%;
     }
