@@ -22,7 +22,8 @@ function setScales(chart){
     }
     else {
         chart.xScale = d3.scaleTime()
-            .domain(xRange)
+            //.domain(xRange) // Set to full date range
+            .domain([params['start'], params['end']]) // Set to selected date range
             .range([0, chart.width - m.left])
     }
     //console.log('chart.xScale')
@@ -34,49 +35,24 @@ function setScales(chart){
         //console.log(`yRange: ${yRange}`)
         if (params['scale']==='log') {
             // When showing ranks, put rank #1 at the top
-            if (chart.type==='main') {
-                chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
-                chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
-            }
-            else {
-                if (params['metric']==='rank') {
-                    chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], 1]).nice().range([chart.height - (m.top + m.bottom), 0])
-                }
-                else {
-                    chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], ngramData[chart.ngram][`min_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
-                }
-            }
+            chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
+            chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
         }
         else {
-            if (chart.type==='main') {
-                chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
-                chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
-            }
-            else {
-                chart.yScale = d3.scaleLinear().domain([ngramData[chart.ngram][`max_${params['metric']}`], ngramData[chart.ngram][`min_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
-            }
+            chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
+            chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
         }
     }
 
     // When showing any other metric, put the highest number at the top and start at 0
     else {
         if (params['scale']==='log') {
-            if (chart.type==='main') {
-                chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
-                chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
-            }
-            else {
-                chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`min_${params['metric']}`], ngramData[chart.ngram][`max_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
-            }
+            chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
+            chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
         }
         else {
-            if (chart.type==='main') {
-                chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
-                chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
-            }
-            else {
-                chart.yScale = d3.scaleLinear().domain([ngramData[chart.ngram][`min_${params['metric']}`], ngramData[chart.ngram][`max_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
-            }
+            chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
+            chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
         }
     }
 }
@@ -85,7 +61,13 @@ function addAxes(chart) {
 
     const xAxis = d3.axisBottom()
         .scale(chart.xScale)
-        .ticks(12)
+
+    if (chart.type==='main') {
+        xAxis.ticks(12)
+    }
+    else {
+        xAxis.ticks(3)
+    }
 
     const xAxisNav = d3.axisBottom()
         .scale(chart.xScaleNav)
@@ -340,7 +322,11 @@ function addDots(chart, dataKey){
 
 function updateChart(chart){
     chart.xScale.domain([params['start'], params['end']])
-    chart.xAxisGroup.call(d3.axisBottom().scale(chart.xScale))
+    chart.xAxisGroup.call(d3.axisBottom().scale(chart.xScale)).selectAll("text")
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-45)")
     const dataline = d3.line().defined(d => !isNaN(d[1]))
         .x(d => chart.xScale(d[0]))
         .y(d => chart.yScale(d[1]))
@@ -365,6 +351,9 @@ class Chart {
     brushed(){
         if (d3.event.selection) {
             updateChart(this)
+            if (compare) {
+                Ngrams.forEach(n => updateChart(subPlots[n]))
+            }
         }
     }
 
@@ -414,6 +403,9 @@ class Chart {
                 params['start']=defaultparams['start']
                 params['end']=defaultparams['end']
                 updateChart(parent)
+                if (compare) {
+                    Ngrams.forEach(n => updateChart(subPlots[n]))
+                }
                 parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
             })
         this.svg.attr('width', this.width)

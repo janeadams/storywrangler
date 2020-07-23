@@ -37,6 +37,10 @@
     font-size: 20px;
 }
 
+#subplots .xaxis, #subplots .yaxis {
+    font-size: 15px;
+}
+
 .axislabel, .axislabel-large {
     fill: #666;
 }
