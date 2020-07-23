@@ -8,9 +8,13 @@
     margin: 0 auto;
     height: 600px;
 }
+#subplots {
+    display: flex;
+    flex-wrap: wrap;
+}
 /* subplot-container contains subplot-details (left) and subplot-chart (right) */
 .subplot-container {
-    width: 30%;
+    flex-grow: 1;
     padding-left: 2%;
     margin: 0 auto;
     height: auto;
