@@ -6,3 +6,8 @@ paramoptions['rt']=[true,false]
 
 let Ngrams = []
 let defaultNgrams = ["🦠","hahaha","Black Lives Matter","#MeToo"]
+let defaultDict = {}
+
+d3.json('language_defaults.json').then((data) => {
+    defaultDict = data
+})
