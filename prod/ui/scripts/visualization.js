@@ -402,7 +402,7 @@ class Chart {
         }
         else {
             this.margin.right = 0
-            this.margin.left = 0.1 * this.width
+            this.margin.left = 0.2 * this.width
         }
         setScales(this)
         let parent = this

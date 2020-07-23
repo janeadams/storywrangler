@@ -46,28 +46,27 @@ function getUrlNgramParams(){
 }
 
 function translateDefaults(){
-    let newDefaults = ["🦠","hahaha","Black Lives Matter","#MeToo"]
-    const defaultDict = {'es':['buenas noches','#viernes','jajaja','🇵🇷'],'fr':['Emmanuel Macron','#vendredi','héhéhé','🎄'],'hy':['սիրում եմ քեզ','#armenia','Հայաստանի','🇦🇲'], 'tr':['Tayyip Erdoğan','#cuma','hahaha','🇹🇷'] }
     if (Object.keys(defaultDict).includes(params['language'])){
-        newDefaults = defaultDict[params['language']]
-        //console.log(`newDefaults: ${newDefaults}`)
+        console.log(`Alternate defaults detected for ${params['language']}`)
+        let newDefaults = defaultDict[params['language']]
+        console.log(`newDefaults: ${newDefaults}`)
         if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
-            //console.log(`Ngrams are default`)
+            console.log(`Ngrams are default`)
             Ngrams = Object.assign([], newDefaults)
-            //console.log(`Ngrams are now ${Ngrams}`)
+            console.log(`Ngrams are now ${Ngrams}`)
         }
         defaultNgrams = Object.assign([], newDefaults)
-        //console.log(`defaultNgrams are now ${defaultNgrams}`)
+        console.log(`defaultNgrams are now ${defaultNgrams}`)
     }
     else {
-        newDefaults = ["🦠","hahaha","Black Lives Matter","#MeToo"]
-        //console.log(`newDefaults: ${newDefaults}`)
+        let newDefaults = ["🦠","hahaha","Black Lives Matter","#MeToo"]
+        console.log(`newDefaults: ${newDefaults}`)
         if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
-            //console.log(`Ngrams are default`)
+            console.log(`Ngrams are default`)
             Ngrams = Object.assign([], newDefaults)
-            //console.log(`Ngrams are now ${Ngrams}`)
+            console.log(`Ngrams are now ${Ngrams}`)
         }
         defaultNgrams = Object.assign([], newDefaults)
-        //console.log(`defaultNgrams are now ${defaultNgrams}`)
+        console.log(`defaultNgrams are now ${defaultNgrams}`)
     }
 }
