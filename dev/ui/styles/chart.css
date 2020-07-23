@@ -16,14 +16,14 @@
     display: inline-block;
 }
 .subplot-details {
-    width: 20%;
+    width: 100%;
     padding: 0 5%;
     float: left;
     display: inline-block;
 }
 .subplot-chart {
     height: 300px;
-    width: 70%;
+    width: 80%;
     float: left;
     display: inline-block;
 }
@@ -138,5 +138,14 @@ div.tooltip {
     }
     .tooltip .ngram  {
         font-size: 15px;
+    }
+    .subplot-container {
+        width: 40%;
+    }
+}
+
+@media (max-width: 1000px){
+    .subplot-container {
+        width: 100%;
     }
 }
