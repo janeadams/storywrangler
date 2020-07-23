@@ -22,7 +22,8 @@ function setScales(chart){
     }
     else {
         chart.xScale = d3.scaleTime()
-            .domain(xRange)
+            //.domain(xRange) // Set to full date range
+            .domain([params['start'], params['end']]) // Set to selected date range
             .range([0, chart.width - m.left])
     }
     //console.log('chart.xScale')
@@ -365,6 +366,7 @@ class Chart {
     brushed(){
         if (d3.event.selection) {
             updateChart(this)
+            subPlots.forEach(subplot => updateChart(subplot))
         }
     }
 
@@ -414,6 +416,7 @@ class Chart {
                 params['start']=defaultparams['start']
                 params['end']=defaultparams['end']
                 updateChart(parent)
+                subPlots.forEach(subplot => updateChart(subplot))
                 parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
             })
         this.svg.attr('width', this.width)
