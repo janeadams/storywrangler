@@ -91,7 +91,7 @@ function addAxes(chart) {
         xAxis.ticks(12)
     }
     else {
-        xAxis.ticks(5)
+        xAxis.ticks(3)
     }
 
     const xAxisNav = d3.axisBottom()
