@@ -35,49 +35,24 @@ function setScales(chart){
         //console.log(`yRange: ${yRange}`)
         if (params['scale']==='log') {
             // When showing ranks, put rank #1 at the top
-            if (chart.type==='main') {
-                chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
-                chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
-            }
-            else {
-                if (params['metric']==='rank') {
-                    chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], 1]).nice().range([chart.height - (m.top + m.bottom), 0])
-                }
-                else {
-                    chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`max_${params['metric']}`], ngramData[chart.ngram][`min_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
-                }
-            }
+            chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
+            chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
         }
         else {
-            if (chart.type==='main') {
-                chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
-                chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
-            }
-            else {
-                chart.yScale = d3.scaleLinear().domain([ngramData[chart.ngram][`max_${params['metric']}`], ngramData[chart.ngram][`min_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
-            }
+            chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.height - (m.top + m.bottom), 0])
+            chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([chart.navPlotHeight, 0])
         }
     }
 
     // When showing any other metric, put the highest number at the top and start at 0
     else {
         if (params['scale']==='log') {
-            if (chart.type==='main') {
-                chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
-                chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
-            }
-            else {
-                chart.yScale = d3.scaleLog().domain([ngramData[chart.ngram][`min_${params['metric']}`], ngramData[chart.ngram][`max_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
-            }
+            chart.yScale = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
+            chart.yScaleNav = d3.scaleLog().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
         }
         else {
-            if (chart.type==='main') {
-                chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
-                chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
-            }
-            else {
-                chart.yScale = d3.scaleLinear().domain([ngramData[chart.ngram][`min_${params['metric']}`], ngramData[chart.ngram][`max_${params['metric']}`]]).nice().range([chart.height - (m.top + m.bottom), 0])
-            }
+            chart.yScale = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.height - (m.top + m.bottom)])
+            chart.yScaleNav = d3.scaleLinear().domain([yRange[1], yRange[0]]).nice().range([0, chart.navPlotHeight])
         }
     }
 }
