@@ -1,3 +1,7 @@
+#! /usr/bin/bash
+shopt -s expand_aliases
+source /home/janeadams/.bashrc
+
 if lsof -i:3000
 then
 	echo dev-api is running

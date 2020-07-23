@@ -10,20 +10,21 @@
 }
 /* subplot-container contains subplot-details (left) and subplot-chart (right) */
 .subplot-container {
-    width: 90%;
+    width: 20%;
+    padding: 0 5%;
     margin: 0 auto;
     height: auto;
     display: inline-block;
 }
 .subplot-details {
-    width: 20%;
-    padding: 0 5%;
+    width: 100%;
+    padding: 0 2%;
     float: left;
     display: inline-block;
 }
 .subplot-chart {
     height: 300px;
-    width: 70%;
+    width: 100%;
     float: left;
     display: inline-block;
 }
@@ -138,5 +139,14 @@ div.tooltip {
     }
     .tooltip .ngram  {
         font-size: 15px;
+    }
+    .subplot-container {
+        width: 40%;
+    }
+}
+
+@media (max-width: 600px){
+    .subplot-container {
+        width: 100%;
     }
 }
