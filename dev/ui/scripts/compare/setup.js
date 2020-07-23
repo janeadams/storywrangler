@@ -8,7 +8,17 @@ let Ngrams = []
 let defaultNgrams = []
 let defaultDict = {}
 
-d3.json('language_defaults.json').then((data) => {
-    defaultDict = data
-    console.log(defaultDict)
-})
+function setDefaults() {
+    d3.json('language_defaults.json').then((data) => {
+        defaultDict = data
+        console.log(defaultDict)
+    })
+    if (Object.keys(defaultDict).includes(params['language'])){
+        defaultNgrams = Object.assign([], defaultDict[params['language']])
+    }
+    else {
+        defaultNgrams = Object.assign([], ["🦠","hahaha","Black Lives Matter","#MeToo"])
+    }
+}
+
+setDefaults()
