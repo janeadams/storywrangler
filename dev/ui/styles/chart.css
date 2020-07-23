@@ -23,7 +23,7 @@
 }
 .subplot-chart {
     height: 300px;
-    width: 80%;
+    width: 100%;
     float: left;
     display: inline-block;
 }
