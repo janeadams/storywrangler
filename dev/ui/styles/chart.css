@@ -11,6 +11,7 @@
 /* subplot-container contains subplot-details (left) and subplot-chart (right) */
 .subplot-container {
     width: 30%;
+    padding: 0 5%;
     margin: 0 auto;
     height: auto;
     display: inline-block;
