@@ -11,14 +11,13 @@
 /* subplot-container contains subplot-details (left) and subplot-chart (right) */
 .subplot-container {
     width: 30%;
-    padding: 0 5% 0 0;
+    padding-left: 5%;
     margin: 0 auto;
     height: auto;
     display: inline-block;
 }
 .subplot-details {
     width: 100%;
-    padding: 0 2%;
     float: left;
     display: inline-block;
 }
