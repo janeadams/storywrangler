@@ -1,4 +1,4 @@
-from dev.api.orm import app as application
+from prod.api.orm import app as application
 if __name__ == "__main__":
     application.run()
 
