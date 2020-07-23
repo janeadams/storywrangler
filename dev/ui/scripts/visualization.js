@@ -366,7 +366,9 @@ class Chart {
     brushed(){
         if (d3.event.selection) {
             updateChart(this)
-            subPlots.forEach(subplot => updateChart(subplot))
+            if (compare) {
+                Ngrams.forEach(n => updateChart(subPlots[n]))
+            }
         }
     }
 
@@ -416,7 +418,9 @@ class Chart {
                 params['start']=defaultparams['start']
                 params['end']=defaultparams['end']
                 updateChart(parent)
-                subPlots.forEach(subplot => updateChart(subplot))
+                if (compare) {
+                    Ngrams.forEach(n => updateChart(subPlots[n]))
+                }
                 parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
             })
         this.svg.attr('width', this.width)
