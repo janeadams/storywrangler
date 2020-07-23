@@ -24,7 +24,8 @@
 }
 .subplot-chart {
     height: 300px;
-    width: 100%;
+    width: 90%;
+    padding-left: 10%;
     float: left;
     display: inline-block;
 }
