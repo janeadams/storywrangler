@@ -10,7 +10,7 @@
 }
 /* subplot-container contains subplot-details (left) and subplot-chart (right) */
 .subplot-container {
-    width: 90%;
+    width: 30%;
     margin: 0 auto;
     height: auto;
     display: inline-block;
