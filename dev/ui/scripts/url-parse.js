@@ -66,7 +66,6 @@ function getUrlParams() {
             //console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
-    translateDefaults()
     getUrlNgrams()
     initializeData()
 }
@@ -79,7 +78,6 @@ function updateURL() {
     //console.log(`splitURL:`)
     //console.log(splitURL)
     let paramlist = []
-    translateDefaults()
     if (checkDifferent()){
         paramlist.push(getUrlNgramParams())
     }
