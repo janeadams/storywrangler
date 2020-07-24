@@ -20,5 +20,3 @@ function setDefaults() {
         defaultNgrams = Object.assign([], ["🦠","hahaha","Black Lives Matter","#MeToo"])
     }
 }
-
-setDefaults()
