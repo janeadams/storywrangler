@@ -5,6 +5,7 @@ function getUrlNgrams() {
         newNgrams = readUrlVars()["ngrams"] // Add the ngrams specified in the URL
     }
     else {
+        translateDefaults()
         newNgrams = Object.assign([],defaultNgrams) // Set to default ngrams
     }
     newNgrams.forEach(n => parseQuery(n, true))
