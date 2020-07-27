@@ -468,11 +468,11 @@ class Chart {
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
-        const zoom = d3.zoom()
-            .scaleExtent([1, Infinity])
-            .translateExtent([[0, 0], [this.width, this.height]])
-            .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", parent.zoomed())
+        let zoom = d3.zoom()
+            .scaleExtent([1, 8])
+            .on('zoom', function() {console.log(d3.event.transform)})
+
+        svg.call(zoom)
 
         this.svg.call(d3.zoom().on("zoom", this.zoomed()))
 
