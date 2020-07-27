@@ -405,13 +405,16 @@ class Chart {
         if (this.type==='main') {
             this.margin.right = 0.1 * this.width
             if (mobileScale){
-                this.margin.left = 0.2 * this.width
+                this.margin.left = 0.1 * this.width
             }
             else {this.margin.left = d3.min([0.3 * this.width, 150])}
         }
         else {
             this.margin.right = 0
-            this.margin.left = 0.2 * this.width
+            if (mobileScale){
+                this.margin.left = 0.1 * this.width
+            }
+            else {this.margin.left = 0.2 * this.width}
         }
         setScales(this)
         let parent = this
