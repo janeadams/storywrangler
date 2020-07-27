@@ -1,3 +1,6 @@
+// This script is adopted from Nikita Rokotyan's Observable notebook here: http://bl.ocks.org/Rokotyan/0556f8facbaf344507cdc45dc3622177
+// Thank you so much Nikita https://github.com/Rokotyan
+
 function getSVGString( svgNode ) {
     svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
     var cssStyleText = getCSSStyles( svgNode );
