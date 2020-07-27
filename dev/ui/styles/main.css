@@ -353,17 +353,11 @@ footer img {
     }
 
     #menu {
-        float: none;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 90%;
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-evenly;
     }
     #menu li {
-        margin-left: auto;
-        margin-right: auto;
-        width: 90%;
-        text-align: center;
     }
     #navigation .social {
         width: 100%;
