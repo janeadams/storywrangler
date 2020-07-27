@@ -89,8 +89,13 @@ function roundUpToSig(max){
 }
 
 function roundDownToSig(min){
-    let down = 0.8 * min
-    return parseFloat(precise(down,getSignificantDigitCount(min)))
+    if (min===0){
+        return 0
+    }
+    else {
+        let down = 0.8 * min
+        return parseFloat(precise(down, getSignificantDigitCount(min)))
+    }
 }
 
 function getDates(startDate, stopDate) {
