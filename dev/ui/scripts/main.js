@@ -74,7 +74,7 @@ function sentenceCase (str) {
 
 function getSignificantDigitCount(n) {
     n = Math.abs(String(n).replace(".", "")); //remove decimal and make positive
-    if (n === 0) return 10;
+    if (n === 0) return 0;
     while (n !== 0 && n % 10 === 0) n /= 10; //kill the 0s at the end of n
     return Math.floor(Math.log(n) / Math.log(10)) + 1; //get number of digits
 }
