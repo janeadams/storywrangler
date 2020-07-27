@@ -165,6 +165,6 @@ div.tooltip {
         font-size: 15px;
     }
     .axislabel-large {
-        transform: rotate(90deg);
+        transform: rotate(-90deg);
     }
 }
