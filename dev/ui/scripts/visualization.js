@@ -396,7 +396,7 @@ class Chart {
         // Set sizing
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        //console.log(`this.width = ${this.width}, this.height = ${this.height}`)
+        console.log(`this.width = ${this.width}, this.height = ${this.height}`)
         this.navPlotHeight = 50
         this.margin = {
             top: 0.1 * this.height,
