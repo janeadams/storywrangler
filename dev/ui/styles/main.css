@@ -366,11 +366,9 @@ footer img {
         text-align: center;
     }
     #navigation .social {
-        float: none;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-evenly;
     }
 
     .textblock p {
