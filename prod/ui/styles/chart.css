@@ -150,7 +150,16 @@ div.tooltip {
 }
 
 @media (max-width: 600px){
+
     .subplot-container {
         width: 100%;
+    }
+
+    #mainplot {
+        height: 400px;
+    }
+
+    .axislabel-large {
+        transform: rotate(-90deg);
     }
 }
