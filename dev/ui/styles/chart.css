@@ -158,12 +158,7 @@ div.tooltip {
     #mainplot {
         height: 300px;
     }
-    .axislabel-large {
-        font-size: 15px;
-    }
-    .axislabel {
-        font-size: 15px;
-    }
+
     .axislabel-large {
         transform: rotate(-90deg);
     }
