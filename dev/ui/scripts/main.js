@@ -32,7 +32,7 @@ Date.prototype.addDays = function(days) {
 
 // Today's date
 let today = new Date()
-let mostrecent = dateParser(new Date(today)).addDays(-2)
+let mostrecent = dateParser(new Date(today)).addDays(-3)
 // Extract year from today's date
 let thisyear = today.getFullYear()
 // Get one year ago
