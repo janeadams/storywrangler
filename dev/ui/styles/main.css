@@ -357,7 +357,7 @@ footer img {
     }
 
     .textblock h1, h2, h3 {
-        margin-top: 0;
+        margin-top: 10px;
     }
 
     #navigation {
