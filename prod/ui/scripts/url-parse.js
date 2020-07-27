@@ -60,22 +60,21 @@ function getUrlParams() {
         // If the parameter is in the URL
         if (window.location.href.indexOf(p) > -1) {
             params[p] = readUrlVars()[p] // set the variable to the value in the url
-            console.log(`Changed params[${p}] to ${params[p]}`)
+            //console.log(`Changed params[${p}] to ${params[p]}`)
+            if (p==='language'){
+                if(compare){setDefaults()}
+            }
         } else { // If the parameter is not specified in the URL
             params[p] = defaultparams[p]
             //console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
-    if(compare){setDefaults()}
-    getUrlNgrams()
-    if(compare){translateDefaults()}
-    initializeData()
 }
 
 function updateURL() {
     let currentURL = String(window.location.href)
-    console.log(`currentURL:`)
-    console.log(currentURL)
+    //console.log(`currentURL:`)
+    //console.log(currentURL)
     let splitURL = currentURL.split("?")
     //console.log(`splitURL:`)
     //console.log(splitURL)
