@@ -62,7 +62,7 @@ function getUrlParams() {
             params[p] = readUrlVars()[p] // set the variable to the value in the url
             console.log(`Changed params[${p}] to ${params[p]}`)
             if (p==='language'){
-                if(compare){translateDefaults()}
+                if(compare){setDefaults()}
             }
         } else { // If the parameter is not specified in the URL
             params[p] = defaultparams[p]
