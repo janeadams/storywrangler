@@ -153,4 +153,7 @@ div.tooltip {
     .subplot-container {
         width: 100%;
     }
+    #mainplot {
+        height: 300px;
+    }
 }
