@@ -352,17 +352,12 @@ footer img {
         height: 70vw;
     }
 
-    #menu {
+    #navigation {
         width: 100%;
         display: inline-flex;
         justify-content: space-evenly;
     }
     #menu li {
-    }
-    #navigation .social {
-        width: 100%;
-        display: inline-flex;
-        justify-content: space-evenly;
     }
 
     #navigation .social img {
