@@ -386,6 +386,10 @@ footer img {
         height: auto;
         display: block;
     }
+    .flex-logos {
+        display: inline-flex;
+    }
+    /*
     footer img {
         width: 30%;
         height: auto;
@@ -396,4 +400,5 @@ footer img {
         height: 40px;
         width: auto;
     }
+     */
 }
