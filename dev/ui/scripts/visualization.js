@@ -396,7 +396,6 @@ class Chart {
         // Set sizing
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        console.log(`this.width = ${this.width}, this.height = ${this.height}`)
         this.navPlotHeight = 50
         if (mobileScale) {
             this.margin = {
@@ -499,7 +498,7 @@ class Chart {
                 .attr('class','navPlot')
                 .attr("width", this.width)
                 .attr("height", this.navPlotHeight)
-                .attr('transform',`translate(0,${this.height})`)
+                .attr('transform',`translate(0,${this.element.offsetHeight})`)
                 .style("display", "block")
                 .call(this.brush)
         }
