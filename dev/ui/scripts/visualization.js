@@ -299,7 +299,7 @@ function addDots(chart, dataKey){
         .on("mouseenter", drawTooltip)
         .on("touchstart", drawTooltip)
         .on("mouseleave", removeTooltip)
-        .on("touchend", removeTooltip)
+        .on("mouseup", removeTooltip)
         .on("click", d => {
             window.open(getTwitterURL(ngram, d, params['rt']), '_blank')
         })
