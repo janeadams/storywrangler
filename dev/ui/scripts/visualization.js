@@ -468,14 +468,6 @@ class Chart {
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
-        let zoom = d3.zoom()
-            .scaleExtent([1, 8])
-            .on('zoom', function() {console.log(d3.event.transform)})
-
-        svg.call(zoom)
-
-        this.svg.call(d3.zoom().on("zoom", this.zoomed()))
-
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
             .attr('class','plot feature')
@@ -509,6 +501,12 @@ class Chart {
                 .attr('transform',`translate(0,${this.height - (this.navPlotHeight+20)})`)
                 .style("display", "block")
                 .call(this.brush)
+
+            let zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on('zoom', function() {console.log(d3.event.transform)})
+
+            this.svg.call(zoom)
         }
 
         this.draw()
