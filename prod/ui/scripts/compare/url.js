@@ -49,6 +49,8 @@ function translateDefaults(){
     if (Object.keys(defaultDict).includes(params['language'])){
         console.log(`Alternate defaults detected for ${params['language']}`)
         let newDefaults = defaultDict[params['language']]
+        console.log(`current defaults: ${defaultNgrams}`)
+        console.log(`current ngrams: ${Ngrams}`)
         console.log(`newDefaults: ${newDefaults}`)
         if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
             console.log(`Ngrams are default`)

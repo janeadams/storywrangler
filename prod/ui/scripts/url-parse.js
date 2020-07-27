@@ -60,14 +60,15 @@ function getUrlParams() {
         // If the parameter is in the URL
         if (window.location.href.indexOf(p) > -1) {
             params[p] = readUrlVars()[p] // set the variable to the value in the url
-            //console.log(`Changed params[${p}] to ${params[p]}`)
+            console.log(`Changed params[${p}] to ${params[p]}`)
         } else { // If the parameter is not specified in the URL
             params[p] = defaultparams[p]
             //console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
-    translateDefaults()
+    if(compare){setDefaults()}
     getUrlNgrams()
+    if(compare){translateDefaults()}
     initializeData()
 }
 
@@ -79,7 +80,6 @@ function updateURL() {
     //console.log(`splitURL:`)
     //console.log(splitURL)
     let paramlist = []
-    translateDefaults()
     if (checkDifferent()){
         paramlist.push(getUrlNgramParams())
     }
