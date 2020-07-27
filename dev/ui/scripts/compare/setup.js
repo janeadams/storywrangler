@@ -14,6 +14,7 @@ function setDefaults() {
         //console.log(defaultDict)
     })
     if (Object.keys(defaultDict).includes(params['language'])){
+        console.log(`Alternative defaults detected for ${params['language']}`)
         defaultNgrams = Object.assign([], defaultDict[params['language']])
     }
     else {
