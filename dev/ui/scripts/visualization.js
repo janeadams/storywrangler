@@ -371,6 +371,7 @@ class Chart {
 
     zoomed() {
         if (d3.event) {
+            console.log('d3 event triggered')
             if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
             let t = d3.event.transform;
             console.log('Zoomed. Event transform:')
@@ -466,20 +467,18 @@ class Chart {
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
-        if (this.type === 'main') {
-            const zoom = d3.zoom()
-                .scaleExtent([1, Infinity])
-                .translateExtent([[0, 0], [this.width, this.height]])
-                .extent([[0, 0], [this.width, this.height]])
-                .on("zoom", parent.zoomed())
+        const zoom = d3.zoom()
+            .scaleExtent([1, Infinity])
+            .translateExtent([[0, 0], [this.width, this.height]])
+            .extent([[0, 0], [this.width, this.height]])
+            .on("zoom", parent.zoomed())
 
-            this.svg.append("rect")
-                .attr("class", "zoom")
-                .attr("width", this.width - (this.margin.right))
-                .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
-                .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
-                .call(zoom)
-        }
+        this.svg.append("rect")
+            .attr("class", "zoom")
+            .attr("width", this.width - (this.margin.right))
+            .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
+            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
+            .call(zoom)
 
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
