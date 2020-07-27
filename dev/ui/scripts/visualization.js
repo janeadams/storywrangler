@@ -488,9 +488,9 @@ class Chart {
                         console.log(t)
                         console.log('this:')
                         console.log(this)
-                        let newView = t.map(parent.xScaleNav.invert, parent.xScaleNav)
+                        let newView = t.rescaleX(xScale)
                         console.log(`newView: ${newView}`)
-                        params['start'] = newView[0]
+                        /*params['start'] = newView[0]
                         params['end'] = newView[1]
                         console.table({
                             "params.start formatted": dateFormatter(params['start']),
@@ -501,6 +501,8 @@ class Chart {
                             Ngrams.forEach(n => updateChart(subPlots[n]))
                         }
                         parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
+
+                         */
                     }
                 })
 
