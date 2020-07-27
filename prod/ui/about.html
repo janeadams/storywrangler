@@ -41,7 +41,7 @@
     </a>
     <div id="navigation">
         <ul id="menu">
-            <li><a id="compare-link" href="index.html">Compare</a></li>
+            <li><a id="compare-link" href="index.html">Home</a></li>
             <!--<li><a id="details-link" href="details.html">Details</a></li>-->
             <li><a href="about.html"><strong>About</strong></a></li>
         </ul>
@@ -55,7 +55,7 @@
     <section class="textblock">
     <h1>What&rsquo;s the Story? </h1>
 
-    <p>Language is humanity&rsquo;s greatest social technology. While we&rsquo;ve been communicating for thousands of years, it is only recently that we&rsquo;ve begun sharing content online&mdash;posting selfies, searching for validation, and expressing our uninformed opinions in hot takes and quote tweets. Making sense of all that is being said is a tall order, best suited to a suite of algorithms. Computers can digest bits of language and help us describe, explain, and understand cultural phenomenon at the scale of human populations. The StoryWrangler instrument reflects our first step towards wrestling the day&rsquo;s events into coherence. It is an approximate daily leaderboard for language popularity around the globe.</p>
+        <p>Language is humanity&rsquo;s greatest social technology. While we&rsquo;ve been communicating for thousands of years, it is only recently that we&rsquo;ve begun sharing content online&mdash;posting selfies, searching for validation, and expressing our uninformed opinions in hot takes and quote tweets. Making sense of all that is being said is a tall order, best suited to a suite of algorithms. Computers can digest bits of language and help us describe, explain, and understand cultural phenomenon at the scale of human populations. The StoryWrangler instrument reflects our first step towards wrestling the day&rsquo;s events into coherence. It is an approximate daily leaderboard for language popularity around the globe.</p>
 
     <h2>The Data</h2>
 
@@ -63,7 +63,7 @@
 
         <p>At the <a href="https://twitter.com/compstorylab" target="_blank">Computational Story Lab</a>, since 2008 we have collected a random 10% of all public messages using Twitter&rsquo;s Decahose API.  Overall, our collection comprises roughly 150 billion messages requiring 100TB of storage. Inspired by the Google n-grams project which smashes books into bits, we&rsquo;ve meticulously parsed these tweets into daily frequencies of words, 2-word phrases, and three word expressions.  Scientists call these different types &ldquo;n-grams&rdquo; for n = 1, 2, 3.</p>
 
-        <p>We&rsquo;re able to categorize tweets into roughly <a href="https://arxiv.org/abs/2003.03667" target="_blank">170 languages</a>, but for now we&rsquo;re simply combining them all into a single bag when tallying the votes. To explore how people are feeling, at the site for our flagship instrument <a href="http://hedonometer.org/" target="_blank">hedonometer.org</a> we use this same data to visualize daily sentiment in 9 languages. Importantly, this site offers visitors the opportunity to toggle retweets on and off, allowing for the inclusion or exclusion of social amplification. While we&rsquo;re not able to share individual tweets, we do provide an API for exporting relative frequency data at the daily resolution. Source code associated with the API can be found <a href="https://github.com/janeadams/storywrangler" target="_blank">here</a>, and the pattern match used to parse tweets can be found <a href="https://gitlab.com/compstorylab/storywrangler" target="_blank">here</a>.</p>
+        <p>We&rsquo;re able to categorize tweets into roughly <a href="https://arxiv.org/abs/2003.03667" target="_blank">170 languages</a>. To explore how people are feeling, at the site for our flagship instrument <a href="http://hedonometer.org/" target="_blank">hedonometer.org</a> we use this same data to visualize daily sentiment in 9 languages. Importantly, this site offers visitors the opportunity to toggle retweets on and off, allowing for the inclusion or exclusion of social amplification. While we&rsquo;re not able to share individual tweets, we do provide an API for exporting relative frequency data at the daily resolution. Source code associated with the API can be found <a href="https://github.com/janeadams/storywrangler" target="_blank">here</a>, and the pattern match used to parse tweets can be found <a href="https://gitlab.com/compstorylab/storywrangler" target="_blank">here</a>.</p>
 
     <h2>The Visualization</h2>
 
@@ -71,7 +71,7 @@
 
         <p>The shapes of our collective attention are quite universal. <a href="https://storywrangling.org/?ngrams=Christmas,Halloween,Thanksgiving,July%204th,Easter" target="_blank">Holiday</a> mentions build exponentially to a crescendo before falling precipitously. <a href="https://storywrangling.org/?ngrams=Avengers" target="_blank">Movies</a> produce a more symmetric pattern centered on their release date. And mentions of individual years reliably plateau chronologically, with a <a href="https://storywrangling.org/?ngrams=2010,2012,2014,2016,2018,2020" target="_blank">volcanic rim</a> bounded by their beginning and end.</p>
 
-    <p>We hope journalists, linguists, political scientists, and the extremely online alike are able to use this data to characterize collective attention in new and interesting ways.  Have at it! And tell us if you have trouble. </p>
+    <p>We hope journalists, linguists, political scientists, and the extremely online alike are able to use this data to characterize collective attention in new and interesting ways.  Have at it! Found a bug? &#x1F41B; <a href="https://github.com/janeadams/storywrangler/issues" target="_blank">Submit an issue on GitHub</a>.</p>
 
     <h2>Some of the many gory details</h2>
 
@@ -83,7 +83,7 @@
 
     <h2>Obligatory Warnings</h2>
 
-    <p>As a reflection of global events, Twitter data is problematic for several reasons. &ldquo;Tweets are a non-representative subsample of utterances made by a non-representative subsample of Earth&rsquo's population.&rdquo; Pew surveys suggest only 1 in 5 adults Americans use the service. Our data reflects only a random 10% of messages. This means that for exceedingly rare words, while the frequencies reported here are roughly one tenth of the true values, the rankings are likely to be unreliable. We make no attempt to remove automated account activity, but selecting the &ldquo;exclude retweets&rdquo; option will likely reduce the contribution of coordinated bot behavior. </p>
+    <p>As a reflection of global events, Twitter data is problematic for several reasons. &ldquo;Tweets are a non-representative subsample of utterances made by a non-representative subsample of Earth&rsquo;s population.&rdquo; Pew surveys suggest only 1 in 5 adults Americans use the service. Our data reflects only a random 10% of messages. This means that for exceedingly rare words, while the frequencies reported here are roughly one tenth of the true values, the rankings are likely to be unreliable. We make no attempt to remove automated account activity, but selecting the &ldquo;exclude retweets&rdquo; option will likely reduce the contribution of coordinated bot behavior. </p>
 
     <h2>Attribution</h2>
 
@@ -151,7 +151,7 @@
 
     <p>Sharon Alajajian, Nicholas Allgaier, Catherine Bliss, Eric Clark, Emily Cody, Ethan Davis, Todd DeLuca, Suma Desu, David Dewhurst, Danne Elbers, Kameron Decker Harris, Fletcher Hazlehurst, Sophie Hodson, Kayla Horak, Ben Emery, Mike Foley, Morgan Frank, Ryan Gallagher, Darcy Glenn, Sandhya Gopchandani, Kelly Gothard, Tyler Gray, Max Green, Laura Jennings, Dilan Kiley, Isabel Kloumann, Ben Kotzen, Paul Lessard, Ross Lieb-Lappen, Kelsey Linnell, Ashley McKhann, Andy Metcalf, Tom McAndrew, Sven McCall, Henry Mitchell, Lewis Mitchell, Kate Morrow, Eitan Pechenick, Michael Pellon, Aaron Powers, Andy Reagan, John Ring IV, Abby Ross, Lindsay Ross, Aaron Schwartz, Anne-Marie Stupinski, Matt Tretin, Lindsay Van Leir, Colin Van Oort, Brendan Whitney, and Jake Williams.</p>
 
-    <p>Funding for the project has been provided by the Vermont Complex Systems Center, MassMutual and the University of Vermont. Many thanks and acknowledgments go to these lovely people:</p>
+    <p>Funding for the project has been provided by the Vermont Complex Systems Center, MassMutual, the University of Vermont and the Vermont Advanced Computing Core. Many thanks and acknowledgments go to these lovely people:</p>
 
     <p>Mike Austin, Jim Bagrow, Josh Bongard, Josh Brown, Jim Burgmeier, Melody Burkins, Kate Danforth, Andrea Elledge, Maggie Eppstein, Bill Gottesman, Laurent Hebert-Dufresne, John Kaehny, Jim Lawson, Juniper Lovato, Aimee Picchi, Tim Raymond, Andrew Reece, Tony Richardson, Taylor Ricketts, Melissa Rubinchuk, Brian Tivnan, John Tucker, Toph Tucker and Alexa Woodward.</p>
 
