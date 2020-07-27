@@ -491,6 +491,7 @@ class Chart {
 
 function makeCharts(){
     //console.log("Making charts...")
+    adaptVisualScale()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
     //mainChart.navPlot.call(mainChart.brush.move,[mainChart.xScaleNav(params['start']),mainChart.xScaleNav(params['end'])])
