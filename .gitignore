@@ -16,3 +16,4 @@ dev/api/*log.csv
 prod/api/*log.csv
 *.log
 *.ipynb
+debug/
