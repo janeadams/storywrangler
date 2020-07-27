@@ -74,7 +74,7 @@ function loadData(url) {
 }
 
 function reloadAllData() {
-    console.log("Reloading all data...")
+    //console.log("Reloading all data...")
     availableColors = [0,1,2,3,4,5]
     let datakeys = Object.keys(ngramData)
     datakeys.forEach(n => {
