@@ -377,15 +377,17 @@ footer img {
         line-height: 140%;
         font-size: 1.2em;
     }
-
-    footer p, footer img {
+    footer {
         margin-left: auto;
         margin-right: auto;
-        width: 60%;
+    }
+
+    footer p {
         height: auto;
         display: block;
     }
     footer img {
+        width: 30%;
         padding-top: 20px;
         padding-bottom: 20px;
     }
