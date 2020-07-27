@@ -388,6 +388,7 @@ footer img {
     }
     .flex-logos {
         display: inline-flex;
+        justify-content: space-evenly;
     }
     /*
     footer img {
