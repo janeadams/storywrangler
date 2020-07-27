@@ -218,6 +218,16 @@ main {
     padding: 0 20px 20px 0;
 }
 
+.center {
+    text-align: center;
+    padding: 20px 10%;
+}
+
+.bug {
+    font-size: 12px;
+    padding: 5px 0;
+}
+
 #subplots {
     padding-top: 30px;
     padding-bottom: 20px;
