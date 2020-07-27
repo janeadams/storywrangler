@@ -23,8 +23,8 @@ function loadData(url) {
         //console.table(debug)
         //console.log(data)
         let foundNgrams = Object.keys(data['ngramdata'])
-        console.log("foundNgrams")
-        console.log(foundNgrams)
+        //console.log("foundNgrams")
+        //console.log(foundNgrams)
         if (data['errors'].length > 0){
             let notFound = []
             console.log("data['ngrams']")
@@ -64,7 +64,7 @@ function loadData(url) {
                     ngramData[n]['grams']=data['database']
                     ngramData[n]['colorid'] = availableColors[0]
                     removeColor(availableColors[0])
-                    console.log(`Setting colorid for ${n} to ${ngramData[n]['colorid']}`)
+                    //console.log(`Setting colorid for ${n} to ${ngramData[n]['colorid']}`)
                     addNgram(n)
                     resetPage()
                 })
