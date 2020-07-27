@@ -439,20 +439,18 @@ class Chart {
         // set up parent element and SVG
         this.element.innerHTML = ''
 
-        if (this.type === 'main') {
-            this.svg = d3.select(this.element).append('svg').style("background-color", "white")
-                .on("dblclick", function () {
-                    params['start'] = defaultparams['start']
-                    params['end'] = defaultparams['end']
-                    updateChart(parent)
-                    if (compare) {
-                        Ngrams.forEach(n => updateChart(subPlots[n]))
-                    }
-                    parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
-                })
-            this.svg.attr('width', this.width)
-            this.svg.attr('height', this.height)
-        }
+        this.svg = d3.select(this.element).append('svg').style("background-color", "white")
+            .on("dblclick", function () {
+                params['start'] = defaultparams['start']
+                params['end'] = defaultparams['end']
+                updateChart(parent)
+                if (compare) {
+                    Ngrams.forEach(n => updateChart(subPlots[n]))
+                }
+                parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
+            })
+        this.svg.attr('width', this.width)
+        this.svg.attr('height', this.height)
         //console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
