@@ -10,7 +10,7 @@ let defaultDict = {}
 
 function setDefaults() {
     if (Object.keys(defaultDict).includes(params['language'])){
-        console.log(`Alternative defaults detected for ${codeLookup[params['language']]}`)
+        console.log(`Alternative defaults detected for ${params['language']}`)
         defaultNgrams = Object.assign([], defaultDict[params['language']])
     }
     else {
