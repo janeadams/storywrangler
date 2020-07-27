@@ -185,8 +185,8 @@ function setupPage() {
         "                       |___/                          |___/             \n\n" +
         "by @compstorylab\n\n"+
         "UI & API by Jane Adams, Data Visualization Artist\n"+
-        "Interested in the code? Get in touch on Twitter @artistjaneadams\n\n" +
-        "or check out the GitHub here: https://github.com/janeadams/storywrangler"
+        "Interested in the code? Get in touch on Twitter @artistjaneadams\n" +
+        "or check out the GitHub here: https://github.com/janeadams/storywrangler\n\n"
     )
     params['start']=defaultparams['start']
     params['end']=defaultparams['end']
