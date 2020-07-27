@@ -66,7 +66,7 @@ function getUrlParams() {
             //console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
-    if(compare){setDefaults()}
+    if(compare){translateDefaults()}
     getUrlNgrams()
     if(compare){translateDefaults()}
     initializeData()
