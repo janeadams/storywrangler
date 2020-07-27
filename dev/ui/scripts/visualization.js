@@ -369,32 +369,6 @@ class Chart {
         }
     }
 
-    zoomed() {
-        console.log('zoomed called')
-        if (d3.event) {
-            console.log('d3 event triggered')
-            if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
-            let t = d3.event.transform;
-            console.log('Zoomed. Event transform:')
-            console.log(t)
-            console.log('this:')
-            console.log(this)
-            let newView = t.map(parent.xScaleNav.invert, parent.xScaleNav)
-            console.log(`newView: ${newView}`)
-            params['start'] = newView[0]
-            params['end'] = newView[1]
-            console.table({
-                "params.start formatted": dateFormatter(params['start']),
-                "params.end formatted": dateFormatter(params['end'])
-            })
-            updateChart(parent)
-            if (compare) {
-                Ngrams.forEach(n => updateChart(subPlots[n]))
-            }
-            parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
-        }
-    }
-
     setup() {
         //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
         // Clear existing chart if it's persisting
@@ -504,7 +478,31 @@ class Chart {
 
             let zoom = d3.zoom()
                 .scaleExtent([1, 8])
-                .on('zoom', function() {console.log(d3.event.transform)})
+                .on('zoom', function() {
+                    console.log('zoomed called')
+                    if (d3.event) {
+                        console.log('d3 event triggered')
+                        if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+                        let t = d3.event.transform;
+                        console.log('Zoomed. Event transform:')
+                        console.log(t)
+                        console.log('this:')
+                        console.log(this)
+                        let newView = t.map(parent.xScaleNav.invert, parent.xScaleNav)
+                        console.log(`newView: ${newView}`)
+                        params['start'] = newView[0]
+                        params['end'] = newView[1]
+                        console.table({
+                            "params.start formatted": dateFormatter(params['start']),
+                            "params.end formatted": dateFormatter(params['end'])
+                        })
+                        updateChart(parent)
+                        if (compare) {
+                            Ngrams.forEach(n => updateChart(subPlots[n]))
+                        }
+                        parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
+                    }
+                })
 
             this.svg.call(zoom)
         }
