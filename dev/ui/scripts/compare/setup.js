@@ -5,7 +5,7 @@ defaultparams['rt']=true
 paramoptions['rt']=[true,false]
 
 let Ngrams = []
-let defaultNgrams = []
+let defaultNgrams = ["🦠","hahaha","Black Lives Matter","#MeToo"]
 let defaultDict = {}
 
 function setDefaults() {

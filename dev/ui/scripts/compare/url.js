@@ -6,7 +6,7 @@ function getUrlNgrams() {
     }
     else {
         newNgrams = Object.assign([],defaultNgrams) // Set to default ngrams
-        console.log(`No Ngrams specified in URL. Setting Ngrams to defaults for ${params['language']}: ${newNgrams}`)
+        //console.log(`No Ngrams specified in URL. Setting Ngrams to defaults for ${params['language']}: ${newNgrams}`)
     }
     newNgrams.forEach(n => parseQuery(n, true))
 }
