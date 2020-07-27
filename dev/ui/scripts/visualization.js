@@ -478,6 +478,8 @@ class Chart {
 
             let zoom = d3.zoom()
                 .scaleExtent([1, 3])
+                .extent([[parent.margin.left, 0], [this.width - parent.margin.right, this.height]])
+                .translateExtent([[parent.margin.left, -Infinity], [this.width - parent.margin.right, Infinity]])
                 .on('zoom', function() {
                     console.log('zoomed called')
                     if (d3.event) {
