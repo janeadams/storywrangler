@@ -69,8 +69,6 @@ function getUrlParams() {
             //console.log(`params[${p}] matches default params: ${params[p]} = ${defaultparams[p]}`)
         }
     })
-    getUrlNgrams()
-    initializeData()
 }
 
 function updateURL() {
