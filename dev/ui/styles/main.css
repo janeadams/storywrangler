@@ -223,6 +223,11 @@ main {
     padding: 20px 10%;
 }
 
+.bug {
+    font-size: 10px;
+    padding: 5px 0;
+}
+
 #subplots {
     padding-top: 30px;
     padding-bottom: 20px;
