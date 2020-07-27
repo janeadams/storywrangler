@@ -205,9 +205,9 @@ function setupPage() {
         "                        __/ |                          __/ |            \n" +
         "                       |___/                          |___/             \n\n" +
         "by @compstorylab\n\n"+
+        "Found a bug? Submit an issue here: https://github.com/janeadams/storywrangler/issues\n\n"+
         "UI & API by Jane Adams, Data Visualization Artist\n"+
-        "Interested in the code? Get in touch on Twitter @artistjaneadams\n" +
-        "or check out the GitHub here: https://github.com/janeadams/storywrangler\n\n"
+        "Get in touch on Twitter @artistjaneadams\n\n"
     )
     params['start']=defaultparams['start']
     params['end']=defaultparams['end']
