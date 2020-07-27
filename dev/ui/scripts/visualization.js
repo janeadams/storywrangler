@@ -1,14 +1,9 @@
 let dotsize = 2
 let mobileScale = false
 function adaptVisualScale() {
-    if (viewport > 1000) {
-        dotsize = 3
-        mobileScale = false
-    }
-    else {
-        dotsize = 2
-        mobileScale = true
-    }
+    if (viewport > 1000) { dotsize = 3 }
+    else { dotsize = 2 }
+    mobileScale = viewport <= 600;
     //console.log(dotsize)
 }
 
