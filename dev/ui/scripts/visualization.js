@@ -369,7 +369,7 @@ class Chart {
         }
     }
 
-    /*zoomed() {
+    zoomed() {
         if (d3.event) {
             if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
             let t = d3.event.transform;
@@ -377,12 +377,21 @@ class Chart {
             console.log(t)
             console.log('this:')
             console.log(this)
-            this.xScale.domain(t.rescaleX(this.xScale).domain());
-            this.plot.select(".line").attr("d", line);
-            this.resetAxes()
-            this.navPlot.select(".brush").call(brush.move, this.xScale.range().map(t.invertX, t))
+            let newView = t.map(parent.xScaleNav.invert, parent.xScaleNav)
+            console.log(`newView: ${newView}`)
+            params['start'] = newView[0]
+            params['end'] = newView[1]
+            console.table({
+                "params.start formatted": dateFormatter(params['start']),
+                "params.end formatted": dateFormatter(params['end'])
+            })
+            updateChart(parent)
+            if (compare) {
+                Ngrams.forEach(n => updateChart(subPlots[n]))
+            }
+            parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
         }
-    }*/
+    }
 
     setup() {
         //console.log(`Running setup() for chart type ${this.type} on element ${this.element}`)
@@ -392,16 +401,15 @@ class Chart {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
         this.navPlotHeight = 50
-        if (this.type==='main') {
-            if (mobileScale){
+        if (this.type === 'main') {
+            if (mobileScale) {
                 this.margin = {
                     top: 0.1 * this.height,
                     bottom: (0.3 * this.height) + this.navPlotHeight,
                     left: 50,
                     right: 0.1 * this.width
                 }
-            }
-            else {
+            } else {
                 this.margin = {
                     top: 0.1 * this.height,
                     bottom: (0.2 * this.height) + this.navPlotHeight,
@@ -409,8 +417,7 @@ class Chart {
                     right: 0.1 * this.width
                 }
             }
-        }
-        else { // is a subplot
+        } else { // is a subplot
             if (mobileScale) {
                 this.margin = {
                     top: 0.1 * this.height,
@@ -418,8 +425,7 @@ class Chart {
                     left: 50,
                     right: 0
                 }
-            }
-            else {
+            } else {
                 this.margin = {
                     top: 0.1 * this.height,
                     bottom: (0.3 * this.height),
@@ -433,16 +439,18 @@ class Chart {
         // set up parent element and SVG
         this.element.innerHTML = ''
 
-        this.svg = d3.select(this.element).append('svg').style("background-color","white")
-            .on("dblclick",function() {
-                params['start']=defaultparams['start']
-                params['end']=defaultparams['end']
-                updateChart(parent)
-                if (compare) {
-                    Ngrams.forEach(n => updateChart(subPlots[n]))
-                }
-                parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
-            })
+        if (this.type === 'main') {
+            this.svg = d3.select(this.element).append('svg').style("background-color", "white")
+                .on("dblclick", function () {
+                    params['start'] = defaultparams['start']
+                    params['end'] = defaultparams['end']
+                    updateChart(parent)
+                    if (compare) {
+                        Ngrams.forEach(n => updateChart(subPlots[n]))
+                    }
+                    parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
+                })
+        }
         this.svg.attr('width', this.width)
         this.svg.attr('height', this.height)
         //console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
@@ -460,18 +468,20 @@ class Chart {
             .attr('class','plot')
             .attr("clip-path", "url(#clip)")
 
-        /*const zoom = d3.zoom()
-            .scaleExtent([1, Infinity])
-            .translateExtent([[0, 0], [this.width, this.height]])
-            .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", parent.zoomed())
+        if (this.type === 'main') {
+            const zoom = d3.zoom()
+                .scaleExtent([1, Infinity])
+                .translateExtent([[0, 0], [this.width, this.height]])
+                .extent([[0, 0], [this.width, this.height]])
+                .on("zoom", parent.zoomed())
 
-        this.svg.append("rect")
-            .attr("class", "zoom")
-            .attr("width", this.width - (this.margin.right))
-            .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
-            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
-            .call(zoom)*/
+            this.svg.append("rect")
+                .attr("class", "zoom")
+                .attr("width", this.width - (this.margin.right))
+                .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
+                .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
+                .call(zoom)
+        }
 
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
@@ -489,12 +499,12 @@ class Chart {
                     params['start'] = newView[0]
                     params['end'] = newView[1]
                     updateURL()
-                    /*
+
                     console.table({
                         "params.start formatted": dateFormatter(params['start']),
                         "params.end formatted": dateFormatter(params['end'])
                     })
-                    */
+
                     parent.brushed()
                 })
 
