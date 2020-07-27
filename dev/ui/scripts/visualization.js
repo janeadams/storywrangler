@@ -147,10 +147,7 @@ function addLabels(chart){
             .attr("class", "axislabel-large")
             .attr("font-family", "sans-serif")
 
-        if (mobileScale){
-            d3.select('.axislabel-large').attr("transform", "rotate(90)")
-        }
-        else {
+        if (!mobileScale) {
             chart.svg.append("text")
                 .attr("class", "axislabel")
                 .attr("text-anchor", "start")
