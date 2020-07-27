@@ -473,12 +473,7 @@ class Chart {
             .extent([[0, 0], [this.width, this.height]])
             .on("zoom", parent.zoomed())
 
-        this.svg.append("rect")
-            .attr("class", "zoom")
-            .attr("width", this.width - (this.margin.right))
-            .attr("height", `${this.height - (this.margin.top + this.margin.bottom)}`)
-            .attr("transform", `translate(${this.margin.left},${this.margin.top})`)
-            .call(zoom)
+        this.svg.call(zoom)
 
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
