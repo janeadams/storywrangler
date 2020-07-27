@@ -476,8 +476,12 @@ class Chart {
                 .style("display", "block")
                 .call(this.brush)
 
+            let zoomMax = (params['end'].getTime() - params['start'].getTime()) / (1000*60*60*24)
+            let zoomMin = 1
+            console.log(`zoomMax: ${zoomMax} zoomMin: ${zoomMin}`)
+
             let zoom = d3.zoom()
-                .scaleExtent([parent.xScale.range()[0], parent.xScale.range()[1]])
+                .scaleExtent([zoomMin, zoomMax])
                 .on('zoom', function() {
                     console.log('zoomed called')
                     if (d3.event) {
