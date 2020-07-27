@@ -450,9 +450,9 @@ class Chart {
                     }
                     parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
                 })
+            this.svg.attr('width', this.width)
+            this.svg.attr('height', this.height)
         }
-        this.svg.attr('width', this.width)
-        this.svg.attr('height', this.height)
         //console.log(`${this.type}: width: ${this.width}, height: ${this.height}`)
 
         this.clip = this.svg.append("defs").append("svg:clipPath")
