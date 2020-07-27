@@ -490,9 +490,9 @@ class Chart {
                         console.log(this)
                         console.log('parent:')
                         console.log(parent)
-                        let newView = t.rescaleX(parent.xScale).domain()[0]
+                        let newView = t.rescaleX(parent.xScale).domain()
                         console.log(`newView: ${newView}`)
-                        /*params['start'] = newView[0]
+                        params['start'] = newView[0]
                         params['end'] = newView[1]
                         console.table({
                             "params.start formatted": dateFormatter(params['start']),
@@ -504,7 +504,6 @@ class Chart {
                         }
                         parent.navPlot.call(parent.brush.move, [parent.xScaleNav(params['start']), parent.xScaleNav(params['end'])])
 
-                         */
                     }
                 })
 
