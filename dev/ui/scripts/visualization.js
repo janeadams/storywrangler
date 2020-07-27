@@ -139,6 +139,7 @@ function addLabels(chart){
     if (chart.type === 'main') {
         // Label yAxis with Metric
         if (mobileScale) {
+            /*
             chart.svg.append("text")
                 .attr("text-anchor", "start")
                 .attr("y", 0)
@@ -147,6 +148,7 @@ function addLabels(chart){
                 .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
                 .attr("class", "axislabel-large")
                 .attr("font-family", "sans-serif")
+             */
         }
         else {
             chart.svg.append("text")
@@ -402,7 +404,10 @@ class Chart {
         }
         if (this.type==='main') {
             this.margin.right = 0.1 * this.width
-            this.margin.left = d3.min([0.3 * this.width, 150])
+            if (mobileScale){
+                this.margin.left = 0.2 * this.width
+            }
+            else {this.margin.left = d3.min([0.3 * this.width, 150])}
         }
         else {
             this.margin.right = 0
