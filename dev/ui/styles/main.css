@@ -371,6 +371,11 @@ footer img {
         justify-content: space-evenly;
     }
 
+    #navigation .social img {
+        height: 30px;
+        width: auto;
+    }
+
     .textblock p {
         line-height: 140%;
         font-size: 1.2em;
