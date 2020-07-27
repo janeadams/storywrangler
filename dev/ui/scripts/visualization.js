@@ -498,7 +498,7 @@ class Chart {
                 .attr('class','navPlot')
                 .attr("width", this.width)
                 .attr("height", this.navPlotHeight)
-                .attr('transform',`translate(0,${this.element.offsetHeight})`)
+                .attr('transform',`translate(0,${this.height - this.navPlotHeight+20})`)
                 .style("display", "block")
                 .call(this.brush)
         }
