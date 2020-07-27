@@ -480,7 +480,7 @@ class Chart {
                 .on("end", function () {
                     let s = d3.event.selection
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
-                    //console.log(`newView: ${newView}`)
+                    console.log(`newView: ${newView}`)
                     params['start'] = newView[0]
                     params['end'] = newView[1]
                     updateURL()
