@@ -356,6 +356,10 @@ footer img {
         padding-bottom: 0;
     }
 
+    main {
+        padding-top: 0;
+    }
+
     #navigation {
         width: 100%;
         display: inline-flex;
