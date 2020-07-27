@@ -142,7 +142,7 @@ function addLabels(chart){
             chart.svg.append("text")
                 .attr("text-anchor", "start")
                 .attr("y", 0)
-                .attr("x", (chart.height - chart.margin.bottom) / 2))
+                .attr("x", (chart.height - chart.margin.bottom) / 2)
                 .attr("dy", "1em")
                 .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
                 .attr("class", "axislabel-large")
