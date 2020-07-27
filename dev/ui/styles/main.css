@@ -356,7 +356,7 @@ footer img {
         padding-bottom: 0;
     }
 
-    .textblock h1 {
+    .textblock h1, h2, h3 {
         margin-top: 0;
     }
 
