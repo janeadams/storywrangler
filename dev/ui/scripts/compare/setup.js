@@ -19,4 +19,5 @@ function setDefaults() {
     else {
         defaultNgrams = Object.assign([], ["🦠","hahaha","Black Lives Matter","#MeToo"])
     }
+    console.log(`defaultNgrams: ${defaultNgrams}`)
 }
