@@ -1,5 +1,5 @@
 function setFilters() {
-    console.log('Setting Filters')
+    //console.log('Setting Filters')
     // Check the boxes based on the parameters
     for (let p of ['metric', 'scale']) {
         //console.log(`Clearing all checkboxes for ${p} filter`)
@@ -39,12 +39,12 @@ function filterSubmission() {
             }
         }
     let langChoice = d3.select("#langDropdown").property('value')
-    console.log(`langChoice: ${langChoice}`)
+    //console.log(`langChoice: ${langChoice}`)
     if (langChoice !== params['language']){
         if (paramoptions['language'].includes(languageCodes[langChoice]['db_code'])){
             params['language'] = languageCodes[langChoice]['db_code']
             //console.log(`Changed params['language'] to ${params['language']}`)
-            translateDefaults()
+            if(compare){translateDefaults()}
             isUpdated = true
         }
     }
@@ -62,7 +62,7 @@ function filterSubmission() {
 }
 
 function triggerUpdates(){
-    console.log(`There was an update to the parameters`)
+    //console.log(`There was an update to the parameters`)
     setFilters()
     updateURL()
     reloadAllData()

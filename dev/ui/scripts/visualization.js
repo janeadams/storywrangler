@@ -450,14 +450,16 @@ class Chart {
                 .on("end", function () {
                     let s = d3.event.selection
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
-                    console.log(`newView: ${newView}`)
+                    //console.log(`newView: ${newView}`)
                     params['start'] = newView[0]
                     params['end'] = newView[1]
                     updateURL()
+                    /*
                     console.table({
                         "params.start formatted": dateFormatter(params['start']),
                         "params.end formatted": dateFormatter(params['end'])
                     })
+                    */
                     parent.brushed()
                 })
 
@@ -527,13 +529,13 @@ function addSuplot(ngram){
 }
 
 function redrawCharts(){
-    console.log("Redrawing charts...")
+    //console.log("Redrawing charts...")
     setRanges()
     mainChart.setup()
     if (compare && Ngrams){
         (Object.keys(ngramData)).forEach(ngram => {
             try {subPlots[ngram].setup()}
-            catch {console.log(`Error re-drawing subplot for ${ngram}`)}
+            catch {/*console.log(`Error re-drawing subplot for ${ngram}`)*/}
         })
     }
 }

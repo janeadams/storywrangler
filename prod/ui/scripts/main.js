@@ -32,7 +32,7 @@ Date.prototype.addDays = function(days) {
 
 // Today's date
 let today = new Date()
-let mostrecent = dateParser(new Date(today)).addDays(-2)
+let mostrecent = dateParser(new Date(today)).addDays(-3)
 // Extract year from today's date
 let thisyear = today.getFullYear()
 // Get one year ago
@@ -74,7 +74,14 @@ function sentenceCase (str) {
 
 function getSignificantDigitCount(n) {
     n = Math.abs(String(n).replace(".", "")); //remove decimal and make positive
-    if (n === 0) return 0;
+    if (n === 0){
+        if(params['metric']==='freq'){
+            return 0
+        }
+        else {
+            return 0
+        }
+    }
     while (n !== 0 && n % 10 === 0) n /= 10; //kill the 0s at the end of n
     return Math.floor(Math.log(n) / Math.log(10)) + 1; //get number of digits
 }
@@ -89,8 +96,13 @@ function roundUpToSig(max){
 }
 
 function roundDownToSig(min){
-    let down = 0.8 * min
-    return parseFloat(precise(down,getSignificantDigitCount(min)))
+    if ((min===0) && params['metric']==='freq'){
+        return parseFloat(0.00000001)
+    }
+    else {
+        let down = 0.8 * min
+        return parseFloat(precise(down, getSignificantDigitCount(min)))
+    }
 }
 
 function getDates(startDate, stopDate) {
@@ -156,6 +168,15 @@ function buildLanguageDropdown(){
     })
 }
 
+function loadDefaultDict(){
+    /*d3.json('language_defaults.json').then((data) => {
+        defaultDict = data
+        console.log(`Language ngram defaults loaded`)
+    })*/
+    defaultDict = {"af": ["kun je dit", "#RWC2019", "hallo", "\ud83c\uddff\ud83c\udde6"], "sq": ["nat\u00ebn e mir\u00eb", "#kosova", "p\u00ebrsh\u00ebndetje", "\ud83c\udde6\ud83c\uddf1"], "ar": ["\u0635\u0628\u0627\u062d \u0627\u0644\u062e\u064a\u0631", "#love", "\u0647\u0647\u0647\u0647\u0647", "\ud83d\udc9b"], "an": ["bueno", "#viernes", "\u0647\u0647\u0647\u0647\u0647", "\ud83d\ude02"], "hy": ["\u057d\u056b\u0580\u0578\u0582\u0574 \u0565\u0574 \u0584\u0565\u0566", "#armenia", "\u0540\u0561\u0575\u0561\u057d\u057f\u0561\u0576\u056b", "\ud83c\udde6\ud83c\uddf2"], "ast": ["asturias", "#Oviedo", "hola", "\ud83c\uddea\ud83c\uddf8"], "az": ["ad g\u00fcn\u00fcn m\u00fcbar\u0259k", "#baku", "t\u0259brikl\u0259r", "\ud83c\udde6\ud83c\uddff"], "eu": ["maitasun", "#Enkarterri", "kaixo", "\ud83c\udf1e"], "be": ["\u042f \u0446\u044f\u0431\u0435 \u043a\u0430\u0445\u0430\u044e", "#Minsk", "\u043a\u0430\u0445\u0430\u043d\u043d\u0435", "\ud83c\udde7\ud83c\uddfe"], "bn": ["Abdul Hamid", "#dhaka", "hahaha", "\ud83c\udde7\ud83c\udde9"], "bs": ["Valentin Inzko", "#sarajevo", "zdravo", "\ud83c\udde7\ud83c\udde6"], "br": ["Breizh", "#breton", "hahaha", "\ud83c\udf84"], "bg": ["\u0427\u0435\u0440\u043d\u043e \u043c\u043e\u0440\u0435", "#Sofia", "\u0411\u043b\u0430\u0433\u043e\u0434\u0430\u0440\u044f", "\ud83c\udde7\ud83c\uddec"], "ca": ["bon any nou", "#catalonia", "divendres", "\ud83c\uddea\ud83c\uddf8"], "en": ["Black Lives Matter", "#friday", "hahaha", "\ud83e\udda0"], "fr": ["Emmanuel Macron", "#vendredi", "h\u00e9h\u00e9h\u00e9", "\ud83c\udf84"], "de": ["hahaha", "#freitag", "Herzlichen Gl\u00fcckwunsch", "\ud83c\udde9\ud83c\uddea"], "id": ["Joko Widodo", "#jumat", "wkwkwkwk", "\ud83c\uddee\ud83c\udde9"], "it": ["Serie A", "#venerd\u00ec", "hahaha", "\ud83c\uddee\ud83c\uddf9"], "jbo": ["co'o", "#lojban", "coi", "\ud83d\ude0a"], "pt": ["sexta feira", "#futebol", "kkkkk", "\ud83c\udde7\ud83c\uddf7"], "es": ["buenas noches", "#viernes", "jajaja", "\ud83c\uddf5\ud83c\uddf7"], "sv": ["Stefan L\u00f6fven", "#fredag", "hahaha", "\ud83c\uddf8\ud83c\uddea"], "tr": ["Tayyip Erdo\u011fan", "#cuma", "hahaha", "\ud83c\uddf9\ud83c\uddf7"], "uk": ["\u0404\u0432\u0440\u043e\u043c\u0430\u0439\u0434\u0430\u043d", "#\u043f\u2019\u044f\u0442\u043d\u0438\u0446\u044f", "xaxaxa", "\ud83c\uddfa\ud83c\udde6"], "vi": ["Nguy\u1ec5n Xu\u00e2n Ph\u00fac", "#hanoi", "hahaha", "\ud83c\uddfb\ud83c\uddf3"]}
+    //console.log(`Language ngram defaults loaded`)
+}
+
 function downloadChart(){
     let mainChartSVG = d3.select('#mainplot').select('svg')
     //console.log('mainChartSVG.style("width"):')
@@ -185,16 +206,20 @@ function setupPage() {
         "                       |___/                          |___/             \n\n" +
         "by @compstorylab\n\n"+
         "UI & API by Jane Adams, Data Visualization Artist\n"+
-        "Interested in the code? Get in touch on Twitter @artistjaneadams\n\n"
+        "Interested in the code? Get in touch on Twitter @artistjaneadams\n" +
+        "or check out the GitHub here: https://github.com/janeadams/storywrangler\n\n"
     )
     params['start']=defaultparams['start']
     params['end']=defaultparams['end']
     viewport = window.innerWidth
     adaptVisualScale()
-    console.log(`viewport: ${viewport}`)
+    //console.log(`viewport: ${viewport}`)
     buildLanguageDropdown()
+    loadDefaultDict()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
+    getUrlNgrams()
+    initializeData()
     setFilters() // Check the correct boxes in the filter form according to the parameters
     makeCharts()
 }

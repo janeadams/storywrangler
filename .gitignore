@@ -8,4 +8,9 @@ ai/
 notes/
 static/
 package-lock.json
-debug/
+archive/
+notes/
+notebooks/
+*.sh
+dev/api/*log.csv
+prod/api/*log.csv
