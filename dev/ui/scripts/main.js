@@ -90,7 +90,7 @@ function roundUpToSig(max){
 
 function roundDownToSig(min){
     if (min===0){
-        return 0
+        return parseFloat(0)
     }
     else {
         let down = 0.8 * min
