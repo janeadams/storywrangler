@@ -43,7 +43,7 @@ function filterSubmission() {
     if (langChoice !== params['language']){
         if (paramoptions['language'].includes(languageCodes[langChoice]['db_code'])){
             params['language'] = languageCodes[langChoice]['db_code']
-            //console.log(`Changed params['language'] to ${params['language']}`)
+            console.log(`Changed params['language'] to ${params['language']}`)
             if(compare){translateDefaults()}
             isUpdated = true
         }
