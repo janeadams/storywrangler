@@ -499,7 +499,7 @@ class Chart {
                 .attr('class','navPlot')
                 .attr("width", this.width)
                 .attr("height", this.navPlotHeight)
-                .attr('transform',`translate(0,${this.height-(this.margin.top)+20})`)
+                .attr('transform',`translate(0,${this.height-(this.margin.top + this.margin.bottom)+20})`)
                 .style("display", "block")
                 .call(this.brush)
         }
