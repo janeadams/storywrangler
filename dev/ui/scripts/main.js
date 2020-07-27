@@ -191,7 +191,7 @@ function setupPage() {
     params['end']=defaultparams['end']
     viewport = window.innerWidth
     adaptVisualScale()
-    console.log(`viewport: ${viewport}`)
+    //console.log(`viewport: ${viewport}`)
     buildLanguageDropdown()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
