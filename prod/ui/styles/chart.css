@@ -51,6 +51,16 @@
     font-size: 20px;
 }
 
+.yaxis, .xaxis, .yaxis-nav, .xaxis-nav, .axislabel, .axislabel-large {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
 .hoverline {
     stroke-width: 3px;
 }
@@ -83,10 +93,12 @@
 
 .zoom {
     cursor: move;
-    fill: red;
     opacity: 0.1;
     pointer-events: all;
+    /* FOR DEBUGGING
+    fill: red;
     border: 2px solid red;
+    */
 }
 
 .overlay {
@@ -150,7 +162,17 @@ div.tooltip {
 }
 
 @media (max-width: 600px){
+
     .subplot-container {
         width: 100%;
+        padding: 0;
+    }
+
+    #mainplot {
+        height: 400px;
+    }
+
+    .axislabel-large {
+        transform: rotate(-90deg);
     }
 }

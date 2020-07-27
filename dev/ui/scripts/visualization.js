@@ -1,11 +1,9 @@
 let dotsize = 2
+let mobileScale = false
 function adaptVisualScale() {
-    if (viewport > 1000) {
-        dotsize = 3
-    }
-    else {
-        dotsize = 2
-    }
+    if (viewport > 1000) { dotsize = 3 }
+    else { dotsize = 2 }
+    mobileScale = viewport <= 600;
     //console.log(dotsize)
 }
 
@@ -135,32 +133,46 @@ function addLabels(chart){
 
     if (chart.type === 'main') {
         // Label yAxis with Metric
-        chart.svg.append("text")
-            .attr("text-anchor", "start")
-            .attr("y", ((chart.height - chart.margin.bottom) / 2))
-            .attr("x", 10)
-            .attr("dy", "1em")
-            .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
-            .attr("class", "axislabel-large")
-            .attr("font-family", "sans-serif")
+        if (mobileScale) {
+            /*
+            chart.svg.append("text")
+                .attr("text-anchor", "start")
+                .attr("y", 0)
+                .attr("x", -(chart.height - chart.margin.bottom)/2)
+                .attr("dy", "1em")
+                .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
+                .attr("class", "axislabel-large")
+                .attr("font-family", "sans-serif")
+             */
+        }
+        else {
+            chart.svg.append("text")
+                .attr("text-anchor", "start")
+                .attr("y", ((chart.height - chart.margin.bottom) / 2))
+                .attr("x", 10)
+                .attr("dy", "1em")
+                .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
+                .attr("class", "axislabel-large")
+                .attr("font-family", "sans-serif")
 
-        chart.svg.append("text")
-            .attr("class", "axislabel")
-            .attr("text-anchor", "start")
-            .attr("y", chart.margin.top + 10)
-            .attr("x", 10)
-            .attr("dy", "0.5em")
-            .text("Famous")
-            .attr("font-family", "sans-serif")
+            chart.svg.append("text")
+                .attr("class", "axislabel")
+                .attr("text-anchor", "start")
+                .attr("y", chart.margin.top + 10)
+                .attr("x", 10)
+                .attr("dy", "0.5em")
+                .text("Famous")
+                .attr("font-family", "sans-serif")
 
-        chart.svg.append("text")
-            .attr("class", "axislabel")
-            .attr("text-anchor", "start")
-            .attr("y", chart.height - chart.margin.bottom)
-            .attr("x", 10)
-            .attr("dy", "0.5em")
-            .text("Obscure")
-            .attr("font-family", "sans-serif")
+            chart.svg.append("text")
+                .attr("class", "axislabel")
+                .attr("text-anchor", "start")
+                .attr("y", chart.height - chart.margin.bottom)
+                .attr("x", 10)
+                .attr("dy", "0.5em")
+                .text("Obscure")
+                .attr("font-family", "sans-serif")
+        }
     }
     else {
         /*
@@ -287,7 +299,7 @@ function addDots(chart, dataKey){
         .on("mouseenter", drawTooltip)
         .on("touchstart", drawTooltip)
         .on("mouseleave", removeTooltip)
-        .on("touchend", removeTooltip)
+        .on("mouseup", removeTooltip)
         .on("click", d => {
             window.open(getTwitterURL(ngram, d, params['rt']), '_blank')
         })
@@ -379,19 +391,42 @@ class Chart {
         // Set sizing
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
-        //console.log(`this.width = ${this.width}, this.height = ${this.height}`)
         this.navPlotHeight = 50
-        this.margin = {
-            top: 0.1 * this.height,
-            bottom: (0.2 * this.height) + this.navPlotHeight
-        }
         if (this.type==='main') {
-            this.margin.right = 0.1 * this.width
-            this.margin.left = d3.min([0.3 * this.width, 150])
+            if (mobileScale){
+                this.margin = {
+                    top: 0.1 * this.height,
+                    bottom: (0.3 * this.height) + this.navPlotHeight,
+                    left: 50,
+                    right: 0.1 * this.width
+                }
+            }
+            else {
+                this.margin = {
+                    top: 0.1 * this.height,
+                    bottom: (0.2 * this.height) + this.navPlotHeight,
+                    left: d3.min([0.3 * this.width, 150]),
+                    right: 0.1 * this.width
+                }
+            }
         }
-        else {
-            this.margin.right = 0
-            this.margin.left = 0.2 * this.width
+        else { // is a subplot
+            if (mobileScale) {
+                this.margin = {
+                    top: 0.1 * this.height,
+                    bottom: (0.3 * this.height),
+                    left: 50,
+                    right: 0
+                }
+            }
+            else {
+                this.margin = {
+                    top: 0.1 * this.height,
+                    bottom: (0.3 * this.height),
+                    left: 0.2 * this.width,
+                    right: 0
+                }
+            }
         }
         setScales(this)
         let parent = this
@@ -450,7 +485,7 @@ class Chart {
                 .on("end", function () {
                     let s = d3.event.selection
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
-                    //console.log(`newView: ${newView}`)
+                    console.log(`newView: ${newView}`)
                     params['start'] = newView[0]
                     params['end'] = newView[1]
                     updateURL()
@@ -468,7 +503,7 @@ class Chart {
                 .attr('class','navPlot')
                 .attr("width", this.width)
                 .attr("height", this.navPlotHeight)
-                .attr('transform',`translate(0,${this.height-(this.navPlotHeight+20)})`)
+                .attr('transform',`translate(0,${this.height - (this.navPlotHeight+20)})`)
                 .style("display", "block")
                 .call(this.brush)
         }
@@ -486,6 +521,7 @@ class Chart {
 
 function makeCharts(){
     //console.log("Making charts...")
+    adaptVisualScale()
     setRanges()
     mainChart = new Chart({element: document.querySelector('#mainplot'), type: 'main'})
     //mainChart.navPlot.call(mainChart.brush.move,[mainChart.xScaleNav(params['start']),mainChart.xScaleNav(params['end'])])
