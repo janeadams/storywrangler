@@ -1,10 +1,13 @@
 let dotsize = 2
+let mobileScale = false
 function adaptVisualScale() {
     if (viewport > 1000) {
         dotsize = 3
+        mobileScale = false
     }
     else {
         dotsize = 2
+        mobileScale = true
     }
     //console.log(dotsize)
 }
@@ -144,23 +147,28 @@ function addLabels(chart){
             .attr("class", "axislabel-large")
             .attr("font-family", "sans-serif")
 
-        chart.svg.append("text")
-            .attr("class", "axislabel")
-            .attr("text-anchor", "start")
-            .attr("y", chart.margin.top + 10)
-            .attr("x", 10)
-            .attr("dy", "0.5em")
-            .text("Famous")
-            .attr("font-family", "sans-serif")
+        if (mobileScale){
+            d3.select('.axislabel-large').attr("transform", "rotate(90)")
+        }
+        else {
+            chart.svg.append("text")
+                .attr("class", "axislabel")
+                .attr("text-anchor", "start")
+                .attr("y", chart.margin.top + 10)
+                .attr("x", 10)
+                .attr("dy", "0.5em")
+                .text("Famous")
+                .attr("font-family", "sans-serif")
 
-        chart.svg.append("text")
-            .attr("class", "axislabel")
-            .attr("text-anchor", "start")
-            .attr("y", chart.height - chart.margin.bottom)
-            .attr("x", 10)
-            .attr("dy", "0.5em")
-            .text("Obscure")
-            .attr("font-family", "sans-serif")
+            chart.svg.append("text")
+                .attr("class", "axislabel")
+                .attr("text-anchor", "start")
+                .attr("y", chart.height - chart.margin.bottom)
+                .attr("x", 10)
+                .attr("dy", "0.5em")
+                .text("Obscure")
+                .attr("font-family", "sans-serif")
+        }
     }
     else {
         /*
