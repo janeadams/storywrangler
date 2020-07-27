@@ -76,7 +76,7 @@ function getSignificantDigitCount(n) {
     n = Math.abs(String(n).replace(".", "")); //remove decimal and make positive
     if (n === 0){
         if(params['metric']==='freq'){
-            return 1
+            return 0
         }
         else {
             return 0
