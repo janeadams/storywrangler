@@ -356,8 +356,8 @@ footer img {
         padding-bottom: 0;
     }
 
-    main {
-        padding-top: 0;
+    h1 {
+        margin-top: 0;
     }
 
     #navigation {
