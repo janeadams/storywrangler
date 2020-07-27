@@ -89,7 +89,7 @@ function roundUpToSig(max){
 }
 
 function roundDownToSig(min){
-    if (min===0){
+    if ((min===0) && params['metric']==='freq'){
         return parseFloat(0.00000001)
     }
     else {
