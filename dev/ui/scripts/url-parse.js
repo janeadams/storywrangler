@@ -60,7 +60,7 @@ function getUrlParams() {
         // If the parameter is in the URL
         if (window.location.href.indexOf(p) > -1) {
             params[p] = readUrlVars()[p] // set the variable to the value in the url
-            console.log(`Changed params[${p}] to ${params[p]}`)
+            //console.log(`Changed params[${p}] to ${params[p]}`)
             if (p==='language'){
                 if(compare){setDefaults()}
             }
