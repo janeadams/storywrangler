@@ -392,27 +392,39 @@ class Chart {
         this.width = this.element.offsetWidth
         this.height = this.element.offsetHeight
         this.navPlotHeight = 50
-        if (mobileScale) {
-            this.margin = {
-                top: 0.1 * this.height,
-                bottom: (0.3 * this.height) + this.navPlotHeight
-            }
-        }
-        else {
-            this.margin = {
-                top: 0.1 * this.height,
-                bottom: (0.2 * this.height) + this.navPlotHeight
-            }
-        }
         if (this.type==='main') {
             this.margin.right = 0.1 * this.width
-            if (mobileScale){this.margin.left = 50}
-            else {this.margin.left = d3.min([0.3 * this.width, 150])}
+            if (mobileScale){
+                this.margin = {
+                    top: 0.1 * this.height,
+                    bottom: (0.3 * this.height) + this.navPlotHeight,
+                    left: 50
+                }
+            }
+            else {
+                this.margin = {
+                    top: 0.1 * this.height,
+                    bottom: (0.2 * this.height) + this.navPlotHeight,
+                    left: d3.min([0.3 * this.width, 150])
+                }
+            }
         }
-        else {
+        else { // is a subplot
             this.margin.right = 0
-            if (mobileScale){this.margin.left = 50}
-            else {this.margin.left = 0.2 * this.width}
+            if (mobileScale) {
+                this.margin = {
+                    top: 0.1 * this.height,
+                    bottom: (0.3 * this.height),
+                    left: 50
+                }
+            }
+            else {
+                this.margin = {
+                    top: 0.1 * this.height,
+                    bottom: (0.3 * this.height),
+                    left: 0.2 * this.width
+                }
+            }
         }
         setScales(this)
         let parent = this
