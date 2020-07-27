@@ -388,6 +388,7 @@ footer img {
     }
     footer img {
         width: 30%;
+        height: auto;
         padding-top: 20px;
         padding-bottom: 20px;
     }
