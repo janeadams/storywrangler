@@ -39,7 +39,7 @@ function filterSubmission() {
             }
         }
     let langChoice = d3.select("#langDropdown").property('value')
-    console.log(`langChoice: ${langChoice}`)
+    //console.log(`langChoice: ${langChoice}`)
     if (langChoice !== params['language']){
         if (paramoptions['language'].includes(languageCodes[langChoice]['db_code'])){
             params['language'] = languageCodes[langChoice]['db_code']
