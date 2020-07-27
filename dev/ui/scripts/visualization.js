@@ -474,7 +474,7 @@ class Chart {
             .extent([[0, 0], [this.width, this.height]])
             .on("zoom", parent.zoomed())
 
-        this.svg.call(zoom)
+        this.svg.call(d3.zoom().on("zoom", this.zoomed()))
 
         this.plot = this.svg.append('g')
             .attr('transform',`translate(${this.margin.left},${this.margin.top})`)
