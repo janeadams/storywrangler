@@ -398,9 +398,17 @@ class Chart {
         this.height = this.element.offsetHeight
         console.log(`this.width = ${this.width}, this.height = ${this.height}`)
         this.navPlotHeight = 50
-        this.margin = {
-            top: 0.1 * this.height,
-            bottom: (0.2 * this.height) + this.navPlotHeight
+        if (mobileScale) {
+            this.margin = {
+                top: 0.1 * this.height,
+                bottom: (0.3 * this.height) + this.navPlotHeight
+            }
+        }
+        else {
+            this.margin = {
+                top: 0.1 * this.height,
+                bottom: (0.2 * this.height) + this.navPlotHeight
+            }
         }
         if (this.type==='main') {
             this.margin.right = 0.1 * this.width
