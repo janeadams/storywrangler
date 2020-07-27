@@ -138,16 +138,26 @@ function addLabels(chart){
 
     if (chart.type === 'main') {
         // Label yAxis with Metric
-        chart.svg.append("text")
-            .attr("text-anchor", "start")
-            .attr("y", ((chart.height - chart.margin.bottom) / 2))
-            .attr("x", 10)
-            .attr("dy", "1em")
-            .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
-            .attr("class", "axislabel-large")
-            .attr("font-family", "sans-serif")
+        if (mobileScale) {
+            chart.svg.append("text")
+                .attr("text-anchor", "start")
+                .attr("y", 0)
+                .attr("x", (chart.height - chart.margin.bottom) / 2))
+                .attr("dy", "1em")
+                .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
+                .attr("class", "axislabel-large")
+                .attr("font-family", "sans-serif")
+        }
+        else {
+            chart.svg.append("text")
+                .attr("text-anchor", "start")
+                .attr("y", ((chart.height - chart.margin.bottom) / 2))
+                .attr("x", 10)
+                .attr("dy", "1em")
+                .text(String(params['metric']).charAt(0).toUpperCase() + String(params['metric']).slice(1))
+                .attr("class", "axislabel-large")
+                .attr("font-family", "sans-serif")
 
-        if (!mobileScale) {
             chart.svg.append("text")
                 .attr("class", "axislabel")
                 .attr("text-anchor", "start")
