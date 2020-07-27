@@ -53,7 +53,7 @@ function translateDefaults(){
         console.log(`current defaults: ${defaultNgrams}`)
         console.log(`current ngrams: ${Ngrams}`)
         console.log(`newDefaults: ${newDefaults}`)
-        if (JSON.stringify(Ngrams)===JSON.stringify(defaultNgrams)){
+        if (JSON.stringify(Ngrams)==JSON.stringify(defaultNgrams)){
             console.log(`Ngrams are default`)
             Ngrams = Object.assign([], newDefaults)
             console.log(`Ngrams are now ${Ngrams}`)
