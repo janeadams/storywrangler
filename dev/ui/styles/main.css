@@ -352,6 +352,10 @@ footer img {
         height: 70vw;
     }
 
+    header {
+        padding-bottom: 0;
+    }
+
     #navigation {
         width: 100%;
         display: inline-flex;
