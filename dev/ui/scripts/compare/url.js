@@ -46,7 +46,6 @@ function getUrlNgramParams(){
 }
 
 function translateDefaults(){
-    setDefaults()
     if (Object.keys(defaultDict).includes(params['language'])){
         //console.log(`Alternate defaults detected for ${params['language']}`)
         let newDefaults = defaultDict[params['language']]
