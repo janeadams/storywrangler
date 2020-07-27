@@ -156,11 +156,6 @@ function buildLanguageDropdown(){
     })
 }
 
-function loadDefaultDict(){
-    d3.json('language_defaults.json').then((data) => {
-        defaultDict = data})
-}
-
 function downloadChart(){
     let mainChartSVG = d3.select('#mainplot').select('svg')
     //console.log('mainChartSVG.style("width"):')
@@ -199,7 +194,6 @@ function setupPage() {
     adaptVisualScale()
     //console.log(`viewport: ${viewport}`)
     buildLanguageDropdown()
-    loadDefaultDict()
     d3.select("#queryInput").attr("placeholder",`Enter a query like: ${suggestions[Math.floor(Math.random()*suggestions.length)]}`)
     getUrlParams() // Get parameters from the URL and update current parameters accordingly
     getUrlNgrams()
