@@ -488,7 +488,7 @@ class Chart {
                         console.log(t)
                         console.log('this:')
                         console.log(this)
-                        let newView = t.rescaleX(xScale)
+                        let newView = t.rescaleX(this.xScale)
                         console.log(`newView: ${newView}`)
                         /*params['start'] = newView[0]
                         params['end'] = newView[1]
