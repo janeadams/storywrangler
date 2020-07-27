@@ -58,6 +58,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    -webkit-touch-callout: none;
 }
 
 .hoverline {
@@ -92,10 +93,12 @@
 
 .zoom {
     cursor: move;
-    fill: red;
     opacity: 0.1;
     pointer-events: all;
+    /* FOR DEBUGGING
+    fill: red;
     border: 2px solid red;
+    */
 }
 
 .overlay {
