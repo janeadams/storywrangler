@@ -233,10 +233,12 @@ function dumpIrrelevant(){
             console.log(thisUUID)
             if (listUUIDs.includes(thisUUID)) {
                 //do nothing
-                console.log(`listUUIDs includes ${thisUUID}`)
+                console.log(`valid UUIDs include ${thisUUID}`)
             } else {
-                console.log(`listUUIDs doesn't include ${thisUUID}; removing this LI`)
-                d3.select(this).remove()
+                console.log(`valid UUIDs don't include ${thisUUID}; removing all items with this uuid`)
+                console.log(`valid UUIDs:`)
+                console.log(listUUIDs)
+                d3.selectAll(`.${thisUUID}`).remove()
             }
         }
     })
