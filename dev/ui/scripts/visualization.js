@@ -479,27 +479,23 @@ class Chart {
             let zoom = d3.zoom()
                 .scaleExtent([1, 50])
                 .on('zoom', function() {
-                    console.log('zoomed called')
+                    //console.log('zoomed called')
                     if (d3.event) {
                         console.log('d3 event triggered')
                         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
                         let t = d3.event.transform;
                         let dateScale = d3.scaleTime().domain([defaultparams['start'], defaultparams['end']]).range([0, parent.width - parent.margin.left - 10])
-                        console.log('Zoomed. Event transform:')
-                        console.log(t)
-                        console.log('this:')
-                        console.log(this)
-                        console.log('parent:')
-                        console.log(parent)
+                        console.log(`Zoomed. Event transform: ${t}`)
                         let newView = t.rescaleX(dateScale).domain()
-                        console.log(`newView: [${newView[0]}, ${newView[1]}]`)
-                        console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
+                        //console.log(`newView: [${newView[0]}, ${newView[1]}]`)
                         params['start'] = newView[0]
                         params['end'] = newView[1]
+                        /*
                         console.table({
                             "params.start formatted": dateFormatter(params['start']),
                             "params.end formatted": dateFormatter(params['end'])
                         })
+                         */
                         updateChart(parent)
                         if (compare) {
                             Ngrams.forEach(n => updateChart(subPlots[n]))
