@@ -223,7 +223,8 @@ function dumpIrrelevant(){
     Object.keys(ngramData).forEach(ngram => {
         listUUIDs.push(`uuid-${ngramData[ngram]['uuid']}`)
     })
-    console.log(`listUUIDs = ${listUUIDs}`)
+    console.log(`listUUIDs =`)
+    console.log(listUUIDs)
 
     d3.selectAll("#ngramList li").each(function(d){
         let thisUUID = d3.select(this).attr("class").split(' ').filter(d => d.includes("uuid"))
