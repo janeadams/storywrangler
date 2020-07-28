@@ -456,7 +456,7 @@ class Chart {
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
                     console.log(`newView: ${newView}`)
                     params['start'] = newView[0]
-                    params['end'] = newView[1] // Hopefully fixes bug that repeat reloads shift time end by -1 day
+                    params['end'] = newView[1]
                     updateURL()
 
                     console.table({
