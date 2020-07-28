@@ -2,7 +2,7 @@ import json
 import pandas as pd
 import csv
 
-data = {}
+dfs = {}
 
 with open('storywrangler_data.json') as json_file:
     data = json.load(json_file)
