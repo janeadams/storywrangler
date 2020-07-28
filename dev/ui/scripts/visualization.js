@@ -477,14 +477,14 @@ class Chart {
                 .call(this.brush)
 
             let zoom = d3.zoom()
-                .scaleExtent([1, 30])
+                .scaleExtent([1, 50])
                 .on('zoom', function() {
                     console.log('zoomed called')
                     if (d3.event) {
                         console.log('d3 event triggered')
                         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
                         let t = d3.event.transform;
-                        let dateScale = d3.scaleTime().domain([defaultparams['start'], defaultparams['end']]).range([0, parent.width - parent.margin.left - 10])
+                        let dateScale = d3.scaleTime().domain([params['start'], params['end']]).range([0, parent.width - parent.margin.left - 10])
                         console.log('Zoomed. Event transform:')
                         console.log(t)
                         console.log('this:')
