@@ -493,6 +493,10 @@ class Chart {
                         let newView = t.rescaleX(parent.xScale).domain()
                         console.log(`newView: ${newView}`)
                         console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
+                        if (paramDiff > 3000000000){
+                            newView[0].addDays(-2)
+                            newView[1].addDays(2)
+                        }
                         params['start'] = newView[0]
                         params['end'] = newView[1]
                         console.table({
