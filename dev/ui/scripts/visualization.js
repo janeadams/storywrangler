@@ -478,7 +478,6 @@ class Chart {
 
             let zoom = d3.zoom()
                 .scaleExtent([1, 50])
-                .extent([defaultparams['start'], defaultparams['end']])
                 .on('zoom', function() {
                     console.log('zoomed called')
                     if (d3.event) {
@@ -495,11 +494,6 @@ class Chart {
                         let newView = t.rescaleX(dateScale).domain()
                         console.log(`newView: [${newView[0]}, ${newView[1]}]`)
                         console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
-                        let paramDiff = newView[1] - newView[0]
-                        if (paramDiff < 500000000){
-                            dateFormatter(newView[0])
-                            dateFormatter(newView[1])
-                        }
                         params['start'] = newView[0]
                         params['end'] = newView[1]
                         console.table({
