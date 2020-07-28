@@ -476,7 +476,7 @@ class Chart {
                 .style("display", "block")
                 .call(this.brush)
 
-            let zoomMax = (parseDate(xRange[1]).getTime() - parseDate(xRange[0]).getTime()) / (1000*60*60*24)
+            let zoomMax = (xRange[1].getTime() - xRange[0].getTime()) / (1000*60*60*24)
             let zoomMin = 1
             console.log(`zoomMax: ${zoomMax} zoomMin: ${zoomMin}`)
 
