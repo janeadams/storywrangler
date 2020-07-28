@@ -477,7 +477,7 @@ class Chart {
                 .call(this.brush)
 
             let zoom = d3.zoom()
-                .scaleExtent([86,400,000, Infinity])
+                .scaleExtent([86400000, Infinity])
                 .on('zoom', function() {
                     console.log('zoomed called')
                     if (d3.event) {
