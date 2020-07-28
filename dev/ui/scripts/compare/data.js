@@ -221,7 +221,7 @@ function dumpIrrelevant(){
     // get all the uuids of the existing paths
     let listUUIDs = []
     Object.keys(ngramData).forEach(ngram => {
-        listUUIDs.push(ngramData[ngram]['uuid'])
+        listUUIDs.push(`uuid-${ngramData[ngram]['uuid']}`)
     })
     console.log(`listUUIDs = ${listUUIDs}`)
 
