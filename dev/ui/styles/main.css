@@ -270,6 +270,9 @@ main {
 .citation h2 {
     font-style: italic;
 }
+.citation h3 {
+    line-height: 140%;
+}
 
 .button {
     padding: 10px;
