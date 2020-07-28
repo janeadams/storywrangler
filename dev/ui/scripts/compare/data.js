@@ -227,16 +227,17 @@ function dumpIrrelevant(){
     console.log(listUUIDs)
 
     d3.selectAll("#ngramList li").each(function(d){
-        let thisUUID = d3.select(this).attr("class").split(' ').filter(d => d.includes("uuid"))[0]
-        console.log(`thisUUID =`)
-        console.log(thisUUID)
-        if (listUUIDs.includes(thisUUID)){
-        //do nothing
-            console.log(`listUUIDs includes ${thisUUID}`)
-        }
-        else {
-            console.log(`listUUIDs doesn't include ${thisUUID}; removing this LI`)
-            d3.select(this).remove()
+        if (d3.select(this).attr("id")!=='clearall') {
+            let thisUUID = d3.select(this).attr("class").split(' ').filter(d => d.includes("uuid"))[0]
+            console.log(`thisUUID =`)
+            console.log(thisUUID)
+            if (listUUIDs.includes(thisUUID)) {
+                //do nothing
+                console.log(`listUUIDs includes ${thisUUID}`)
+            } else {
+                console.log(`listUUIDs doesn't include ${thisUUID}; removing this LI`)
+                d3.select(this).remove()
+            }
         }
     })
 }
