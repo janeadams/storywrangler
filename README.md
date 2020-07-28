@@ -3,6 +3,8 @@
 ## Twitter nGram Viewer
 All ngram timeseries are stored and served on Hydra, a server at the University of Vermont Complex Systems Center. This is a public resource for non-commercial use.
 
+Before you continue reading, [check out the Github gist](https://gist.github.com/janeadams/da52c46ad1f51741711787d683222fb5) for querying the API in Python; this might help.
+
 There are two methods for accessing onegrams:
 
 
@@ -27,6 +29,8 @@ Note that API URLs should not contain quote characters.
 
 Here is an [example query](https://storywrangling.org/api/%234645boricuas%20%23hurricanemaria%20%F0%9F%87%B5%F0%9F%87%B7%20hurac%C3%A1n?language=es&metric=freq&rt=true) searching the Spanish ngrams database for the frequencies of ngrams related to Hurricane Maria, from all tweets, including retweets:
 `/api/%234645boricuas%20%23hurricanemaria%20%F0%9F%87%B5%F0%9F%87%B7%20hurac%C3%A1n?language=es&metric=freq&rt=true`
+
+[Check out the Github gist](https://gist.github.com/janeadams/da52c46ad1f51741711787d683222fb5) for a sample API query using requests, pandas, json and csv.
 
 ### Accessing the API
 There are two versions of the API: production ('prod') and development ('dev'). 
