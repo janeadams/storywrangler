@@ -477,33 +477,25 @@ class Chart {
                 .call(this.brush)
 
             let zoom = d3.zoom()
-                .scaleExtent([1, 3])
+                .scaleExtent([1, 200])
                 .on('zoom', function() {
-                    console.log('zoomed called')
+                    //console.log('zoomed called')
                     if (d3.event) {
                         console.log('d3 event triggered')
                         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
                         let t = d3.event.transform;
-                        console.log('Zoomed. Event transform:')
-                        console.log(t)
-                        console.log('this:')
-                        console.log(this)
-                        console.log('parent:')
-                        console.log(parent)
-                        let newView = t.rescaleX(xRange)
-                        console.log(`newView: [${newView[0]}, ${newView[1]}]`)
-                        console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
-                        let paramDiff = newView[1] - newView[0]
-                        if (paramDiff < 5000000000){
-                            dateFormatter(newView[0]).addDays(-2)
-                            dateFormatter(newView[1]).addDays(2)
-                        }
+                        let dateScale = d3.scaleTime().domain([defaultparams['start'], defaultparams['end']]).range([0, parent.width - parent.margin.left - 10])
+                        console.log(`Zoomed. Event transform: ${t}`)
+                        let newView = t.rescaleX(dateScale).domain()
+                        //console.log(`newView: [${newView[0]}, ${newView[1]}]`)
                         params['start'] = newView[0]
                         params['end'] = newView[1]
+                        /*
                         console.table({
                             "params.start formatted": dateFormatter(params['start']),
                             "params.end formatted": dateFormatter(params['end'])
                         })
+                         */
                         updateChart(parent)
                         if (compare) {
                             Ngrams.forEach(n => updateChart(subPlots[n]))
@@ -581,5 +573,6 @@ function redrawCharts(){
             try {subPlots[ngram].setup()}
             catch {/*console.log(`Error re-drawing subplot for ${ngram}`)*/}
         })
+        dumpIrrelevant()
     }
 }

@@ -43,7 +43,7 @@ function readUrlVars() {
             }
             else {
                 if (dateVars.includes(key)){ // If this is a start or end view range date
-                    vars[key] = dateParser(value)
+                    vars[key] = dateParser(value).addDays(1)
                 }
             }
         }

@@ -122,7 +122,7 @@ function addNgram(n) {
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
         .text(n)
-        .attr("class", `uuid-${ngramData[n]['uuid']} nitem`)
+        .attr("class", `uuid-${ngramData[n]['uuid']} nitem colorid-${ngramData[n]['colorid']}`)
         .style("color", colors.dark[ngramData[n]['colorid']])
         .style("border-color", colors.main[ngramData[n]['colorid']])
         .style("background-color", colors.light[ngramData[n]['colorid']])
@@ -215,4 +215,30 @@ function alreadyExists(query){
 
 function eraseRecord(query){
     removeNgram(query)
+}
+
+function dumpIrrelevant(){
+    // get all the uuids of the existing paths
+    let listUUIDs = []
+    Object.keys(ngramData).forEach(ngram => {
+        listUUIDs.push(`uuid-${ngramData[ngram]['uuid']}`)
+    })
+    console.log(`valid UUIDs: ${listUUIDs}`)
+
+    d3.selectAll("#ngramList li").each(function(d){
+        if (d3.select(this).attr("id")!=='clearall') {
+            let thisUUID = d3.select(this).attr("class").split(' ').filter(d => d.includes("uuid"))[0]
+            console.log(`thisUUID: ${thisUUID}`)
+            if (listUUIDs.includes(thisUUID)) {
+                console.log(`valid UUIDs include ${thisUUID}`)
+            } else {
+                console.log(`valid UUIDs don't include ${thisUUID}; removing all items with this uuid`)
+                console.log(`valid UUIDs:`)
+                console.log(listUUIDs)
+                d3.selectAll(`.${thisUUID}`).remove()
+                let thisColorID = parseInt(d3.select(this).attr("class").split(' ').filter(d => d.includes("colorid"))[0].replace('colorid-',''))
+                availableColors.push(thisColorID)
+            }
+        }
+    })
 }
