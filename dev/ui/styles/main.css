@@ -247,12 +247,12 @@ main {
     margin-top: 10px;
 }
 
-#related-work li {
+.citation li {
     list-style: circle;
     margin-left: 20px;
 }
 
-#related-work h1, #related-work h2, #related-work h3{
+.citation h1, .citation h2, .citation h3{
     font-size: 1.2em;
     font-weight: normal;
     color: #666;
@@ -262,12 +262,12 @@ main {
     margin-bottom: 0;
 }
 
-#related-work h1 {
+.citation h1 {
     padding-top: 20px;
     font-weight: bold;
 }
 
-#related-work h2 {
+.citation h2 {
     font-style: italic;
 }
 
