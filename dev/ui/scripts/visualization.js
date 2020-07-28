@@ -13,16 +13,16 @@ function setScales(chart){
     if (chart.type==='main') {
         chart.xScale = d3.scaleTime()
             .domain([params['start'], params['end']])
-            .range([0, chart.width - m.left - 10])
+            .range([0, chart.width - m.left - 10]).nice()
         chart.xScaleNav = d3.scaleTime()
             .domain(xRange)
-            .range([0, chart.width])
+            .range([0, chart.width]).nice()
     }
     else {
         chart.xScale = d3.scaleTime()
             //.domain(xRange) // Set to full date range
             .domain([params['start'], params['end']]) // Set to selected date range
-            .range([0, chart.width - m.left])
+            .range([0, chart.width - m.left]).nice()
     }
     //console.log('chart.xScale')
     //console.log(chart.xScale)
@@ -484,7 +484,7 @@ class Chart {
                         console.log('d3 event triggered')
                         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
                         let t = d3.event.transform;
-                        let dateScale = d3.scaleTime().domain([defaultparams['start'], defaultparams['end']]).range([0, parent.width - parent.margin.left - 10])
+                        let dateScale = d3.scaleTime().domain([defaultparams['start'], defaultparams['end']]).range([0, parent.width - parent.margin.left - 10]).nice()
                         console.log(`Zoomed. Event transform: ${t}`)
                         let newView = t.rescaleX(dateScale).domain()
                         //console.log(`newView: [${newView[0]}, ${newView[1]}]`)
