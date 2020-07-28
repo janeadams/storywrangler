@@ -475,7 +475,7 @@ class Chart {
                 .attr('transform',`translate(0,${this.height - (this.navPlotHeight+20)})`)
                 .style("display", "block")
                 .call(this.brush)
-
+            console.log(xRange)
             let zoomMax = (xRange[1].getTime() - xRange[0].getTime()) / (1000*60*60*24)
             let zoomMin = 1
             console.log(`zoomMax: ${zoomMax} zoomMin: ${zoomMin}`)
