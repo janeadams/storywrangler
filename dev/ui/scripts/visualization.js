@@ -495,8 +495,8 @@ class Chart {
                         console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
                         let paramDiff = newView[1] - newView[0]
                         if (paramDiff < 5000000000){
-                            dateParser(newView[0]).addDays(-2)
-                            dateParser(newView[1]).addDays(2)
+                            dateFormatter(newView[0]).addDays(-2)
+                            dateFormatter(newView[1]).addDays(2)
                         }
                         params['start'] = newView[0]
                         params['end'] = newView[1]
