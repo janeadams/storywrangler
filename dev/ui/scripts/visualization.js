@@ -478,6 +478,7 @@ class Chart {
 
             let zoom = d3.zoom()
                 .scaleExtent([1, 50])
+                .extent([defaultparams['start'], defaultparams['end']])
                 .on('zoom', function() {
                     console.log('zoomed called')
                     if (d3.event) {
