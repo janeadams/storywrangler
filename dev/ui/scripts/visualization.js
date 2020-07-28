@@ -456,7 +456,7 @@ class Chart {
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
                     console.log(`newView: ${newView}`)
                     params['start'] = newView[0]
-                    params['end'] = newView[1]
+                    params['end'] = newView[1].addDays(1) // Hopefully fixes bug that repeat reloads shift time end by -1 day
                     updateURL()
 
                     console.table({
@@ -581,5 +581,6 @@ function redrawCharts(){
             try {subPlots[ngram].setup()}
             catch {/*console.log(`Error re-drawing subplot for ${ngram}`)*/}
         })
+        dumpIrrelevant()
     }
 }

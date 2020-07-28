@@ -216,3 +216,30 @@ function alreadyExists(query){
 function eraseRecord(query){
     removeNgram(query)
 }
+
+function dumpIrrelevant(){
+    // get all the uuids of the existing paths
+    let classList = []
+    d3.selectAll("#mainplot path").each(function(d){
+        classes = d3.select(this).attr("class").split(' ')
+        classes.forEach(c => {
+            classList.push(c)
+        })
+    })
+    console.log(`classList = ${classList}`)
+    filteredClassList = classList.filter(d => d.includes("uuid"))
+    console.log(`filteredClassList = ${filteredClassList}`)
+
+    d3.selectAll("#ngramList li").each(function(d){
+        let thisUUID = d3.select(this).attr("class").split(' ').filter(d => d.includes("uuid"))
+        console.log(`thisUUID = ${thisUUID}`)
+        if (classList.includes(thisUUID)){
+        //do nothing
+            console.log(`classList includes ${thisUUID}`)
+        }
+        else {
+            console.log(`classList doesn't include ${thisUUID}; removing this LI`)
+            d3.select(this).remove()
+        }
+    })
+}
