@@ -484,13 +484,14 @@ class Chart {
                         console.log('d3 event triggered')
                         if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
                         let t = d3.event.transform;
+                        let dateScale = d3.scaleTime().domain([defaultparams['start'], defaultparams['end']]).range([0, parent.width - parent.margin.left - 10])
                         console.log('Zoomed. Event transform:')
                         console.log(t)
                         console.log('this:')
                         console.log(this)
                         console.log('parent:')
                         console.log(parent)
-                        let newView = t.rescaleX(parent.xScale).domain()
+                        let newView = t.rescaleX(dateScale).domain()
                         console.log(`newView: [${newView[0]}, ${newView[1]}]`)
                         console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
                         let paramDiff = newView[1] - newView[0]
