@@ -492,6 +492,7 @@ class Chart {
                         console.log(parent)
                         let newView = t.rescaleX(parent.xScale).domain()
                         console.log(`newView: ${newView}`)
+                        console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
                         params['start'] = newView[0]
                         params['end'] = newView[1]
                         console.table({
