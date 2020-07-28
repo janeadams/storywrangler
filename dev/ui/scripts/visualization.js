@@ -490,7 +490,7 @@ class Chart {
                         console.log(this)
                         console.log('parent:')
                         console.log(parent)
-                        let newView = t.rescaleX(xRange)
+                        let newView = t.rescaleX(this.xScale)
                         console.log(`newView: [${newView[0]}, ${newView[1]}]`)
                         console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
                         let paramDiff = newView[1] - newView[0]
