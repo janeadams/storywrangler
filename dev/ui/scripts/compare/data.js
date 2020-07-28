@@ -223,16 +223,13 @@ function dumpIrrelevant(){
     Object.keys(ngramData).forEach(ngram => {
         listUUIDs.push(`uuid-${ngramData[ngram]['uuid']}`)
     })
-    console.log(`listUUIDs =`)
-    console.log(listUUIDs)
+    console.log(`valid UUIDs: ${listUUIDs}`)
 
     d3.selectAll("#ngramList li").each(function(d){
         if (d3.select(this).attr("id")!=='clearall') {
             let thisUUID = d3.select(this).attr("class").split(' ').filter(d => d.includes("uuid"))[0]
-            console.log(`thisUUID =`)
-            console.log(thisUUID)
+            console.log(`thisUUID: ${thisUUID}`)
             if (listUUIDs.includes(thisUUID)) {
-                //do nothing
                 console.log(`valid UUIDs include ${thisUUID}`)
             } else {
                 console.log(`valid UUIDs don't include ${thisUUID}; removing all items with this uuid`)
