@@ -228,7 +228,8 @@ function dumpIrrelevant(){
 
     d3.selectAll("#ngramList li").each(function(d){
         let thisUUID = d3.select(this).attr("class").split(' ').filter(d => d.includes("uuid"))
-        console.log(`thisUUID = ${thisUUID}`)
+        console.log(`thisUUID =`)
+        console.log(thisUUID)
         if (listUUIDs.includes(thisUUID)){
         //do nothing
             console.log(`listUUIDs includes ${thisUUID}`)
