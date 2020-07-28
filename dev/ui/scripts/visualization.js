@@ -455,8 +455,8 @@ class Chart {
                     let s = d3.event.selection
                     let newView = s.map(parent.xScaleNav.invert, parent.xScaleNav)
                     console.log(`newView: ${newView}`)
-                    params['start'] = newView[0].addDays(2)
-                    params['end'] = newView[1].addDays(2) // Hopefully fixes bug that repeat reloads shift time end by -1 day
+                    params['start'] = newView[0]
+                    params['end'] = newView[1] // Hopefully fixes bug that repeat reloads shift time end by -1 day
                     updateURL()
 
                     console.table({
