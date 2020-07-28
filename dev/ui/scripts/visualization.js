@@ -477,7 +477,7 @@ class Chart {
                 .call(this.brush)
 
             let zoom = d3.zoom()
-                .scaleExtent([1, 3])
+                .scaleExtent([1, 5])
                 .on('zoom', function() {
                     console.log('zoomed called')
                     if (d3.event) {
@@ -495,7 +495,7 @@ class Chart {
                         console.log(`newView: [${newView[0]}, ${newView[1]}]`)
                         console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
                         let paramDiff = newView[1] - newView[0]
-                        if (paramDiff < 5000000000){
+                        if (paramDiff < 500000000){
                             dateFormatter(newView[0])
                             dateFormatter(newView[1])
                         }
