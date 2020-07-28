@@ -122,7 +122,7 @@ function addNgram(n) {
     // Add the word as a list item so the user knows it's been added and can delete later
     d3.select("#ngramList").append("li")
         .text(n)
-        .attr("class", `uuid-${ngramData[n]['uuid']} nitem`)
+        .attr("class", `uuid-${ngramData[n]['uuid']} nitem colorid-${ngramData[n]['colorid']}`)
         .style("color", colors.dark[ngramData[n]['colorid']])
         .style("border-color", colors.main[ngramData[n]['colorid']])
         .style("background-color", colors.light[ngramData[n]['colorid']])
@@ -236,6 +236,8 @@ function dumpIrrelevant(){
                 console.log(`valid UUIDs:`)
                 console.log(listUUIDs)
                 d3.selectAll(`.${thisUUID}`).remove()
+                let thisColorID = parseInt(d3.select(this).attr("class").split(' ').filter(d => d.includes("colorid"))[0].replace('colorid-',''))
+                availableColors.push(thisColorID)
             }
         }
     })
