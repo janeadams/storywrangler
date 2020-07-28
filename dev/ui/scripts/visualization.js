@@ -490,7 +490,7 @@ class Chart {
                         console.log(this)
                         console.log('parent:')
                         console.log(parent)
-                        let newView = t.rescaleX(d3.scaleTime().domain(xRange[0], xRange[1]).range([0, this.width - this.margin.left]))
+                        let newView = t.rescaleX(d3.scaleTime().domain(xRange[0], xRange[1]).range([0, parent.width - parent.margin.left]))
                         console.log(`newView: [${newView[0]}, ${newView[1]}]`)
                         console.log(`params['end'] - params['start'] = ${params['end'] - params['start']}`)
                         let paramDiff = newView[1] - newView[0]
