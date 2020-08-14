@@ -84,12 +84,12 @@ def give_zipf_instructions():
     return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/zipf/</b><em>&lt;date&gt;</em><b>?language=</b><em>&lt;en,es,ru,fr...&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/zipf/01-01-2020?language=en' target='_blank'>https://storywrangling.org/api/zipf/<b>01-01-2020</b>?language=<b>en</b></a> to get the top 1000 most-used ngrams' usage data in all English tweets on January 1, 2020</br>"
 
 @app.route('/api/zipf/', methods=['GET'])
-def simple_response():
+def zipf_response():
     return give_zipf_instructions()
 
 
 @app.route('/api/ngrams/', methods=['GET'])
-def simple_response():
+def ngrams_response():
     start = time.time()
     pid = uuid.uuid4()
     src='root'
@@ -107,7 +107,7 @@ def simple_response():
     return give_ngram_instructions()
 
 @app.route('/api/zipf/<query>', methods=['GET'])
-def get_data(query):
+def zipf_data(query):
     start = time.time()
     pid = uuid.uuid4()
     date = request.date
@@ -118,6 +118,7 @@ def get_data(query):
         language = language
     else:
         language = 'en'
+    ngrams = str(request.args.get('ngrams'))+"grams"
     if ngrams in ['1grams','2grams','3grams']:
         if language not in language_support[ngrams]:
             ngrams = '1grams'
@@ -135,14 +136,14 @@ def get_data(query):
         df = pd.DataFrame(columns=['ngram','rank', 'rank_noRT','freq','freq_noRT'])
         for result in collection.find({'time':date, "rank": {"$lt": 1000}}):
             df = df.append({'ngram': result['word'], 'rank': result['rank'], 'rank_noRT': result['rank_noRT'],'freq':result['freq'],'freq_noRT':result['freq_noRT']},ignore_index=True)
-        output['data']=df
+        output['data']=df.to_dict()
         return jsonify(output)
     except:
         return (f"Sorry, we had trouble returning zipf data for {query} in the {language} {ngrams} database")
 
 
 @app.route('/api/ngrams/<query>', methods=['GET'])
-def get_data(query):
+def ngram_data(query):
     start = time.time()
     # Convert '%23' to '#', etc.
     query = urllib.parse.unquote(query)
