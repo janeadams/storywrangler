@@ -143,3 +143,15 @@ Note that API URLs should not contain quote characters.
 Here is an [example query](https://storywrangling.org/api/zipf/2010-03-20?language=en&max=100&ngrams=3) searching the English 3-grams database for the top 100 most-used words:
 `https://storywrangling.org/api/zipf/2010-03-20?language=en&max=100&ngrams=3`
 
+### How long will the Zipf queries take?
+
+Great question. This is important, because bigger queries will demand more patience. Here are some sample queries we ran with their elapsed time listed. The primary time factor is the max rank.
+
+| Date       | Language | Ngrams | Max Rank | Elapsed Time |
+|------------|----------|--------|----------|------------------|
+| 2010-11-22 | 'en' | 1grams | 100 | 13.77 s |
+| 2020-10-14 | 'en' | 2grams | 1000 | 0.05 s |
+| 2019-06-03 | 'en' | 3grams | 10000 | 52.87 s |
+| 2013-10-16 | 'en' | 3grams | 100000 | 8 m 46.45 s  |
+
+
