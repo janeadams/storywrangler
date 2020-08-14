@@ -8,7 +8,7 @@ function removeColor(n){
 }
 
 function sendQuery(formatted_query, APIsource){
-    let url = encodeURI(`${APIsource}/api/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
+    let url = encodeURI(`${APIsource}/api/ngrams/${formatted_query}?src=ui&language=${params["language"]}&metric=${params['metric']}&rt=${params['rt']}`)
     loadData(url)
 }
 
