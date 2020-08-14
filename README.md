@@ -136,10 +136,9 @@ Note that API URLs should not contain quote characters.
 | Parameter | Description                                                      | Example Values                          |
 |-----------|------------------------------------------------------------------|-----------------------------------------|
 | date     | date to search in format YYYY-MM-DD,<br>up to two days prior to today<br>(goes immediately after `/api/zipf/`) | `2010-04-19`,`2012-11-06`,`2020-03-28` |
-| max    | the max rank to return<br>(default is 1000, be patient with N > 1000)   | `100`,`1000`,`10000`                  |
-| all  | find all ngrams (instead of max rank of 1k)<br>(default is `false`) | `true` |
+| max    | the max rank to return<br>(default is `1000`, be patient with N > 1000)   | `100`,`1000`,`10000`                  |
 | language  | which language database to query<br>(default is English as `en`) | `en`,`es`,`ru`,`fr`                     |
-| ngrams        | integer for n-gram size to query (1, 2, or 3 words)  | `1`,`2`, `3`                          |
+| ngrams        | integer for n-gram size to query (1, 2, or 3 words)<br>(default is `1`)  | `1`,`2`, `3`                          |
 
 Here is an [example query](https://storywrangling.org/api/zipf/2010-03-20?language=en&max=100&ngrams=3) searching the English 3-grams database for the top 100 most-used words:
 `https://storywrangling.org/api/zipf/2010-03-20?language=en&max=100&ngrams=3`
@@ -150,8 +149,8 @@ Great question. This is important, because bigger queries will demand more patie
 
 | Date       | Language | Ngrams | Max Rank | Elapsed Time |
 |------------|----------|--------|----------|------------------|
-| 2010-11-22 | 'en' | 1grams | 100 | 13.77 s |
-| 2020-10-14 | 'en' | 2grams | 1000 | 0.05 s |
+| 2010-11-22 | 'en' | 1grams | 100 | 4.05 s |
+| 2020-10-14 | 'en' | 2grams | 1000 | 7.43 s |
 | 2019-06-03 | 'en' | 3grams | 10000 | 52.87 s |
 | 2013-10-16 | 'en' | 3grams | 100000 | 8 m 46.45 s  |
 
