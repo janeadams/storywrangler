@@ -147,6 +147,8 @@ def zipf_data(query):
         except:
             max_rank = 1000
     output = {'date':date,'language': language, 'ngrams':ngrams, 'max':max_rank}
+    db = client[ngrams]
+    collection = db[language]
     if show_all:
         try:
             words = [None] * unique_count
@@ -166,8 +168,6 @@ def zipf_data(query):
             output['error'] = (f"Sorry, we had trouble returning zipf data for {date} in the {language} {ngrams} database")
     else:
         try:
-            db = client[ngrams]
-            collection = db[language]
             df = pd.DataFrame(columns=['ngram','rank', 'rank_noRT','freq','freq_noRT'])
             for result in collection.find({'time':date, "rank": {"$lte": max_rank}}):
                 df = df.append({'ngram': result['word'], 'rank': result['rank'], 'rank_noRT': result['rank_noRT'],'freq':result['freq'],'freq_noRT':result['freq_noRT']},ignore_index=True)
