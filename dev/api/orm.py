@@ -13,7 +13,7 @@ from flask import request, abort, jsonify
 import csv
 import uuid
 from flask_cors import CORS
-import prod.api.regexr as r
+import dev.api.regexr as r
 import urllib
 import pickle
 import json
@@ -24,13 +24,13 @@ username = os.getenv("USERNAME")
 # Connect to mongo using the credentials from .env file
 client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
-with open('prod/api/ngrams.bin', "rb") as f:
+with open('dev/api/ngrams.bin', "rb") as f:
     regex = pickle.load(f)
     
-with open('prod/api/language_support.json', 'r') as f:
+with open('dev/api/language_support.json', 'r') as f:
     language_support = json.load(f)
 
-language_codes = pd.read_csv('prod/api/popular_language_codes.csv')
+language_codes = pd.read_csv('dev/api/popular_language_codes.csv')
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -94,13 +94,13 @@ def ngrams_response():
     pid = uuid.uuid4()
     src='root'
     ip = request.remote_addr
-    with open('prod/api/logs/querylog.csv','a') as fd:
+    with open('dev/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),None,src,0,None,None,str(ip),str(start)])
         fd.close()
     end = time.time()
     # responselog columns - ['pid','time','errors']
-    with open('prod/api/logs/responselog.csv','a') as fd:
+    with open('dev/api/logs/responselog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),float((end-start)*60),['No query; returned instructions']])
         fd.close()
@@ -177,7 +177,7 @@ def ngram_data(query):
     
     print(f'ngrams :{ngrams}, n:{n}, metric:{metric}, rt:{rt}, language:{language}')
     
-    with open('prod/api/logs/querylog.csv','a') as fd:
+    with open('dev/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),str(query),str(src),int(n),str(language),metric,str(ip),'',str(start)])
         fd.close()
