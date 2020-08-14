@@ -44,6 +44,14 @@ def print_info(varlist):
         l.append(k+" = "+str(v))
     return print(" | ".join(l))
 
+def get_unique_count(date, language, ngrams):
+    db = client['languages']
+    collection = db['languages']
+    for result in collection.find({'language':language, 'time':date}):
+        unique = result[f'unique_{ngrams}']
+        print(f'Unique {ngrams} for {language} on {date}: {unique}')
+    return int(unique)
+
 def get_ngrams(language, q):
     q = r.remove_whitespaces(q)
     ngrams = list(r.ngram_parser(q, regex))
@@ -124,25 +132,48 @@ def zipf_data(query):
             ngrams = '1grams'
     else:
         ngrams = '1grams'
-    try:
-        max_rank = int(request.args.get('max'))
-    except:
-        max_rank = 1000
     # Pull the date requested
     try:
         date = datetime.datetime.strptime(query, '%Y-%m-%d')
     except:
         return ("Sorry, date not formatted correctly or not included in our database. Dates should be formatted as 2020-03-28")
+    unique_count = get_unique_count(date, language, ngrams)
+    show_all = request.args.get('all') == 'true'
+    if show_all:
+        max_rank = "all"
+    else:
+        try:
+            max_rank = int(request.args.get('max'))
+        except:
+            max_rank = 1000
     output = {'date':date,'language': language, 'ngrams':ngrams, 'max':max_rank}
-    try:
-        db = client[ngrams]
-        collection = db[language]
-        df = pd.DataFrame(columns=['ngram','rank', 'rank_noRT','freq','freq_noRT'])
-        for result in collection.find({'time':date, "rank": {"$lte": max_rank}}):
-            df = df.append({'ngram': result['word'], 'rank': result['rank'], 'rank_noRT': result['rank_noRT'],'freq':result['freq'],'freq_noRT':result['freq_noRT']},ignore_index=True)
-        output['data']=df.to_dict('index')
-    except:
-        output['error'] = (f"Sorry, we had trouble returning zipf data for {date} in the {language} {ngrams} database")
+    if show_all:
+        try:
+            words = [None] * unique_count
+            data = np.zeros((unique_count,4))
+            i = 0
+            for result in collection.find({'time':date}):
+                words[i]=result['word']
+                data[i][0]=result['rank']
+                data[i][1]=result['rank_noRT']
+                data[i][2]=result['freq']
+                data[i][3]=result['freq_noRT']
+                i+=1
+            df = pd.DataFrame(data=data, columns=['rank', 'rank_noRT','freq','freq_noRT'])
+            df['ngram']=words
+            output['data']=df.to_dict('index')
+        except:
+            output['error'] = (f"Sorry, we had trouble returning zipf data for {date} in the {language} {ngrams} database")
+    else:
+        try:
+            db = client[ngrams]
+            collection = db[language]
+            df = pd.DataFrame(columns=['ngram','rank', 'rank_noRT','freq','freq_noRT'])
+            for result in collection.find({'time':date, "rank": {"$lte": max_rank}}):
+                df = df.append({'ngram': result['word'], 'rank': result['rank'], 'rank_noRT': result['rank_noRT'],'freq':result['freq'],'freq_noRT':result['freq_noRT']},ignore_index=True)
+            output['data']=df.to_dict('index')
+        except:
+            output['error'] = (f"Sorry, we had trouble returning zipf data for {date} in the {language} {ngrams} database")
     return jsonify(output)
 
 
