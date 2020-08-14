@@ -137,6 +137,7 @@ Note that API URLs should not contain quote characters.
 |-----------|------------------------------------------------------------------|-----------------------------------------|
 | date     | date to search in format YYYY-MM-DD,<br>up to two days prior to today<br>(goes immediately after `/api/zipf/`) | `2010-04-19`,`2012-11-06`,`2020-03-28` |
 | max    | the max rank to return<br>(default is 1000, be patient with N > 1000)   | `100`,`1000`,`10000`                  |
+| all  | find all ngrams (instead of max rank of 1k)<br>(default is `false`) | `true` |
 | language  | which language database to query<br>(default is English as `en`) | `en`,`es`,`ru`,`fr`                     |
 | ngrams        | integer for n-gram size to query (1, 2, or 3 words)  | `1`,`2`, `3`                          |
 
