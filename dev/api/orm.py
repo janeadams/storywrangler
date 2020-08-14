@@ -137,20 +137,14 @@ def zipf_data(query):
         date = datetime.datetime.strptime(query, '%Y-%m-%d')
     except:
         return ("Sorry, date not formatted correctly or not included in our database. Dates should be formatted as 2020-03-28")
-    unique_count = get_unique_count(date, language, ngrams)
     show_all = request.args.get('all') == 'true'
-    if show_all:
-        max_rank = "all"
-    else:
-        try:
-            max_rank = int(request.args.get('max'))
-        except:
-            max_rank = 1000
-    output = {'date':date,'language': language, 'ngrams':ngrams, 'max':max_rank}
+    output = {'date':date,'language': language, 'ngrams':ngrams}
     db = client[ngrams]
     collection = db[language]
     if show_all:
         try:
+            unique_count = get_unique_count(date, language, ngrams)
+            output[f'unique_{ngrams}'] = unique_count
             words = [None] * unique_count
             data = np.zeros((unique_count,4))
             i = 0
@@ -163,16 +157,25 @@ def zipf_data(query):
                 i+=1
             df = pd.DataFrame(data=data, columns=['rank', 'rank_noRT','freq','freq_noRT'])
             df['ngram']=words
+            output['elapsed_time']=(time.time()-start)
             output['data']=df.to_dict('index')
         except:
+            output['elapsed_time']=(time.time()-start)
             output['error'] = (f"Sorry, we had trouble returning zipf data for {date} in the {language} {ngrams} database")
     else:
+        try:
+            max_rank = int(request.args.get('max'))
+        except:
+            max_rank = 1000
+        output['max']=max_rank
         try:
             df = pd.DataFrame(columns=['ngram','rank', 'rank_noRT','freq','freq_noRT'])
             for result in collection.find({'time':date, "rank": {"$lte": max_rank}}):
                 df = df.append({'ngram': result['word'], 'rank': result['rank'], 'rank_noRT': result['rank_noRT'],'freq':result['freq'],'freq_noRT':result['freq_noRT']},ignore_index=True)
+            output['elapsed_time']=(time.time()-start)
             output['data']=df.to_dict('index')
         except:
+            output['elapsed_time']=(time.time()-start)
             output['error'] = (f"Sorry, we had trouble returning zipf data for {date} in the {language} {ngrams} database")
     return jsonify(output)
 
