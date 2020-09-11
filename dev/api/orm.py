@@ -98,7 +98,7 @@ def zipf_response():
 @app.route('/api/db/', methods=['GET'])
 def db_response():
     app.config["MONGO_URI"] = 'mongodb://%s:%s@127.0.0.1' % (username, password)
-    mongo = PyMongo(app)
+    mongo = pymongo(app)
     return mongo
 
 @app.route('/api/ngrams/', methods=['GET'])
