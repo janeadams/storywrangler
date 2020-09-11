@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 import flask
-from flask.ext.mongoengine import MongoEngine
-from flask.ext.mongo_sessions import MongoDBSessionInterface
+from flask_module import MongoEngine
+from flask_module import MongoDBSessionInterface
 import datetime as dt
 import pymongo
 import datetime
