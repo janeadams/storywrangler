@@ -95,7 +95,7 @@ def give_zipf_instructions():
 def zipf_response():
     return give_zipf_instructions()
 
-@app.route('/api/db/', methods=['GET'])
+@app.route('/api/db/')
 def db_response():
     return client
 
