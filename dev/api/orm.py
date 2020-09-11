@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import flask
+from flask.ext.mongoengine import MongoEngine
+from flask.ext.mongo_sessions import MongoDBSessionInterface
 import datetime as dt
 import pymongo
 import datetime
@@ -97,7 +99,10 @@ def zipf_response():
 
 @app.route('/api/db/')
 def db_response():
-    return client['1grams']['en']
+    app.config['MONGODB_DB'] = 'mongodb://%s:%s@127.0.0.1' % (username, password)
+    db = mongo.connection[app.config['MONGODB_DB']]
+    app.session_interface = MongoDBSessionInterface(app, db, 'sessions')
+    return app.session_interface
 
 @app.route('/api/ngrams/', methods=['GET'])
 def ngrams_response():
