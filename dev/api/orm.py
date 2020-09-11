@@ -97,7 +97,7 @@ def zipf_response():
 
 @app.route('/api/db/')
 def db_response():
-    return client
+    return 'mongodb://%s:%s@127.0.0.1' % (username, password)
 
 @app.route('/api/ngrams/', methods=['GET'])
 def ngrams_response():
