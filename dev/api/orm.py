@@ -97,7 +97,8 @@ def zipf_response():
 
 @app.route('/api/db/')
 def db_response():
-    return db = client['1grams']
+    db = client['1grams']
+    return db
 
 @app.route('/api/ngrams/', methods=['GET'])
 def ngrams_response():
