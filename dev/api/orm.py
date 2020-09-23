@@ -1,8 +1,14 @@
+version = 'dev'
+if version == 'dev':
+    import dev.api.regexr as r
+    port = '3001'
+else:
+    import prod.api.regexr as r
+    port = '3000'
+
 import pandas as pd
 import numpy as np
 import flask
-import MongoEngine
-import MongoDBSessionInterface
 import datetime as dt
 import pymongo
 import datetime
@@ -15,7 +21,6 @@ from flask import request, abort, jsonify
 import csv
 import uuid
 from flask_cors import CORS
-import dev.api.regexr as r
 import urllib
 import pickle
 import json
@@ -26,13 +31,13 @@ username = os.getenv("USERNAME")
 # Connect to mongo using the credentials from .env file
 client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
-with open('dev/api/ngrams.bin', "rb") as f:
+with open(f'{version}/api/ngrams.bin', "rb") as f:
     regex = pickle.load(f)
     
-with open('dev/api/language_support.json', 'r') as f:
+with open(f'{version}/api/language_support.json', 'r') as f:
     language_support = json.load(f)
 
-language_codes = pd.read_csv('dev/api/popular_language_codes.csv')
+language_codes = pd.read_csv(f'{version}/api/popular_language_codes.csv')
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -93,16 +98,17 @@ def give_ngram_instructions():
 def give_zipf_instructions():
     return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/zipf/</b><em>&lt;date&gt;</em><b>?language=</b><em>&lt;en,es,ru,fr...&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/zipf/2020-03-28?language=en' target='_blank'>https://storywrangling.org/api/zipf/<b>2020-03-28</b>?language=<b>en</b></a> to get the top 1000 most-used ngrams' usage data in all English tweets on January 1, 2020</br>"
 
+def give_zipf_instructions():
+    return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/divergence/</b><em>&lt;date&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/divergence/2020-03-28' target='_blank'>https://storywrangling.org/api/zipf/<b>2020-03-28</b>?language=<b>en</b></a> to get the highest-divergence ngrams in all English tweets on January 1, 2020</br>"
+
+
 @app.route('/api/zipf/', methods=['GET'])
 def zipf_response():
     return give_zipf_instructions()
 
-@app.route('/api/db/')
-def db_response():
-    app.config['MONGODB_DB'] = 'mongodb://%s:%s@127.0.0.1' % (username, password)
-    db = mongo.connection[app.config['MONGODB_DB']]
-    app.session_interface = MongoDBSessionInterface(app, db, 'sessions')
-    return app.session_interface
+@app.route('/api/divergence/', methods=['GET'])
+def divergence_response():
+    return give_divergence_instructions()
 
 @app.route('/api/ngrams/', methods=['GET'])
 def ngrams_response():
@@ -110,13 +116,13 @@ def ngrams_response():
     pid = uuid.uuid4()
     src='root'
     ip = request.remote_addr
-    with open('dev/api/logs/querylog.csv','a') as fd:
+    with open(f'{version}/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),None,src,0,None,None,str(ip),str(start)])
         fd.close()
     end = time.time()
     # responselog columns - ['pid','time','errors']
-    with open('dev/api/logs/responselog.csv','a') as fd:
+    with open(f'{version}/api/logs/responselog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),float((end-start)*60),['No query; returned instructions']])
         fd.close()
@@ -187,6 +193,42 @@ def zipf_data(query):
             output['error'] = (f"Sorry, we had trouble returning zipf data for {date} in the {language} {ngrams} database")
     return jsonify(output)
 
+@app.route('/api/divergence/<query>', methods=['GET'])
+def divergence_data(query):
+    start = time.time()
+    pid = uuid.uuid4()
+    date = request.date
+    ip = request.remote_addr
+    language = 'en'
+    ngrams = str(request.args.get('ngrams'))+"grams"
+    if ngrams not in ['1grams','2grams']:
+        ngrams = '1grams'
+    # Pull the date requested
+    try:
+        date = datetime.datetime.strptime(query, '%Y-%m-%d')
+    except:
+        return ("Sorry, date not formatted correctly or not included in our database. Dates should be formatted as 2020-03-28")
+    rt = request.args.get('rt') == 'true'
+    output = {'date':date,'language': language, 'ngrams': ngrams}
+    db = client['rd_'+ngrams]
+    collection = db[language]
+    try:
+        if rt:
+            change = 'rank_change'
+            contribution = 'rd_contribution'
+        else:
+            change = 'rank_change_noRT'
+            contribution = 'rd_contribution_noRT'
+        df = pd.DataFrame(columns=['ngram', change, contribution])
+        for result in collection.find({'time_2':date}):
+            df = df.append({'ngram': result['ngram'], change: result[change], contribution: result[contribution]},ignore_index=True)
+        output['elapsed_time']=(time.time()-start)
+        output['data']=df.to_dict('index')
+    except:
+        output['elapsed_time']=(time.time()-start)
+        output['error'] = (f"Sorry, we had trouble returning rank divergence data for {date} in the {language} {'rd_'+ngrams} database")
+    return jsonify(output)
+
 
 @app.route('/api/ngrams/<query>', methods=['GET'])
 def ngram_data(query):
@@ -219,7 +261,7 @@ def ngram_data(query):
     
     print(f'ngrams :{ngrams}, n:{n}, metric:{metric}, rt:{rt}, language:{language}')
     
-    with open('dev/api/logs/querylog.csv','a') as fd:
+    with open(f'{version}/api/logs/querylog.csv','a') as fd:
         write_outfile = csv.writer(fd)
         write_outfile.writerow([int(pid),str(query),str(src),int(n),str(language),metric,str(ip),'',str(start)])
         fd.close()
@@ -280,5 +322,5 @@ def ngram_data(query):
     return jsonify(output)
 
 if __name__ == '__main__':
-    app.run(debug=True, port='3001')
+    app.run(debug=True, port=port)
 
