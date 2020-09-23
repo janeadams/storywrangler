@@ -223,11 +223,12 @@ def divergence_data(query):
         else:
             change = 'rank_change_noRT'
             contribution = 'rd_contribution_noRT'
-        returned_data = {}
+        df = pd.DataFrame(columns=['ngram', change, contribution])
         for result in collection.find({'time_2':date}):
-            returned_data[result['ngram']] = {change: result[change], contribution: result[contribution]}
+            df = df.append({'ngram': result['ngram'], change: result[change], contribution: result[contribution]},ignore_index=True)
+        df.dropna(inplace=True)
         output['elapsed_time']=(time.time()-start)
-        output['data']=returned_data
+        output['data']=df.to_dict('index')
     except:
         output['elapsed_time']=(time.time()-start)
         output['error'] = (f"Sorry, we had trouble returning rank divergence data for {date} in the {language} {'rd_'+ngrams} database")
