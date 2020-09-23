@@ -225,7 +225,7 @@ def divergence_data(query):
             change = 'rank_change_noRT'
             contribution = 'rd_contribution_noRT'
         df = pd.DataFrame(columns=['ngram', change, contribution])
-        for result in collection.filter({'time_2':date}).sort('change'):
+        for result in collection.find({'time_2':date}).sort(change):
             df = df.append({'ngram': result['ngram'], 'date':result['time_2'], change: result[change], contribution: result[contribution]},ignore_index=True)
         df.dropna(inplace=True)
         df = df.sort_values(by=change)
