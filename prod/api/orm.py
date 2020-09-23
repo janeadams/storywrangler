@@ -1,13 +1,12 @@
 version = 'prod'
 def setup(v):
     if v == 'dev':
-        import dev.api.regexr as r
         return '3000'
     else:
-        import dev.api.regexr as r
         return '3001'
 port = setup(version)
 
+import dev.api.regexr as r
 import pandas as pd
 import numpy as np
 import flask
