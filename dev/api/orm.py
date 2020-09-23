@@ -1,10 +1,12 @@
 version = 'dev'
-if version == 'dev':
-    import dev.api.regexr as r
-    port = '3001'
-else:
-    import prod.api.regexr as r
-    port = '3000'
+def setup(v):
+    if v == 'dev':
+        import dev.api.regexr as r
+        return = '3001'
+    else:
+        import prod.api.regexr as r
+        return = '3000'
+port = setup(version)
 
 import pandas as pd
 import numpy as np
