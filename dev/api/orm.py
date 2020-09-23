@@ -101,7 +101,7 @@ def give_zipf_instructions():
     return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/zipf/</b><em>&lt;date&gt;</em><b>?language=</b><em>&lt;en,es,ru,fr...&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/zipf/2020-03-28?language=en' target='_blank'>https://storywrangling.org/api/zipf/<b>2020-03-28</b>?language=<b>en</b></a> to get the top 1000 most-used ngrams' usage data in all English tweets on January 1, 2020</br>"
 
 def give_divergence_instructions():
-    return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/divergence/</b><em>&lt;date&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/divergence/2020-03-28' target='_blank'>https://storywrangling.org/api/zipf/<b>2020-03-28</b>?language=<b>en</b></a> to get the highest-divergence ngrams in all English tweets on January 1, 2020</br>"
+    return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/divergence/</b><em>&lt;date&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/divergence/2020-03-28' target='_blank'>https://storywrangling.org/api/divergence/<b>2020-03-28</b></a> to get the highest-divergence ngrams in all English tweets on January 1, 2020</br>"
 
 
 @app.route('/api/zipf/', methods=['GET'])
@@ -134,7 +134,7 @@ def ngrams_response():
 def zipf_data(query):
     start = time.time()
     pid = uuid.uuid4()
-    date = request.date
+    request_date = request.date
     ip = request.remote_addr
     # Pull the language from the URL params, e.g. 'en', 'es', 'ru'
     language = str(request.args.get('language'))
@@ -199,11 +199,13 @@ def zipf_data(query):
 def divergence_data(query):
     start = time.time()
     pid = uuid.uuid4()
-    date = request.date
     ip = request.remote_addr
     language = 'en'
-    ngrams = str(request.args.get('ngrams'))+"grams"
-    if ngrams not in ['1grams','2grams']:
+    try:
+        ngrams = str(request.args.get('ngrams'))+"grams"
+        if ngrams not in ['1grams','2grams']:
+            ngrams = '1grams'
+    except:
         ngrams = '1grams'
     # Pull the date requested
     try:
