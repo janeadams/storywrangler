@@ -230,7 +230,7 @@ def divergence_data(query):
         df.dropna(inplace=True)
         df = df.sort_values(by=change)
         output['elapsed_time']=(time.time()-start)
-        output['data']=df.to_dict('index')
+        output['data']=df.to_dict('ngram')
     except:
         output['elapsed_time']=(time.time()-start)
         output['error'] = (f"Sorry, we had trouble returning rank divergence data for {date} in the {language} {'rd_'+ngrams} database")
