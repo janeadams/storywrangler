@@ -225,7 +225,7 @@ def divergence_data(query):
             contribution = 'rd_contribution_noRT'
         returned_data = {}
         for result in collection.find({'time_2':date}):
-            data[result['ngram']] = {change: result[change], contribution: result[contribution]}
+            returned_data[result['ngram']] = {change: result[change], contribution: result[contribution]}
         output['elapsed_time']=(time.time()-start)
         output['data']=returned_data
     except:
