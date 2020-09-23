@@ -213,7 +213,7 @@ def divergence_data(query):
     except:
         return ("Sorry, date not formatted correctly or not included in our database. Dates should be formatted as 2020-03-28")
     rt = request.args.get('rt') == 'true'
-    output = {'date':query,'language': language, 'ngrams': ngrams}
+    output = {'date':query,'language': language, 'ngrams': ngrams, 'with_RT':rt}
     db = client['rd_'+ngrams]
     collection = db[language]
     try:
@@ -227,7 +227,7 @@ def divergence_data(query):
         for result in collection.find({'time_2':date}):
             df = df.append({'ngram': result['ngram'], change: result[change], contribution: result[contribution]},ignore_index=True)
         df.dropna(inplace=True)
-        df.sort_values(by=change, inplace=True)
+        df = df.sort_values(by=change)
         output['elapsed_time']=(time.time()-start)
         output['data']=df.to_dict('index')
     except:
