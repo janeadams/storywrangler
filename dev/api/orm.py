@@ -27,6 +27,7 @@ import urllib
 import pickle
 import json
 import uuid
+import sys
 
 password = os.getenv("PASSWORD")
 username = os.getenv("USERNAME")
@@ -233,6 +234,7 @@ def divergence_data(query):
     except:
         output['elapsed_time']=(time.time()-start)
         output['error'] = (f"Sorry, we had trouble returning rank divergence data for {date} in the {language} {'rd_'+ngrams} database")
+        output['sys_err'] = (f'Unexpected error: {sys.exc_info()[0]}')
     return jsonify(output)
 
 
