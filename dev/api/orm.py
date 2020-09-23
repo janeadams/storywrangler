@@ -100,7 +100,7 @@ def give_ngram_instructions():
 def give_zipf_instructions():
     return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/zipf/</b><em>&lt;date&gt;</em><b>?language=</b><em>&lt;en,es,ru,fr...&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/zipf/2020-03-28?language=en' target='_blank'>https://storywrangling.org/api/zipf/<b>2020-03-28</b>?language=<b>en</b></a> to get the top 1000 most-used ngrams' usage data in all English tweets on January 1, 2020</br>"
 
-def give_zipf_instructions():
+def give_divergence_instructions():
     return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/divergence/</b><em>&lt;date&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/divergence/2020-03-28' target='_blank'>https://storywrangling.org/api/zipf/<b>2020-03-28</b>?language=<b>en</b></a> to get the highest-divergence ngrams in all English tweets on January 1, 2020</br>"
 
 
