@@ -1,10 +1,8 @@
 version = 'dev'
 def setup(v):
     if v == 'dev':
-        import dev.api.regexr as r
         return '3000'
     else:
-        import prod.api.regexr as r
         return '3001'
 port = setup(version)
 
