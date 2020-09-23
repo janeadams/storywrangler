@@ -228,8 +228,8 @@ def divergence_data(query):
         for result in collection.find({'time_2':date}):
             df = df.append({'ngram': result['ngram'], 'date':result['time_2'], change: result[change], contribution: result[contribution]},ignore_index=True)
         df.dropna(inplace=True)
-        df = df.sort_values(by=[change])
-        df.set_index('ngram')
+        df.sort_values(by=[change],inplace=True)
+        df.set_index('ngram',inplace=True)
         output['elapsed_time']=(time.time()-start)
         output['data']=df.to_dict('index')
     except:
