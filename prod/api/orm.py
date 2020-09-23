@@ -4,7 +4,7 @@ def setup(v):
         import dev.api.regexr as r
         return '3000'
     else:
-        import prod.api.regexr as r
+        import dev.api.regexr as r
         return '3001'
 port = setup(version)
 
