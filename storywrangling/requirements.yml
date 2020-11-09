@@ -1,0 +1,12 @@
+name: storywrangling
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - matplotlib
+  - numpy
+  - pandas
+  - pymongo
+  - python-bidi
+  - ujson
+  - tqdm
