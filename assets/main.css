@@ -1,0 +1,13 @@
+html, body {
+    font-family: sans-serif;
+}
+
+#options-menu {
+    width: 30%;
+    float: left;
+}
+
+#main-content {
+    width: 60%;
+    float: left;
+}
