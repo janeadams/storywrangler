@@ -223,17 +223,3 @@ def get_today_suggestions():
     }
     data = get_divergence_data(params)
     return list(data.index)[:30]
-
-def get_data(params):
-    if params['viewer']=='ngrams':
-        return get_ngram_data(params)
-    elif params['viewer']=='language':
-        return get_language_data(params)
-    elif params['viewer']=='zipf':
-        return get_zipf_data(params)
-    elif params['viewer']=='divergence':
-        return get_divergence_data(params)
-    elif params['viewer']=='potusometer':
-        return get_potusometer_data(params)
-    else:
-        return ('Error')
