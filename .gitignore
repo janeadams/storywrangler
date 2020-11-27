@@ -1,8 +1,6 @@
 # Don't track content of these folders
 node_modules/
 debug/prod-*.txt
-prod/api/logs/
-dev/api/logs/
 .*
 ai/
 notes/
@@ -17,3 +15,5 @@ prod/api/*log.csv
 *.log
 *.ipynb
 debug/
+__pycache__/*
+*.pyc
