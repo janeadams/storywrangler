@@ -1,10 +1,5 @@
+port = '3001'
 version = 'prod'
-def setup(v):
-    if v == 'dev':
-        return '3000'
-    else:
-        return '3001'
-port = setup(version)
 
 import dev.api.regexr as r
 import pandas as pd

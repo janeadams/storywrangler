@@ -1,20 +1,7 @@
+port = '3000'
 version = 'dev'
-<<<<<<< HEAD
-def setup(v):
-    if v == 'dev':
-        return '3000'
-    else:
-        return '3001'
-port = setup(version)
-=======
-if version == 'dev':
-    import dev.api.regexr as r
-    port = '3001'
-else:
-    import prod.api.regexr as r
-    port = '3000'
->>>>>>> 755ba4a6372ebed05d17c0197dafb9d1ec8aeba9
 
+import dev.api.regexr as r
 import pandas as pd
 import numpy as np
 import flask
@@ -108,13 +95,8 @@ def give_ngram_instructions():
 def give_zipf_instructions():
     return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/zipf/</b><em>&lt;date&gt;</em><b>?language=</b><em>&lt;en,es,ru,fr...&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/zipf/2020-03-28?language=en' target='_blank'>https://storywrangling.org/api/zipf/<b>2020-03-28</b>?language=<b>en</b></a> to get the top 1000 most-used ngrams' usage data in all English tweets on January 1, 2020</br>"
 
-<<<<<<< HEAD
 def give_divergence_instructions():
     return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/divergence/</b><em>&lt;date&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/divergence/2020-03-28' target='_blank'>https://storywrangling.org/api/divergence/<b>2020-03-28</b></a> to get the highest-divergence ngrams in all English tweets on January 1, 2020</br>"
-=======
-def give_zipf_instructions():
-    return "Enter a URL containing a date (YYYY-MM-DD) query</br>in the format <b>/api/divergence/</b><em>&lt;date&gt;</em></br></br>e.g. <a href='https://storywrangling.org/api/divergence/2020-03-28' target='_blank'>https://storywrangling.org/api/zipf/<b>2020-03-28</b>?language=<b>en</b></a> to get the highest-divergence ngrams in all English tweets on January 1, 2020</br>"
->>>>>>> 755ba4a6372ebed05d17c0197dafb9d1ec8aeba9
 
 
 @app.route('/api/zipf/', methods=['GET'])
@@ -212,7 +194,6 @@ def zipf_data(query):
 def divergence_data(query):
     start = time.time()
     pid = uuid.uuid4()
-<<<<<<< HEAD
     ip = request.remote_addr
     language = 'en'
     try:
@@ -220,13 +201,6 @@ def divergence_data(query):
         if ngrams not in ['1grams','2grams']:
             ngrams = '1grams'
     except:
-=======
-    date = request.date
-    ip = request.remote_addr
-    language = 'en'
-    ngrams = str(request.args.get('ngrams'))+"grams"
-    if ngrams not in ['1grams','2grams']:
->>>>>>> 755ba4a6372ebed05d17c0197dafb9d1ec8aeba9
         ngrams = '1grams'
     # Pull the date requested
     try:
@@ -234,11 +208,7 @@ def divergence_data(query):
     except:
         return ("Sorry, date not formatted correctly or not included in our database. Dates should be formatted as 2020-03-28")
     rt = request.args.get('rt') == 'true'
-<<<<<<< HEAD
     output = {'date':query,'language': language, 'ngrams': ngrams, 'with_RT':rt}
-=======
-    output = {'date':date,'language': language, 'ngrams': ngrams}
->>>>>>> 755ba4a6372ebed05d17c0197dafb9d1ec8aeba9
     db = client['rd_'+ngrams]
     collection = db[language]
     try:
@@ -251,20 +221,14 @@ def divergence_data(query):
         df = pd.DataFrame(columns=['ngram', change, contribution])
         for result in collection.find({'time_2':date}):
             df = df.append({'ngram': result['ngram'], change: result[change], contribution: result[contribution]},ignore_index=True)
-<<<<<<< HEAD
         df.dropna(inplace=True)
         df = df.sort_values(by=[change])
-=======
->>>>>>> 755ba4a6372ebed05d17c0197dafb9d1ec8aeba9
         output['elapsed_time']=(time.time()-start)
         output['data']=df.to_dict('index')
     except:
         output['elapsed_time']=(time.time()-start)
         output['error'] = (f"Sorry, we had trouble returning rank divergence data for {date} in the {language} {'rd_'+ngrams} database")
-<<<<<<< HEAD
         output['sys_err'] = (f'Unexpected error: {sys.exc_info()[0]}')
-=======
->>>>>>> 755ba4a6372ebed05d17c0197dafb9d1ec8aeba9
     return jsonify(output)
 
 
