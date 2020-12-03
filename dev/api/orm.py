@@ -16,6 +16,7 @@ from flask_cors import CORS
 import json
 import uuid
 import sys
+from urllib.request import urlopen
 from urllib.parse import urlparse, quote, unquote, quote_plus
 import numpy as np
 
@@ -41,6 +42,8 @@ def load_resources():
             resources['page_options'][page]['language'] = list(resources['language_codes']['db_code'])
     with open(os.path.join(package_directory, 'resources', 'page_config.json'), 'r') as f:
         resources['page_config'] = json.load(f)
+    with open(os.path.join(package_directory, 'resources', 'page_option_types.json'), 'r') as f:
+        resources['page_option_types'] = json.load(f)
     return resources
 
 resources = load_resources()
@@ -123,6 +126,7 @@ def freq_to_odds(freq):
     except: return None
 
 def build_response(params,data):
+    print(f'Building response for params {params}')
     if params['response'] == "csv":
         return data.to_csv()
     elif params['response'] == "tsv":
@@ -181,15 +185,15 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/api/ngrams/', methods=['GET'])
 def ngrams_response():
-    return urllib.urlopen("static/ngrams.html").read()
+    return urlopen("file://" + os.path.expanduser('~') + "/dev/api/static/ngrams.html").read()
 
 @app.route('/api/zipf/', methods=['GET'])
 def zipf_response():
-    return urllib.urlopen("static/zipf.html").read()
+    return urlopen("file://" + os.path.expanduser('~') + "/dev/api/static/zipf.html").read()
 
 @app.route('/api/divergence/', methods=['GET'])
 def divergence_response():
-    return urllib.urlopen("static/divergence.html").read()
+    return urlopen("file://" + os.path.expanduser('~') + "/dev/api/static/divergence.html").read()
 
 @app.route('/api/resources/', methods=['GET'])
 def resources_response():

@@ -1,0 +1,39 @@
+{
+    "ngrams": {
+        "metric": ["rank","odds"],
+        "scale": ["log","lin"],
+        "rt": [true,false],
+        "response": ["json","csv","tsv"]
+    },
+    "language": {
+        "n" : [1,2,3],
+        "metric": ["count","odds","rank","comments","retweets","speakers","tweets","num","unique"],
+        "scale": ["log","lin"],
+        "rt": [true,false],
+        "response": ["json","csv","tsv"]
+    },
+    "zipf": {
+        "metric": ["rank","odds"],
+        "n": [1,2,3],
+        "scale": ["log","lin"],
+        "rt": [true,false],
+        "plots": [true,false],
+        "response": ["json","csv","tsv"]
+    },
+    "potusometer": {
+        "language": ["en"],
+        "metric": ["rank","odds"],
+        "scale": ["log","lin"],
+        "rt": [true,false],
+        "response": ["json","csv","tsv"]
+    },
+    "divergence": {
+        "language": ["en"],
+        "n": [1,2],
+        "scale": ["log","lin"],
+        "rt": [true,false],
+        "plots": [true,false],
+        "response": ["json","csv","tsv"]
+    }
+
+}
