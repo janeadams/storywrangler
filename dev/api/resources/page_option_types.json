@@ -1,6 +1,6 @@
 {
     "ngrams": {
-        "ngram": "string",
+        "ngrams": "list",
         "language": "string",
         "metric": "string",
         "scale": "string",

@@ -8,7 +8,7 @@ import os
 import pickle
 from storywrangling import Storywrangler
 storywrangler = Storywrangler()
-from flask import Flask, Response
+from flask import Flask, Response, make_response
 from flask import request, abort, jsonify
 import csv
 import uuid
@@ -89,13 +89,8 @@ def type_out(v, t):
         return str(v)
     elif t == "int":
         return int(v)
-    elif t == "array":
-        parsed = []
-        values = v.split(',') # split on the comma
-        for value in values: # for each item in the list
-            if value != '': # so long as it's not nothing
-                parsed.append(value.strip()) # remove any leading/trailing whitespace and add to the array
-        return parsed # return the new parsed array
+    elif t == "list":
+        return get_list(v)
     else:
         return v
 
@@ -125,8 +120,9 @@ def freq_to_odds(freq):
     try: return 1.0/freq
     except: return None
 
-def build_response(params,data):
+def build_response(params,df_obj):
     print(f'Building response for params {params}')
+    print(f'Column dtypes are: {data.dtypes}')
     if params['response'] == "csv":
         return data.to_csv()
     elif params['response'] == "tsv":
@@ -136,16 +132,49 @@ def build_response(params,data):
         response['metadata'] = params
         response['data'] = data.to_dict()
         return jsonify(response)
+    
+def get_list(query):
+    parsed_list = [q.strip() for q in query.split(',') if (q.strip() != '')]
+    print(f'Parsed query {query} into list {parsed_list}')
+    return parsed_list
 
 def get_ngram_data(params):
-    print(f"Getting ngram data for {params['ngram']} in {params['language']}")
-    ngram_df = storywrangler.get_ngram(
-      params['ngram'],
-      lang=params['language']
-    )
-    ngram_df['odds']=[freq_to_odds(f) for f in ngram_df['freq']]
-    ngram_df['odds_no_rt']=[freq_to_odds(f) for f in ngram_df['freq_no_rt']]
-    return build_response(params,ngram_df)
+    print(f"Getting ngram data for {params['ngrams']} in {params['language']}")
+    df_obj = {}
+    for ngram in params['ngrams']:
+        ngram_df = storywrangler.get_ngram(
+          ngram,
+          lang=params['language']
+        )
+        try:
+            ngram_df['odds']=[freq_to_odds(f) for f in ngram_df['freq']]
+        except:
+          print("Error converting odds to frequency")
+        try:
+            ngram_df['odds_no_rt']=[freq_to_odds(f) for f in ngram_df['freq_no_rt']]
+        except:
+          print("Error converting odds (no RT) to frequency (no RT)")
+        ngram_df.index = ngram_df.index.strftime('%Y-%m-%d')
+        df_obj[ngram] = ngram_df.dropna()
+    print(f'Building response for params {params}')
+    if params['response'] == "csv":
+        keyed_dfs = {}
+        for ngram, df in df_obj.items():
+          df['ngram'] = ngram
+          keyed_dfs[ngram] = df
+        combined_df = pd.concat(keyed_dfs.values())
+        resp = make_response(combined_df.to_csv())
+        resp.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["ngrams"]])}.csv'
+        resp.headers["Content-Type"] = "text/csv"
+        return resp
+    else: # Default to json
+        response = {}
+        response['metadata'] = params
+        dict_obj = {}
+        for ngram in df_obj.keys():
+          dict_obj[ngram] = df_obj[ngram].to_dict()
+        response['data'] = dict_obj
+        return jsonify(response)
 
 def get_language_data(params):
     print(f"Getting language data for {params['language']}")
@@ -204,7 +233,10 @@ def resources_response():
 
 @app.route('/api/ngrams/<query>', methods=['GET'])
 def ngram_data(query):
+    print(f'Received ngram query {query} and request args {dict(request.args)}')
     params = get_url_params(request.args, 'ngrams')
+    if ((not hasattr(dict(request.args), 'ngrams')) & (query is not None)):
+        params['ngrams'] = get_list(query)
     return get_ngram_data(params)
 
 @app.route('/api/zipf/<query>', methods=['GET'])

@@ -1,39 +1,33 @@
 {
     "ngrams": {
         "metric": ["rank","odds"],
-        "scale": ["log","lin"],
         "rt": [true,false],
-        "response": ["json","csv","tsv"]
+        "response": ["json","csv"]
     },
     "language": {
         "n" : [1,2,3],
         "metric": ["count","odds","rank","comments","retweets","speakers","tweets","num","unique"],
-        "scale": ["log","lin"],
         "rt": [true,false],
-        "response": ["json","csv","tsv"]
+        "response": ["json","csv"]
     },
     "zipf": {
         "metric": ["rank","odds"],
         "n": [1,2,3],
-        "scale": ["log","lin"],
         "rt": [true,false],
         "plots": [true,false],
-        "response": ["json","csv","tsv"]
+        "response": ["json","csv"]
     },
     "potusometer": {
         "language": ["en"],
         "metric": ["rank","odds"],
-        "scale": ["log","lin"],
         "rt": [true,false],
-        "response": ["json","csv","tsv"]
+        "response": ["json","csv"]
     },
     "divergence": {
         "language": ["en"],
         "n": [1,2],
-        "scale": ["log","lin"],
         "rt": [true,false],
-        "plots": [true,false],
-        "response": ["json","csv","tsv"]
+        "response": ["json","csv"]
     }
 
 }

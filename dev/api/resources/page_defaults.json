@@ -1,9 +1,8 @@
 {
     "ngrams": {
-        "ngram": "Black Lives Matter",
+        "ngrams": ["Black Lives Matter", "Covid-19", "Election 2020"],
         "language": "en",
         "metric": "rank",
-        "scale": "log",
         "rt": false,
         "response": "json"
     },
@@ -11,7 +10,6 @@
         "language": "en",
         "n" : 1,
         "metric": "speakers",
-        "scale": "log",
         "rt": false,
         "response": "json"
     },
@@ -28,16 +26,13 @@
         "language": "en",
         "metric": "rank",
         "ngram": "fake news media",
-        "scale": "log",
         "rt": false,
         "response": "json"
     },
     "divergence": {
         "language": "en",
         "n": 1,
-        "scale": "log",
         "rt": false,
-        "plots": false,
         "response": "json"
     }
     
