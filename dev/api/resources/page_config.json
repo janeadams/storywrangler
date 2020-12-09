@@ -9,7 +9,7 @@
             "rt": "radio"
         }
     },
-    "language": {
+    "languages": {
         "filename": "languages",
         "input_types": {
             "languages": "dropdown-multi",

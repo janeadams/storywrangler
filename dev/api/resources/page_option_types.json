@@ -7,8 +7,8 @@
         "rt": "bool",
         "response": "string"
     },
-    "language": {
-        "language": "string",
+    "languages": {
+        "languages": "list",
         "n" : "int",
         "metric": "string",
         "scale": "string",
@@ -16,6 +16,7 @@
         "response": "string"
     },
     "zipf": {
+        "date": "date",
         "language": "string",
         "metric": "string",
         "n": "int",
@@ -33,6 +34,7 @@
         "response": "string"
     },
     "divergence": {
+        "date": "date",
         "language": "string",
         "n": "int",
         "scale": "string",

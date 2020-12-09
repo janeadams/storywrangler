@@ -6,7 +6,8 @@ import time
 import datetime as dt
 import os
 import pickle
-from storywrangling import Storywrangler
+from .storywrangling import Storywrangler, regexr
+import storywrangling.regexr as r
 storywrangler = Storywrangler()
 from flask import Flask, Response, make_response
 from flask import request, abort, jsonify
@@ -27,9 +28,9 @@ def load_resources():
         resources['regex'] = pickle.load(f)
     resources['language_codes'] = pd.read_csv(os.path.join(package_directory,'resources','popular_language_codes.csv'))
     resources['language_name_lookup'] = resources['language_codes'].set_index('db_code').filter(['language']).to_dict()['language']
+    resources['language_code_lookup'] = resources['language_codes'].set_index('language').filter(['db_code']).to_dict()['db_code']
     with open(os.path.join(package_directory, 'resources', 'language_support.json'), 'r') as f:
         resources['language_support'] = json.load(f)
-    resources['dropdown_language_options'] = resources['language_codes'].set_index('language').filter(['db_code']).reset_index().rename(columns={'language':'label','db_code':'value'}).to_dict(orient='records')
     resources['today_ngram_adjusted'] = dt.datetime.today() - dt.timedelta(days=2)
     resources['today_div_adjusted'] = dt.datetime(2019, 5, 1, 0, 0)
     with open(os.path.join(package_directory, 'resources', 'page_defaults.json'), 'r') as f:
@@ -91,14 +92,26 @@ def type_out(v, t):
         return int(v)
     elif t == "list":
         return get_list(v)
+    elif t == "date":
+        try:
+            return datetime.datetime.strptime(v, '%Y-%m-%d')
+        except:
+            return resources['today_div_adjusted']
     else:
         return v
 
 def get_url_params(url,viewer):
+    print('Getting URL params...')
     params = {}
     defaults = resources['page_defaults'][viewer]
+    print('Default params:')
+    print(defaults)
     options = resources['page_options'][viewer]
+    print('Param options:')
+    print(options)
     types = resources['page_option_types'][viewer]
+    print('Param expected types:')
+    print(types)
     for p in defaults.keys():
         p_type = types[p] # Get the type (string, bool, array, int) of this parameter
         try:
@@ -113,30 +126,96 @@ def get_url_params(url,viewer):
         except: # If the parameter listed in default keys wasn't specified in the URL
             params[p] = defaults[p] # Set the parameter to the default value
     params['viewer'] = viewer
+    print('Params:')
     print(params)
     return params
 
 def freq_to_odds(freq):
     try: return 1.0/freq
     except: return None
-
-def build_response(params,df_obj):
-    print(f'Building response for params {params}')
-    print(f'Column dtypes are: {data.dtypes}')
-    if params['response'] == "csv":
-        return data.to_csv()
-    elif params['response'] == "tsv":
-        return data.to_csv(sep="\t")
-    else: # Default to json
-        response = {}
-        response['metadata'] = params
-        response['data'] = data.to_dict()
-        return jsonify(response)
     
 def get_list(query):
     parsed_list = [q.strip() for q in query.split(',') if (q.strip() != '')]
     print(f'Parsed query {query} into list {parsed_list}')
     return parsed_list
+
+def get_ngrams_list(query, language):
+    parsed_list = [q.strip() for q in query.split(',') if (q.strip() != '')]
+    print(f'Parsed query {query} into list {parsed_list}')
+    new_list = []
+    for q in parsed_list:
+        print(f'Getting ngrams for "{q}" in {language}') 
+        q = r.remove_whitespaces(q)
+        ngrams = list(regexr.nparser(q, resources['regex']))
+        number = len(ngrams)
+        if number==3:
+            print(f'{q} is a 3gram')
+            if language in resources['language_support']['3grams']:
+                print(f'{language} supports 3grams')
+                ngrams = [list(r.nparser(q, resources['regex'], n=3).keys())[0]]
+                for n in ngrams:
+                    new_list.append(n)
+                    print(f'New list: {new_list}')
+            else:
+                print(f'{language} does not support 3grams')
+                number=1
+                ngrams = list(r.nparser(q, resources['regex'], n=1).keys())
+                res = []
+                [res.append(x) for x in ngrams if x not in res]
+                ngrams = res
+                print(f'Adding {ngrams} to new list')
+                for n in ngrams:
+                    new_list = new_list.append(n)
+        elif number==2:
+            print(f'{q} is a 2gram')
+            if language in resources['language_support']['2grams']:
+                print(f'{language} supports 2grams')
+                ngrams = [list(r.nparser(q, resources['regex'], n=2).keys())[0]]
+                print(f'Adding {ngrams} to new list')
+                for n in ngrams:
+                    new_list.append(n)
+                    print(f'New list: {new_list}')
+            else:
+                print(f'{language} does not support 2grams')
+                number=1
+                ngrams = list(r.nparser(q, resources['regex'], n=1).keys())
+                res = []
+                [res.append(x) for x in ngrams if x not in res]
+                ngrams = res
+                print(f'Adding {ngrams} to new list')
+                for n in ngrams:
+                    new_list.append(n)
+                    print(f'New list: {new_list}')
+        else:
+            print(f'{q} is not a 3gram or 2gram')
+            number=1
+            ngrams = list(r.nparser(q, resources['regex'], n=1).keys())
+            res = []
+            [res.append(x) for x in ngrams if x not in res]
+            ngrams = res
+            print(f'Adding {ngrams} to new list')
+            for n in ngrams:
+                new_list.append(n)
+                print(f'New list: {new_list}')
+    print(f'Original query: {query} | Language: {language} | New list: {new_list}')
+    return new_list
+
+def get_language_list(query):
+    print(f'Getting language list; query is {query}')
+    parsed_list = [q.strip().lower() for q in query.split(',') if (q.strip() != '')]
+    print(f'Parsed list: {parsed_list}')
+    new_list = []
+    for q in parsed_list:
+        if q in list(resources['language_name_lookup'].keys()):
+            print(f'{q} is in {list(resources["language_name_lookup"].keys())}')
+            new_list.append(q)
+            print(f'Added {q} to {new_list}')
+        elif q.title() in list(resources['language_code_lookup'].keys()):
+            print(f'{q.title()} is in {list(resources["language_code_lookup"].keys())}')
+            new_list.append(resources['language_code_lookup'][q.title()])
+            print(f'Added {q.title()} to {new_list}')
+    return new_list
+    
 
 def get_ngram_data(params):
     print(f"Getting ngram data for {params['ngrams']} in {params['language']}")
@@ -177,11 +256,40 @@ def get_ngram_data(params):
         return jsonify(response)
 
 def get_language_data(params):
-    print(f"Getting language data for {params['language']}")
-    lang_df = storywrangler.get_lang(params['language'])
-    lang_df['odds']=[freq_to_odds(f) for f in lang_df['freq']]
-    lang_df['odds_no_rt']=[freq_to_odds(f) for f in lang_df['freq_no_rt']]
-    return build_response(params,lang_df)
+    print(f"Getting language data for {params['languages']}")
+    df_obj = {}
+    for language in params['languages']:
+        lang_df = storywrangler.get_lang(language)
+        try:
+            lang_df['odds']=[freq_to_odds(f) for f in lang_df['freq']]
+        except:
+            print("Error converting odds to frequency")
+        try:
+            lang_df['odds_no_rt']=[freq_to_odds(f) for f in lang_df['freq_no_rt']]
+        except:
+            print("Error converting no RT odds to frequency")
+        #print(f'{language} dtypes are {lang_df.dtypes}')
+        lang_df.index = lang_df.index.strftime('%Y-%m-%d')
+        df_obj[language] = lang_df.dropna()
+    print(f'Building response for params {params}')
+    if params['response'] == "csv":
+        keyed_dfs = {}
+        for language, df in df_obj.items():
+          df['language'] = language
+          keyed_dfs[language] = df
+        combined_df = pd.concat(keyed_dfs.values())
+        resp = make_response(combined_df.to_csv())
+        resp.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["languages"]])}.csv'
+        resp.headers["Content-Type"] = "text/csv"
+        return resp
+    else: # Default to json
+        response = {}
+        response['metadata'] = params
+        dict_obj = {}
+        for ngram in df_obj.keys():
+          dict_obj[language] = df_obj[language].to_dict()
+        response['data'] = dict_obj
+        return jsonify(response)
 
 def get_zipf_data(params):
     if params['rt']:
@@ -215,6 +323,10 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/api/ngrams/', methods=['GET'])
 def ngrams_response():
     return urlopen("file://" + os.path.expanduser('~') + "/dev/api/static/ngrams.html").read()
+          
+@app.route('/api/languages/', methods=['GET'])
+def languages_response():
+    return urlopen("file://" + os.path.expanduser('~') + "/dev/api/static/languages.html").read()
 
 @app.route('/api/zipf/', methods=['GET'])
 def zipf_response():
@@ -236,8 +348,19 @@ def ngram_data(query):
     print(f'Received ngram query {query} and request args {dict(request.args)}')
     params = get_url_params(request.args, 'ngrams')
     if ((not hasattr(dict(request.args), 'ngrams')) & (query is not None)):
-        params['ngrams'] = get_list(query)
+        ngrams_list = get_ngrams_list(query, params['language'])
+        if ngrams_list is not None:
+            params['ngrams'] = ngrams_list
     return get_ngram_data(params)
+          
+@app.route('/api/languages/<query>', methods=['GET'])
+def languages_data(query):
+    params = get_url_params(request.args, 'languages')
+    if ((not hasattr(dict(request.args), 'languages')) & (query is not None)):
+        language_list = get_language_list(query)
+        if language_list is not None:
+            params['languages'] = language_list
+    return get_language_data(params)
 
 @app.route('/api/zipf/<query>', methods=['GET'])
 def zipf_data(query):

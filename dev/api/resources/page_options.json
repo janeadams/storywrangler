@@ -4,7 +4,7 @@
         "rt": [true,false],
         "response": ["json","csv"]
     },
-    "language": {
+    "languages": {
         "n" : [1,2,3],
         "metric": ["count","odds","rank","comments","retweets","speakers","tweets","num","unique"],
         "rt": [true,false],

@@ -6,8 +6,8 @@
         "rt": false,
         "response": "json"
     },
-    "language": {
-        "language": "en",
+    "languages": {
+        "languages": ["en","fr", "es"],
         "n" : 1,
         "metric": "speakers",
         "rt": false,

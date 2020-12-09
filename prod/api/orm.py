@@ -62,25 +62,25 @@ def get_ngrams(language, q):
     number = len(ngrams)
     if number==3:
         if language in language_support['3grams']:
-            ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
+            ngrams = [list(r.nparser(q, regex, n=3).keys())[0]]
         else:
             number=1
-            ngrams = list(r.ngrams(q, regex, n=1).keys())
+            ngrams = list(r.nparser(q, regex, n=1).keys())
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
     elif number==2:
         if language in language_support['2grams']:
-            ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
+            ngrams = [list(r.nparser(q, regex, n=2).keys())[0]]
         else:
             number=1
-            ngrams = list(r.ngrams(q, regex, n=1).keys())
+            ngrams = list(r.nparser(q, regex, n=1).keys())
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
     else:
         number=1
-        ngrams = list(r.ngrams(q, regex, n=1).keys())
+        ngrams = list(r.nparser(q, regex, n=1).keys())
         res = []
         [res.append(x) for x in ngrams if x not in res]
         ngrams = res
