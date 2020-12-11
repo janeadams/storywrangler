@@ -6,9 +6,9 @@ import time
 import datetime as dt
 import os
 import pickle
-from .storywrangling import Storywrangler, regexr
-import storywrangling.regexr as r
-storywrangler = Storywrangler()
+from storywrangling import Storywrangler
+from storywrangling.regexr import nparser
+storywrangler = Storywrangler() #TODO: call this api = Storywrangler() // swap Storywrangler with Realtime for rtdb
 from flask import Flask, Response, make_response
 from flask import request, abort, jsonify
 import csv
@@ -22,28 +22,25 @@ from urllib.parse import urlparse, quote, unquote, quote_plus
 import numpy as np
 
 def load_resources():
-    package_directory = os.path.dirname(os.path.abspath(__file__))
     resources = {}
-    with open(os.path.join(package_directory, 'resources', 'ngrams.bin'), "rb") as f:
-        resources['regex'] = pickle.load(f)
-    resources['language_codes'] = pd.read_csv(os.path.join(package_directory,'resources','popular_language_codes.csv'))
+    resources['language_codes'] = pd.read_csv(os.path.join('not_resources','popular_language_codes.csv'))
     resources['language_name_lookup'] = resources['language_codes'].set_index('db_code').filter(['language']).to_dict()['language']
     resources['language_code_lookup'] = resources['language_codes'].set_index('language').filter(['db_code']).to_dict()['db_code']
-    with open(os.path.join(package_directory, 'resources', 'language_support.json'), 'r') as f:
+    with open(os.path.join('not_resources', 'language_support.json'), 'r') as f:
         resources['language_support'] = json.load(f)
     resources['today_ngram_adjusted'] = dt.datetime.today() - dt.timedelta(days=2)
     resources['today_div_adjusted'] = dt.datetime(2019, 5, 1, 0, 0)
-    with open(os.path.join(package_directory, 'resources', 'page_defaults.json'), 'r') as f:
+    with open(os.path.join('not_resources', 'page_defaults.json'), 'r') as f:
         resources['page_defaults'] = json.load(f)
         for page in ['divergence','zipf']:
             resources['page_defaults'][page]['date'] = resources['today_div_adjusted']
-    with open(os.path.join(package_directory, 'resources', 'page_options.json'), 'r') as f:
+    with open(os.path.join('not_resources', 'page_options.json'), 'r') as f:
         resources['page_options'] = json.load(f)
         for page in ['ngrams','zipf']:
             resources['page_options'][page]['language'] = list(resources['language_codes']['db_code'])
-    with open(os.path.join(package_directory, 'resources', 'page_config.json'), 'r') as f:
+    with open(os.path.join('not_resources', 'page_config.json'), 'r') as f:
         resources['page_config'] = json.load(f)
-    with open(os.path.join(package_directory, 'resources', 'page_option_types.json'), 'r') as f:
+    with open(os.path.join('not_resources', 'page_option_types.json'), 'r') as f:
         resources['page_option_types'] = json.load(f)
     return resources
 
@@ -144,22 +141,21 @@ def get_ngrams_list(query, language):
     print(f'Parsed query {query} into list {parsed_list}')
     new_list = []
     for q in parsed_list:
-        print(f'Getting ngrams for "{q}" in {language}') 
-        q = r.remove_whitespaces(q)
-        ngrams = list(regexr.nparser(q, resources['regex']))
+        print(f'Getting ngrams for "{q}" in {language}')
+        ngrams = list(nparser(q, storywrangler.parser))
         number = len(ngrams)
         if number==3:
             print(f'{q} is a 3gram')
             if language in resources['language_support']['3grams']:
                 print(f'{language} supports 3grams')
-                ngrams = [list(r.nparser(q, resources['regex'], n=3).keys())[0]]
+                ngrams = [list(nparser(q, storywrangler.parser, n=3).keys())[0]]
                 for n in ngrams:
                     new_list.append(n)
                     print(f'New list: {new_list}')
             else:
                 print(f'{language} does not support 3grams')
                 number=1
-                ngrams = list(r.nparser(q, resources['regex'], n=1).keys())
+                ngrams = list(nparser(q, storywrangler.parser, n=1).keys())
                 res = []
                 [res.append(x) for x in ngrams if x not in res]
                 ngrams = res
@@ -170,7 +166,7 @@ def get_ngrams_list(query, language):
             print(f'{q} is a 2gram')
             if language in resources['language_support']['2grams']:
                 print(f'{language} supports 2grams')
-                ngrams = [list(r.nparser(q, resources['regex'], n=2).keys())[0]]
+                ngrams = [list(nparser(q, storywrangler.parser, n=2).keys())[0]]
                 print(f'Adding {ngrams} to new list')
                 for n in ngrams:
                     new_list.append(n)
@@ -178,7 +174,7 @@ def get_ngrams_list(query, language):
             else:
                 print(f'{language} does not support 2grams')
                 number=1
-                ngrams = list(r.nparser(q, resources['regex'], n=1).keys())
+                ngrams = list(nparser(q, storywrangler.parser, n=1).keys())
                 res = []
                 [res.append(x) for x in ngrams if x not in res]
                 ngrams = res
@@ -189,7 +185,7 @@ def get_ngrams_list(query, language):
         else:
             print(f'{q} is not a 3gram or 2gram')
             number=1
-            ngrams = list(r.nparser(q, resources['regex'], n=1).keys())
+            ngrams = list(nparser(q, storywrangler.parser, n=1).keys())
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
