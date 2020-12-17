@@ -1,0 +1,25 @@
+{
+    "ngrams": {
+        "query": ["Black Lives Matter", "Covid-19", "Election 2020"],
+        "language": "en",
+        "response": "json",
+        "collection": "all"
+    },
+    "languages": {
+        "query": ["en","fr", "es"],
+        "response": "json"
+    },
+    "zipf": {
+        "language": "en",
+        "n": 1,
+        "rt": true,
+        "response": "json"
+    },
+    "divergence": {
+        "language": "en",
+        "n": 1,
+        "rt": true,
+        "response": "json"
+    }
+    
+}

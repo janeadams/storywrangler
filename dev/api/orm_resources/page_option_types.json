@@ -1,0 +1,27 @@
+{
+    "ngrams": {
+        "query": "list",
+        "language": "string",
+        "response": "string",
+        "collection": "string"
+    },
+    "languages": {
+        "query": "list",
+        "response": "string"
+    },
+    "zipf": {
+        "query": "date",
+        "language": "string",
+        "n": "int",
+        "rt": "bool",
+        "response": "string"
+    },
+    "divergence": {
+        "query": "date",
+        "language": "string",
+        "n": "int",
+        "rt": "bool",
+        "response": "string"
+    }
+
+}

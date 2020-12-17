@@ -1,0 +1,55 @@
+{
+    "ngrams": {
+        "filename": "ngrams",
+        "input_types": {
+            "ngrams": "input",
+            "language": "dropdown",
+            "metric": "radio",
+            "scale": "radio",
+            "rt": "radio"
+        }
+    },
+    "languages": {
+        "filename": "languages",
+        "input_types": {
+            "languages": "dropdown-multi",
+            "n": "radio",
+            "metric": "dropdown",
+            "scale": "radio",
+            "rt": "radio"
+        }
+    },
+    "zipf": {
+        "filename": "date",
+        "input_types": {
+            "date": "datepicker",
+            "n": "radio",
+            "metric": "radio",
+            "scale": "radio",
+            "rt": "radio",
+            "plots": "radio"
+        }
+    },
+    "potusometer": {
+        "filename": "ngrams",
+        "input_types": {
+            "ngrams": "input",
+            "language": "dropdown",
+            "metric": "radio",
+            "scale": "radio",
+            "rt": "radio"
+        }
+    },
+    "divergence": {
+        "filename": "date",
+        "input_types": {
+            "date": "datepicker",
+            "language": "dropdown",
+            "n": "radio",
+            "scale": "radio",
+            "rt": "radio",
+            "plots": "radio"
+        }
+    }
+    
+}
