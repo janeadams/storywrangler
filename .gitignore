@@ -8,7 +8,6 @@ static/
 package-lock.json
 archive/
 notes/
-notebooks/
 *.sh
 dev/api/*log.csv
 prod/api/*log.csv
