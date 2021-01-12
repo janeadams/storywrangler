@@ -14,14 +14,16 @@
         "language": "string",
         "n": "int",
         "rt": "bool",
-        "response": "string"
+        "response": "string",
+        "max": "int"
     },
     "divergence": {
         "query": "date",
         "language": "string",
         "n": "int",
         "rt": "bool",
-        "response": "string"
+        "response": "string",
+        "max": "int"
     }
 
 }

@@ -13,13 +13,15 @@
         "language": "en",
         "n": 1,
         "rt": true,
-        "response": "json"
+        "response": "json",
+        "max": 100
     },
     "divergence": {
         "language": "en",
         "n": 1,
         "rt": true,
-        "response": "json"
+        "response": "json",
+        "max": 100
     }
     
 }

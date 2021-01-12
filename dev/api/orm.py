@@ -103,16 +103,17 @@ def type_out(v, t):
 
 def get_url_params(url,viewer):
     print('Getting URL params...')
+    print(dict(request.args))
     params = {}
     defaults = all_defaults[viewer]
     print('Default params:')
     print(defaults)
     options = all_options[viewer]
-    print('Param options:')
-    print(options)
+    #print('Param options:')
+    #print(options)
     types = all_option_types[viewer]
-    print('Param expected types:')
-    print(types)
+    #print('Param expected types:')
+    #print(types)
     for p in defaults.keys():
         p_type = types[p] # Get the type (string, bool, array, int) of this parameter
         try:
@@ -199,7 +200,7 @@ def get_ngrams_list(query, language, api):
                 new_list.append(n)
                 print(f'New list: {new_list}')
     print(f'Original query: {query} | Language: {language} | New list: {new_list}')
-    return new_list
+    return list(set(new_list))
 
 def get_language_list(query):
     print(f'Getting language list; query is {query}')
@@ -208,12 +209,12 @@ def get_language_list(query):
     new_list = []
     for q in parsed_list:
         if q in list(language_name_lookup.keys()):
-            print(f'{q} is in {list(language_name_lookup.keys())}')
+            print(f'{q} is a valid language')
             new_list.append(q)
             print(f'Added {q} to {new_list}')
         elif q.title() in list(language_code_lookup.keys()):
             # If language specified is in plain writing (not a language code)
-            print(f'{q.title()} is in {list(language_code_lookup.keys())}')
+            print(f'{q.title()} is a valid language name')
             # Convert to db language code
             new_list.append(language_code_lookup[q.title()])
             print(f'Added {q.title()} to {new_list}')
@@ -228,7 +229,7 @@ def get_ngram_data(params, api):
           ngram,
           lang=params['language']
         )
-        ngram_df['date'] = [d.date().strftime("%Y-%m-%d") for d in ngram_df['date']]
+        #ngram_df['date'] = [d.date().strftime("%Y-%m-%d") for d in ngram_df['date']]
         try:
             ngram_df['odds']=[freq_to_odds(f) for f in ngram_df['freq']]
         except:
@@ -257,15 +258,13 @@ def get_ngram_data(params, api):
         for ngram in df_obj.keys():
           dict_obj[ngram] = df_obj[ngram].to_dict()
         response['data'] = dict_obj
-        return json.dumps(response, ensure_ascii=False)
+        return jsonify(response)
 
 def get_language_data(params, api):
     print(f"Getting language data for {params['languages']}")
     df_obj = {}
-    api = Storywrangler()
     for language in params['languages']:
         lang_df = api.get_lang(language)
-        lang_df['date'] = [d.date().strftime("%Y-%m-%d") for d in lang_df['date']]
         try:
             lang_df['odds']=[freq_to_odds(f) for f in lang_df['freq']]
         except:
@@ -295,12 +294,11 @@ def get_language_data(params, api):
         for ngram in df_obj.keys():
           dict_obj[language] = df_obj[language].to_dict()
         response['data'] = dict_obj
-        return json.dumps(response, ensure_ascii=False)
+        return jsonify(response)
 
-def get_zipf_data(params):
-    api = Storywrangler()
+def get_zipf_data(params, api):
     params['n'] = check_language_support(params['language'],params['n'])
-    zipf_df = api.get_zipf_dist(params['query'], params['language'], str(params['n'])+'grams', max_rank=100, rt=params['rt'])
+    zipf_df = api.get_zipf_dist(params['query'], params['language'], str(params['n'])+'grams', max_rank=params['max'], rt=params['rt'])
     if params['rt']:
         change_param = 'rank'
     else:
@@ -318,8 +316,7 @@ def get_zipf_data(params):
         response['data'] = zipf_df.to_dict()
         return jsonify(response)
 
-def get_divergence_data(params):
-    api = Storywrangler()
+def get_divergence_data(params, api):
     div_df = api.get_divergence(params['query'], params['language'],  str(params['n'])+'grams', max_rank=params['max'], rt=params['rt'])
     if params['rt']:
         change_param = 'rank_change'
@@ -385,15 +382,17 @@ def ngram_data(query):
           
 @app.route('/api/languages/<query>', methods=['GET'])
 def languages_data(query):
+    api = Storywrangler()
     params = get_url_params(request.args, 'languages')
     if query is not None:
         language_list = get_language_list(query)
         if language_list is not None:
             params['languages'] = language_list
-    return get_language_data(params)
+    return get_language_data(params, api)
 
 @app.route('/api/zipf/<query>', methods=['GET'])
 def zipf_data(query):
+    api = Storywrangler()
     params = get_url_params(request.args, 'zipf')
     if query is not None:
         try:
@@ -401,10 +400,11 @@ def zipf_data(query):
         except:
             print(f'{query} is not a valid date in the time format YYYY-MM-DD')
             print(f'Query is default {params["query"]}')
-    return get_zipf_data(params)
+    return get_zipf_data(params, api)
 
 @app.route('/api/divergence/<query>', methods=['GET'])
 def divergence_data(query):
+    api = Storywrangler()
     params = get_url_params(request.args, 'divergence')
     if query is not None:
         try:
@@ -412,7 +412,7 @@ def divergence_data(query):
         except:
             print(f'{query} is not a valid date in the time format YYYY-MM-DD')
             print(f'Query is default {params["query"]}')
-    return get_divergence_data(params)
+    return get_divergence_data(params, api)
 
 if __name__ == '__main__':
     app.run(debug=True, port=port)
