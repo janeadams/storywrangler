@@ -14,7 +14,8 @@
         "n": 1,
         "rt": true,
         "response": "json",
-        "max": 100
+        "max": 100,
+        "collection": "all"
     },
     "divergence": {
         "language": "en",

@@ -15,7 +15,8 @@
         "n": "int",
         "rt": "bool",
         "response": "string",
-        "max": "int"
+        "max": "int",
+        "collection": "string"
     },
     "divergence": {
         "query": "date",

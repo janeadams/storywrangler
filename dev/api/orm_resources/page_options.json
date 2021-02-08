@@ -2,7 +2,7 @@
     "ngrams": {
         "rt": [true,false],
         "response": ["json","csv"],
-        "collection": ["all"]
+        "collection": ["all","realtime"]
     },
     "languages": {
         "n" : [1,2,3],
@@ -12,7 +12,8 @@
         "language": ["en"],
         "n": [1,2,3],
         "rt": [true,false],
-        "response": ["json","csv"]
+        "response": ["json","csv"],
+        "collection": ["all","realtime"]
     },
     "divergence": {
         "language": ["en"],
@@ -20,5 +21,4 @@
         "rt": [true,false],
         "response": ["json","csv"]
     }
-
 }
