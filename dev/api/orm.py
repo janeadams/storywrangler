@@ -64,7 +64,6 @@ def get_today_languages():
     params = {
         'date': today_div_adjusted,
         'rt': False,
-        'scale': 'log',
         'n': 1,
         'language': 'en',
         'viewer': 'divergence'
@@ -76,7 +75,6 @@ def get_today_suggestions():
     params = {
         'date': today_div_adjusted,
         'rt': False,
-        'scale': 'log',
         'n': 1,
         'language': 'en',
         'viewer': 'divergence'
@@ -161,13 +159,13 @@ def get_1grams_list(query, language):
     return list(set(new_list))
     
 
-def get_ngrams_list(query, language):
+def get_ngrams_list(query, language, api):
     parsed_list = [q.strip() for q in query.split(',') if (q.strip() != '')]
     print(f'Parsed query {query} into list {parsed_list}')
     new_list = []
     for q in parsed_list:
         print(f'Getting ngrams for "{q}" in {language}')
-        ngrams = list(nparser(q, Storywrangler.parser))
+        ngrams = list(nparser(q, api.parser))
         number = len(ngrams)
         if number==3:
             print(f'{q} is a 3gram')
@@ -180,7 +178,7 @@ def get_ngrams_list(query, language):
             else:
                 print(f'{language} does not support 3grams')
                 number=1
-                ngrams = list(nparser(q, Storywrangler.parser, n=1).keys())
+                ngrams = list(nparser(q, api.parser, n=1).keys())
                 res = []
                 [res.append(x) for x in ngrams if x not in res]
                 ngrams = res
@@ -191,7 +189,7 @@ def get_ngrams_list(query, language):
             print(f'{q} is a 2gram')
             if language in language_support['2grams']:
                 print(f'{language} supports 2grams')
-                ngrams = [list(nparser(q, Storywrangler.parser, n=2).keys())[0]]
+                ngrams = [list(nparser(q, api.parser, n=2).keys())[0]]
                 print(f'Adding {ngrams} to new list')
                 for n in ngrams:
                     new_list.append(n)
@@ -199,7 +197,7 @@ def get_ngrams_list(query, language):
             else:
                 print(f'{language} does not support 2grams')
                 number=1
-                ngrams = list(nparser(q, Storywrangler.parser, n=1).keys())
+                ngrams = list(nparser(q, api.parser, n=1).keys())
                 res = []
                 [res.append(x) for x in ngrams if x not in res]
                 ngrams = res
@@ -210,7 +208,7 @@ def get_ngrams_list(query, language):
         else:
             print(f'{q} is not a 3gram or 2gram')
             number=1
-            ngrams = list(nparser(q, Storywrangler.parser, n=1).keys())
+            ngrams = list(nparser(q, api.parser, n=1).keys())
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
@@ -240,12 +238,8 @@ def get_language_list(query):
     return new_list
     
 
-def get_ngram_data(params):
+def get_ngram_data(params, api):
     print(f"Getting ngram data for {params['query']} in {params['language']}")
-    if (params["collection"] == 'realtime'):
-        api = Realtime()
-    else:
-        api = Storywrangler()
     df_obj = {}
     for ngram in params['query']:
         ngram_df = api.get_ngram(
@@ -279,7 +273,10 @@ def get_ngram_data(params):
         response['metadata'] = params
         dict_obj = {}
         for ngram in df_obj.keys():
-          dict_obj[ngram] = df_obj[ngram].to_dict()
+          dict_obj[ngram] = {}
+          dict_obj[ngram]['date'] = list(df_obj[ngram].index)
+          for col in list(df_obj[ngram].columns):
+              dict_obj[ngram][col] = list(df_obj[ngram][col])
         response['data'] = dict_obj
         return jsonify(response)
 
@@ -394,14 +391,16 @@ def ngram_data(query):
     print(f'Received ngram query {query} and request args {dict(request.args)}')
     params = get_url_params(request.args, 'ngrams')
     if params['collection']=='realtime':
+        api = Realtime()
         if query is not None:
             ngrams_list = get_1grams_list(query)
     else:
+        api = Storywrangler()
         if query is not None:
-            ngrams_list = get_ngrams_list(query, params['language'])
+            ngrams_list = get_ngrams_list(query, params['language'], api)
     if ngrams_list is not None:
         params['query'] = ngrams_list
-    return get_ngram_data(params)
+    return get_ngram_data(params, api)
           
 @app.route('/api/languages/<query>', methods=['GET'])
 def languages_data(query):
