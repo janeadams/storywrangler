@@ -18,10 +18,8 @@ const NgramSearch = (props) => {
           console.log(item)
           if (item.__isNew__){
               console.log(`${item.value} is new!`)
-              props.getData(item.value, props.params)
           }
       })
-      console.log(`New ngrams: ${ngrams}`)
       return ngrams
   }
     

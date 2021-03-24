@@ -19,11 +19,9 @@ const ScaleDropdown = (props) => {
           <Select
           className="basic-single"
           classNamePrefix="select"
-          value={props.params.scale}
-          name="scale"
-          placeholder={"Select scale..."}
-          options={[{'value': 'log', 'label': 'Logarithmic'},{'value': 'lin', 'label': 'Linear'}]}
-          onChange={value => props.setParams({...props.params, 'scale': value.value})}
+          defaultValue={{'value': props.params.scale, 'label': getName(props.params.scale)}}
+          options={[{'value': 'log', 'label': 'Logarithmic'}, {'value': 'lin', 'label': 'Linear'}]}
+          onChange={selection => props.setParams({...props.params, 'scale': selection.value})}
         />
      </div>
   )

@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "arquero": "^4.1.0",
+    "datalib": "^1.9.3",
     "query-string": "^7.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -14,7 +15,12 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-select": "^4.1.0",
+    "react-vega": "^7.4.2",
     "redux": "^4.0.5",
+    "stat": "0.0.5",
+    "vega": "^5.20.0",
+    "vega-lite": "^5.0.0",
+    "vega-lite-api": "^5.0.0-beta.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

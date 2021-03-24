@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {Helmet} from "react-helmet";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, Ngrams, Zipf, Realtime, Rtd, Languages, About, Contact } from "./components";
@@ -13,29 +13,28 @@ function App() {
       'language': 'en',
       'rt': true,
       'scale': 'log',
-      'data': {}
+      'data': null
   })
   
-  const getData = (query, params) => {
-    const endpoint = `http://hydra.uvm.edu:3000/api/${params.viewer}/`
-    let apiparams = []
-    for (const [key, value] of Object.entries(params)) {
-      if (!(['viewer','data','url','ngrams'].includes(key)) && (![null,'',[]].includes(value))){
-          apiparams.push(key+"="+value)
-      }
-    }
-    let apicall = endpoint+query+'?'+apiparams.join('&')
-    console.log('Formatted API call as:')
-    console.log(apicall)
-    fetch(apicall)
-      .then(response => response.json())
-      .then(json => {
-        let newNgrams = params.ngrams
-        let returnedQuery = json.metadata.query
-        returnedQuery.forEach(q => newNgrams.push(q))
-        setParams({...params, 'ngrams': newNgrams, 'data': json.data})
-    });
-  }
+  React.useEffect(function effectData() {
+       async function getData() {
+           const endpoint = `http://hydra.uvm.edu:3000/api/${params.viewer}/`
+            let apiparams = []
+            for (const [key, value] of Object.entries(params)) {
+              if (!(['viewer','data','url','ngrams'].includes(key)) && (![null,'',[]].includes(value))){
+                  apiparams.push(key+"="+value)
+              }
+            }
+            let apicall = endpoint+params.ngrams+'?'+apiparams.join('&')
+            console.log('Formatted API call as:')
+            console.log(apicall)
+           const response = await fetch(apicall);
+           const json = await response.json();
+           setParams({...params, 'data': json.data})
+       }
+       getData()
+          console.log({params})
+   }, [params.ngrams]);
          
   return (
     <div className="App">
@@ -47,7 +46,7 @@ function App() {
         <Navigation />
         <Switch>
           <Route path="/" exact component={() => <Home />} />
-          <Route path="/ngrams" exact component={() => <Ngrams params={params} setParams={setParams} getData={getData}/>} />
+          <Route path="/ngrams" exact component={() => <Ngrams params={params} setParams={setParams}/>} />
           <Route path="/realtime" exact component={() => <Realtime />} />
           <Route path="/zipf" exact component={() => <Zipf />} />
           <Route path="/rtd" exact component={() => <Rtd />} />
