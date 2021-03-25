@@ -16,3 +16,4 @@ prod/api/*log.csv
 debug/
 __pycache__/*
 *.pyc
+*/api/logs/*
