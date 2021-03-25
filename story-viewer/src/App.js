@@ -13,6 +13,7 @@ function App() {
       'language': 'en',
       'rt': true,
       'scale': 'log',
+      'metric': 'rank',
       'data': null
   })
   

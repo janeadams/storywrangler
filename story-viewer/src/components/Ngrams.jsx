@@ -3,10 +3,29 @@ import {RouteComponentProps, withRouter} from "react-router";
 import ScaleDropdown from "./../options/scale-dropdown"
 import NgramSearch from "./../options/ngram-search"
 import RT from "./../options/rt"
-import Timeline from "./../visualizations/timeline"
+import Timeline from "./../visualizations/Timeline"
 import useQueryString from "./../useQueryString";
+import * as d3 from "d3"
 
 const Ngrams = (props) => {
+
+    let i = 0
+    const parseDate = d3.timeParse("%Y-%m-%d")
+    const formatDate = d3.timeFormat("%Y-%m-%d")
+    const dateAccessor = d => {
+        console.log(`dateAccessor received`)
+        console.log(d)
+        console.log(`returning`)
+        console.log(`${parseDate(d.date)}`)
+        parseDate(d.date)
+    }
+    const metricAccessor = d => {
+        console.log(`metricAccessor received`)
+        console.log(d)
+        console.log(`returning`)
+        console.log(`${parseDate(d.count)}`)
+        d.count
+    }
       
       return (
         <div className="ngrams">
@@ -21,6 +40,8 @@ const Ngrams = (props) => {
             <section className="viz">
                 <Timeline
                     data={props.params.data}
+                    xAccessor={dateAccessor}
+                    yAccessor={metricAccessor}
                 />
             </section>
             <p>{'RT?: '+JSON.stringify(props.params.rt)}</p>
