@@ -9,7 +9,7 @@ function App() {
   const [params, setParams] = useState({
       'viewer': 'ngrams',
       'url': window.location.pathname,
-      'ngrams' : ['haha','ok'],
+      'ngrams' : ['covid','coronavirus'],
       'language': 'en',
       'rt': true,
       'scale': 'log',

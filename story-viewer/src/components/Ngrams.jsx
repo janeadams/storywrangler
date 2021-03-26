@@ -13,18 +13,10 @@ const Ngrams = (props) => {
     const parseDate = d3.timeParse("%Y-%m-%d")
     const formatDate = d3.timeFormat("%Y-%m-%d")
     const dateAccessor = d => {
-        console.log(`dateAccessor received`)
-        console.log(d)
-        console.log(`returning`)
-        console.log(`${parseDate(d.date)}`)
-        parseDate(d.date)
+        return parseDate(d.date)
     }
     const metricAccessor = d => {
-        console.log(`metricAccessor received`)
-        console.log(d)
-        console.log(`returning`)
-        console.log(`${parseDate(d.count)}`)
-        d.count
+        return d.count
     }
       
       return (
