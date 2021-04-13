@@ -24,9 +24,9 @@ export const  lastyeardate = dateParser(formatDate(new Date().setFullYear(thisye
 export const  thisfirst = new Date(thisyear, 1, 1)
 export const  firstDate = new Date(2009,9,1)
 
-String.prototype.toTitleCase = function () {
-    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-};
+export const titleCase = (title => {
+    return title.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+})
 
 export const formatURLParams = (params => {
     let paramlist = []

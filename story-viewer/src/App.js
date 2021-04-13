@@ -3,17 +3,14 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useHistory, useLocation } from 'react-router-dom'
 import { Navigation, Footer, Home, View, Contact } from "./components";
-import { useQueryString } from "./useQueryString";
-import {formatDate, mostrecent, viewerOptions, formatURLParams, updateURL} from "./utils"
-import getDatasetNamesFromSpec from "react-vega/lib/utils/getDatasetNamesFromSpec";
+import {formatDate, mostrecent, viewerOptions, formatURLParams} from "./utils"
 
 function App() {
 
-    const [URLparams, setURLparams] = useState({})
     const [viewer, setViewer] = useState('ngrams')
 
     const viewerRoutes = viewerOptions.map(v => {
-        return <Route path={`/${v}${formatURLParams(URLparams)}`} exact component={() => <View viewer={v} setState={setURLparams}/>} />
+        return <Route path={`/${v}`} exact component={() => <View viewer={v}/>} />
     })
          
   return (

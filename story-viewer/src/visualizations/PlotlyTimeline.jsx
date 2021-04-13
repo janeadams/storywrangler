@@ -1,6 +1,6 @@
 import React from 'react';
-import Plot from 'react-plotly.js';
-import { toTitleCase } from "./utils"
+import Plot from '../../node_modules/react-plotly.js/react-plotly';
+import { titleCase } from "./../utils"
 
 const PlotlyTimeline = ( props ) => {
 
@@ -29,13 +29,13 @@ const PlotlyTimeline = ( props ) => {
                     autosize: true,
                     xaxis: {
                         autorange: true ,
-                        title: {text: 'date'.toTitleCase()}
+                        title: {text: titleCase('date')}
                     },
                     yaxis: {
                         type: props.scale,
                         fixedrange: true,
                         autorange: (props.metric==='rank') ? 'reversed' : true,
-                        title: {text: (props.rt) ? props.metric.toTitleCase() : props.metric.toTitleCase()+" (no Retweets)"}
+                        title: {text: (props.rt) ? titleCase(props.metric) : titleCase(props.metric)+" (no Retweets)"}
                     }
                 }}
                 scrollZoom={true}
