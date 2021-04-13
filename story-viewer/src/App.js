@@ -1,41 +1,20 @@
-import React, { useState, useCallback, useEffect } from "react";
-import {Helmet} from "react-helmet";
+import React, { useState, useCallback, useEffect, useContext, useReducer } from "react";
+import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navigation, Footer, Home, Ngrams, Zipf, Realtime, Rtd, Languages, About, Contact } from "./components";
+import { useHistory, useLocation } from 'react-router-dom'
+import { Navigation, Footer, Home, View, Contact } from "./components";
 import { useQueryString } from "./useQueryString";
+import {formatDate, mostrecent, viewerOptions, formatURLParams, updateURL} from "./utils"
+import getDatasetNamesFromSpec from "react-vega/lib/utils/getDatasetNamesFromSpec";
 
 function App() {
-  
-  const [params, setParams] = useState({
-      'viewer': 'ngrams',
-      'url': window.location.pathname,
-      'ngrams' : ['covid','coronavirus'],
-      'language': 'en',
-      'rt': true,
-      'scale': 'log',
-      'metric': 'rank',
-      'data': null
-  })
-  
-  React.useEffect(function effectData() {
-       async function getData() {
-           const endpoint = `http://hydra.uvm.edu:3000/api/${params.viewer}/`
-            let apiparams = []
-            for (const [key, value] of Object.entries(params)) {
-              if (!(['viewer','data','url','ngrams'].includes(key)) && (![null,'',[]].includes(value))){
-                  apiparams.push(key+"="+value)
-              }
-            }
-            let apicall = endpoint+params.ngrams+'?'+apiparams.join('&')
-            console.log('Formatted API call as:')
-            console.log(apicall)
-           const response = await fetch(apicall);
-           const json = await response.json();
-           setParams({...params, 'data': json.data})
-       }
-       getData()
-          console.log({params})
-   }, [params.ngrams]);
+
+    const [URLparams, setURLparams] = useState({})
+    const [viewer, setViewer] = useState('ngrams')
+
+    const viewerRoutes = viewerOptions.map(v => {
+        return <Route path={`/${v}${formatURLParams(URLparams)}`} exact component={() => <View viewer={v} setState={setURLparams}/>} />
+    })
          
   return (
     <div className="App">
@@ -45,16 +24,11 @@ function App() {
       </Helmet>
       <Router>
         <Navigation />
-        <Switch>
-          <Route path="/" exact component={() => <Home />} />
-          <Route path="/ngrams" exact component={() => <Ngrams params={params} setParams={setParams}/>} />
-          <Route path="/realtime" exact component={() => <Realtime />} />
-          <Route path="/zipf" exact component={() => <Zipf />} />
-          <Route path="/rtd" exact component={() => <Rtd />} />
-          <Route path="/languages" exact component={() => <Languages />} />
-          <Route path="/about" exact component={() => <About />} />
-          <Route path="/contact" exact component={() => <Contact />} />
-        </Switch>
+            <Switch>
+              <Route path="/" exact component={() => <Home />} />
+                {viewerRoutes}
+              <Route path="/contact" exact component={() => <Contact />} />
+            </Switch>
         <Footer />
       </Router>
     </div>

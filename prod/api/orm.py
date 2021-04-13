@@ -1,7 +1,7 @@
 port = '3001'
 version = 'prod'
 
-import dev.api.regexr as r
+import prod.api.regexr as r
 import pandas as pd
 import numpy as np
 import flask
@@ -30,7 +30,7 @@ client = pymongo.MongoClient('mongodb://%s:%s@127.0.0.1' % (username, password))
 
 with open(f'{version}/api/ngrams.bin', "rb") as f:
     regex = pickle.load(f)
-    
+
 with open(f'{version}/api/language_support.json', 'r') as f:
     language_support = json.load(f)
 
@@ -58,29 +58,29 @@ def get_unique_count(date, language, ngrams):
 
 def get_ngrams(language, q):
     q = r.remove_whitespaces(q)
-    ngrams = list(r.ngram_parser(q, regex))
+    ngrams = list(r.ngrams(q, regex))
     number = len(ngrams)
     if number==3:
         if language in language_support['3grams']:
-            ngrams = [list(r.nparser(q, regex, n=3).keys())[0]]
+            ngrams = [list(r.ngrams(q, regex, n=3).keys())[0]]
         else:
             number=1
-            ngrams = list(r.nparser(q, regex, n=1).keys())
+            ngrams = list(r.ngrams(q, regex, n=1).keys())
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
     elif number==2:
         if language in language_support['2grams']:
-            ngrams = [list(r.nparser(q, regex, n=2).keys())[0]]
+            ngrams = [list(r.ngrams(q, regex, n=2).keys())[0]]
         else:
             number=1
-            ngrams = list(r.nparser(q, regex, n=1).keys())
+            ngrams = list(r.ngrams(q, regex, n=1).keys())
             res = []
             [res.append(x) for x in ngrams if x not in res]
             ngrams = res
     else:
         number=1
-        ngrams = list(r.nparser(q, regex, n=1).keys())
+        ngrams = list(r.ngrams(q, regex, n=1).keys())
         res = []
         [res.append(x) for x in ngrams if x not in res]
         ngrams = res

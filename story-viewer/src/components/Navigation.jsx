@@ -1,7 +1,17 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import {Link, Route, withRouter} from "react-router-dom";
+import {viewerOptions} from "./../utils"
+import {View} from "./index";
 
 function Navigation(props) {
+
+  const viewerLinks = viewerOptions.map(v => {
+    return (
+        <li className={`nav-item  ${props.location.pathname === `/${v}` ? "active" : ""}`}>
+          <Link key={v} className="nav-link" to={`/${v}`}>{v}</Link></li>
+    )
+  })
+
   return (
     <div className="navigation">
       <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -21,51 +31,7 @@ function Navigation(props) {
                   <span className="sr-only">(current)</span>
                 </Link>
               </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/ngrams" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/ngrams">
-                  Ngrams
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/realtime" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/realtime">
-                  Realtime
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/zipf" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/zipf">
-                  Zipf
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/rtd" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/rtd">
-                  RTD
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/languages" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/languages">
-                  Languages
-                </Link>
-              </li>
+              {viewerLinks}
               <li
                 className={`nav-item  ${
                   props.location.pathname === "/about" ? "active" : ""
@@ -73,15 +39,6 @@ function Navigation(props) {
               >
                 <Link className="nav-link" to="/about">
                   About
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/contact" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/contact">
-                  Contact
                 </Link>
               </li>
             </ul>
