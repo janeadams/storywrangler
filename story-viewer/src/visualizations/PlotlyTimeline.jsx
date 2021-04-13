@@ -1,6 +1,6 @@
 import React from 'react';
 import Plot from '../../node_modules/react-plotly.js/react-plotly';
-import { titleCase } from "./../utils"
+import { titleCase, parseDate, parseRealtime } from "./../utils"
 
 const PlotlyTimeline = ( props ) => {
 
@@ -8,7 +8,17 @@ const PlotlyTimeline = ( props ) => {
         console.log("PlotlyTimeline data:")
         console.log(props.data)
         let traces = []
-        let metric = (props.rt) ? props.metric : props.metric+"_no_rt"
+        let metric = props.metric
+        let Ylabel = (props.rt) ? titleCase(props.metric) : titleCase(props.metric)+" (no Retweets)"
+        if (['num','unique'].includes(props.metric)){
+            metric = props.metric+"_"+props.n+"grams"
+            Ylabel = Ylabel + " " + props.n +"-grams"
+        }
+        if (props.metric=='odds'){
+            Ylabel = Ylabel + " (1 in X N-grams)"
+        }
+        metric = (props.rt) ? metric : metric+"_no_rt"
+        Ylabel = (props.rt) ? Ylabel : Ylabel+" (no Retweets)"
         Object.entries(props.data).forEach(([key, value]) => {
             let trace = {
                 x: value['date'],
@@ -34,8 +44,8 @@ const PlotlyTimeline = ( props ) => {
                     yaxis: {
                         type: props.scale,
                         fixedrange: true,
-                        autorange: (props.metric==='rank') ? 'reversed' : true,
-                        title: {text: (props.rt) ? titleCase(props.metric) : titleCase(props.metric)+" (no Retweets)"}
+                        autorange: ['rank','odds'].includes(props.metric) ? 'reversed' : true,
+                        title: {text: Ylabel}
                     }
                 }}
                 scrollZoom={true}

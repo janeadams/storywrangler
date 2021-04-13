@@ -5,6 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 200vh;
+}
+
+.footer {
+  height: 40px;
+  padding: 10px;
 }
 
 code {

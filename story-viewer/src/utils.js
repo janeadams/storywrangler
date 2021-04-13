@@ -11,7 +11,9 @@ Date.prototype.addDays = function(days) {
 }
 
 export const parseDate = d3.timeParse("%Y-%m-%d")
+export const parseRealtime = d3.timeParse("%Y-%m-%d %H:%M")
 export const formatDate = d3.timeFormat("%Y-%m-%d")
+export const formatRealtime = d3.timeFormat("%Y-%m-%d %H:%M")
 
 // Today's date
 export const  today = new Date()
