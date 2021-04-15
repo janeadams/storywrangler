@@ -13,6 +13,43 @@ body {
   padding: 10px;
 }
 
+main {
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+.row {
+  width: 100%;
+  border: 1px solid red;
+}
+
+.options {
+  width: 30%;
+  float: left;
+  border: 1px solid purple;
+  margin: 10px;
+}
+
+.feature {
+  width: 60%;
+  float: right;
+  border: 1px solid green;
+  margin: 10px;
+}
+
+.details {
+  width: 100%;
+}
+
+.optionContainer {
+ padding-bottom: 10px;
+}
+
+.optionContainer p {
+  padding: 0;
+  margin: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

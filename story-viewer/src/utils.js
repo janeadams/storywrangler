@@ -1,6 +1,7 @@
 import * as d3 from "d3"
+import {trackPromise} from "react-promise-tracker";
 
-export const viewerOptions = ['ngrams', 'languages', 'realtime', 'rtd', 'zipf','potus']
+export const viewerOptions = ['ngrams', 'languages', 'realtime', 'rtd', 'zipf']
 
 export const dateParser = date => new Date(d3.timeParse(date))
 
@@ -46,3 +47,71 @@ export const formatURLParams = (params => {
 export const parseArray = (strarr => {
     return strarr ? strarr.split(',') : null
 })
+
+export const getData = (async (v, q, p) => {
+    const endpoint = `http://hydra.uvm.edu:3000/api/${v}/`
+    let apicall = endpoint+q
+    if (p){
+        let formattedAPIparams = []
+        for (const [key, value] of Object.entries(p)) {
+            formattedAPIparams.push(key+"="+value)
+        }
+        apicall = apicall.concat('?'+formattedAPIparams.join('&'))
+    }
+    console.log('Formatted API call as:')
+    console.log(apicall)
+    const response = await fetch(apicall);
+    const json = await response.json();
+    console.log(json)
+    if (json) { return json.data }
+    else { return {} }
+})
+
+const filterParams = ((accepted, allP) => {
+    const result = {};
+    for (let p in allP)
+        if (accepted.indexOf(p) > -1)
+            result[p] = allP[p];
+    return result;})
+
+export const getParams = (v, allP) => {
+    switch (v) {
+        case ('ngrams'):
+        case ('realtime'):
+        case ('potus'):
+            return filterParams(['ngrams','language','rt','scale','metric'],allP)
+        case ('languages'):
+            return filterParams(['languages','rt','scale','metric'],allP)
+        case ('rtd'):
+        case ('zipf' ):
+            return filterParams(['queryDate','language','rt','scale','metric','n'],allP)
+    }
+}
+
+export const getQuery = (v, allP) => {
+    switch (v) {
+        case ('ngrams'):
+        case ('realtime'):
+        case ('potus'):
+            return allP['ngrams']
+        case 'languages':
+            return allP['languages']
+        case ('rtd'):
+        case ('zipf' ):
+            return allP['queryDate']
+    }
+}
+
+export const getAPIParams = (v, allP) => {
+    switch (v) {
+        case ('ngrams'):
+        case ('realtime'):
+        case ('potus'):
+            return filterParams(['language'], allP)
+        case ('languages'):
+            return null
+        case ('rtd'):
+        case ('zipf' ):
+            return filterParams(['language','n','metric','rt'],allP)
+    }
+}
