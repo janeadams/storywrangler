@@ -1,4 +1,20 @@
-import {today, mostrecent, parseDate, formatDate, formatURLParams, parseArray} from "./utils"
+import {today, mostrecent, lastweek, lastyeardate, parseDate, formatDate, formatURLParams, parseArray} from "./utils"
+
+export const pageMeta = (v => {
+    switch (v) {
+        case ('ngrams'):
+            return {"title": "Usage", "desc": "Daily word/phrase usage on Twitter"}
+        case ('realtime'):
+            return {"title": "Real-Time", "desc": "Recent 15-minute resolution word/phrase usage on Twitter"}
+        case ('languages'):
+            return {"title": "Languages", "desc": "Language volume on Twitter"}
+        case ('rtd'):
+            return {"title": "Trending", "desc": "Year-over-year rank-turbulence divergence on Twitter"}
+        case ('zipf'):
+            return {"title": "Common", "desc": "Most-used words/phrases on Twitter"}
+        default: return {"title": `Invalid viewer selection ${v}`, "desc": "Error"}
+    }
+})
 
 export const defaults = (v => {
     switch (v) {
@@ -13,7 +29,9 @@ export const defaults = (v => {
                 'metric': 'rank',
                 'scale': 'log',
                 'n': null,
-                'queryDate': null
+                'queryDate': null,
+                'start': (v=='realtime') ? formatDate(lastweek): formatDate(lastyeardate),
+                'end': formatDate(mostrecent)
             }
         case ('languages'):
             return {
@@ -24,7 +42,9 @@ export const defaults = (v => {
                 'metric': 'speakers',
                 'scale': 'lin',
                 'n': 1,
-                'queryDate': null
+                'queryDate': null,
+                'start': formatDate(lastyeardate),
+                'end': formatDate(mostrecent)
             }
         case ('rtd'):
             return {
@@ -33,9 +53,11 @@ export const defaults = (v => {
                 'language': 'en',
                 'languages': null,
                 'rt': true,
-                'scale': 'lin',
+                'scale': 'log',
                 'n': 1,
-                'queryDate': formatDate(mostrecent)
+                'queryDate': formatDate(mostrecent),
+                'start': formatDate(lastyeardate),
+                'end': formatDate(mostrecent)
             }
         case ('zipf' ):
             return {
@@ -44,9 +66,11 @@ export const defaults = (v => {
                 'languages': null,
                 'rt': true,
                 'metric': 'freq',
-                'scale': 'lin',
+                'scale': 'log',
                 'n': 1,
-                'queryDate': formatDate(mostrecent)
+                'queryDate': formatDate(mostrecent),
+                'start': formatDate(lastyeardate),
+                'end': formatDate(mostrecent)
             }
     }
 })
@@ -77,7 +101,10 @@ export const metricOptions = (v,n) => {
         case ('rtd'):
             return {
                 'rd_contribution': 'Rank-Divergence Contribution',
-                'rank_change': "Rank Change"
+                'rank_change': "Rank Change",
+                'normed_rd': "Normalized Rank-Divergence (x10^5)",
+                'rank_1': "Old Rank (Previous Year)",
+                'rank_2': "New Rank (Selected Year)"
             }
         case ('zipf'):
             return {

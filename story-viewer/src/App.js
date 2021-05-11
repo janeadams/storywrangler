@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useContext, useReducer } from 
 import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useHistory, useLocation } from 'react-router-dom'
-import { Navigation, Footer, Home, View, Contact } from "./components";
+import { Navigation, Footer, Home, View, About, Contact } from "./components";
 import {formatDate, mostrecent, viewerOptions, formatURLParams} from "./utils"
 
 function App() {
@@ -24,7 +24,8 @@ function App() {
             <Switch>
               <Route path="/" exact component={() => <Home />} />
                 {viewerRoutes}
-              <Route path="/contact" exact component={() => <Contact />} />
+            <Route path="/about" exact component={() => <About />} />
+            <Route path="/contact" exact component={() => <Contact />} />
             </Switch>
         <Footer />
       </Router>

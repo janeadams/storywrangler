@@ -1,4 +1,5 @@
 import React from "react";
+import {withRouter} from "react-router";
 
 function Home() {
   return (
@@ -6,11 +7,11 @@ function Home() {
       <div className="container">
             <h1>Home</h1>
             <p>
-              Home page goes here
+              Test
             </p>
       </div>
     </div>
   );
 }
 
-export default Home;
+export default withRouter(Home);

@@ -18,11 +18,12 @@ export const formatRealtime = d3.timeFormat("%Y-%m-%d %H:%M")
 
 // Today's date
 export const  today = new Date()
+export const lastweek = dateParser(new Date(today)).addDays(-10)
 export const  mostrecent = dateParser(new Date(today)).addDays(-3)
 // Extract year from today's date
 export const  thisyear = today.getFullYear()
 // Get one year ago
-export const  lastyeardate = dateParser(formatDate(new Date().setFullYear(thisyear - 1)))
+export const  lastyeardate = dateParser(formatDate(new Date(mostrecent).setFullYear(thisyear - 1)))
 // January 1st, this year
 export const  thisfirst = new Date(thisyear, 1, 1)
 export const  firstDate = new Date(2009,9,1)
@@ -48,13 +49,31 @@ export const parseArray = (strarr => {
     return strarr ? strarr.split(',') : null
 })
 
+export const sigFigMe = ((num, figs) => {
+    return Number.parseFloat(num).toPrecision(figs)
+})
+
+export const formatMe = ((num, metric) => {
+    switch (metric){
+        case("rd_contribution"):
+        case("freq"):
+            return Number.parseFloat(num).toPrecision(3)
+        case("normed_rd"): return Number.parseFloat((num*100000).toString()).toPrecision(3)
+        default: return num.toString()
+    }
+})
+
+export const stripHashtags = (value => {
+    return (typeof value === 'string' || value instanceof String) ? value.replaceAll("#","%23") : value
+})
+
 export const getData = (async (v, q, p) => {
     const endpoint = `http://hydra.uvm.edu:3000/api/${v}/`
-    let apicall = endpoint+q
+    let apicall = endpoint+stripHashtags(q.toString())
     if (p){
         let formattedAPIparams = []
         for (const [key, value] of Object.entries(p)) {
-            formattedAPIparams.push(key+"="+value)
+            formattedAPIparams.push(key+"="+stripHashtags(value))
         }
         apicall = apicall.concat('?'+formattedAPIparams.join('&'))
     }
@@ -62,8 +81,7 @@ export const getData = (async (v, q, p) => {
     console.log(apicall)
     const response = await fetch(apicall);
     const json = await response.json();
-    console.log(json)
-    if (json) { return json.data }
+    if (json) { return json }
     else { return {} }
 })
 
@@ -79,12 +97,12 @@ export const getParams = (v, allP) => {
         case ('ngrams'):
         case ('realtime'):
         case ('potus'):
-            return filterParams(['ngrams','language','rt','scale','metric'],allP)
+            return filterParams(['ngrams','language','rt','scale','metric','start','end'],allP)
         case ('languages'):
-            return filterParams(['languages','rt','scale','metric'],allP)
+            return filterParams(['languages','rt','scale','metric','start','end'],allP)
         case ('rtd'):
         case ('zipf' ):
-            return filterParams(['queryDate','language','rt','scale','metric','n'],allP)
+            return filterParams(['queryDate','language','rt','scale','metric','n','start','end'],allP)
     }
 }
 
@@ -102,16 +120,17 @@ export const getQuery = (v, allP) => {
     }
 }
 
-export const getAPIParams = (v, allP) => {
+export const getAPIParams = (v, allP, start, end) => {
+    let APIparams = {}
     switch (v) {
         case ('ngrams'):
         case ('realtime'):
         case ('potus'):
-            return filterParams(['language'], allP)
+            return {...APIparams, ...filterParams(['language'], allP)}
         case ('languages'):
-            return null
+            return APIparams
         case ('rtd'):
         case ('zipf' ):
-            return filterParams(['language','n','metric','rt'],allP)
+            return {...APIparams, ...filterParams(['language','n','metric','rt'],allP)}
     }
 }

@@ -2,13 +2,14 @@ import React from "react";
 import {Link, Route, withRouter} from "react-router-dom";
 import {viewerOptions} from "./../utils"
 import {View} from "./index";
+import {metricOptions, pageMeta} from '../defaults.js'
 
 function Navigation(props) {
 
   const viewerLinks = viewerOptions.map(v => {
     return (
         <li className={`nav-item  ${props.location.pathname === `/${v}` ? "active" : ""}`}>
-          <Link key={v} className="nav-link" to={`/${v}`}>{v}</Link></li>
+          <Link key={v} className="nav-link" to={`/${v}`}>{pageMeta(v).title}</Link></li>
     )
   })
 
