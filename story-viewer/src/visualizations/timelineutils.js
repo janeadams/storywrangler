@@ -1,5 +1,8 @@
 import {languageOptions, metricOptions, pageMeta} from "../defaults";
 import {titleCase} from "../utils";
+import Plot from "react-plotly.js";
+import React from "react";
+import Subplot from './Subplot'
 
 export const colorsRGB = ["rgb(27,158,119",
     "rgb(217,95,2",
@@ -55,6 +58,7 @@ export const getYaxisLayout = (viewer, params) => {
         autorange: ['rank', 'odds'].includes(params.metric) ? 'reversed' : true,
         title: {text: getYlabel(viewer, params)}
     }
+    console.log(yaxisLayout)
     return yaxisLayout
 }
 
@@ -84,32 +88,36 @@ export const getLayout = (viewer, metadata, params) => {
     return layout
 }
 
+export const buildTrace = (viewer, key, value, metric, i) => {
+    let languageMap = languageOptions(viewer)
+    let name = viewer === "languages" ? languageMap[key] : key
+    let trace = {
+        x: value['date'],
+        y: value[metric],
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: {
+            color: colorsRGB[i] + ",0.3)",
+            width: 1
+        },
+        marker: {
+            color: colorsRGB[i] + ",0.3)",
+            size: 2
+        },
+        name: name
+    }
+    console.log(trace)
+    return trace
+}
+
 export const buildTraces = (data, viewer, metric) => {
     if (data) {
         let traces = []
-        //console.log("PlotlyTimeline data:")
-        //console.log(props.data)
-        let languageMap = languageOptions(viewer)
+        console.log({metric})
 
         let i = 0
         Object.entries(data).forEach(([key, value]) => {
-
-            let name = viewer === "languages" ? languageMap[key] : key
-            let trace = {
-                x: value['date'],
-                y: value[metric],
-                type: 'scatter',
-                mode: 'lines+markers',
-                line: {
-                    color: colorsRGB[i] + ",0.3)",
-                    width: 1
-                },
-                marker: {
-                    color: colorsRGB[i] + ",0.3)",
-                    size: 2
-                },
-                name: name
-            }
+            let trace = buildTrace(viewer, key, value, metric, i)
             traces.push(trace)
             if (i < (colorsRGB.length - 1)) {
                 i += 1

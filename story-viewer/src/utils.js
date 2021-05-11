@@ -59,7 +59,7 @@ export const formatMe = ((num, metric) => {
         case("freq"):
             return Number.parseFloat(num).toPrecision(3)
         case("normed_rd"): return Number.parseFloat((num*100000).toString()).toPrecision(3)
-        default: return num.toString()
+        default: return parseFloat(num.toString())
     }
 })
 
@@ -67,7 +67,7 @@ export const stripHashtags = (value => {
     return (typeof value === 'string' || value instanceof String) ? value.replaceAll("#","%23") : value
 })
 
-export const getData = (async (v, q, p) => {
+export const getAPIcall = (v, q, p) => {
     const endpoint = `http://hydra.uvm.edu:3000/api/${v}/`
     let apicall = endpoint+stripHashtags(q.toString())
     if (p){
@@ -79,7 +79,12 @@ export const getData = (async (v, q, p) => {
     }
     console.log('Formatted API call as:')
     console.log(apicall)
-    const response = await fetch(apicall);
+    console.log({p})
+    return apicall
+}
+
+export const getData = (async (v, q, p) => {
+    const response = await fetch(getAPIcall(v, q, p));
     const json = await response.json();
     if (json) { return json }
     else { return {} }
@@ -131,6 +136,6 @@ export const getAPIParams = (v, allP, start, end) => {
             return APIparams
         case ('rtd'):
         case ('zipf' ):
-            return {...APIparams, ...filterParams(['language','n','metric','rt'],allP)}
+            return {...APIparams, ...filterParams(['language','n','metric','rt'], allP)}
     }
 }

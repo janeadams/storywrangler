@@ -46,28 +46,32 @@ function stableSort(array, comparator) {
 
 const makeHeaders = (options) => {
     let headers = [{id: 'ngram', numeric: false, disablePadding: true, label: 'Ngram'}]
-    console.log({options})
+    /*console.log({options})*/
     Object.entries(options).forEach(([key, value]) => {
         headers.push({id: key, numeric: true, disablePadding: true, label: value})
     })
-    console.log({headers})
+    /*console.log({headers})*/
     return headers
 }
 
 const makeRows = (data, options) => {
-    console.log({data})
-    console.log({options})
+    /*console.log({data})
+    console.log({options})*/
     let rows = []
     data.forEach(item => {
         let row = {}
         Object.entries(item).forEach(([key, value]) => {
-            if(Object.keys(options).includes(key) || key=="ngram") {
+            if(Object.keys(options).includes(key) ) {
                 row[key] = formatMe(value, key)
+            }
+            else if (key=='ngram') {
+                row[key] = value
             }
         })
         rows.push(row)
+        /*rows.push(item)*/
     })
-    console.log({rows})
+    /*console.log({rows})*/
     return rows
 }
 
@@ -287,11 +291,13 @@ const EnhancedTable = ( props ) => {
                             {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
-                                    const isItemSelected = isSelected(row.ngram);
                                     const labelId = `enhanced-table-${index}`;
+                                    const isItemSelected = isSelected(row.ngram);
                                     const rowComponents = []
+                                    let cellId = 0
                                     Object.keys(options).forEach(opt => {
-                                        rowComponents.push(<TableCell align="right">{row[opt]}</TableCell>)
+                                        rowComponents.push(<TableCell key={`cell-${cellId}`} align="right">{row[opt]}</TableCell>)
+                                        cellId +=1
                                     })
 
                                     return (

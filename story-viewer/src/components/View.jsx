@@ -6,15 +6,17 @@ import Search from "./../options/search"
 import Toggle from "./../options/toggle"
 import Calendar from "./../options/calendar"
 import Timeline from "../visualizations/Timeline"
+import Subplots from "../visualizations/Subplots"
 import Barchart from "../visualizations/Barchart"
 import EnhancedTable from "../visualizations/Table";
 import LoadingIndicator from "./LoadingIndicator"
 import { usePromiseTracker, trackPromise, promiseInProgress } from 'react-promise-tracker';
 import { css } from "@emotion/react";
 import GridLoader from "react-spinners/GridLoader";
-import {formatURLParams, parseArray, getData, getParams, getQuery, getAPIParams} from "../utils"
+import {formatURLParams, parseArray, getData, getAPIcall, getParams, getQuery, getAPIParams} from "../utils"
 import {defaults, metricOptions, languageOptions, languageValueOptions, pageMeta} from "../defaults"
 import {getLayout, getMetric} from '../visualizations/timelineutils'
+import Subplot from "../visualizations/Subplot";
 
 const override = css`
   display: block;
@@ -86,6 +88,7 @@ const View = ({viewer}) => {
     useEffect( () => {
         console.log('Data fetch useEffect triggered')
         async function updateData() {
+            console.log({APIparams})
             return getData(viewer, query, APIparams)
         }
         trackPromise(updateData()).then(function(result) {
@@ -118,7 +121,6 @@ const View = ({viewer}) => {
                 viewer={viewer}
                 params={params}
                 data={data}
-                metric={getMetric(params)}
                 start={start}
                 end={end}
                 setStart={setStart}
@@ -126,8 +128,7 @@ const View = ({viewer}) => {
             />
         }
         else if (['rtd','zipf'].includes(viewer)) {
-            let featureParams = Object.assign({}, params)
-            featureParams['metric']='rank'
+            let featureParams = {...params, ...{'metric': 'rank'}}
             return <Timeline
                 viewer={viewer}
                 params={featureParams}
@@ -146,7 +147,13 @@ const View = ({viewer}) => {
 
     let details = () => {
         if (['ngrams','potus','realtime','languages'].includes(viewer)){
-            return <p>Subplots here</p>
+            return <Subplots
+                data={data}
+                metric={metric}
+                viewer={viewer}
+                params={params}
+                metadata={metadata}
+            />
         }
         else if (['rtd','zipf'].includes(viewer)) {
             return data ? <EnhancedTable viewer={viewer} params={params} data={data}/> : 'no data'
@@ -169,14 +176,16 @@ const View = ({viewer}) => {
                 param='language'
                 state={language}
                 setState={setLanguage}
+                prompt={"Language:"}
                 options={languageOptions(viewer)}
-                prompt={"Language:"}/>,
+                />,
             'languages': <Search
                 param='languages'
                 state={languages}
                 setState={setLanguages}
+                prompt={"Select languages:"}
                 options={languageValueOptions(viewer)}
-                prompt={"Select languages:"}/>,
+                />,
             'rt': <Toggle
                 param='rt'
                 state={rt}
@@ -186,29 +195,36 @@ const View = ({viewer}) => {
                 param='scale'
                 state={scale}
                 setState={setScale}
+                prompt={"Scale:"}
                 options={{'log':'Logarithmic', 'lin':"Linear"}}
-                prompt={"Scale:"}/>,
+                />,
             'metric': <Dropdown
                 param='metric'
                 state={metric}
                 setState={setMetric}
+                prompt={"Metric:"}
                 options={metricOptions(viewer, n)}
-                prompt={"Metric:"}/>,
+                />,
             'n': <Dropdown
                 param='n'
                 state={n}
                 setState={setN}
+                prompt={"Number of Ngrams:"}
                 options={{1:'1-grams', 2:"2-grams",3:"3-grams"}}/>,
             'queryDate': <Calendar
                 date={queryDate}
                 setDate={setDate}
                 prompt={"Date:"}/>
         }
-
         Object.keys(params).forEach(param => {
-            elements.push(paramElements[param])
+            if (['zipf','rtd'].includes(viewer)) {
+             if (param !== 'metric'){elements.push(paramElements[param])}
+            }
+            else (elements.push(paramElements[param]))
         })
-
+        let downloadURL = getAPIcall(viewer,query,params)
+        let downloadButton = <p><a href={`${downloadURL}&response=csv`} target='_blank'>Download CSV</a> or <a href={downloadURL} target='_blank'>JSON</a></p>
+        elements.push(downloadButton)
         return elements
     }
     const { promiseInProgress } = usePromiseTracker();

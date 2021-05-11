@@ -10,7 +10,7 @@ const Timeline = ( props ) => {
             "displaylogo": false,
             'modeBarButtonsToRemove': ['pan2d','lasso2d','sendDataToCloud', 'select2d']
         }
-    const [state, setState] = useState({data: buildTraces(props.data, props.viewer, props.metric), layout: getLayout(props.viewer, props.metadata, props.params), config: config});
+    const [state, setState] = useState({data: buildTraces(props.data, props.viewer, props.params.metric), layout: getLayout(props.viewer, props.metadata, props.params), config: config});
 
     useEffect(  () => {
         console.log('Timeline state useEffect triggered')
@@ -30,8 +30,11 @@ const Timeline = ( props ) => {
     }, [state]);
 
     useEffect( () => {
-        setState({...state, ...{'data': buildTraces(props.data, props.viewer, props.metric)}})
+        setState({...state, ...{'data': buildTraces(props.data, props.viewer, props.params.metric)}})
     }, [props.data])
+
+    console.log('Timeline data:')
+    console.log(props.data)
 
     return (
         <Plot

@@ -154,3 +154,15 @@ code {
   line-height: 140%;
 }
 
+.subplotHolder {
+  width: 100%;
+  height: auto;
+  min-height: 20px;
+  border: 1px solid aqua;
+}
+
+.subplot {
+  display: flex;
+  width: 50%;
+  float: left;
+}
