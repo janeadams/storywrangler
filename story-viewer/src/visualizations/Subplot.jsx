@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import Plot from '../../node_modules/react-plotly.js/react-plotly';
 import {languageOptions} from "../defaults"
 import {getLayout, buildTrace} from "./timelineutils"
-import {is_touch_enabled} from "./../utils"
 
 const Subplot = ( props ) => {
 
@@ -17,10 +16,6 @@ const Subplot = ( props ) => {
                 'width': 1500,
                 'scale': 2
         }
-    }
-
-    if (is_touch_enabled){
-        config.displayModeBar = false;
     }
 
     let languageMap = languageOptions(props.viewer)
