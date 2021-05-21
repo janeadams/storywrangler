@@ -66,12 +66,6 @@ export const stripHashtags = (value => {
     return (typeof value === 'string' || value instanceof String) ? value.replaceAll("#","%23") : value
 })
 
-export const is_touch_enabled = () => {
-    return ( 'ontouchstart' in window ) ||
-        ( navigator.maxTouchPoints > 0 ) ||
-        ( navigator.msMaxTouchPoints > 0 );
-}
-
 export const getAPIcall = (v, q, p) => {
     const endpoint = `http://hydra.uvm.edu:3000/api/${v}/`
     let apicall = endpoint+stripHashtags(q.toString())
