@@ -1,16 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import Plot from '../../node_modules/react-plotly.js/react-plotly';
-import {formatURLParams, getAPIParams, getParams, getQuery, titleCase, parseDate, formatDate} from "./../utils"
-import {languageOptions, pageMeta, metricOptions} from "../defaults"
-import {colorsRGB, getLayout, buildTrace, buildSubplots, getYlabel} from "./timelineutils"
+import {languageOptions} from "../defaults"
+import {getLayout, buildTrace} from "./timelineutils"
+import {is_touch_enabled} from "./../utils"
 
 const Subplot = ( props ) => {
 
     let config = {
         "displaylogo": false,
         "showlegend": false,
-        "displayModeBar": false,
-        'modeBarButtonsToRemove': ['pan2d','lasso2d','sendDataToCloud', 'select2d']
+        'modeBarButtonsToRemove': ['pan2d','lasso2d','sendDataToCloud', 'select2d'],
+        'toImageButtonOptions': {
+            'format': 'png',
+            'filename': `${props.viewer}_${props.tracename}_${props.start}_${props.end}`,
+                'height': 800,
+                'width': 1500,
+                'scale': 2
+        }
+    }
+
+    if (is_touch_enabled){
+        config.displayModeBar = false;
     }
 
     let languageMap = languageOptions(props.viewer)

@@ -1,24 +1,23 @@
-import React, {useState, useEffect} from "react";
-import {Link, Route, withRouter} from "react-router-dom";
+import React, {useState} from "react";
+import {Link, withRouter} from "react-router-dom";
 import {viewerOptions} from "./../utils"
-import {View} from "./index";
-import {metricOptions, pageMeta} from '../defaults.js'
+import {pageMeta} from '../defaults.js'
 import logo from "./../img/storywrangler_wordmark.svg"
 
 function Navigation(props) {
-
-  const viewerLinks = viewerOptions.map(v => {
-    return (
-        <li className={`nav-item  ${props.location.pathname === `/${v}` ? "active" : ""}`}>
-          <Link key={v} className="nav-link" to={`/${v}`}>{pageMeta(v).title}</Link></li>
-    )
-  })
 
   const [navClass, setNavClass] = useState("")
 
   const toggleState = () => {
     return navClass==="" ? "responsive" : ""
   }
+
+  const viewerLinks = viewerOptions.map(v => {
+    return (
+        <li className={`nav-item  ${props.location.pathname === `/${v}` ? "active" : ""}`}>
+          <Link key={v} className="nav-link" to={`/${v}`} onClick={() => setNavClass(toggleState())}>{pageMeta(v).title}</Link></li>
+    )
+  })
 
   return (
       <nav>
@@ -31,7 +30,7 @@ function Navigation(props) {
                   props.location.pathname === "/" ? "active" : ""
                 }`}
               >
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/" onClick={() => setNavClass(toggleState())}>
                   Home
                   <span className="sr-only">(current)</span>
                 </Link>
@@ -42,7 +41,7 @@ function Navigation(props) {
                   props.location.pathname === "/about" ? "active" : ""
                 }`}
               >
-                <Link className="nav-link" to="/about">
+                <Link className="nav-link" to="/about" onClick={() => setNavClass(toggleState())}>
                   About
                 </Link>
               </li>
