@@ -2,8 +2,7 @@
     "ngrams": {
         "query": "list",
         "language": "string",
-        "response": "string",
-        "collection": "string"
+        "response": "string"
     },
     "languages": {
         "query": "list",
@@ -15,8 +14,7 @@
         "n": "int",
         "rt": "bool",
         "response": "string",
-        "max": "int",
-        "collection": "string"
+        "max": "int"
     },
     "divergence": {
         "query": "date",
@@ -24,7 +22,12 @@
         "n": "int",
         "rt": "bool",
         "response": "string",
+        "metric": "string",
         "max": "int"
+    },
+    "realtime": {
+        "query": "list",
+        "language": "string",
+        "response": "string"
     }
-
 }

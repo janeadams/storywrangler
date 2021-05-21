@@ -2,8 +2,7 @@
     "ngrams": {
         "query": ["Black Lives Matter", "Covid-19", "Election 2020"],
         "language": "en",
-        "response": "json",
-        "collection": "all"
+        "response": "json"
     },
     "languages": {
         "query": ["en","fr", "es"],
@@ -14,15 +13,19 @@
         "n": 1,
         "rt": true,
         "response": "json",
-        "max": 100,
-        "collection": "all"
+        "max": 100
     },
     "divergence": {
         "language": "en",
         "n": 1,
         "rt": true,
+        "metric": "rank_change",
         "response": "json",
         "max": 100
+    },
+    "realtime": {
+        "query": ["Good Morning", "Good Night"],
+        "language": "en",
+        "response": "json"
     }
-    
 }

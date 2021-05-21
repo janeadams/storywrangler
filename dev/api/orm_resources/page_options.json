@@ -1,8 +1,7 @@
 {
     "ngrams": {
         "rt": [true,false],
-        "response": ["json","csv"],
-        "collection": ["all","realtime"]
+        "response": ["json","csv"]
     },
     "languages": {
         "n" : [1,2,3],
@@ -12,13 +11,18 @@
         "language": ["en"],
         "n": [1,2,3],
         "rt": [true,false],
-        "response": ["json","csv"],
-        "collection": ["all","realtime"]
+        "response": ["json","csv"]
     },
     "divergence": {
         "language": ["en"],
-        "n": [1,2],
+        "n": [1,2,3],
         "rt": [true,false],
+        "metric": ["rd_contribution", "rank_change"],
         "response": ["json","csv"]
+    },
+    "realtime": {
+        "n": [1,2],
+        "response": ["json","csv"],
+        "language": ["ar","de","en","es","fr","hi","id","it","ko","pt","ru","tr"]
     }
 }

@@ -84,7 +84,7 @@ def get_today_suggestions():
 
 def type_out(v, t):
     if t == "bool":
-        return (v.lower() in ['true',True])
+        return (True if v.lower() == 'true' else False)
     elif t == "string":
         return str(v)
     elif t == "int":
@@ -127,8 +127,6 @@ def get_url_params(url,viewer):
         except: # If the parameter listed in default keys wasn't specified in the URL
             params[p] = defaults[p] # Set the parameter to the default value
     params['viewer'] = viewer
-    if (params['collection'] == 'realtime') & (params['viewer'] == 'zipf'):
-        params['n'] = 1
     print('Params:')
     print(params)
     return params
@@ -141,22 +139,6 @@ def get_list(query):
     parsed_list = [q.strip() for q in query.split(',') if (q.strip() != '')]
     print(f'Parsed query {query} into list {parsed_list}')
     return parsed_list
-
-def get_1grams_list(query, language):
-    parsed_list = [q.strip() for q in query.split(',') if (q.strip() != '')]
-    print(f'Parsed query {query} into list {parsed_list}')
-    new_list = []
-    for q in parsed_list:
-        ngrams = list(nparser(q, Storywrangler.parser, n=1).keys())
-        res = []
-        [res.append(x) for x in ngrams if x not in res]
-        ngrams = res
-        print(f'Adding {ngrams} to new list')
-        for n in ngrams:
-            new_list.append(n)
-            print(f'New list: {new_list}')
-    print(f'Original query: {query} | Language: {language} | New list: {new_list}')
-    return list(set(new_list))
     
 
 def get_ngrams_list(query, language, api):
@@ -219,6 +201,35 @@ def get_ngrams_list(query, language, api):
     print(f'Original query: {query} | Language: {language} | New list: {new_list}')
     return list(set(new_list))
 
+def get_realtimengrams_list(query, language, api):
+    parsed_list = [q.strip() for q in query.split(',') if (q.strip() != '')]
+    print(f'Parsed query {query} into list {parsed_list}')
+    new_list = []
+    for q in parsed_list:
+        print(f'Getting ngrams for "{q}" in {language}')
+        ngrams = list(nparser(q, api.parser))
+        number = len(ngrams)
+        if number==2:
+            print(f'{q} is a 2gram')
+            ngrams = [list(nparser(q, api.parser, n=2).keys())[0]]
+            print(f'Adding {ngrams} to new list')
+            for n in ngrams:
+                new_list.append(n)
+                print(f'New list: {new_list}')
+        else:
+            print(f'{q} is not a 3gram or 2gram')
+            number=1
+            ngrams = list(nparser(q, api.parser, n=1).keys())
+            res = []
+            [res.append(x) for x in ngrams if x not in res]
+            ngrams = res
+            print(f'Adding {ngrams} to new list')
+            for n in ngrams:
+                new_list.append(n)
+                print(f'New list: {new_list}')
+    print(f'Original query: {query} | Language: {language} | New list: {new_list}')
+    return list(set(new_list))
+
 def get_language_list(query):
     print(f'Getting language list; query is {query}')
     parsed_list = [q.strip().lower() for q in query.split(',') if (q.strip() != '')]
@@ -242,21 +253,21 @@ def get_ngram_data(params, api):
     print(f"Getting ngram data for {params['query']} in {params['language']}")
     df_obj = {}
     for ngram in params['query']:
-        ngram_df = api.get_ngram(
+        df = api.get_ngram(
           ngram,
           lang=params['language']
         )
-        #ngram_df['date'] = [d.date().strftime("%Y-%m-%d") for d in ngram_df['date']]
+        #df['date'] = [d.date().strftime("%Y-%m-%d") for d in df['date']]
         try:
-            ngram_df['odds']=[freq_to_odds(f) for f in ngram_df['freq']]
+            df['odds']=[freq_to_odds(f) for f in df['freq']]
         except:
           print("Error converting odds to frequency")
         try:
-            ngram_df['odds_no_rt']=[freq_to_odds(f) for f in ngram_df['freq_no_rt']]
+            df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
         except:
           print("Error converting odds (no RT) to frequency (no RT)")
-        ngram_df.index = ngram_df.index.strftime('%Y-%m-%d')
-        df_obj[ngram] = ngram_df.dropna()
+        df.index = df.index.strftime('%Y-%m-%d')
+        df_obj[ngram] = df.dropna()
     print(f'Building response for params {params}')
     if params['response'] == "csv":
         keyed_dfs = {}
@@ -273,29 +284,77 @@ def get_ngram_data(params, api):
         response['metadata'] = params
         dict_obj = {}
         for ngram in df_obj.keys():
+          
           dict_obj[ngram] = {}
           dict_obj[ngram]['date'] = list(df_obj[ngram].index)
           for col in list(df_obj[ngram].columns):
               dict_obj[ngram][col] = list(df_obj[ngram][col])
+          
+          #dict_obj[ngram] = df_obj[ngram].reset_index().rename(columns={'time':'date'}).to_dict(orient='records')
+        response['data'] = dict_obj
+        return jsonify(response)
+          
+def get_realtimengram_data(params, api):
+    print(f"Getting realtime ngram data for {params['query']} in {params['language']}")
+    df_obj = {}
+    for ngram in params['query']:
+        df = api.get_ngram(
+          ngram,
+          lang=params['language']
+        )
+        #df['date'] = [d.date().strftime("%Y-%m-%d") for d in df['date']]
+        try:
+            df['odds']=[freq_to_odds(f) for f in df['freq']]
+        except:
+          print("Error converting odds to frequency")
+        try:
+            df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
+        except:
+          print("Error converting odds (no RT) to frequency (no RT)")
+        df.index = df.index.strftime('%Y-%m-%d %H:%M')
+        df_obj[ngram] = df.dropna()
+    print(f'Building response for params {params}')
+    if params['response'] == "csv":
+        keyed_dfs = {}
+        for ngram, df in df_obj.items():
+          df['ngram'] = ngram
+          keyed_dfs[ngram] = df
+        combined_df = pd.concat(keyed_dfs.values())
+        resp = make_response(combined_df.to_csv())
+        resp.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
+        resp.headers["Content-Type"] = "text/csv"
+        return resp
+    else: # Default to json
+        response = {}
+        response['metadata'] = params
+        dict_obj = {}
+        for ngram in df_obj.keys():
+          
+          dict_obj[ngram] = {}
+          dict_obj[ngram]['date'] = list(df_obj[ngram].index)
+          for col in list(df_obj[ngram].columns):
+              dict_obj[ngram][col] = list(df_obj[ngram][col])
+          
+          #dict_obj[ngram] = df_obj[ngram].reset_index().rename(columns={'time':'date'}).to_dict(orient='records')
         response['data'] = dict_obj
         return jsonify(response)
 
 def get_language_data(params, api):
-    print(f"Getting language data for {params['languages']}")
+    print(f"Getting language data for {params['query']}")
     df_obj = {}
     for language in params['query']:
-        lang_df = api.get_lang(language)
+        df = api.get_lang(language)
         try:
-            lang_df['odds']=[freq_to_odds(f) for f in lang_df['freq']]
+            df['odds']=[freq_to_odds(f) for f in df['freq']]
         except:
             print("Error converting odds to frequency")
         try:
-            lang_df['odds_no_rt']=[freq_to_odds(f) for f in lang_df['freq_no_rt']]
+            df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
         except:
             print("Error converting no RT odds to frequency")
-        #print(f'{language} dtypes are {lang_df.dtypes}')
-        lang_df.index = lang_df.index.strftime('%Y-%m-%d')
-        df_obj[language] = lang_df.dropna()
+        #print(f'{language} dtypes are {df.dtypes}')
+        df.index = df.index.strftime('%Y-%m-%d')
+        df_obj[language] = df.dropna()
     print(f'Building response for params {params}')
     if params['response'] == "csv":
         keyed_dfs = {}
@@ -311,21 +370,27 @@ def get_language_data(params, api):
         response = {}
         response['metadata'] = params
         dict_obj = {}
-        for ngram in df_obj.keys():
-          dict_obj[language] = df_obj[language].to_dict()
+        for language in df_obj.keys():
+          dict_obj[language] = {}
+          dict_obj[language]['date'] = list(df_obj[language].index)
+          for col in list(df_obj[language].columns):
+              dict_obj[language][col] = list(df_obj[language][col])
         response['data'] = dict_obj
         return jsonify(response)
 
 def get_zipf_data(params, api):
     params['n'] = check_language_support(params['language'],params['n'])
-    zipf_df = api.get_zipf_dist(params['query'], params['language'], str(params['n'])+'grams', max_rank=params['max'], rt=params['rt'])
+    df = api.get_zipf_dist(params['query'], params['language'], str(params['n'])+'grams', max_rank=params['max'], rt=params['rt'])
     if params['rt']:
         change_param = 'rank'
     else:
         change_param = 'rank_no_rt'
-    zipf_df = zipf_df.sort_values(by=[change_param])
+
+    df['odds']=[freq_to_odds(f) for f in df['freq']]
+    df = df.sort_values(by=[change_param])
+    #df.reindex(df[change_param].abs().sort_values().index)
     if params['response'] == "csv":
-        resp = make_response(zipf_df.to_csv(encoding="utf-8-sig"))
+        resp = make_response(df.to_csv(encoding="utf-8-sig"))
         resp.headers["Content-Disposition"] = f'attachment; filename={"zipf_"+params["query"].date().strftime("%Y-%m-%d")}.csv'
         resp.headers["Content-Type"] = "text/csv"
         return resp
@@ -333,21 +398,24 @@ def get_zipf_data(params, api):
         response = {}
         response['metadata'] = params
         response['metadata']['query'] = response['metadata']['query'].date().strftime("%Y-%m-%d")
-        response['data'] = zipf_df.to_dict()
+        response['metadata']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
+        response['metadata']['bottom_5'] = list(df.sort_values(by=[change_param]).head(5).index)
+        response['data'] = df.reset_index().to_dict(orient='records')
         return jsonify(response)
 
-def get_divergence_data(params, api):
-    div_df = api.get_divergence(params['query'], params['language'],  str(params['n'])+'grams', max_rank=params['max'], rt=params['rt'])
+def get_rtd_data(params, api):
+    df = api.get_divergence(params['query'], params['language'],  str(params['n'])+'grams', rt=params['rt'])
     if params['rt']:
-        change_param = 'rank_change'
+        change_param = 'rd_contribution'
     else:
-        change_param = 'rank_change_no_rt'
-    div_df = div_df.sort_values(by=[change_param], ascending=False)
-    div_df['time_1'] = [d.date().strftime("%Y-%m-%d") for d in div_df['time_1']]
-    div_df['time_2'] = [d.date().strftime("%Y-%m-%d") for d in div_df['time_2']]
-    print(div_df.head(10))
+        change_param = 'rd_contribution_no_rt'
+    df = df.reindex(df[change_param].abs().sort_values(ascending=False).index)
+    df['time_1'] = [d.date().strftime("%Y-%m-%d") for d in df['time_1']]
+    df['time_2'] = [d.date().strftime("%Y-%m-%d") for d in df['time_2']]
+    print(df.head(10))
+    df.fillna(0, inplace=True)
     if params['response'] == "csv":
-        resp = make_response(div_df.to_csv(encoding="utf-8-sig"))
+        resp = make_response(df.to_csv(encoding="utf-8-sig"))
         resp.headers["Content-Disposition"] = f'attachment; filename={"div_"+params["query"].date().strftime("%Y-%m-%d")}.csv'
         resp.headers["Content-Type"] = "text/csv"
         return resp
@@ -355,7 +423,11 @@ def get_divergence_data(params, api):
         response = {}
         response['metadata'] = params
         response['metadata']['query'] = response['metadata']['query'].date().strftime("%Y-%m-%d")
-        response['data'] = div_df.to_dict()
+        response['metadata']['time_1'] = list(df['time_1'])[0]
+        response['metadata']['time_2'] = list(df['time_2'])[0]
+        response['metadata']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
+        response['metadata']['bottom_5'] = list(df.sort_values(by=[change_param], ascending=False).tail(5).index)
+        response['data'] = df.reset_index().to_dict(orient='records')
         return jsonify(response)
 
 
@@ -390,17 +462,23 @@ def divergence_response():
 def ngram_data(query):
     print(f'Received ngram query {query} and request args {dict(request.args)}')
     params = get_url_params(request.args, 'ngrams')
-    if params['collection']=='realtime':
-        api = Realtime()
-        if query is not None:
-            ngrams_list = get_1grams_list(query)
-    else:
-        api = Storywrangler()
-        if query is not None:
-            ngrams_list = get_ngrams_list(query, params['language'], api)
+    api = Storywrangler()
+    if query is not None:
+        ngrams_list = get_ngrams_list(query, params['language'], api)
     if ngrams_list is not None:
         params['query'] = ngrams_list
     return get_ngram_data(params, api)
+          
+@app.route('/api/realtime/<query>', methods=['GET'])
+def realtime_data(query):
+    print(f'Received ngram query {query} and request args {dict(request.args)}')
+    params = get_url_params(request.args, 'ngrams')
+    api = Realtime()
+    if query is not None:
+        ngrams_list = get_realtimengrams_list(query, params['language'], api)
+    if ngrams_list is not None:
+        params['query'] = ngrams_list
+    return get_realtimengram_data(params, api)
           
 @app.route('/api/languages/<query>', methods=['GET'])
 def languages_data(query):
@@ -424,8 +502,8 @@ def zipf_data(query):
             print(f'Query is default {params["query"]}')
     return get_zipf_data(params, api)
 
-@app.route('/api/divergence/<query>', methods=['GET'])
-def divergence_data(query):
+@app.route('/api/rtd/<query>', methods=['GET'])
+def rtd_data(query):
     api = Storywrangler()
     params = get_url_params(request.args, 'divergence')
     if query is not None:
@@ -434,7 +512,7 @@ def divergence_data(query):
         except:
             print(f'{query} is not a valid date in the time format YYYY-MM-DD')
             print(f'Query is default {params["query"]}')
-    return get_divergence_data(params, api)
+    return get_rtd_data(params, api)
 
 if __name__ == '__main__':
     app.run(debug=True, port=port)
