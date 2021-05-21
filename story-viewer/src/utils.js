@@ -77,13 +77,12 @@ export const getAPIcall = (v, q, p) => {
         }
         apicall = apicall.concat('?'+formattedAPIparams.join('&'))
     }
-    console.log('Formatted API call as:')
-    console.log(apicall)
-    console.log({p})
     return apicall
 }
 
 export const getData = (async (v, q, p) => {
+    console.log('Getting data for params:')
+    console.log({p})
     const response = await fetch(getAPIcall(v, q, p));
     const json = await response.json();
     if (json) { return json }
@@ -125,7 +124,7 @@ export const getQuery = (v, allP) => {
     }
 }
 
-export const getAPIParams = (v, allP, start, end) => {
+export const getAPIParams = (v, allP) => {
     let APIparams = {}
     switch (v) {
         case ('ngrams'):

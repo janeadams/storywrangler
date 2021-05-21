@@ -147,13 +147,30 @@ const View = ({viewer}) => {
 
     let details = () => {
         if (['ngrams','potus','realtime','languages'].includes(viewer)){
-            return <Subplots
-                data={data}
-                metric={metric}
-                viewer={viewer}
-                params={params}
-                metadata={metadata}
-            />
+            let subPlots = []
+            let i = 0
+            if (data) {
+                Object.entries(data).forEach(([key, value]) => {
+                    console.log('Adding subplot traces:')
+                    console.log({key})
+                    console.log({value})
+                    subPlots.push(<div className={'subplot'}><Subplot
+                        tracename={key}
+                        value={value}
+                        metric={metric}
+                        i={i}
+                        viewer={viewer}
+                        params={params}
+                        metadata={metadata}
+                        start={start}
+                        end={end}
+                        setStart={setStart}
+                        setEnd={setEnd}
+                    />{['ngrams','realtime'].includes(viewer) && <div className={"twitter-search"}><a href={`https://twitter.com/search?q=%22${key}%22%20until%3A${end}%20since%3A${start}&src=typed_query&f=live`} target={"_blank"}>{`Search Twitter for "${key}" in this date range`}</a></div>}</div>)
+                    i+=1
+                })
+            }
+            return (<div className="subplotHolder" className="flexcontainer">{subPlots}</div>)
         }
         else if (['rtd','zipf'].includes(viewer)) {
             return data ? <EnhancedTable viewer={viewer} params={params} data={data}/> : 'no data'
@@ -222,7 +239,7 @@ const View = ({viewer}) => {
             }
             else (elements.push(paramElements[param]))
         })
-        let downloadURL = getAPIcall(viewer,query,params)
+        let downloadURL = getAPIcall(viewer,query,APIparams)
         let downloadButton = <p><a href={`${downloadURL}&response=csv`} target='_blank'>Download CSV</a> or <a href={downloadURL} target='_blank'>JSON</a></p>
         elements.push(downloadButton)
         return elements
@@ -231,7 +248,7 @@ const View = ({viewer}) => {
       
       return (
           <main>
-              <div className="row">
+              <div className="row" className="flexcontainer">
                 <section className="options">
                     <h1>{pageMeta(viewer).title}</h1>
                     <p>{pageMeta(viewer).desc}</p>

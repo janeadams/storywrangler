@@ -8,29 +8,54 @@ const Subplot = ( props ) => {
 
     let config = {
         "displaylogo": false,
+        "showlegend": false,
+        "displayModeBar": false,
         'modeBarButtonsToRemove': ['pan2d','lasso2d','sendDataToCloud', 'select2d']
     }
 
-    const [state, setState] = useState({data: buildTrace(props.viewer, props.ngram, props.value, props.metric, props.i), layout: getLayout(props.viewer, props.metadata, props.params), config: config});
+    let languageMap = languageOptions(props.viewer)
+    let getTitle = (tracename) => {return props.viewer === "languages" ? languageMap[tracename] : `"${tracename}"`}
 
+    const [state, setState] = useState({
+        data: [buildTrace(props.viewer, props.tracename, props.value, props.metric, props.i, true)],
+        layout: getLayout(props.viewer, props.metadata, props.params, getTitle(props.tracename)),
+        config: config});
+
+    useEffect(  () => {
+        console.log('Timeline state useEffect triggered')
+        if (state.layout.xaxis) {
+            let range = state.layout.xaxis.range
+            if (typeof range[0]==='string' || range[0] instanceof String){
+                let s = range[0].substring(0, 10)
+                console.log(`Start: ${s}`)
+                props.setStart(s)
+            }
+            if (typeof range[1]==='string' || range[1] instanceof String){
+                let e = range[1].substring(0, 10)
+                console.log(`End: ${e}`)
+                props.setEnd(e)
+            }
+        }
+    }, [state]);
 
     useEffect( () => {
-        setState({...state, ...{'data': buildTrace(props.viewer, props.ngram, props.value, props.metric, props.i)}})
+        setState({...state, ...{'data': [buildTrace(props.viewer, props.tracename, props.value, props.metric, props.i, true)]}})
     }, [props.value])
 
-    console.log('Subplot data:')
-    console.log(props.ngram)
-    console.log(props.value)
+    useEffect( () => {
+        let newLayout = getLayout(props.viewer, props.metadata, props.params, getTitle(props.tracename))
+        newLayout.xaxis.range = [props.start, props.end]
+        setState({...state, ...{layout: newLayout}})
+    }, [props.start, props.end, props.tracename])
 
     return (
         <Plot
             data={state.data}
             useResizeHandler
-            style={{ width: "50%", height: "100%" }}
+            style={{ width: "100%"}}
             layout={state.layout}
             scrollZoom={true}
             config={state.config}
-            displayModeBar={true}
             onInitialized={(figure) => setState(figure)}
             onUpdate={(figure) => setState(figure)}
         />

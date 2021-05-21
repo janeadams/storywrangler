@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {Link, Route, withRouter} from "react-router-dom";
 import {viewerOptions} from "./../utils"
 import {View} from "./index";
 import {metricOptions, pageMeta} from '../defaults.js'
+import logo from "./../img/storywrangler_wordmark.svg"
 
 function Navigation(props) {
 
@@ -13,15 +14,18 @@ function Navigation(props) {
     )
   })
 
+  const [navClass, setNavClass] = useState("")
+
+  const toggleState = () => {
+    return navClass==="" ? "responsive" : ""
+  }
+
   return (
-    <div className="navigation">
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            StoryWrangler
+      <nav>
+          <Link to="/">
+            <img id="logo" src={logo}/>
           </Link>
-          <div>
-            <ul className="navbar-nav ml-auto">
+            <ul id="navList" className={navClass}>
               <li
                 className={`nav-item  ${
                   props.location.pathname === "/" ? "active" : ""
@@ -42,11 +46,10 @@ function Navigation(props) {
                   About
                 </Link>
               </li>
+              <a href="javascript:void(0);" className="icon" onClick={() => setNavClass(toggleState())}>
+                <i className="fa fa-bars"></i></a>
             </ul>
-          </div>
-        </div>
       </nav>
-    </div>
   );
 }
 

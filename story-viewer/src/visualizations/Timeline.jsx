@@ -6,11 +6,16 @@ import {colorsRGB, getLayout, buildTraces, getMetric, getYlabel} from "./timelin
 
 const Timeline = ( props ) => {
 
+    let subplot = false
+
     let config = {
             "displaylogo": false,
             'modeBarButtonsToRemove': ['pan2d','lasso2d','sendDataToCloud', 'select2d']
         }
-    const [state, setState] = useState({data: buildTraces(props.data, props.viewer, props.params.metric), layout: getLayout(props.viewer, props.metadata, props.params), config: config});
+    const [state, setState] = useState({
+        data: buildTraces(props.data, props.viewer, props.params.metric, subplot),
+        layout: getLayout(props.viewer, props.metadata, props.params, subplot),
+        config: config});
 
     useEffect(  () => {
         console.log('Timeline state useEffect triggered')
@@ -30,8 +35,17 @@ const Timeline = ( props ) => {
     }, [state]);
 
     useEffect( () => {
-        setState({...state, ...{'data': buildTraces(props.data, props.viewer, props.params.metric)}})
+        console.log('Timeline props.data useEffect triggered')
+        let traces = buildTraces(props.data, props.viewer, props.params.metric, subplot)
+        console.log({traces})
+        setState({...state, ...{'data': traces}})
     }, [props.data])
+
+    useEffect( () => {
+        let newLayout = getLayout(props.viewer, props.metadata, props.params, props.tracename, subplot)
+        newLayout.xaxis.range = [props.start, props.end]
+        setState({...state, ...{layout: newLayout}})
+    }, [props.start, props.end])
 
     console.log('Timeline data:')
     console.log(props.data)

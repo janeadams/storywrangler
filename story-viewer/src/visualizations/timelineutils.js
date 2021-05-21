@@ -1,5 +1,5 @@
 import {languageOptions, metricOptions, pageMeta} from "../defaults";
-import {titleCase} from "../utils";
+import {titleCase, today} from "../utils";
 import Plot from "react-plotly.js";
 import React from "react";
 import Subplot from './Subplot'
@@ -35,12 +35,19 @@ export const getMetric = (params) => {
     return formattedMetric
 }
 
-export const getXaxisLayout = (viewer, metadata, params) => {
+export const getXaxisLayout = (viewer, metadata, params, subplot) => {
     let xaxisLayout = {
         range: [params.start, params.end],
-        title: {text: titleCase('date')},
-        rangeslider: {visible: true},
-        type: "date"
+        /*title: {text: titleCase('date')},*/
+        rangeslider: {
+            visible: false
+        },
+        fixedrange: false,
+        type: "date",
+        rangeselector: subplot ? false : {
+            buttons: [
+                {label: "All Time", step: 'all'}
+            ]}
     }
     if (['rtd'].includes(viewer)) {
         xaxisLayout['autorange'] = false
@@ -58,17 +65,32 @@ export const getYaxisLayout = (viewer, params) => {
         autorange: ['rank', 'odds'].includes(params.metric) ? 'reversed' : true,
         title: {text: getYlabel(viewer, params)}
     }
-    console.log(yaxisLayout)
+    //console.log(yaxisLayout)
     return yaxisLayout
 }
 
-export const getLayout = (viewer, metadata, params) => {
+export const getLayout = (viewer, metadata, params, subplot) => {
     let layout = {
         autosize: true,
-        xaxis: getXaxisLayout(viewer, metadata, params),
+        xaxis: getXaxisLayout(viewer, metadata, params, subplot),
         yaxis: getYaxisLayout(viewer, params),
-        title: getYlabel(viewer, params) + " of " + pageMeta(viewer)['title'] + " by Date",
-        showlegend: true
+        title: subplot ? subplot : getYlabel(viewer, params) + " of " + pageMeta(viewer)['title'] + " by Date",
+        showlegend: subplot ? false : true,
+        legend: {
+            orientation:"h",
+            yanchor:"bottom",
+            y:1.02,
+            xanchor:"right",
+            x:1,
+            itemwidth: 5
+        },
+        margin: {
+            l: 50,
+            r: 50,
+            b: 50,
+            t: 100,
+            pad: 10
+        }
     }
     if (['rtd'].includes(viewer)) {
         console.log(metadata)
@@ -88,7 +110,7 @@ export const getLayout = (viewer, metadata, params) => {
     return layout
 }
 
-export const buildTrace = (viewer, key, value, metric, i) => {
+export const buildTrace = (viewer, key, value, metric, i, subplot) => {
     let languageMap = languageOptions(viewer)
     let name = viewer === "languages" ? languageMap[key] : key
     let trace = {
@@ -98,26 +120,26 @@ export const buildTrace = (viewer, key, value, metric, i) => {
         mode: 'lines+markers',
         line: {
             color: colorsRGB[i] + ",0.3)",
-            width: 1
+            width: subplot ? 2 : 1
         },
         marker: {
             color: colorsRGB[i] + ",0.3)",
-            size: 2
+            size: subplot ? 4 : 2
         },
         name: name
     }
-    console.log(trace)
+    //console.log(trace)
     return trace
 }
 
-export const buildTraces = (data, viewer, metric) => {
+export const buildTraces = (data, viewer, metric, subplot) => {
     if (data) {
+        console.log('Building traces...')
         let traces = []
         console.log({metric})
-
         let i = 0
         Object.entries(data).forEach(([key, value]) => {
-            let trace = buildTrace(viewer, key, value, metric, i)
+            let trace = buildTrace(viewer, key, value, metric, i, subplot)
             traces.push(trace)
             if (i < (colorsRGB.length - 1)) {
                 i += 1
