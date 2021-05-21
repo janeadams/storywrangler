@@ -5,9 +5,250 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 200vh;
+  color: #333;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 15px;
+  background-color: #EEEEEE;
+}
+
+#logo {
+  flex: 1 1 20%;
+  height: 40px;
+  width: auto;
+  float: left;
+}
+
+#navList {
+  list-style-type: none;
+}
+
+#navList li {
+  display: inline-block;
+  flex-direction: row;
+}
+
+#navList .icon {
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  #navList li {display: none;}
+  #navList a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 1000px) {
+  #navList.responsive {
+    position: relative;
+    flex-direction: column;
+  }
+  #navList.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  #navList.responsive li {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+.footer {
+  height: 40px;
+  padding: 10px;
+}
+
+main {
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+.row {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  /*border: 1px solid red;*/
+}
+
+.flexcontainer {
+  display: flex;
+  flex-flow: row wrap;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+section {
+  display: block;
+  height: auto;
+  min-height: 400px;
+}
+
+.options {
+  flex: 1 1 30%;
+  max-width: 100%;
+  float: left;
+  /*border: 1px solid purple;*/
+  margin: 10px;
+}
+
+.feature {
+  flex: 1 1 60%;
+  float: right;
+  max-width: 100%;
+  /*border: 1px solid green;*/
+  margin: 10px;
+}
+
+.details {
+  width: 100%;
+}
+
+.optionContainer {
+ padding-bottom: 10px;
+}
+
+.optionContainer p {
+  padding: 0;
+  margin: 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.about {
+  padding: 40px;
+}
+
+.textblock {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 5% 80px 5%;
+}
+
+.teaser {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.teaser p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.textblock p {
+  line-height: 160%;
+  font-size: 1.4em;
+  /*margin-block-start: 0;
+  margin-block-end: 0;*/
+}
+
+.textblock h1,h2,h3 {
+  font-family: "Helvetica", sans-serif;
+  margin-top: 80px;
+}
+
+.textblock h1 {
+  font-size: 2.4em;
+}
+.textblock h2 {
+  font-size: 2.0em;
+}
+.textblock h4 {
+  font-weight: bold;
+}
+.textblock a {
+  color: #0681A2;
+  text-decoration: none;
+}
+.textblock a:hover {
+  text-decoration: underline;
+}
+.about img {
+  width: 400px;
+  height: auto;
+  max-width: 100%;
+  display: inline;
+  float: right;
+  padding: 0 0 20px 20px;
+}
+
+.center {
+  text-align: center;
+  padding: 20px 10%;
+}
+
+.bug {
+  font-size: 12px;
+  padding: 5px 0;
+}
+
+.citation {
+  margin-left: 10px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0px;
+}
+
+.citation li {
+  list-style: none;
+}
+
+.citation h1, .citation h2, .citation h3{
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #666;
+  font-family: "Helvetica", sans-serif;
+  padding-bottom: 0;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.citation h1 {
+  padding-top: 20px;
+  font-weight: bold;
+}
+
+.citation h2 {
+  font-style: italic;
+}
+.citation h3 {
+  line-height: 140%;
+}
+
+.subplotHolder {
+  width: 100%;
+  height: auto;
+  min-height: 20px;
+}
+
+.subplot {
+  max-width: 100%;
+  float: left;
+  display: block;
+  flex: 1 1 30%;
+}
+
+.twitter-search {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.6em;
+}
+
+a[target="_blank"]::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 3px 0 5px;
 }

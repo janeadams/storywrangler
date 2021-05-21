@@ -252,6 +252,7 @@ def get_language_list(query):
 def get_ngram_data(params, api):
     print(f"Getting ngram data for {params['query']} in {params['language']}")
     df_obj = {}
+<<<<<<< HEAD
     for ngram in params['query']:
         df = api.get_ngram(
           ngram,
@@ -338,6 +339,53 @@ def get_realtimengram_data(params, api):
           #dict_obj[ngram] = df_obj[ngram].reset_index().rename(columns={'time':'date'}).to_dict(orient='records')
         response['data'] = dict_obj
         return jsonify(response)
+=======
+    try:
+        for ngram in params['query']:
+            ngram_df = api.get_ngram(
+              ngram,
+              lang=params['language']
+            )
+            #ngram_df['date'] = [d.date().strftime("%Y-%m-%d") for d in ngram_df['date']]
+            try:
+                ngram_df['odds']=[freq_to_odds(f) for f in ngram_df['freq']]
+            except:
+              print("Error converting odds to frequency")
+            try:
+                ngram_df['odds_no_rt']=[freq_to_odds(f) for f in ngram_df['freq_no_rt']]
+            except:
+              print("Error converting odds (no RT) to frequency (no RT)")
+            ngram_df.index = ngram_df.index.strftime('%Y-%m-%d')
+            df_obj[ngram] = ngram_df.dropna()
+        print(f'Building response for params {params}')
+        if params['response'] == "csv":
+            keyed_dfs = {}
+            for ngram, df in df_obj.items():
+              df['ngram'] = ngram
+              keyed_dfs[ngram] = df
+            combined_df = pd.concat(keyed_dfs.values())
+            response = make_response(combined_df.to_csv(), 200) # 200 Status Code 'OK'
+            response.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
+            response.headers["Content-Type"] = "text/csv"
+            return response
+        else: # Default to json
+            content = {}
+            content['metadata'] = params
+            dict_obj = {}
+            for ngram in df_obj.keys():
+              dict_obj[ngram] = {}
+              dict_obj[ngram]['date'] = list(df_obj[ngram].index)
+              for col in list(df_obj[ngram].columns):
+                  dict_obj[ngram][col] = list(df_obj[ngram][col])
+            content['data'] = dict_obj
+            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            response.headers["Content-Type"] = "application/json"
+            return response
+    except:
+        response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
+        response.headers["Content-Type"] = "application/json"
+        return response
+>>>>>>> 26179f2bc63d9183d8cfd9eef7eb4f8b640e9dca
 
 def get_language_data(params, api):
     print(f"Getting language data for {params['query']}")

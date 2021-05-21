@@ -1,16 +1,31 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {Link, Route, withRouter} from "react-router-dom";
+import {viewerOptions} from "./../utils"
+import {View} from "./index";
+import {metricOptions, pageMeta} from '../defaults.js'
+import logo from "./../img/storywrangler_wordmark.svg"
 
 function Navigation(props) {
+
+  const viewerLinks = viewerOptions.map(v => {
+    return (
+        <li className={`nav-item  ${props.location.pathname === `/${v}` ? "active" : ""}`}>
+          <Link key={v} className="nav-link" to={`/${v}`}>{pageMeta(v).title}</Link></li>
+    )
+  })
+
+  const [navClass, setNavClass] = useState("")
+
+  const toggleState = () => {
+    return navClass==="" ? "responsive" : ""
+  }
+
   return (
-    <div className="navigation">
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            StoryWrangler
+      <nav>
+          <Link to="/">
+            <img id="logo" src={logo}/>
           </Link>
-          <div>
-            <ul className="navbar-nav ml-auto">
+            <ul id="navList" className={navClass}>
               <li
                 className={`nav-item  ${
                   props.location.pathname === "/" ? "active" : ""
@@ -21,51 +36,7 @@ function Navigation(props) {
                   <span className="sr-only">(current)</span>
                 </Link>
               </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/ngrams" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/ngrams">
-                  Ngrams
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/realtime" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/realtime">
-                  Realtime
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/zipf" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/zipf">
-                  Zipf
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/rtd" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/rtd">
-                  RTD
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/languages" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/languages">
-                  Languages
-                </Link>
-              </li>
+              {viewerLinks}
               <li
                 className={`nav-item  ${
                   props.location.pathname === "/about" ? "active" : ""
@@ -75,20 +46,10 @@ function Navigation(props) {
                   About
                 </Link>
               </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/contact" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/contact">
-                  Contact
-                </Link>
-              </li>
+              <a href="javascript:void(0);" className="icon" onClick={() => setNavClass(toggleState())}>
+                <i className="fa fa-bars"></i></a>
             </ul>
-          </div>
-        </div>
       </nav>
-    </div>
   );
 }
 
