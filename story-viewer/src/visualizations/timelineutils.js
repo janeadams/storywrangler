@@ -1,8 +1,6 @@
 import {languageOptions, metricOptions, pageMeta} from "../defaults";
-import {titleCase, today} from "../utils";
-import Plot from "react-plotly.js";
+import {titleCase} from "../utils";
 import React from "react";
-import Subplot from './Subplot'
 
 export const colorsRGB = ["rgb(27,158,119",
     "rgb(217,95,2",
@@ -46,7 +44,7 @@ export const getXaxisLayout = (viewer, metadata, params, subplot) => {
         type: "date",
         rangeselector: subplot ? false : {
             buttons: [
-                {label: "All Time", step: 'all'}
+                {label: "Show All Time", step: 'all'}
             ]}
     }
     if (['rtd'].includes(viewer)) {

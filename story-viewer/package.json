@@ -11,6 +11,7 @@
     "arquero": "^4.1.0",
     "d3": "^6.6.1",
     "datalib": "^1.9.3",
+    "is-touch-device": "^1.0.1",
     "nivo": "^0.31.0",
     "plotly": "^1.0.6",
     "plotly.js": "^1.58.4",

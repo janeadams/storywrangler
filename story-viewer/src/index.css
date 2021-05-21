@@ -19,7 +19,7 @@ nav {
 }
 
 #logo {
-  flex: 1 1 20%;
+  flex: 1 1 300px;
   height: 40px;
   width: auto;
   float: left;
@@ -27,6 +27,7 @@ nav {
 
 #navList {
   list-style-type: none;
+  z-index: 999;
 }
 
 #navList li {
@@ -49,13 +50,17 @@ nav {
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
 @media screen and (max-width: 1000px) {
   #navList.responsive {
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
     flex-direction: column;
+    background-color: #EEEEEE;
+    padding: 20px;
   }
   #navList.responsive a.icon {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 20px;
+    top: 20px;
   }
   #navList.responsive li {
     float: none;
@@ -86,6 +91,29 @@ main {
   flex-flow: row wrap;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.landing-intro {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.2em;
+  padding: 40px 0 0 0;
+}
+
+.actionteaser {
+  flex: 1 1 300px;
+  color: #333333;
+}
+
+.actionteaser h2, .actionteaser p, .actionteaser a {
+  color: #333333 !important;
+}
+
+.teaserImage {
+  width: 100%;
+  max-width: 300px;
+  padding: 20px 0;
 }
 
 section {
@@ -123,9 +151,45 @@ section {
   margin: 0;
 }
 
+.subplotHolder {
+  width: 100%;
+  height: auto;
+  min-height: 20px;
+}
+
+.subplot {
+  max-width: 100%;
+  float: left;
+  display: block;
+  flex: 1 1 300px;
+}
+
+@media screen and (max-width: 600px) {
+  main {
+    padding: 0px 10px 40px 0;
+  }
+  .feature, .options, .subplot, #logo {
+    flex: 1 1 100%;
+  }
+}
+
+.twitter-search {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.6em;
+}
+
+a[target="_blank"]::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 3px 0 5px;
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
 
 .about {
@@ -225,30 +289,4 @@ code {
 }
 .citation h3 {
   line-height: 140%;
-}
-
-.subplotHolder {
-  width: 100%;
-  height: auto;
-  min-height: 20px;
-}
-
-.subplot {
-  max-width: 100%;
-  float: left;
-  display: block;
-  flex: 1 1 30%;
-}
-
-.twitter-search {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 20px;
-  font-size: 0.6em;
-}
-
-a[target="_blank"]::after {
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
-  margin: 0 3px 0 5px;
 }

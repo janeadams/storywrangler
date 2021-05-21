@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Plot from '../../node_modules/react-plotly.js/react-plotly';
-import {formatURLParams, getAPIParams, getParams, getQuery, titleCase, parseDate, formatDate} from "./../utils"
-import {languageOptions, pageMeta, metricOptions} from "../defaults"
-import {colorsRGB, getLayout, buildTraces, getMetric, getYlabel} from "./timelineutils"
+import {getLayout, buildTraces} from "./timelineutils"
+import {is_touch_enabled} from "../utils";
 
 const Timeline = ( props ) => {
 
@@ -12,6 +11,11 @@ const Timeline = ( props ) => {
             "displaylogo": false,
             'modeBarButtonsToRemove': ['pan2d','lasso2d','sendDataToCloud', 'select2d']
         }
+
+    if (is_touch_enabled){
+        config.displayModeBar = false;
+    }
+
     const [state, setState] = useState({
         data: buildTraces(props.data, props.viewer, props.params.metric, subplot),
         layout: getLayout(props.viewer, props.metadata, props.params, subplot),

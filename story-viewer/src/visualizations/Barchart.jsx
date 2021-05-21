@@ -1,7 +1,6 @@
 import React from 'react';
 import Plot from '../../node_modules/react-plotly.js/react-plotly';
-import { titleCase, parseDate, parseRealtime } from "./../utils"
-import {languageOptions} from "../defaults"
+import { titleCase } from "./../utils"
 
 const Barchart = ( props ) => {
 

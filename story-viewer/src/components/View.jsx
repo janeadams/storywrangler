@@ -6,16 +6,12 @@ import Search from "./../options/search"
 import Toggle from "./../options/toggle"
 import Calendar from "./../options/calendar"
 import Timeline from "../visualizations/Timeline"
-import Subplots from "../visualizations/Subplots"
-import Barchart from "../visualizations/Barchart"
 import EnhancedTable from "../visualizations/Table";
-import LoadingIndicator from "./LoadingIndicator"
-import { usePromiseTracker, trackPromise, promiseInProgress } from 'react-promise-tracker';
+import { usePromiseTracker, trackPromise } from 'react-promise-tracker';
 import { css } from "@emotion/react";
 import GridLoader from "react-spinners/GridLoader";
 import {formatURLParams, parseArray, getData, getAPIcall, getParams, getQuery, getAPIParams} from "../utils"
 import {defaults, metricOptions, languageOptions, languageValueOptions, pageMeta} from "../defaults"
-import {getLayout, getMetric} from '../visualizations/timelineutils'
 import Subplot from "../visualizations/Subplot";
 
 const override = css`
@@ -173,7 +169,7 @@ const View = ({viewer}) => {
             return (<div className="subplotHolder" className="flexcontainer">{subPlots}</div>)
         }
         else if (['rtd','zipf'].includes(viewer)) {
-            return data ? <EnhancedTable viewer={viewer} params={params} data={data}/> : 'no data'
+            return data ? <EnhancedTable viewer={viewer} params={params} data={data}/> : ''
         }
         else {
             return {viewer}
@@ -257,14 +253,12 @@ const View = ({viewer}) => {
                     </form>
               </section>
                   <section className="feature">
-                    {/*<p>Data: {JSON.stringify(data)}</p>*/}
                     {promiseInProgress ? <GridLoader loading={promiseInProgress} css={override} /> : feature()}
                 </section>
             </div>
               <div className="row">
                   <section className="details">
-                      {promiseInProgress && <GridLoader loading={promiseInProgress} css={override} />}
-                      {details()}
+                      {promiseInProgress ? <GridLoader loading={promiseInProgress} css={override} /> : details()}
                   </section>
               </div>
         </main>
