@@ -330,8 +330,8 @@ def get_realtimengram_data(params, api):
             resp.headers["Content-Type"] = "text/csv"
             return resp
         else: # Default to json
-            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
-            response['meta'] = params
+            content = {}
+            content['meta'] = params
             dict_obj = {}
             for ngram in df_obj.keys():
 
@@ -341,8 +341,10 @@ def get_realtimengram_data(params, api):
                   dict_obj[ngram][col] = list(df_obj[ngram][col])
 
               #dict_obj[ngram] = df_obj[ngram].reset_index().rename(columns={'time':'date'}).to_dict(orient='records')
-            response['data'] = dict_obj
-            return jsonify(response)
+            content['data'] = dict_obj
+            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            response.headers["Content-Type"] = "application/json"
+            return response
     except:
         response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
         response.headers["Content-Type"] = "application/json"
@@ -377,16 +379,19 @@ def get_language_data(params, api):
             resp.headers["Content-Type"] = "text/csv"
             return resp
         else: # Default to json
-            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
-            response['meta'] = params
+            print('Defaulting to json...')
+            content = {}
+            content['meta'] = params
             dict_obj = {}
             for language in df_obj.keys():
               dict_obj[language] = {}
               dict_obj[language]['date'] = list(df_obj[language].index)
               for col in list(df_obj[language].columns):
                   dict_obj[language][col] = list(df_obj[language][col])
-            response['data'] = dict_obj
-            return jsonify(response)
+            content['data'] = dict_obj
+            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            response.headers["Content-Type"] = "application/json"
+            return response
     except:
         response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
         response.headers["Content-Type"] = "application/json"
@@ -410,13 +415,15 @@ def get_zipf_data(params, api):
             resp.headers["Content-Type"] = "text/csv"
             return resp
         else: # Default to json
+            content = {}
+            content['meta'] = params
+            content['meta']['query'] = content['meta']['query'].date().strftime("%Y-%m-%d")
+            content['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
+            content['meta']['bottom_5'] = list(df.sort_values(by=[change_param]).head(5).index)
+            content['data'] = df.reset_index().to_dict(orient='records')
             response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
-            response['meta'] = params
-            response['meta']['query'] = response['meta']['query'].date().strftime("%Y-%m-%d")
-            response['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
-            response['meta']['bottom_5'] = list(df.sort_values(by=[change_param]).head(5).index)
-            response['data'] = df.reset_index().to_dict(orient='records')
-            return jsonify(response)
+            response.headers["Content-Type"] = "application/json"
+            return response
     except:
         response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
         response.headers["Content-Type"] = "application/json"
@@ -440,15 +447,17 @@ def get_rtd_data(params, api):
             resp.headers["Content-Type"] = "text/csv"
             return resp
         else: # Default to json
+            content = {}
+            content['meta'] = params
+            content['meta']['query'] = content['meta']['query'].date().strftime("%Y-%m-%d")
+            content['meta']['time_1'] = list(df['time_1'])[0]
+            content['meta']['time_2'] = list(df['time_2'])[0]
+            content['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
+            content['meta']['bottom_5'] = list(df.sort_values(by=[change_param], ascending=False).tail(5).index)
+            content['data'] = df.reset_index().to_dict(orient='records')
             response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
-            response['meta'] = params
-            response['meta']['query'] = response['meta']['query'].date().strftime("%Y-%m-%d")
-            response['meta']['time_1'] = list(df['time_1'])[0]
-            response['meta']['time_2'] = list(df['time_2'])[0]
-            response['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
-            response['meta']['bottom_5'] = list(df.sort_values(by=[change_param], ascending=False).tail(5).index)
-            response['data'] = df.reset_index().to_dict(orient='records')
-            return jsonify(response)
+            response.headers["Content-Type"] = "application/json"
+            return response
     except:
         response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
         response.headers["Content-Type"] = "application/json"
