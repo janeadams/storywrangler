@@ -36,7 +36,6 @@ export const getMetric = (params) => {
 export const getXaxisLayout = (viewer, metadata, params, subplot) => {
     let xaxisLayout = {
         range: [params.start, params.end],
-        /*title: {text: titleCase('date')},*/
         rangeslider: {
             visible: false
         },
@@ -124,7 +123,8 @@ export const buildTrace = (viewer, key, value, metric, i, subplot) => {
             color: colorsRGB[i] + ",0.3)",
             size: subplot ? 4 : 2
         },
-        name: name
+        name: name,
+        connectgaps: false
     }
     //console.log(trace)
     return trace

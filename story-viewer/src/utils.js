@@ -27,6 +27,46 @@ export const  lastyeardate = dateParser(formatDate(new Date(mostrecent).setFullY
 export const  thisfirst = new Date(thisyear, 1, 1)
 export const  firstDate = new Date(2009,9,1)
 
+function getDates(startDate, stopDate) {
+    let dateArray = []
+    let currentDate = startDate
+    while (currentDate <= stopDate) {
+        dateArray.push(new Date (currentDate))
+        currentDate = currentDate.addDays(1)
+    }
+    return dateArray;
+}
+
+export const fillMissing = (data) => {
+    console.log('Reached fillMissing()')
+    let metrics = Object.keys(data)
+    metrics = metrics.filter(item => item !== 'date')
+    console.log({metrics})
+    let dates = Object.assign([], data['date'])
+    let newdates = []
+    let newundefs = []
+    let fullDateRange = getDates(parseDate(dates[0]), parseDate(dates[dates.length - 1]))
+    fullDateRange.forEach(date => {
+        if (dates.includes(formatDate(date))) {
+        } else {
+            newdates.push(formatDate(date))
+            newundefs.push(undefined)
+        }
+    })
+    console.log({newdates})
+    console.log({newundefs})
+    let filled = {}
+    metrics.forEach(metric => {
+        let values = data[metric]
+        values.push.apply(values, newundefs)
+        filled[metric] = values
+    })
+    dates.push.apply(dates, newdates)
+    filled['date'] = dates
+    console.log({filled})
+    return filled
+}
+
 export const titleCase = (title => {
     return title.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 })

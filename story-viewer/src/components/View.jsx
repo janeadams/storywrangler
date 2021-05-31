@@ -88,11 +88,11 @@ const View = ({viewer}) => {
             return getData(viewer, query, APIparams)
         }
         trackPromise(updateData()).then(function(result) {
-            let metaDataToSet = result.metadata
-            if (viewer==='ngrams'){metaDataToSet['ngrams']=result.metadata.query}
+            let metaDataToSet = result.meta
+            if (viewer==='ngrams'){metaDataToSet['ngrams']=result.meta.query}
             setMetadata(metaDataToSet)
-            if (['rtd','zipf'].includes(viewer) && ('top_5' in result.metadata)){
-                setTop5(result.metadata['top_5'])
+            if (['rtd','zipf'].includes(viewer) && ('top_5' in result.meta)){
+                setTop5(result.meta['top_5'])
             }
             setData(result.data)
         })
