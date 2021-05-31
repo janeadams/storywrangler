@@ -17,3 +17,4 @@ debug/
 __pycache__/*
 *.pyc
 */api/logs/*
+prod/api/logs/querylog.csv

@@ -252,94 +252,6 @@ def get_language_list(query):
 def get_ngram_data(params, api):
     print(f"Getting ngram data for {params['query']} in {params['language']}")
     df_obj = {}
-<<<<<<< HEAD
-    for ngram in params['query']:
-        df = api.get_ngram(
-          ngram,
-          lang=params['language']
-        )
-        #df['date'] = [d.date().strftime("%Y-%m-%d") for d in df['date']]
-        try:
-            df['odds']=[freq_to_odds(f) for f in df['freq']]
-        except:
-          print("Error converting odds to frequency")
-        try:
-            df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
-        except:
-          print("Error converting odds (no RT) to frequency (no RT)")
-        df.index = df.index.strftime('%Y-%m-%d')
-        df_obj[ngram] = df.dropna()
-    print(f'Building response for params {params}')
-    if params['response'] == "csv":
-        keyed_dfs = {}
-        for ngram, df in df_obj.items():
-          df['ngram'] = ngram
-          keyed_dfs[ngram] = df
-        combined_df = pd.concat(keyed_dfs.values())
-        resp = make_response(combined_df.to_csv())
-        resp.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
-        resp.headers["Content-Type"] = "text/csv"
-        return resp
-    else: # Default to json
-        response = {}
-        response['metadata'] = params
-        dict_obj = {}
-        for ngram in df_obj.keys():
-          
-          dict_obj[ngram] = {}
-          dict_obj[ngram]['date'] = list(df_obj[ngram].index)
-          for col in list(df_obj[ngram].columns):
-              dict_obj[ngram][col] = list(df_obj[ngram][col])
-          
-          #dict_obj[ngram] = df_obj[ngram].reset_index().rename(columns={'time':'date'}).to_dict(orient='records')
-        response['data'] = dict_obj
-        return jsonify(response)
-          
-def get_realtimengram_data(params, api):
-    print(f"Getting realtime ngram data for {params['query']} in {params['language']}")
-    df_obj = {}
-    for ngram in params['query']:
-        df = api.get_ngram(
-          ngram,
-          lang=params['language']
-        )
-        #df['date'] = [d.date().strftime("%Y-%m-%d") for d in df['date']]
-        try:
-            df['odds']=[freq_to_odds(f) for f in df['freq']]
-        except:
-          print("Error converting odds to frequency")
-        try:
-            df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
-        except:
-          print("Error converting odds (no RT) to frequency (no RT)")
-        df.index = df.index.strftime('%Y-%m-%d %H:%M')
-        df_obj[ngram] = df.dropna()
-    print(f'Building response for params {params}')
-    if params['response'] == "csv":
-        keyed_dfs = {}
-        for ngram, df in df_obj.items():
-          df['ngram'] = ngram
-          keyed_dfs[ngram] = df
-        combined_df = pd.concat(keyed_dfs.values())
-        resp = make_response(combined_df.to_csv())
-        resp.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
-        resp.headers["Content-Type"] = "text/csv"
-        return resp
-    else: # Default to json
-        response = {}
-        response['metadata'] = params
-        dict_obj = {}
-        for ngram in df_obj.keys():
-          
-          dict_obj[ngram] = {}
-          dict_obj[ngram]['date'] = list(df_obj[ngram].index)
-          for col in list(df_obj[ngram].columns):
-              dict_obj[ngram][col] = list(df_obj[ngram][col])
-          
-          #dict_obj[ngram] = df_obj[ngram].reset_index().rename(columns={'time':'date'}).to_dict(orient='records')
-        response['data'] = dict_obj
-        return jsonify(response)
-=======
     try:
         for ngram in params['query']:
             ngram_df = api.get_ngram(
@@ -370,7 +282,7 @@ def get_realtimengram_data(params, api):
             return response
         else: # Default to json
             content = {}
-            content['metadata'] = params
+            content['meta'] = params
             dict_obj = {}
             for ngram in df_obj.keys():
               dict_obj[ngram] = {}
@@ -385,98 +297,162 @@ def get_realtimengram_data(params, api):
         response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
         response.headers["Content-Type"] = "application/json"
         return response
->>>>>>> 26179f2bc63d9183d8cfd9eef7eb4f8b640e9dca
+          
+def get_realtimengram_data(params, api):
+    print(f"Getting realtime ngram data for {params['query']} in {params['language']}")
+    try:
+        df_obj = {}
+        for ngram in params['query']:
+            df = api.get_ngram(
+              ngram,
+              lang=params['language']
+            )
+            #df['date'] = [d.date().strftime("%Y-%m-%d") for d in df['date']]
+            try:
+                df['odds']=[freq_to_odds(f) for f in df['freq']]
+            except:
+              print("Error converting odds to frequency")
+            try:
+                df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
+            except:
+              print("Error converting odds (no RT) to frequency (no RT)")
+            df.index = df.index.strftime('%Y-%m-%d %H:%M')
+            df_obj[ngram] = df.dropna()
+        print(f'Building response for params {params}')
+        if params['response'] == "csv":
+            keyed_dfs = {}
+            for ngram, df in df_obj.items():
+              df['ngram'] = ngram
+              keyed_dfs[ngram] = df
+            combined_df = pd.concat(keyed_dfs.values())
+            resp = make_response(combined_df.to_csv())
+            resp.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
+            resp.headers["Content-Type"] = "text/csv"
+            return resp
+        else: # Default to json
+            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            response['meta'] = params
+            dict_obj = {}
+            for ngram in df_obj.keys():
+
+              dict_obj[ngram] = {}
+              dict_obj[ngram]['date'] = list(df_obj[ngram].index)
+              for col in list(df_obj[ngram].columns):
+                  dict_obj[ngram][col] = list(df_obj[ngram][col])
+
+              #dict_obj[ngram] = df_obj[ngram].reset_index().rename(columns={'time':'date'}).to_dict(orient='records')
+            response['data'] = dict_obj
+            return jsonify(response)
+    except:
+        response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
+        response.headers["Content-Type"] = "application/json"
+        return response
 
 def get_language_data(params, api):
     print(f"Getting language data for {params['query']}")
-    df_obj = {}
-    for language in params['query']:
-        df = api.get_lang(language)
-        try:
-            df['odds']=[freq_to_odds(f) for f in df['freq']]
-        except:
-            print("Error converting odds to frequency")
-        try:
-            df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
-        except:
-            print("Error converting no RT odds to frequency")
-        #print(f'{language} dtypes are {df.dtypes}')
-        df.index = df.index.strftime('%Y-%m-%d')
-        df_obj[language] = df.dropna()
-    print(f'Building response for params {params}')
-    if params['response'] == "csv":
-        keyed_dfs = {}
-        for language, df in df_obj.items():
-          df['language'] = language
-          keyed_dfs[language] = df
-        combined_df = pd.concat(keyed_dfs.values())
-        resp = make_response(combined_df.to_csv(encoding="utf-8"))
-        resp.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
-        resp.headers["Content-Type"] = "text/csv"
-        return resp
-    else: # Default to json
-        response = {}
-        response['metadata'] = params
-        dict_obj = {}
-        for language in df_obj.keys():
-          dict_obj[language] = {}
-          dict_obj[language]['date'] = list(df_obj[language].index)
-          for col in list(df_obj[language].columns):
-              dict_obj[language][col] = list(df_obj[language][col])
-        response['data'] = dict_obj
-        return jsonify(response)
+    try:
+        df_obj = {}
+        for language in params['query']:
+            df = api.get_lang(language)
+            try:
+                df['odds']=[freq_to_odds(f) for f in df['freq']]
+            except:
+                print("Error converting odds to frequency")
+            try:
+                df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
+            except:
+                print("Error converting no RT odds to frequency")
+            #print(f'{language} dtypes are {df.dtypes}')
+            df.index = df.index.strftime('%Y-%m-%d')
+            df_obj[language] = df.dropna()
+        print(f'Building response for params {params}')
+        if params['response'] == "csv":
+            keyed_dfs = {}
+            for language, df in df_obj.items():
+              df['language'] = language
+              keyed_dfs[language] = df
+            combined_df = pd.concat(keyed_dfs.values())
+            resp = make_response(combined_df.to_csv(encoding="utf-8"))
+            resp.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
+            resp.headers["Content-Type"] = "text/csv"
+            return resp
+        else: # Default to json
+            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            response['meta'] = params
+            dict_obj = {}
+            for language in df_obj.keys():
+              dict_obj[language] = {}
+              dict_obj[language]['date'] = list(df_obj[language].index)
+              for col in list(df_obj[language].columns):
+                  dict_obj[language][col] = list(df_obj[language][col])
+            response['data'] = dict_obj
+            return jsonify(response)
+    except:
+        response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
+        response.headers["Content-Type"] = "application/json"
+        return response
 
 def get_zipf_data(params, api):
-    params['n'] = check_language_support(params['language'],params['n'])
-    df = api.get_zipf_dist(params['query'], params['language'], str(params['n'])+'grams', max_rank=params['max'], rt=params['rt'])
-    if params['rt']:
-        change_param = 'rank'
-    else:
-        change_param = 'rank_no_rt'
+    try:
+        params['n'] = check_language_support(params['language'],params['n'])
+        df = api.get_zipf_dist(params['query'], params['language'], str(params['n'])+'grams', max_rank=params['max'], rt=params['rt'])
+        if params['rt']:
+            change_param = 'rank'
+        else:
+            change_param = 'rank_no_rt'
 
-    df['odds']=[freq_to_odds(f) for f in df['freq']]
-    df = df.sort_values(by=[change_param])
-    #df.reindex(df[change_param].abs().sort_values().index)
-    if params['response'] == "csv":
-        resp = make_response(df.to_csv(encoding="utf-8-sig"))
-        resp.headers["Content-Disposition"] = f'attachment; filename={"zipf_"+params["query"].date().strftime("%Y-%m-%d")}.csv'
-        resp.headers["Content-Type"] = "text/csv"
-        return resp
-    else: # Default to json
-        response = {}
-        response['metadata'] = params
-        response['metadata']['query'] = response['metadata']['query'].date().strftime("%Y-%m-%d")
-        response['metadata']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
-        response['metadata']['bottom_5'] = list(df.sort_values(by=[change_param]).head(5).index)
-        response['data'] = df.reset_index().to_dict(orient='records')
-        return jsonify(response)
+        df['odds']=[freq_to_odds(f) for f in df['freq']]
+        df = df.sort_values(by=[change_param])
+        #df.reindex(df[change_param].abs().sort_values().index)
+        if params['response'] == "csv":
+            resp = make_response(df.to_csv(encoding="utf-8-sig"))
+            resp.headers["Content-Disposition"] = f'attachment; filename={"zipf_"+params["query"].date().strftime("%Y-%m-%d")}.csv'
+            resp.headers["Content-Type"] = "text/csv"
+            return resp
+        else: # Default to json
+            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            response['meta'] = params
+            response['meta']['query'] = response['meta']['query'].date().strftime("%Y-%m-%d")
+            response['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
+            response['meta']['bottom_5'] = list(df.sort_values(by=[change_param]).head(5).index)
+            response['data'] = df.reset_index().to_dict(orient='records')
+            return jsonify(response)
+    except:
+        response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
+        response.headers["Content-Type"] = "application/json"
+        return response
 
 def get_rtd_data(params, api):
-    df = api.get_divergence(params['query'], params['language'],  str(params['n'])+'grams', rt=params['rt'])
-    if params['rt']:
-        change_param = 'rd_contribution'
-    else:
-        change_param = 'rd_contribution_no_rt'
-    df = df.reindex(df[change_param].abs().sort_values(ascending=False).index)
-    df['time_1'] = [d.date().strftime("%Y-%m-%d") for d in df['time_1']]
-    df['time_2'] = [d.date().strftime("%Y-%m-%d") for d in df['time_2']]
-    print(df.head(10))
-    df.fillna(0, inplace=True)
-    if params['response'] == "csv":
-        resp = make_response(df.to_csv(encoding="utf-8-sig"))
-        resp.headers["Content-Disposition"] = f'attachment; filename={"div_"+params["query"].date().strftime("%Y-%m-%d")}.csv'
-        resp.headers["Content-Type"] = "text/csv"
-        return resp
-    else: # Default to json
-        response = {}
-        response['metadata'] = params
-        response['metadata']['query'] = response['metadata']['query'].date().strftime("%Y-%m-%d")
-        response['metadata']['time_1'] = list(df['time_1'])[0]
-        response['metadata']['time_2'] = list(df['time_2'])[0]
-        response['metadata']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
-        response['metadata']['bottom_5'] = list(df.sort_values(by=[change_param], ascending=False).tail(5).index)
-        response['data'] = df.reset_index().to_dict(orient='records')
-        return jsonify(response)
+    try:
+        df = api.get_divergence(params['query'], params['language'],  str(params['n'])+'grams', rt=params['rt'])
+        if params['rt']:
+            change_param = 'rd_contribution'
+        else:
+            change_param = 'rd_contribution_no_rt'
+        df = df.reindex(df[change_param].abs().sort_values(ascending=False).index)
+        df['time_1'] = [d.date().strftime("%Y-%m-%d") for d in df['time_1']]
+        df['time_2'] = [d.date().strftime("%Y-%m-%d") for d in df['time_2']]
+        print(df.head(10))
+        df.fillna(0, inplace=True)
+        if params['response'] == "csv":
+            resp = make_response(df.to_csv(encoding="utf-8-sig"))
+            resp.headers["Content-Disposition"] = f'attachment; filename={"div_"+params["query"].date().strftime("%Y-%m-%d")}.csv'
+            resp.headers["Content-Type"] = "text/csv"
+            return resp
+        else: # Default to json
+            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            response['meta'] = params
+            response['meta']['query'] = response['meta']['query'].date().strftime("%Y-%m-%d")
+            response['meta']['time_1'] = list(df['time_1'])[0]
+            response['meta']['time_2'] = list(df['time_2'])[0]
+            response['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
+            response['meta']['bottom_5'] = list(df.sort_values(by=[change_param], ascending=False).tail(5).index)
+            response['data'] = df.reset_index().to_dict(orient='records')
+            return jsonify(response)
+    except:
+        response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
+        response.headers["Content-Type"] = "application/json"
+        return response
 
 
 app = Flask(__name__)
