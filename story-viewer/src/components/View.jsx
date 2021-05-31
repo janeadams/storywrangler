@@ -38,6 +38,7 @@ const View = ({viewer}) => {
     const [n, setN] = useState(defaults(viewer).n)
     const [start, setStart] = useState(urlParams.get('start') || defaults(viewer).start)
     const [end, setEnd] = useState(urlParams.get('end') || defaults(viewer).end)
+    const [hashtags, setHashtags] = useState(false)
 
     const allParams = {
         'ngrams': ngrams,
@@ -46,6 +47,7 @@ const View = ({viewer}) => {
         'rt': rt,
         'scale': scale,
         'metric': metric,
+        'hashtags': hashtags,
         'n': n,
         'queryDate': queryDate,
         'start': start,
@@ -67,7 +69,7 @@ const View = ({viewer}) => {
         setQuery(getQuery(viewer, allParams))
         console.log({params})}
         updateSettings();
-    }, [viewer,ngrams,rt,scale,metric,n,language,languages,queryDate]);
+    }, [viewer,ngrams,rt,scale,metric,n,language,languages,hashtags,queryDate]);
 
     const history = useHistory();
 
@@ -203,7 +205,12 @@ const View = ({viewer}) => {
                 param='rt'
                 state={rt}
                 setState={setRT}
-                prompt={'With retweets?'}/>,
+                prompt={'With retweets? '}/>,
+            'hashtags': <Toggle
+                param='hashtags'
+                state={hashtags}
+                setState={setHashtags}
+                prompt={'Include hashtags? '}/>,
             'scale': <Dropdown
                 param='scale'
                 state={scale}
@@ -233,10 +240,11 @@ const View = ({viewer}) => {
             if (['zipf','rtd'].includes(viewer)) {
              if (param !== 'metric'){elements.push(paramElements[param])}
             }
-            else (elements.push(paramElements[param]))
+            else {
+                if (param !== 'hashtags'){ elements.push(paramElements[param])}}
         })
         let downloadURL = getAPIcall(viewer,query,APIparams)
-        let downloadButton = <p><a href={`${downloadURL}&response=csv`} target='_blank'>Download CSV</a> or <a href={downloadURL} target='_blank'>JSON</a></p>
+        let downloadButton = <p><a href={`${downloadURL}&response=csv&gapped=false`} target='_blank'>Download CSV</a> or <a href={`${downloadURL}&gapped=false`} target='_blank'>JSON</a></p>
         elements.push(downloadButton)
         return elements
     }

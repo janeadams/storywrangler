@@ -22,7 +22,10 @@ const Subplot = ( props ) => {
     let getTitle = (tracename) => {return props.viewer === "languages" ? languageMap[tracename] : `"${tracename}"`}
 
     const [state, setState] = useState({
-        data: [buildTrace(props.viewer, props.tracename, props.value, props.metric, props.i, true)],
+        data: [
+            buildTrace(props.viewer, props.tracename, props.value, props.metric, props.i, true, false),
+            buildTrace(props.viewer, props.tracename, props.value, props.metric, props.i, true, true)
+        ],
         layout: getLayout(props.viewer, props.metadata, props.params, getTitle(props.tracename)),
         config: config});
 
@@ -44,7 +47,10 @@ const Subplot = ( props ) => {
     }, [state]);
 
     useEffect( () => {
-        setState({...state, ...{'data': [buildTrace(props.viewer, props.tracename, props.value, props.metric, props.i, true)]}})
+        setState({...state, ...{'data': [
+                    buildTrace(props.viewer, props.tracename, props.value, props.metric, props.i, true, false),
+                    buildTrace(props.viewer, props.tracename, props.value, props.metric, props.i, true, true)
+                ]}})
     }, [props.value])
 
     useEffect( () => {

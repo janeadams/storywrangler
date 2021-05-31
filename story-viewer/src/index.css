@@ -130,6 +130,10 @@ section {
   margin: 10px;
 }
 
+label {
+  padding-right: 5px;
+}
+
 .feature {
   flex: 1 1 60%;
   float: right;

@@ -37,7 +37,20 @@ function getDates(startDate, stopDate) {
     return dateArray;
 }
 
-export const fillMissing = (data) => {
+function getTimes(startDateTime, stopDateTime) {
+    let timeArray = []
+    let currentTime = startDateTime
+    while (currentTime <= stopDateTime) {
+        timeArray.push(currentTime)
+        currentTime = new Date(currentTime.getTime() + 15 * 60000)
+    }
+}
+
+export const fillMissingTimes = (data) => {
+    return data
+}
+
+export const fillMissingDates = (data) => {
     console.log('Reached fillMissing()')
     let metrics = Object.keys(data)
     metrics = metrics.filter(item => item !== 'date')
@@ -124,7 +137,9 @@ export const getData = (async (v, q, p) => {
     console.log({p})
     const response = await fetch(getAPIcall(v, q, p));
     const json = await response.json();
-    if (json) { return json }
+    if (json) {
+        return json
+    }
     else { return {} }
 })
 
@@ -145,7 +160,7 @@ export const getParams = (v, allP) => {
             return filterParams(['languages','rt','scale','metric','start','end'],allP)
         case ('rtd'):
         case ('zipf' ):
-            return filterParams(['queryDate','language','rt','scale','metric','n','start','end'],allP)
+            return filterParams(['queryDate','language','rt','scale','metric','n','hashtags','start','end'],allP)
     }
 }
 
@@ -174,6 +189,6 @@ export const getAPIParams = (v, allP) => {
             return APIparams
         case ('rtd'):
         case ('zipf' ):
-            return {...APIparams, ...filterParams(['language','n','metric','rt'], allP)}
+            return {...APIparams, ...filterParams(['language','n','metric','rt','hashtags'], allP)}
     }
 }

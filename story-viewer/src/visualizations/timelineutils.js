@@ -1,15 +1,27 @@
 import {languageOptions, metricOptions, pageMeta} from "../defaults";
 import {titleCase} from "../utils";
 import React from "react";
+import DataFrame, { Row } from 'dataframe-js';
 
-export const colorsRGB = ["rgb(27,158,119",
-    "rgb(217,95,2",
-    "rgb(117,112,179",
-    "rgb(231,41,138",
-    "rgb(102,166,30",
-    "rgb(230,171,2",
-    "rgb(166,118,29",
-    "rgb(102,102,102"]
+export const colorsRGB = ["rgb(228,26,28)",
+    "rgb(55,126,184)",
+    "rgb(77,175,74)",
+    "rgb(152,78,163)",
+    "rgb(255,127,0)",
+    "rgb(255,255,51)",
+    "rgb(166,86,40)",
+    "rgb(247,129,191)",
+    "rgb(153,153,153)"]
+
+export const colorsLightRGB = ["rgb(251,180,174)",
+    "rgb(179,205,227)",
+    "rgb(204,235,197)",
+    "rgb(222,203,228)",
+    "rgb(254,217,166)",
+    "rgb(255,255,204)",
+    "rgb(229,216,189)",
+    "rgb(253,218,236)",
+    "rgb(242,242,242)"]
 
 export const getYlabel = (viewer,params) => {
     let Ylabel = params.rt ? metricOptions(viewer, 1)[params.metric] : metricOptions(viewer, 1)[params.metric] + " (no Retweets)"
@@ -107,24 +119,28 @@ export const getLayout = (viewer, metadata, params, subplot) => {
     return layout
 }
 
-export const buildTrace = (viewer, key, value, metric, i, subplot) => {
+export const buildTrace = (viewer, key, value, metric, i, subplot, gapped) => {
     let languageMap = languageOptions(viewer)
-    let name = viewer === "languages" ? languageMap[key] : key
+    let name = viewer === "languages" ? languageMap[key] : key;
+
+    let data = value
+
+
     let trace = {
-        x: value['date'],
-        y: value[metric],
+        x: data['date'],
+        y: data[metric],
         type: 'scatter',
-        mode: 'lines+markers',
+        mode: gapped ? 'markers' : 'lines',
         line: {
-            color: colorsRGB[i] + ",0.3)",
-            width: subplot ? 2 : 1
+            color: gapped ? colorsRGB[i] : colorsLightRGB[i],
+            width: 3
         },
         marker: {
-            color: colorsRGB[i] + ",0.3)",
-            size: subplot ? 4 : 2
+            color: gapped ? colorsRGB[i] : colorsLightRGB[i],
+            size: subplot ? 10 : 6
         },
-        name: name,
-        connectgaps: false
+        name: gapped ? name + " gapped" : name + " ungapped",
+        connectgaps: gapped ? false : true
     }
     //console.log(trace)
     return trace
@@ -137,8 +153,10 @@ export const buildTraces = (data, viewer, metric, subplot) => {
         console.log({metric})
         let i = 0
         Object.entries(data).forEach(([key, value]) => {
-            let trace = buildTrace(viewer, key, value, metric, i, subplot)
-            traces.push(trace)
+            let ungappedTrace = buildTrace(viewer, key, value, metric, i, subplot, false)
+            traces.push(ungappedTrace)
+            let gappedTrace = buildTrace(viewer, key, value, metric, i, subplot, true)
+            traces.push(gappedTrace)
             if (i < (colorsRGB.length - 1)) {
                 i += 1
             } else {
