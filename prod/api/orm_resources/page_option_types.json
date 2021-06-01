@@ -1,0 +1,40 @@
+{
+    "ngrams": {
+        "query": "list",
+        "language": "string",
+        "response": "string",
+        "gapped": "bool"
+    },
+    "languages": {
+        "query": "list",
+        "response": "string",
+        "gapped": "bool"
+    },
+    "zipf": {
+        "query": "date",
+        "language": "string",
+        "n": "int",
+        "rt": "bool",
+        "punctuation": "bool",
+        "response": "string",
+        "max": "int",
+        "gapped": "bool"
+    },
+    "divergence": {
+        "query": "date",
+        "language": "string",
+        "n": "int",
+        "rt": "bool",
+        "punctuation": "bool",
+        "response": "string",
+        "metric": "string",
+        "max": "int",
+        "gapped": "bool"
+    },
+    "realtime": {
+        "query": "list",
+        "language": "string",
+        "response": "string",
+        "gapped": "bool"
+    }
+}
