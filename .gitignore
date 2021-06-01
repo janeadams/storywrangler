@@ -2,6 +2,7 @@
 node_modules/
 debug/prod-*.txt
 .*
+story-viewer/build
 ai/
 notes/
 static/
