@@ -13,7 +13,7 @@
         "language": ["en"],
         "n": [1,2,3],
         "rt": [true,false],
-        "hashtags": [true,false],
+        "punctuation": [true,false],
         "response": ["json","csv"],
         "gapped": [true,false]
     },
@@ -21,7 +21,7 @@
         "language": ["en"],
         "n": [1,2,3],
         "rt": [true,false],
-        "hashtags": [true,false],
+        "punctuation": [true,false],
         "metric": ["rd_contribution", "rank_change"],
         "response": ["json","csv"],
         "gapped": [true,false]

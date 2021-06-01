@@ -14,7 +14,7 @@
         "language": "en",
         "n": 1,
         "rt": true,
-        "hashtags": false,
+        "punctuation": false,
         "response": "json",
         "max": 100,
         "gapped": false
@@ -23,7 +23,7 @@
         "language": "en",
         "n": 1,
         "rt": true,
-        "hashtags": false,
+        "punctuation": false,
         "metric": "rank_change",
         "response": "json",
         "max": 100,

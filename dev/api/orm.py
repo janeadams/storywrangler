@@ -18,6 +18,7 @@ import sys
 from urllib.request import urlopen
 from urllib.parse import urlparse, quote, unquote, quote_plus
 import numpy as np
+import string
 
 dir = os.path.dirname(__file__)
 
@@ -247,81 +248,68 @@ def get_language_list(query):
             new_list.append(language_code_lookup[q.title()])
             print(f'Added {q.title()} to {new_list}')
     return new_list
-
-def get_date_range(start,end):
-    print(f'Start: {start}')
-    print(f'End: {end}')
-    date_range = [dt.date.fromordinal(ordinal) for ordinal in range(start.toordinal(), end.toordinal())]
-    return date_range
-
-def get_realtime_range(starttime, endtime):
-    return time_range
     
 
 def get_ngram_data(params, api):
     print(f"Getting ngram data for {params['query']} in {params['language']}")
     df_obj = {}
-    #try:
-    for ngram in params['query']:
-        df = api.get_ngram(
-          ngram,
-          lang=params['language']
-        )
-        #df['date'] = [d.date().strftime("%Y-%m-%d") for d in df['date']]
-        try:
-            df['odds']=[freq_to_odds(f) for f in df['freq']]
-        except:
-          print("Error converting odds to frequency")
-        try:
-            df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
-        except:
-          print("Error converting odds (no RT) to frequency (no RT)")
-        if params['gapped']:
-            print('Gapped!')
-            null_dates = get_date_range(df.index.min(),df.index.max())
-            for d in null_dates:
-                if d not in list(df.index):
-                    df.append(pandas.Series(name=d))
-            df = df.fillna(np.nan).replace([np.nan], [None])
-        else:
-            print('Not gapped!')
-            df = df.dropna()
-        df.index = df.index.strftime('%Y-%m-%d')
-        print(df)
-        df_obj[ngram] = df
-    print(f'Building response for params {params}')
-    if params['response'] == "csv":
-        keyed_dfs = {}
-        for ngram, df in df_obj.items():
-          df['ngram'] = ngram
-          keyed_dfs[ngram] = df
-        combined_df = pd.concat(keyed_dfs.values())
-        response = make_response(combined_df.to_csv(), 200) # 200 Status Code 'OK'
-        response.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
-        response.headers["Content-Type"] = "text/csv"
-        return response
-    else: # Default to json
-        content = {}
-        content['meta'] = params
-        dict_obj = {}
-        for ngram in df_obj.keys():
-          dict_obj[ngram] = {}
-          dict_obj[ngram]['date'] = list(df_obj[ngram].index)
-          for col in list(df_obj[ngram].columns):
-              dict_obj[ngram][col] = list(df_obj[ngram][col])
-              print(f'{ngram} {col}:')
-              print(list(df_obj[ngram][col]))
-        content['data'] = dict_obj
-        js = json.dumps(content)
-        response = make_response(js, 200) # 200 Status Code 'OK'
-        response.headers["Content-Type"] = "application/json"
-        return response
-        """
+    try:
+        for ngram in params['query']:
+            df = api.get_ngram(
+              ngram,
+              lang=params['language']
+            )
+            #df['date'] = [d.date().strftime("%Y-%m-%d") for d in df['date']]
+            try:
+                df['odds']=[freq_to_odds(f) for f in df['freq']]
+            except:
+              print("Error converting odds to frequency")
+            try:
+                df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
+            except:
+              print("Error converting odds (no RT) to frequency (no RT)")
+            if params['gapped']:
+                print('Gapped!')
+                daterange = pd.date_range(df.index.min(), df.index.max())
+                df = df.reindex(daterange, fill_value=np.nan)
+                df = df.fillna(np.nan).replace([np.nan], [None])
+            else:
+                print('Not gapped!')
+                df = df.dropna()
+            df.index = df.index.strftime('%Y-%m-%d')
+            print(df)
+            df_obj[ngram] = df
+        print(f'Building response for params {params}')
+        if params['response'] == "csv":
+            keyed_dfs = {}
+            for ngram, df in df_obj.items():
+              df['ngram'] = ngram
+              keyed_dfs[ngram] = df
+            combined_df = pd.concat(keyed_dfs.values())
+            response = make_response(combined_df.to_csv(), 200) # 200 Status Code 'OK'
+            response.headers["Content-Disposition"] = f'attachment; filename={"_".join([str(n).replace(" ","-") for n in params["query"]])}.csv'
+            response.headers["Content-Type"] = "text/csv"
+            return response
+        else: # Default to json
+            content = {}
+            content['meta'] = params
+            dict_obj = {}
+            for ngram in df_obj.keys():
+              dict_obj[ngram] = {}
+              dict_obj[ngram]['date'] = list(df_obj[ngram].index)
+              for col in list(df_obj[ngram].columns):
+                  dict_obj[ngram][col] = list(df_obj[ngram][col])
+                  print(f'{ngram} {col}:')
+                  print(list(df_obj[ngram][col]))
+            content['data'] = dict_obj
+            js = json.dumps(content)
+            response = make_response(js, 200) # 200 Status Code 'OK'
+            response.headers["Content-Type"] = "application/json"
+            return response
     except:
         response = make_response(jsonify({"message": "Database error"}),401) # 200 Status Code 'OK'
         response.headers["Content-Type"] = "application/json"
         return response
-        """
           
 def get_realtimengram_data(params, api):
     print(f"Getting realtime ngram data for {params['query']} in {params['language']}")
@@ -341,7 +329,17 @@ def get_realtimengram_data(params, api):
                 df['odds_no_rt']=[freq_to_odds(f) for f in df['freq_no_rt']]
             except:
               print("Error converting odds (no RT) to frequency (no RT)")
+            if params['gapped']:
+                print('Gapped!')
+                daterange = pd.date_range(df.index.min(), df.index.max(), freq='15min')
+                df = df.reindex(daterange, fill_value=np.nan)
+                df = df.fillna(np.nan).replace([np.nan], [None])
+            else:
+                print('Not gapped!')
+                df = df.dropna()
             df.index = df.index.strftime('%Y-%m-%d %H:%M')
+            df_obj[ngram] = df
+            print(df)
         print(f'Building response for params {params}')
         if params['response'] == "csv":
             keyed_dfs = {}
@@ -366,7 +364,8 @@ def get_realtimengram_data(params, api):
 
               #dict_obj[ngram] = df_obj[ngram].reset_index().rename(columns={'time':'date'}).to_dict(orient='records')
             content['data'] = dict_obj
-            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            js = json.dumps(content)
+            response = make_response(js, 200) # 200 Status Code 'OK'
             response.headers["Content-Type"] = "application/json"
             return response
     except:
@@ -391,15 +390,14 @@ def get_language_data(params, api):
             #print(f'{language} dtypes are {df.dtypes}')
             if params['gapped']:
                 print('Gapped!')
-                null_dates = get_date_range(df.index.min(),df.index.max())
-                for d in null_dates:
-                    if d not in list(df.index):
-                        df.append(pandas.Series(name=d))
+                daterange = pd.date_range(df.index.min(), df.index.max())
+                df = df.reindex(daterange, fill_value=None)
                 df = df.fillna(np.nan).replace([np.nan], [None])
             else:
                 print('Not gapped!')
                 df = df.dropna()
             df.index = df.index.strftime('%Y-%m-%d')
+            df_obj[language] = df
         print(f'Building response for params {params}')
         if params['response'] == "csv":
             keyed_dfs = {}
@@ -422,7 +420,8 @@ def get_language_data(params, api):
               for col in list(df_obj[language].columns):
                   dict_obj[language][col] = list(df_obj[language][col])
             content['data'] = dict_obj
-            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            js = json.dumps(content)
+            response = make_response(js, 200) # 200 Status Code 'OK'
             response.headers["Content-Type"] = "application/json"
             return response
     except:
@@ -439,9 +438,25 @@ def get_zipf_data(params, api):
         else:
             change_param = 'rank_no_rt'
 
+        df = df.sort_values(by=[change_param], ascending=True)
+
         df['odds']=[freq_to_odds(f) for f in df['freq']]
-        df = df.sort_values(by=[change_param])
-        #df.reindex(df[change_param].abs().sort_values().index)
+
+        if not params['punctuation']:
+            hasPunctuation = list(filter(lambda x: (('#' in x) or ('@' in x)), list(df.index)))
+            for p in string.punctuation+"‘"+"’":
+                if p != " ":
+                    hasPunctuation = hasPunctuation + list(filter(lambda x: p in x, list(df.index)))
+            hasPunctuation = hasPunctuation + list(filter(lambda x: "  " in x, list(df.index)))
+            print('Has Punctuation:')
+            print(hasPunctuation)
+            df = df.drop(hasPunctuation)
+            print('new Index:')
+            print(list(df.index))
+
+        isLink = list(filter(lambda x: ('/' in x), list(df.index)))
+        df = df.drop(isLink)
+
         if params['response'] == "csv":
             resp = make_response(df.to_csv(encoding="utf-8-sig"))
             resp.headers["Content-Disposition"] = f'attachment; filename={"zipf_"+params["query"].date().strftime("%Y-%m-%d")}.csv'
@@ -451,10 +466,10 @@ def get_zipf_data(params, api):
             content = {}
             content['meta'] = params
             content['meta']['query'] = content['meta']['query'].date().strftime("%Y-%m-%d")
-            content['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
-            content['meta']['bottom_5'] = list(df.sort_values(by=[change_param]).head(5).index)
+            content['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=True).head(5).index)
             content['data'] = df.reset_index().to_dict(orient='records')
-            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            js = json.dumps(content)
+            response = make_response(js, 200) # 200 Status Code 'OK'
             response.headers["Content-Type"] = "application/json"
             return response
     except:
@@ -466,14 +481,30 @@ def get_rtd_data(params, api):
     try:
         df = api.get_divergence(params['query'], params['language'],  str(params['n'])+'grams', rt=params['rt'])
         if params['rt']:
-            change_param = 'rd_contribution'
+            change_param = 'normed_rd'
         else:
-            change_param = 'rd_contribution_no_rt'
-        df = df.reindex(df[change_param].abs().sort_values(ascending=False).index)
+            change_param = 'normed_rd_no_rt'
+        df = df.sort_values(by=[change_param], ascending=False)
         df['time_1'] = [d.date().strftime("%Y-%m-%d") for d in df['time_1']]
         df['time_2'] = [d.date().strftime("%Y-%m-%d") for d in df['time_2']]
         print(df.head(10))
         df.fillna(0, inplace=True)
+
+        if not params['punctuation']:
+            hasPunctuation = list(filter(lambda x: (('#' in x) or ('@' in x)), list(df.index)))
+            for p in string.punctuation+"‘"+"’":
+                if p != " ":
+                    hasPunctuation = hasPunctuation + list(filter(lambda x: p in x, list(df.index)))
+            hasPunctuation = hasPunctuation + list(filter(lambda x: "  " in x, list(df.index)))
+            print('Has Punctuation:')
+            print(hasPunctuation)
+            df = df.drop(hasPunctuation)
+            print('new Index:')
+            print(list(df.index))
+
+        isLink = list(filter(lambda x: ('/' in x), list(df.index)))
+        df = df.drop(isLink)
+
         if params['response'] == "csv":
             resp = make_response(df.to_csv(encoding="utf-8-sig"))
             resp.headers["Content-Disposition"] = f'attachment; filename={"div_"+params["query"].date().strftime("%Y-%m-%d")}.csv'
@@ -486,9 +517,9 @@ def get_rtd_data(params, api):
             content['meta']['time_1'] = list(df['time_1'])[0]
             content['meta']['time_2'] = list(df['time_2'])[0]
             content['meta']['top_5'] = list(df.sort_values(by=[change_param], ascending=False).head(5).index)
-            content['meta']['bottom_5'] = list(df.sort_values(by=[change_param], ascending=False).tail(5).index)
             content['data'] = df.reset_index().to_dict(orient='records')
-            response = make_response(jsonify(content), 200) # 200 Status Code 'OK'
+            js = json.dumps(content)
+            response = make_response(js, 200) # 200 Status Code 'OK'
             response.headers["Content-Type"] = "application/json"
             return response
     except:
@@ -541,6 +572,7 @@ def realtime_data(query):
     params = get_url_params(request.args, 'ngrams')
     api = Realtime()
     if query is not None:
+        query = unquote(query)
         ngrams_list = get_realtimengrams_list(query, params['language'], api)
     if ngrams_list is not None:
         params['query'] = ngrams_list

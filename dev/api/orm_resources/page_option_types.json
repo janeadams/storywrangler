@@ -15,7 +15,7 @@
         "language": "string",
         "n": "int",
         "rt": "bool",
-        "hashtags": "bool",
+        "punctuation": "bool",
         "response": "string",
         "max": "int",
         "gapped": "bool"
@@ -25,7 +25,7 @@
         "language": "string",
         "n": "int",
         "rt": "bool",
-        "hashtags": "bool",
+        "punctuation": "bool",
         "response": "string",
         "metric": "string",
         "max": "int",
