@@ -31,14 +31,14 @@ const View = ({viewer}) => {
     const [ngrams, setNgrams] = useState(parseArray(urlParams.get('ngrams')) || defaults(viewer).ngrams)
     const [language, setLanguage] = useState(urlParams.get('language') || defaults(viewer).language)
     const [languages, setLanguages] = useState(parseArray(urlParams.get('languages')) || defaults(viewer).languages)
-    const [queryDate, setDate] = useState( defaults(viewer).queryDate)
+    const [queryDate, setDate] = useState( urlParams.get('queryDate') ? urlParams.get('queryDate') : defaults(viewer).queryDate)
     const [rt, setRT] = useState(urlParams.get('rt')=='false'? false : true)
     const [scale, setScale] = useState(urlParams.get('scale') || defaults(viewer).scale)
     const [metric, setMetric] = useState(urlParams.get('metric') || defaults(viewer).metric)
-    const [n, setN] = useState(defaults(viewer).n)
+    const [n, setN] = useState(urlParams.get('n') || defaults(viewer).n)
     const [start, setStart] = useState(urlParams.get('start') || defaults(viewer).start)
     const [end, setEnd] = useState(urlParams.get('end') || defaults(viewer).end)
-    const [hashtags, setHashtags] = useState(false)
+    const [punctuation, setPunctuation] = useState(urlParams.get('punctuation')=='false'? false : true)
 
     const allParams = {
         'ngrams': ngrams,
@@ -47,7 +47,7 @@ const View = ({viewer}) => {
         'rt': rt,
         'scale': scale,
         'metric': metric,
-        'hashtags': hashtags,
+        'punctuation': punctuation,
         'n': n,
         'queryDate': queryDate,
         'start': start,
@@ -69,7 +69,7 @@ const View = ({viewer}) => {
         setQuery(getQuery(viewer, allParams))
         console.log({params})}
         updateSettings();
-    }, [viewer,ngrams,rt,scale,metric,n,language,languages,hashtags,queryDate]);
+    }, [viewer,ngrams,rt,scale,metric,n,language,languages,punctuation,queryDate]);
 
     const history = useHistory();
 
@@ -95,6 +95,7 @@ const View = ({viewer}) => {
             setMetadata(metaDataToSet)
             if (['rtd','zipf'].includes(viewer) && ('top_5' in result.meta)){
                 setTop5(result.meta['top_5'])
+                console.log({top5})
             }
             setData(result.data)
         })
@@ -144,7 +145,7 @@ const View = ({viewer}) => {
     }
 
     let details = () => {
-        if (['ngrams','potus','realtime','languages'].includes(viewer)){
+        if (['ngrams', 'potus', 'realtime', 'languages'].includes(viewer)) {
             let subPlots = []
             let i = 0
             if (data) {
@@ -164,16 +165,45 @@ const View = ({viewer}) => {
                         end={end}
                         setStart={setStart}
                         setEnd={setEnd}
-                    />{['ngrams','realtime'].includes(viewer) && <div className={"twitter-search"}><a href={`https://twitter.com/search?q=%22${key}%22%20until%3A${end}%20since%3A${start}&src=typed_query&f=live`} target={"_blank"}>{`Search Twitter for "${key}" in this date range`}</a></div>}</div>)
-                    i+=1
+                    />{['ngrams', 'realtime'].includes(viewer) && <div className={"twitter-search"}><a
+                        href={`https://twitter.com/search?q=%22${key}%22%20until%3A${end}%20since%3A${start}&src=typed_query&f=top`}
+                        target={"_blank"}>{`Search Twitter for "${key}" in this date range`}</a></div>}</div>)
+                    i += 1
                 })
             }
             return (<div className="subplotHolder" className="flexcontainer">{subPlots}</div>)
-        }
-        else if (['rtd','zipf'].includes(viewer)) {
-            return data ? <EnhancedTable viewer={viewer} params={params} data={data}/> : ''
-        }
-        else {
+        } else if (['rtd', 'zipf'].includes(viewer)) {
+            let subPlots = []
+            let i = 0
+            if (top5data) {
+                let featureParams = {...params, ...{'metric': 'rank'}}
+                Object.entries(top5data).forEach(([key, value]) => {
+                    console.log('Adding subplot traces:')
+                    console.log({key})
+                    console.log({value})
+                    subPlots.push(<div className={'subplot'}><Subplot
+                        tracename={key}
+                        value={value}
+                        metric={'rank'}
+                        i={i}
+                        viewer={viewer}
+                        params={featureParams}
+                        metadata={metadata}
+                        start={start}
+                        end={end}
+                        setStart={setStart}
+                        setEnd={setEnd}
+                    />{<div className={"twitter-search"}><a
+                        href={`https://twitter.com/search?q=%22${key}%22%20until%3A${end}%20since%3A${start}&src=typed_query&f=top`}
+                        target={"_blank"}>{`Search Twitter for "${key}" in this date range`}</a></div>}</div>)
+                    i += 1
+                })
+                let details = (<div><EnhancedTable viewer={viewer} params={params} data={data}/>
+                    <div className="subplotHolder" className="flexcontainer">{subPlots}</div>
+                </div>)
+                return data ? details : ''
+            }
+        } else {
             return {viewer}
         }
     }
@@ -206,11 +236,11 @@ const View = ({viewer}) => {
                 state={rt}
                 setState={setRT}
                 prompt={'With retweets? '}/>,
-            'hashtags': <Toggle
-                param='hashtags'
-                state={hashtags}
-                setState={setHashtags}
-                prompt={'Include hashtags? '}/>,
+            'punctuation': <Toggle
+                param='punctuation'
+                state={punctuation}
+                setState={setPunctuation}
+                prompt={'Include punctuation? '}/>,
             'scale': <Dropdown
                 param='scale'
                 state={scale}
@@ -241,7 +271,7 @@ const View = ({viewer}) => {
              if (param !== 'metric'){elements.push(paramElements[param])}
             }
             else {
-                if (param !== 'hashtags'){ elements.push(paramElements[param])}}
+                if (param !== 'punctuation'){ elements.push(paramElements[param])}}
         })
         let downloadURL = getAPIcall(viewer,query,APIparams)
         let downloadButton = <p><a href={`${downloadURL}&response=csv&gapped=false`} target='_blank'>Download CSV</a> or <a href={`${downloadURL}&gapped=false`} target='_blank'>JSON</a></p>
@@ -269,6 +299,9 @@ const View = ({viewer}) => {
                       {promiseInProgress ? <GridLoader loading={promiseInProgress} css={override} /> : details()}
                   </section>
               </div>
+              <p className="bug">&#x1F41B; <em>Found a bug? <a href="https://github.com/janeadams/storywrangler/issues"
+                                                               target="_blank">Submit an issue on GitHub here</a>.</em>
+              </p>
         </main>
       )
 }

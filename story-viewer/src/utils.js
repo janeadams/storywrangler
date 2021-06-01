@@ -121,12 +121,15 @@ export const stripHashtags = (value => {
 
 export const getAPIcall = (v, q, p) => {
     const endpoint = `http://hydra.uvm.edu:3000/api/${v}/`
-    let apicall = endpoint+stripHashtags(q.toString())
+    // Pull the JSON data
+    let formatted_query = encodeURIComponent(q)
+    let apicall = endpoint+formatted_query
     if (p){
         let formattedAPIparams = []
         for (const [key, value] of Object.entries(p)) {
             formattedAPIparams.push(key+"="+stripHashtags(value))
         }
+        formattedAPIparams.push('gapped=true')
         apicall = apicall.concat('?'+formattedAPIparams.join('&'))
     }
     return apicall
@@ -160,7 +163,7 @@ export const getParams = (v, allP) => {
             return filterParams(['languages','rt','scale','metric','start','end'],allP)
         case ('rtd'):
         case ('zipf' ):
-            return filterParams(['queryDate','language','rt','scale','metric','n','hashtags','start','end'],allP)
+            return filterParams(['queryDate','language','rt','scale','metric','n','punctuation','start','end'],allP)
     }
 }
 
@@ -189,6 +192,6 @@ export const getAPIParams = (v, allP) => {
             return APIparams
         case ('rtd'):
         case ('zipf' ):
-            return {...APIparams, ...filterParams(['language','n','metric','rt','hashtags'], allP)}
+            return {...APIparams, ...filterParams(['language','n','metric','rt','punctuation'], allP)}
     }
 }

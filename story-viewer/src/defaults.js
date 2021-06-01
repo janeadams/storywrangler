@@ -1,4 +1,4 @@
-import {today, mostrecent, lastweek, lastyeardate, parseDate, formatDate, formatURLParams, parseArray} from "./utils"
+import {today, mostrecent, firstDate, lastweek, lastyeardate, parseDate, formatDate, formatURLParams, parseArray} from "./utils"
 
 export const pageMeta = (v => {
     switch (v) {
@@ -19,10 +19,8 @@ export const pageMeta = (v => {
 export const defaults = (v => {
     switch (v) {
         case ('ngrams'):
-        case ('realtime'):
-        case ('potus'):
             return {
-                'ngrams': ['covid','coronavirus'],
+                'ngrams': ['🦠','coronavirus','tested positive','vaccinated'],
                 'language': 'en',
                 'languages': null,
                 'rt': true,
@@ -30,7 +28,20 @@ export const defaults = (v => {
                 'scale': 'log',
                 'n': null,
                 'queryDate': null,
-                'start': (v=='realtime') ? formatDate(lastweek): formatDate(lastyeardate),
+                'start': formatDate(lastyeardate),
+                'end': formatDate(mostrecent)
+            }
+        case ('realtime'):
+            return {
+                'ngrams': ['breakfast','tired','TGIF','happy'],
+                'language': 'en',
+                'languages': null,
+                'rt': true,
+                'metric': 'rank',
+                'scale': 'log',
+                'n': null,
+                'queryDate': null,
+                'start': formatDate(lastweek),
                 'end': formatDate(mostrecent)
             }
         case ('languages'):
@@ -43,7 +54,7 @@ export const defaults = (v => {
                 'scale': 'lin',
                 'n': 1,
                 'queryDate': null,
-                'start': formatDate(lastyeardate),
+                'start': formatDate(firstDate),
                 'end': formatDate(mostrecent)
             }
         case ('rtd'):
@@ -52,6 +63,7 @@ export const defaults = (v => {
                 'ngrams': null,
                 'language': 'en',
                 'languages': null,
+                'punctuation': false,
                 'rt': true,
                 'scale': 'log',
                 'n': 1,
@@ -64,6 +76,7 @@ export const defaults = (v => {
                 'ngrams': null,
                 'language': 'en',
                 'languages': null,
+                'punctuation': false,
                 'rt': true,
                 'metric': 'freq',
                 'scale': 'log',

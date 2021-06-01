@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Link, withRouter} from "react-router-dom";
 import {viewerOptions} from "./../utils"
 import {pageMeta} from '../defaults.js'
-import logo from "./../img/storywrangler_wordmark.svg"
+import logo from "./../img/storywrangler_large.svg"
 
 function Navigation(props) {
 

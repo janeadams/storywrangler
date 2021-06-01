@@ -99,7 +99,8 @@ export const getLayout = (viewer, metadata, params, subplot) => {
             b: 50,
             t: 100,
             pad: 10
-        }
+        },
+        hovermode:'x unified'
     }
     if (['rtd'].includes(viewer)) {
         console.log(metadata)
@@ -125,22 +126,27 @@ export const buildTrace = (viewer, key, value, metric, i, subplot, gapped) => {
 
     let data = value
 
+    let df = new DataFrame(data, Object.keys(data))
+
 
     let trace = {
         x: data['date'],
         y: data[metric],
         type: 'scatter',
-        mode: gapped ? 'markers' : 'lines',
+        mode: gapped ? 'lines+markers' : 'lines',
         line: {
             color: gapped ? colorsRGB[i] : colorsLightRGB[i],
-            width: 3
+            width: gapped ? (subplot ? 2 : 3) : (subplot ? 1 : 2),
+            dash: gapped ? false : 'dot'
         },
         marker: {
             color: gapped ? colorsRGB[i] : colorsLightRGB[i],
-            size: subplot ? 10 : 6
+            size: subplot ? 4 : 2
         },
-        name: gapped ? name + " gapped" : name + " ungapped",
-        connectgaps: gapped ? false : true
+        name: gapped ? name : name+" (interpolated)",
+        connectgaps: gapped ? false : true,
+        showlegend: gapped ? true : false,
+        hoverinfo: gapped ? "all" : 'skip'
     }
     //console.log(trace)
     return trace

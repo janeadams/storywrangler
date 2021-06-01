@@ -36,6 +36,14 @@ function Home() {
             </p>
           <div className="flexcontainer">
               {viewerLinks}
+              <div className="actionTeaser">
+                  <h2>Rank Search</h2>
+                  <p>Coming soon: Find which words most commonly appear at a certain usage rank.</p>
+              </div>
+              <div className="actionTeaser">
+                  <h2>Finance</h2>
+                  <p>Coming soon: Compare cashtag usage to market data.</p>
+              </div>
           </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 200vh;
+  min-height: 100vh;
   color: #333;
 }
 
@@ -20,14 +20,15 @@ nav {
 
 #logo {
   flex: 1 1 300px;
-  height: 40px;
-  width: auto;
   float: left;
+  width: 400px;
+  max-width: 40vw;
 }
 
 #navList {
   list-style-type: none;
   z-index: 999;
+  margin: auto 0;
 }
 
 #navList li {
@@ -45,10 +46,6 @@ nav {
     float: right;
     display: block;
   }
-}
-
-/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
-@media screen and (max-width: 1000px) {
   #navList.responsive {
     position: absolute;
     top: 0;
@@ -67,11 +64,32 @@ nav {
     display: block;
     text-align: left;
   }
+  #logo {
+    width: 70vw;
+    max-width: 70vw;
+  }
+}
+
+.bug {
+  margin: 20px 20px 50px 0;
 }
 
 .footer {
   height: 40px;
   padding: 10px;
+}
+
+.footerLogo {
+  height: 40px;
+  padding: 5px 0px 5px 15px;
+}
+
+#mm {
+  height: 30px;
+}
+
+.footer a[target="_blank"]::after {
+  content: none;
 }
 
 main {
