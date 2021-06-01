@@ -38,7 +38,7 @@ const View = ({viewer}) => {
     const [n, setN] = useState(urlParams.get('n') || defaults(viewer).n)
     const [start, setStart] = useState(urlParams.get('start') || defaults(viewer).start)
     const [end, setEnd] = useState(urlParams.get('end') || defaults(viewer).end)
-    const [punctuation, setPunctuation] = useState(urlParams.get('punctuation')=='false'? false : true)
+    const [punctuation, setPunctuation] = useState(urlParams.get('punctuation')=='true'? true : false)
 
     const allParams = {
         'ngrams': ngrams,
