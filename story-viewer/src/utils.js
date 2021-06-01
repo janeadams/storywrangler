@@ -120,7 +120,7 @@ export const stripHashtags = (value => {
 })
 
 export const getAPIcall = (v, q, p) => {
-    const endpoint = `http://hydra.uvm.edu:3000/api/${v}/`
+    const endpoint = `http://storywrangling.org/api/${v}/`
     // Pull the JSON data
     let formatted_query = encodeURIComponent(q)
     let apicall = endpoint+formatted_query
