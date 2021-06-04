@@ -18,7 +18,7 @@ export const formatRealtime = d3.timeFormat("%Y-%m-%d %H:%M")
 // Today's date
 export const  today = new Date()
 export const lastweek = dateParser(new Date(today)).addDays(-10)
-export const  mostrecent = dateParser(new Date(today)).addDays(-3)
+export const  mostrecent = dateParser(new Date(today)).addDays(-7)
 // Extract year from today's date
 export const  thisyear = today.getFullYear()
 // Get one year ago
@@ -139,11 +139,27 @@ export const getData = (async (v, q, p) => {
     console.log('Getting data for params:')
     console.log({p})
     const response = await fetch(getAPIcall(v, q, p));
+    let status = response.status
     const json = await response.json();
+    if (status !== 200){
+        if (status === 401) {
+            switch (v) {
+                case('ngrams'):
+                case ('realtime'):
+                    alert(`Error ${response.status}: ${q} was not found in the database. It's possible that this query doesn't exist in the database, or that there is an error on the API side of things. If this problem persists, please let us know by filing an issue on GitHub.`)
+                case('rtd'):
+                case('zipf'):
+                    alert(`Error ${response.status}: ${q} was not found in the database. It's possible that our ingest hasn't caught up with your specified query time, or that your search doesn't exist in the database. If you're searching a very recent date, give us another day or two to write to the database.`)
+            }
+        }
+    }
     if (json) {
         return json
     }
-    else { return {} }
+    else {
+        alert(`DB error ${response.status}`)
+        return {}
+    }
 })
 
 const filterParams = ((accepted, allP) => {

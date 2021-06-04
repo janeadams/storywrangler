@@ -49,7 +49,7 @@ const Timeline = ( props ) => {
     console.log('Timeline data:')
     console.log(props.data)
 
-    return (
+    return props.data ? (
         <Plot
             data={state.data}
             useResizeHandler
@@ -61,7 +61,7 @@ const Timeline = ( props ) => {
             onInitialized={(figure) => setState(figure)}
             onUpdate={(figure) => setState(figure)}
         />
-    );
+    ) : '';
 }
 
 

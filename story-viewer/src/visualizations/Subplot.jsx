@@ -59,7 +59,7 @@ const Subplot = ( props ) => {
         setState({...state, ...{layout: newLayout}})
     }, [props.start, props.end, props.tracename])
 
-    return (
+    return props.value ? (
         <Plot
             data={state.data}
             useResizeHandler
@@ -70,7 +70,7 @@ const Subplot = ( props ) => {
             onInitialized={(figure) => setState(figure)}
             onUpdate={(figure) => setState(figure)}
         />
-    );
+    ) : '';
 }
 
 

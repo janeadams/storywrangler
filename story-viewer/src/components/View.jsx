@@ -55,7 +55,7 @@ const View = ({viewer}) => {
     }
     const [data, setData] = useState()
     const [top5, setTop5] = useState()
-    const [top5data, setTop5Data] = useState()
+    const [top5data, setTop5Data] = useState({})
     const [query, setQuery] = useState(getQuery(viewer, allParams))
     const [APIparams, setAPIparams] = useState(getAPIParams(viewer))
 
@@ -90,12 +90,14 @@ const View = ({viewer}) => {
             return getData(viewer, query, APIparams)
         }
         trackPromise(updateData()).then(function(result) {
-            let metaDataToSet = result.meta
+            let metaDataToSet = result.meta ? result.meta : {}
             if (viewer==='ngrams'){metaDataToSet['ngrams']=result.meta.query}
             setMetadata(metaDataToSet)
-            if (['rtd','zipf'].includes(viewer) && ('top_5' in result.meta)){
-                setTop5(result.meta['top_5'])
-                console.log({top5})
+            if (['rtd','zipf'].includes(viewer) && result.meta){
+                if (('top_5' in result.meta)) {
+                    setTop5(result.meta['top_5'])
+                    console.log({top5})
+                }
             }
             setData(result.data)
         })

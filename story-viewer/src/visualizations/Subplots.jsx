@@ -42,11 +42,11 @@ const Subplots = props => {
         setState(buildSubplots(props.data))
     }, [props.data])
 
-    return (
+    return props.data ? (
         <section className={'subplotHolder'}>
             {state}
         </section>
-    )
+    ) : '';
 }
 
 
