@@ -17,8 +17,8 @@ export const formatRealtime = d3.timeFormat("%Y-%m-%d %H:%M")
 
 // Today's date
 export const  today = new Date()
-export const lastweek = dateParser(new Date(today)).addDays(-10)
-export const  mostrecent = dateParser(new Date(today)).addDays(-7)
+export const lastweek = dateParser(new Date(today)).addDays(-7)
+export const  mostrecent = dateParser(new Date(today)).addDays(-1)
 // Extract year from today's date
 export const  thisyear = today.getFullYear()
 // Get one year ago
