@@ -48,7 +48,7 @@ export const defaults = (v => {
             return {
                 'ngrams': null,
                 'language': null,
-                'languages': ['English','Spanish','French'],
+                'languages': ['English','Russian','Ukrainian'],
                 'rt': true,
                 'metric': 'speakers',
                 'scale': 'lin',
