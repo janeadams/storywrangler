@@ -132,9 +132,14 @@ export const languageOptions = (v) => {
     switch (v) {
         case ('realtime'):
             return {
+                'ar': 'Arabic',
                 'en': 'English',
                 'fr': 'French',
-                'es': 'Spanish'
+                'de': 'German',
+                'pt': 'Portuguese',
+                'ru': 'Russian',
+                'es': 'Spanish',
+                'uk': 'Ukrainian'
             }
         case ('ngrams'):
         case ('languages'):
