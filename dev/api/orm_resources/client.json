@@ -1,7 +1,0 @@
-{
-  "database": "mongodb",
-  "domain": "hydra.uvm.edu",
-  "username": "guest",
-  "pwd": "roboctopus",
-  "port": "27017"
-}
