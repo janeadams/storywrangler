@@ -1,6 +1,8 @@
 
-# StoryWrangler
-## Twitter nGram Viewer
+# Note: This repository has been archived
+## The new repo will live at on the [UVM Computational Story Lab's GitLab](https://gitlab.com/compstorylab/storywrangling-website) -- if there are issues with the site or you would like to make a pull request, please direct all requests there.
+
+## StoryWrangler: Twitter nGram Viewer
 All ngram timeseries are stored and served on Hydra, a server at the University of Vermont Complex Systems Center. This is a public resource for non-commercial use.
 
 Before you continue reading, [check out the Github gist](https://gist.github.com/janeadams/da52c46ad1f51741711787d683222fb5) for querying the API in Python; this might help. Alternatively, if you've downloaded data via the UI as a JSON file and you're not sure what to do with it, [this might be a good starting point](https://gist.github.com/janeadams/718aa001f18637c75db803c600ea2fdc).
